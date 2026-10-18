@@ -91,6 +91,9 @@ enum AgentGuard {
             if !(1...9).contains(f.adults) { bad.append(L("인원은 1명에서 9명까지예요")) }
         case .goalCreate(let g):
             if g.everyMinutes < 60 { bad.append(L("맡긴 일은 60분보다 자주 확인할 수 없어요")) }
+        case .webStep(let w):
+            // The address the owner approves must read as what opens: nothing hidden in it, nothing too long to check.
+            bad += ActionCopy.urls(w).compactMap(ActionCopy.urlProblem)
         default: break
         }
         return bad.map { Concern(kind: .schema, message: $0, blocking: true) }

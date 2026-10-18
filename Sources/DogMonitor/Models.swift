@@ -178,7 +178,8 @@ final class AppSettings: ObservableObject {
     @Published var claudeUseCLILogin: Bool { didSet { defaults.set(claudeUseCLILogin, forKey: "claudeUseCLILogin") } }
     /// 내 Claude's second turn that looks at the render and fixes the frames.
     @Published var claudeRefine: Bool { didSet { defaults.set(claudeRefine, forKey: "claudeRefine") } }
-    /// 자동 다듬기: the creator has this Mac's AI draw the poses without a picture (설정 can turn it off).
+    /// 자동 다듬기: the creator has this Mac's AI draw the poses without a picture, which sends the photos to it. Off
+    /// until the owner turns it on in 설정; a choice saved by an earlier build (on or off) stays.
     @Published var aiAutoRefine: Bool { didSet { defaults.set(aiAutoRefine, forKey: "aiAutoRefine") } }
     /// 꾸미기 colours of the originals: character id to part id (CharacterColors.parts) to colour. Missing: as drawn.
     @Published var characterColors: [String: [String: RGBColor]] { didSet { save(characterColors, "characterColors") } }
@@ -209,6 +210,12 @@ final class AppSettings: ObservableObject {
         case .original: return (activeOriginal?.voice, activeOriginal?.cries ?? [])
         default: return (nil, [])
         }
+    }
+
+    /// Hidden ids that still name a character here; 지운 캐릭터 다시 보기 counts only these (a retired character's id or a
+    /// deleted pack's would bring nothing back).
+    var restorableHidden: [String] {
+        hiddenCharacters.filter { CatCatalog.character($0) != nil || OriginalCatalog.character($0) != nil }
     }
 
     /// The custom character to draw, or nil.
@@ -268,7 +275,7 @@ final class AppSettings: ObservableObject {
         showCPUPercent = defaults.object(forKey: "showCPUPercent") as? Bool ?? true
         claudeUseCLILogin = defaults.object(forKey: "claudeUseCLILogin") as? Bool ?? false
         claudeRefine = defaults.object(forKey: "claudeRefine") as? Bool ?? true
-        aiAutoRefine = defaults.object(forKey: "aiAutoRefine") as? Bool ?? true
+        aiAutoRefine = defaults.object(forKey: "aiAutoRefine") as? Bool ?? false
         characterColors = defaults.data(forKey: "characterColors").flatMap { try? JSONDecoder().decode([String: [String: RGBColor]].self, from: $0) } ?? [:]
         catLooks = defaults.data(forKey: "catLooks").flatMap { try? JSONDecoder().decode([String: CatProfile].self, from: $0) } ?? [:]
         renderStyle = defaults.string(forKey: "renderStyle").flatMap(RenderStyle.init(rawValue:)) ?? .auto

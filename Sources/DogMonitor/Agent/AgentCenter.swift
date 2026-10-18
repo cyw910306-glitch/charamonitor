@@ -186,7 +186,7 @@ final class AgentCenter: ObservableObject {
         let action = withAccount(action)
         let concerns = guardCheck(action, origin: origin, ownerWords: ownerWords, proposedAt: now, now: now)
         var decision = AgentPolicy.decide(action, origin: origin, settings: policy, ownerAddresses: ownerAddresses,
-                                          ruleUsesToday: ruleUses(now), concerns: concerns, now: now)
+                                          ruleUsesToday: ruleUses(now), concerns: concerns, now: now, inAgentList: Self.inAgentList(action))
         var line: String?
         if decision.needsReview, decision.tier != .blocked, let engine {
             let verdict = await ActionReviewer.review(engine: engine, ownerWords: ownerWords, action: action, origin: origin, goal: goal)
@@ -196,6 +196,12 @@ final class AgentCenter: ObservableObject {
             if applied.doubleConfirm { decision.reasons.append(ActionCopy.reviewerBlockMark) }
         }
         return pending.add(action, origin: origin, decision: decision, concerns: concerns, reviewer: line, now: now)
+    }
+
+    /// reminder_done's reminder is in the "AI 비서" list, the only one a rule may tick (looked up for that type only).
+    private static func inAgentList(_ action: AgentAction) -> Bool {
+        guard case .reminderDone(let id, _) = action else { return false }
+        return AgentCalendar.inAgentList(id)
     }
 
     /// The JSON has a recipient name with no address, so Contacts will be asked (the lazy permission prompt).
@@ -338,7 +344,9 @@ final class AgentCenter: ObservableObject {
         case .mailSend(let m), .mailReply(let m, _):
             return try await self.sendMail(m, id: id, inReplyTo: { if case .mailReply(_, let r) = action { return r }; return nil }())
         case .eventAdd, .reminderAdd, .reminderDone, .messagePrepare, .kakaoPrepare:
-            let r = try await self.native.perform(action, id: id)
+            // Run by a rule without a card (or a card that is gone): only the "AI 비서" calendar and list.
+            let agentOnly = (self.pending.get(id)?.decision.tier).map { $0 <= .preapproved } ?? true
+            let r = try await self.native.perform(action, id: id, agentOnly: agentOnly)
             return PerformResult(summary: r.summary, undoID: r.undoID)
         case .shopSearch(let q, _):
             return PerformResult(summary: await Self.shopSummary(q), undoID: nil)

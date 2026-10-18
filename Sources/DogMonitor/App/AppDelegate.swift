@@ -33,7 +33,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         WhatsNew.check()                 // a newer version says its one-liner once
         Tour.startIfNew()                // the first bubbles explain the character, 3 s in
         AutoRefine.shared.check()        // which AI, if any, can draw 자동 다듬기 on this Mac
+        OpenSourceCleanup.run()          // 2.3: the paid era's settings and the guitar girl, once
         #if !MAS
+        OpenSourceCleanup.sayGoodbyeLater()
         // 2.0 dropped the Claude 연결 card, the only way to remove its token: remove it once, here.
         if !AppDefaults.store.bool(forKey: "claudeTokenCleared") {
             ClaudeToken.delete()
@@ -55,4 +57,61 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         ChatGPTCharacterClient.stopAll()
         #endif
     }
+}
+
+/// 2.3, the first free open-source build, tidies up once: the settings only removed code wrote (Pro, licenses, the
+/// store, 고급 대화) and the retired guitar girl. Two upgrade checks read "proLicenseKey" and "proLicenses" as markers
+/// and save what they decided, both in applicationWillFinishLaunching, which runs before `run`, so by then they have
+/// settled and deleting the keys cannot make an update look like a new install.
+enum OpenSourceCleanup {
+    static let doneKey = "openSourceCleaned"
+    /// Set until the guitar girl's goodbye bubble really showed.
+    static let goodbyeKey = "girlGoodbyePending"
+    /// Every key Pro/License.swift wrote (2.0's single-key ones included) and 고급 대화's switch. Nothing reads them now.
+    static let removedKeys = ["proLicenses", "proNotice", "proActivatedKeys", "proLegacyMigratedKey", "proLicenseKey",
+                              "proLicenseSource", "proLastVerifiedAt", "proUses", "proEmail", "proActivatedKey",
+                              "assistant.advanced"]
+
+    static func run(_ d: UserDefaults = AppDefaults.store, settings: AppSettings = .shared) {
+        guard !d.bool(forKey: doneKey) else { return }
+        // A safety net only: at launch both checks have already run and saved (no-ops here). They stay so a caller that
+        // runs this earlier still settles them before the marker keys go; noteUpgrade first, it reads "assistant.nudges".
+        WhatsNew.noteUpgrade(d)
+        if d.string(forKey: "assistant.nudges") == nil { d.set(AssistantSettings.firstNudges(d).rawValue, forKey: "assistant.nudges") }
+        removedKeys.forEach(d.removeObject(forKey:))
+        #if !MAS   // the App Store build never had her
+        retireGirl(d, settings)
+        #endif
+        d.set(true, forKey: doneKey)
+    }
+
+    #if !MAS
+    /// Whoever had the guitar girl gets the dog (already standing in for her) and one goodbye bubble; her name and
+    /// colours and her 지운 캐릭터 entry go.
+    static func retireGirl(_ d: UserDefaults, _ settings: AppSettings) {
+        // "girl" since 1.4; before that her name, kept reversed so it is not in the binary.
+        if let raw = d.string(forKey: "character"), raw == "girl" || raw == String("irotih".reversed()) {
+            settings.character = .dog
+            d.set(true, forKey: goodbyeKey)
+        }
+        if settings.hiddenCharacters.contains("girl") { settings.hiddenCharacters.removeAll { $0 == "girl" } }
+        d.removeObject(forKey: "girl")
+    }
+
+    static var goodbye: String { L("기타 소녀는 오픈 소스판에서 은퇴했어요. 그동안 함께해 줘서 고마워요! 이제 강아지가 메뉴바를 지킬게요.") }
+
+    /// 20 s after launch, after 업데이트 한마디 has gone.
+    static func sayGoodbyeLater(_ d: UserDefaults = AppDefaults.store) {
+        guard d.bool(forKey: goodbyeKey) else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 20) { sayGoodbye(d) }
+    }
+
+    /// Once: the flag goes only when the bubble really showed (a call app in front mutes it, so the next launch tries).
+    @discardableResult
+    static func sayGoodbye(_ d: UserDefaults = AppDefaults.store, on center: SpeechBubbleCenter = .shared) -> Bool {
+        guard d.bool(forKey: goodbyeKey), center.say(text: goodbye, source: .system) else { return false }
+        d.removeObject(forKey: goodbyeKey)
+        return true
+    }
+    #endif
 }

@@ -58,7 +58,7 @@
 "claude setup-token 이 만든 토큰(sk-ant-oat…)을 그대로 붙여 넣어 주세요." = "Paste the token from claude setup-token (sk-ant-oat…) exactly as is.";
 /* Sources/DogMonitor/Agent/AgentBridge.swift:417 */
 "Claude가 답하지 못했어요." = "Claude couldn't answer.";
-/* Sources/DogMonitor/Agent/AgentCenter.swift:582 */
+/* Sources/DogMonitor/Agent/AgentCenter.swift:590 */
 "캐릭모니터" = "CharaMonitor";
 /* Sources/DogMonitor/Agent/AgentEngine.swift:54 */
 "이 맥에서 %@ 프로그램을 찾지 못했어요." = "Couldn't find the %@ program on this Mac.";
@@ -66,16 +66,26 @@
 "%@ API 키가 없어요. 비서 설정에서 넣어 주세요." = "No %@ API key. Add one in Assistant Settings.";
 /* Sources/DogMonitor/Agent/AgentEngine.swift:114 */
 "앱 스토어 버전은 이 맥의 AI 프로그램을 쓸 수 없어요. API 키로 연결해 주세요." = "The App Store version can't use AI programs on this Mac. Connect with an API key.";
+/* Sources/DogMonitor/Agent/AgentPolicy.swift:89 */
+"AI 비서 목록 밖의 미리알림이라 확인받을게요" = "This reminder is outside the AI Assistant list, so I'll ask first";
 /* Sources/DogMonitor/Agent/MailSender.swift:207 */
 "메일 서버가 거절했어요: %@" = "The mail server refused: %@";
-/* Sources/DogMonitor/Agent/NativeActions.swift:115 */
+/* Sources/DogMonitor/Agent/NativeActions.swift:117 */
 "AI 비서" = "AI Assistant";
+/* Sources/DogMonitor/Agent/NativeActions.swift:164 */
+"'AI 비서' 캘린더를 만들지 못해서 규칙으로는 넣지 않았어요." = "Couldn't create the 'AI Assistant' calendar, so the rule didn't add it.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:181 */
+"'AI 비서' 목록을 만들지 못해서 규칙으로는 넣지 않았어요." = "Couldn't create the 'AI Assistant' list, so the rule didn't add it.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:199 */
+"'AI 비서' 목록 밖의 미리알림은 규칙으로 완료하지 않아요." = "A rule doesn't complete reminders outside the 'AI Assistant' list.";
 /* Sources/DogMonitor/Agent/PersonalReads.swift:95 */
 "메일" = "Mail";
 /* Sources/DogMonitor/Agent/PersonalReads.swift:95 */
 "문자" = "Text";
 /* Sources/DogMonitor/Agent/PersonalReads.swift:95 */
 "알림" = "Notification";
+/* Sources/DogMonitor/App/AppDelegate.swift:101 */
+"기타 소녀는 오픈 소스판에서 은퇴했어요. 그동안 함께해 줘서 고마워요! 이제 강아지가 메뉴바를 지킬게요." = "The guitar girl retired in the open-source version. Thanks for all the time together! The dog will look after your menu bar now.";
 /* Sources/DogMonitor/App/CursorBuddy.swift:748 */
 "눈앞이 핑핑 돌아요" = "Everything is spinning";
 /* Sources/DogMonitor/App/CursorBuddy.swift:748 */
@@ -269,7 +279,7 @@
 /* Sources/DogMonitor/App/Tour.swift:22 */
 "(4/4) 대시보드의 AI 비서에서 저한테 말 걸어 보세요." = "(4/4) Talk to me in AI Assistant on the dashboard.";
 /* Sources/DogMonitor/App/Tour.swift:62 */
-"출근·점심·퇴근 인사, 울음소리 말투, 집중 잔디가 생겼어요." = "New: work-day greetings, the animal-sound voice and a focus streak grid.";
+"이제 전부 무료 오픈 소스예요. 데스크톱 친구(풀밭 친구들·러그·집중 타이머)도 생겼어요." = "Everything is now free and open source. Desktop Friends arrived too: Meadow Friends, the rug and the Focus Timer.";
 /* Sources/DogMonitor/App/Tour.swift:88 */
 "업데이트됐어요! " = "Updated! ";
 /* Sources/DogMonitor/App/Updater.swift:22 */
@@ -1814,7 +1824,7 @@
 "전속력 질주!" = "Full speed ahead!";
 /* Sources/DogMonitor/Models.swift:106 */
 "헉헉 땀 뻘뻘" = "Panting hard";
-/* Sources/DogMonitor/Models.swift:194 */
+/* Sources/DogMonitor/Models.swift:195 */
 "내 캐릭터" = "My character";
 /* Sources/DogMonitor/Pet/PetModel.swift:162 */
 "밥 먹을 시간 지난 것 같아요. 밥 주세요!" = "I think it's past mealtime. Feed me, please!";
@@ -2104,10 +2114,38 @@
 "모든 캐릭터를 또렷한 도트로 보여 줘요" = "Shows every character as crisp pixel art";
 /* Sources/DogMonitor/Sprite/RenderStyle.swift:22 */
 "도트 그림은 매끈하게, 사진 캐릭터는 실사로 보여 줘요" = "Smooths pixel art and shows photo characters as photos";
-/* Sources/DogMonitor/UI/AgentCardView.swift:199 */
+/* Sources/DogMonitor/UI/AgentCardView.swift:84 */
+"사이트" = "Site";
+/* Sources/DogMonitor/UI/AgentCardView.swift:86 */
+"주소" = "Address";
+/* Sources/DogMonitor/UI/AgentCardView.swift:88 */
+"(이름 없는 버튼)" = "(unnamed button)";
+/* Sources/DogMonitor/UI/AgentCardView.swift:91 */
+"값" = "Value";
+/* Sources/DogMonitor/UI/AgentCardView.swift:91 */
+"이동할 곳" = "Goes to";
+/* Sources/DogMonitor/UI/AgentCardView.swift:173 */
+"전체 주소 보기" = "Show the full address";
+/* Sources/DogMonitor/UI/AgentCardView.swift:173 */
+"주소 접기" = "Collapse the address";
+/* Sources/DogMonitor/UI/AgentCardView.swift:220 */
 "되돌리기" = "Undo";
-/* Sources/DogMonitor/UI/AgentCardView.swift:218 */
+/* Sources/DogMonitor/UI/AgentCardView.swift:239 */
 "보내기" = "Send";
+/* Sources/DogMonitor/UI/AgentCardView.swift:324 */
+"주소에 보이지 않는 제어 문자(글자 방향 바꾸기 등)가 있어서 하지 않아요" = "The address has invisible control characters (such as text direction changes), so I won't do this";
+/* Sources/DogMonitor/UI/AgentCardView.swift:325 */
+"사이트 이름이 %로 감춰져 있어 실제로 가는 곳이 다를 수 있어서 하지 않아요" = "The site name is hidden in percent codes and may not be where it really goes, so I won't do this.";
+/* Sources/DogMonitor/UI/AgentCardView.swift:327 */
+"주소가 2,000자를 넘어서 확인할 수 없어 하지 않아요" = "The address is over 2,000 characters, too long to check, so I won't do this";
+/* Sources/DogMonitor/UI/AgentCardView.swift:342 */
+"…(총 %lld자)" = "…(%lld characters in all)";
+/* Sources/DogMonitor/UI/AgentCardView.swift:408 */
+"주소의 :// 모양이 달라서 실제로 가는 곳이 다를 수 있어서 하지 않아요" = "The address doesn't have the usual :// and may not go where it seems, so I won't do this.";
+/* Sources/DogMonitor/UI/AgentCardView.swift:410 */
+"주소에 역슬래시가 있어 실제로 가는 곳이 다를 수 있어서 하지 않아요" = "The address has a backslash and may not go where it seems, so I won't do this.";
+/* Sources/DogMonitor/UI/AgentCardView.swift:412 */
+"사이트 이름 앞에 @가 있어 실제로 가는 곳이 다를 수 있어서 하지 않아요" = "The address has an @ before the site name and may not go where it seems, so I won't do this.";
 /* Sources/DogMonitor/UI/AgentSettingsPanel.swift:119 */
 "지우기" = "Delete";
 /* Sources/DogMonitor/UI/AnimatedDog.swift:183 */
@@ -2374,131 +2412,133 @@
 "대화 지우기" = "Clear chat";
 /* Sources/DogMonitor/UI/AssistantView.swift:276 */
 "더 보기" = "More";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:148 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:149 */
 "AI 그림에서 모습을 찾지 못했어요." = "Couldn't find a figure in the AI image.";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:150 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:151 */
 "AI 다듬기에 실패했어요." = "AI refine failed.";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:204 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:205 */
 "이 그림에서 모습을 찾지 못했어요. 배경이 단순한 다른 그림을 써 보세요." = "Couldn't find a figure in this image. Try another one with a simple background.";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:207 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:208 */
 "주인공이 잘 안 보여요. 한 대상만 크게 찍힌 그림이 좋아요." = "The subject is hard to see. An image with one large subject works best.";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:296 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:297 */
 "꾸미기" = "Customize";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:296 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:297 */
 "새 캐릭터 만들기" = "New character";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:300 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:301 */
 "이름" = "Name";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:309 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:310 */
 "울음소리" = "Sounds";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:313 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:314 */
 "쉼표로 나눠 6개까지, 하나에 8자까지 써요" = "Up to 6, separated by commas, 8 characters each";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:317 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:318 */
 "다른 모습도 넣기 (선택)" = "Add other poses (optional)";
 /* Sources/DogMonitor/UI/CharacterCreatorView.swift:324 */
-"자동 다듬기: 빈 모습을 그릴 때 사진이 %@로 보내져요 (설정에서 끌 수 있어요)" = "Auto-refine: your photo is sent to %@ to draw empty poses (you can turn this off in Settings)";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:325 */
 " · 직접 권리를 가진 이미지를 써 주세요" = " · Use images you own the rights to";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:325 */
-"사진은 이 맥 안에서만 변환돼요" = "Photos are converted only on this Mac";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:339 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:338 */
 "귀여운 비율 (머리 크게)" = "Cute proportions (big head)";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:341 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:340 */
 "좌우 뒤집기 (오른쪽을 보게)" = "Flip horizontally (face right)";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:342 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:341 */
 "어두운 메뉴바용 밝은 테두리" = "Light outline for dark menu bars";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:348 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:347 */
 "그림 한 장이면 충분해요. 넣으면 움직이는 모습을 여기서 미리 볼 수 있어요" = "One image is enough. Add it to preview the motion here";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:366 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:365 */
 "이 캐릭터를 지울까요?" = "Delete this character?";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:370 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:369 */
 "만든 캐릭터와 저장된 그림이 이 맥에서 사라져요." = "The character and its saved images will be removed from this Mac.";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:381 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:380 */
 "캐릭터 그림" = "Character images";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:397 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:396 */
 "그림 넣기" = "Add image";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:411 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:410 */
 "AI가 그린 그림" = "AI-drawn image";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:421 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:420 */
 "%@ 그림 빼기" = "Remove %@ image";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:432 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:431 */
 "남은 배경 지우기" = "Erase leftover background";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:433 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:432 */
 "%@ 배경 다듬기" = "Clean up %@ background";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:437 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:436 */
 "%@ 그림" = "%@ image";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:440 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:439 */
 "한 장이면 모든 동작을 만들어요" = "One image makes every motion";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:441 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:440 */
 "비우면 %@ 모습을 써요" = "Empty: uses the %@ picture";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:452 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:451 */
 "%@ 모습이 담긴 그림을 골라 주세요" = "Pick a picture that shows %@";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:484 */
-"AI가 자는 모습·뛰는 모습을 그리는 중… 먼저 저장해도 다 그리면 반영돼요" = "AI is drawing the sleeping and running poses… You can save now. They'll show up when done";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:488 */
-"AI가 비어 있던 모습을 그렸어요 ('AI' 표시)" = "AI drew the missing poses (marked \"AI\")";
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:479 */
+"사진은 이 맥 안에서만 변환돼요" = "Photos are converted only on this Mac";
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:480 */
+"자동 다듬기: 빈 모습을 그릴 때 사진이 %@로 보내져요 (설정에서 끌 수 있어요)" = "Auto-refine: your photo is sent to %@ to draw empty poses (you can turn this off in Settings)";
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:481 */
+"사진은 이 맥 안에서만 변환돼요 (AI 자동 다듬기는 설정에서 켤 수 있어요)" = "Photos are converted only on this Mac (AI auto-refine can be turned on in Settings)";
 /* Sources/DogMonitor/UI/CharacterCreatorView.swift:490 */
+"AI가 자는 모습·뛰는 모습을 그리는 중… 먼저 저장해도 다 그리면 반영돼요" = "AI is drawing the sleeping and running poses… You can save now. They'll show up when done";
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:494 */
+"AI가 비어 있던 모습을 그렸어요 ('AI' 표시)" = "AI drew the missing poses (marked \"AI\")";
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:496 */
 "AI 다듬기를 못 해서 사진으로 만들었어요" = "AI refine didn't work, so we used the photo";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:501 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:507 */
 "스타일" = "Style";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:504 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:510 */
 "AI가 그린 도트 그림은 도트로 보여요" = "Pixel art drawn by AI shows as pixel art";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:506 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:512 */
 "실사: 잘라낸 사진을 그대로 고해상도로 움직여요" = "Realistic: moves the cut-out photo as is, in high resolution";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:508 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:514 */
 "크기" = "Size";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:509 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:515 */
 "외곽선" = "Outline";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:541 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:547 */
 "밝은 메뉴바 미리보기" = "Light menu bar preview";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:541 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:547 */
 "어두운 메뉴바 미리보기" = "Dark menu bar preview";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:551 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:557 */
 "상황 · %@" = "Situation · %@";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:568 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:574 */
 "배고플 때" = "When hungry";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:569 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:575 */
 "밥 먹을 때" = "When eating";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:570 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:576 */
 "신날 때" = "When excited";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:579 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:585 */
 "삭제…" = "Delete…";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:582 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:588 */
 "변경 저장" = "Save changes";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:582 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:588 */
 "저장하고 메뉴바에 두기" = "Save and put in menu bar";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:596 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:602 */
 "캐릭터는 %lld개까지 만들 수 있어요." = "You can make up to %lld characters.";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:597 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:603 */
 "저장하지 못했어요: %@" = "Couldn't save: %@";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:608 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:614 */
 "지우지 못했어요: %@" = "Couldn't delete: %@";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:618 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:624 */
 "비슷한 색 지우기" = "Erase similar colors";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:618 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:624 */
 "지우개" = "Eraser";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:641 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:647 */
 "배경 다듬기" = "Clean Up Background";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:643 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:649 */
 "도구" = "Tool";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:649 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:655 */
 "비슷한 정도" = "Similarity";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:649 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:655 */
 "지우개 크기" = "Eraser size";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:653 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:659 */
 "남은 배경을 누르면 이어진 비슷한 색이 한 번에 지워져요" = "Click leftover background to erase the connected similar colors at once";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:654 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:660 */
 "문질러서 지워요. 잘못 지우면 되돌리기를 눌러 주세요" = "Rub to erase. If you erase too much, press Undo";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:683 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:689 */
 "다듬는 그림" = "Picture being cleaned up";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:731 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:737 */
 "완료" = "Done";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:732 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:738 */
 "모두 지워졌어요. 되돌리기로 돌아가 주세요" = "Everything was erased. Press Undo to go back";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:745 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:751 */
 "쉬고 잘 때" = "When resting and sleeping";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:746 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:752 */
 "걷고 달릴 때" = "When walking and running";
-/* Sources/DogMonitor/UI/CharacterCreatorView.swift:747 */
+/* Sources/DogMonitor/UI/CharacterCreatorView.swift:753 */
 "아주 바쁠 때" = "When very busy";
 /* Sources/DogMonitor/UI/CleanerView.swift:124 */
 "%@ %@ 을(를) 실행하는 항목이에요." = "Runs %2$@ (%1$@).";
@@ -2977,7 +3017,7 @@
 /* Sources/DogMonitor/UI/SettingsView.swift:32 */
 "AI 자동 다듬기" = "AI auto-refine";
 /* Sources/DogMonitor/UI/SettingsView.swift:37 */
-"새 캐릭터에 사진을 넣으면 비워 둔 모습(자는·뛰는 모습)을 AI가 그려요. 그릴 때만 사진이 %@로 보내져요. 캐릭모니터는 사진을 저장하지 않아요." = "When you add a photo to a new character, AI draws the poses you left empty (sleeping, running). The photo is sent to %@ only while drawing. CharaMonitor doesn't store your photo.";
+"켜 두면 새 캐릭터에 사진을 넣을 때 비워 둔 모습(자는·뛰는 모습)을 AI가 그려요. 이때 사진이 %@로 보내져요. 처음에는 꺼져 있어요." = "When on, AI draws the poses you left empty (sleeping, running) when you add a photo to a new character. The photo is then sent to %@. It's off by default.";
 /* Sources/DogMonitor/UI/SettingsView.swift:42 */
 "사용법 다시 보기" = "Show the tour again";
 /* Sources/DogMonitor/UI/SettingsView.swift:47 */

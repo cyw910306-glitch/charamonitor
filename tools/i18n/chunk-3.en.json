@@ -848,10 +848,6 @@
   "en": "Open at login"
  },
  {
-  "key": "새 캐릭터에 사진을 넣으면 비워 둔 모습(자는·뛰는 모습)을 AI가 그려요. 그릴 때만 사진이 %@로 보내져요. 캐릭모니터는 사진을 저장하지 않아요.",
-  "en": "When you add a photo to a new character, AI draws the poses you left empty (sleeping, running). The photo is sent to %@ only while drawing. CharaMonitor doesn't store your photo."
- },
- {
   "key": "설정하지 못했어요: %@",
   "en": "Couldn't set it up: %@"
  },
@@ -3204,10 +3200,6 @@
   "en": "%2$@ left until quitting time (%1$@)."
  },
  {
-  "key": "출근·점심·퇴근 인사, 울음소리 말투, 집중 잔디가 생겼어요.",
-  "en": "New: work-day greetings, the animal-sound voice and a focus streak grid."
- },
- {
   "key": "데스크톱 친구",
   "en": "Desktop Friends"
  },
@@ -4134,5 +4126,93 @@
  {
   "key": "무료 비영리 오픈 소스",
   "en": "Free, non-commercial open source"
+ },
+ {
+  "key": "사진은 이 맥 안에서만 변환돼요 (AI 자동 다듬기는 설정에서 켤 수 있어요)",
+  "en": "Photos are converted only on this Mac (AI auto-refine can be turned on in Settings)"
+ },
+ {
+  "key": "켜 두면 새 캐릭터에 사진을 넣을 때 비워 둔 모습(자는·뛰는 모습)을 AI가 그려요. 이때 사진이 %@로 보내져요. 처음에는 꺼져 있어요.",
+  "en": "When on, AI draws the poses you left empty (sleeping, running) when you add a photo to a new character. The photo is then sent to %@. It's off by default."
+ },
+ {
+  "key": "AI 비서 목록 밖의 미리알림이라 확인받을게요",
+  "en": "This reminder is outside the AI Assistant list, so I'll ask first"
+ },
+ {
+  "key": "'AI 비서' 캘린더를 만들지 못해서 규칙으로는 넣지 않았어요.",
+  "en": "Couldn't create the 'AI Assistant' calendar, so the rule didn't add it."
+ },
+ {
+  "key": "'AI 비서' 목록을 만들지 못해서 규칙으로는 넣지 않았어요.",
+  "en": "Couldn't create the 'AI Assistant' list, so the rule didn't add it."
+ },
+ {
+  "key": "'AI 비서' 목록 밖의 미리알림은 규칙으로 완료하지 않아요.",
+  "en": "A rule doesn't complete reminders outside the 'AI Assistant' list."
+ },
+ {
+  "key": "…(총 %lld자)",
+  "en": "…(%lld characters in all)"
+ },
+ {
+  "key": "전체 주소 보기",
+  "en": "Show the full address"
+ },
+ {
+  "key": "주소 접기",
+  "en": "Collapse the address"
+ },
+ {
+  "key": "사이트 이름이 %로 감춰져 있어 실제로 가는 곳이 다를 수 있어서 하지 않아요",
+  "en": "The site name is hidden in percent codes and may not be where it really goes, so I won't do this."
+ },
+ {
+  "key": "주소가 2,000자를 넘어서 확인할 수 없어 하지 않아요",
+  "en": "The address is over 2,000 characters, too long to check, so I won't do this"
+ },
+ {
+  "key": "주소에 보이지 않는 제어 문자(글자 방향 바꾸기 등)가 있어서 하지 않아요",
+  "en": "The address has invisible control characters (such as text direction changes), so I won't do this"
+ },
+ {
+  "key": "기타 소녀는 오픈 소스판에서 은퇴했어요. 그동안 함께해 줘서 고마워요! 이제 강아지가 메뉴바를 지킬게요.",
+  "en": "The guitar girl retired in the open-source version. Thanks for all the time together! The dog will look after your menu bar now."
+ },
+ {
+  "key": "이제 전부 무료 오픈 소스예요. 데스크톱 친구(풀밭 친구들·러그·집중 타이머)도 생겼어요.",
+  "en": "Everything is now free and open source. Desktop Friends arrived too: Meadow Friends, the rug and the Focus Timer."
+ },
+ {
+  "key": "사이트",
+  "en": "Site"
+ },
+ {
+  "key": "주소",
+  "en": "Address"
+ },
+ {
+  "key": "(이름 없는 버튼)",
+  "en": "(unnamed button)"
+ },
+ {
+  "key": "값",
+  "en": "Value"
+ },
+ {
+  "key": "이동할 곳",
+  "en": "Goes to"
+ },
+ {
+  "key": "주소의 :// 모양이 달라서 실제로 가는 곳이 다를 수 있어서 하지 않아요",
+  "en": "The address doesn't have the usual :// and may not go where it seems, so I won't do this."
+ },
+ {
+  "key": "주소에 역슬래시가 있어 실제로 가는 곳이 다를 수 있어서 하지 않아요",
+  "en": "The address has a backslash and may not go where it seems, so I won't do this."
+ },
+ {
+  "key": "사이트 이름 앞에 @가 있어 실제로 가는 곳이 다를 수 있어서 하지 않아요",
+  "en": "The address has an @ before the site name and may not go where it seems, so I won't do this."
  }
 ]

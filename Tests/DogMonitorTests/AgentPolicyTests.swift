@@ -30,9 +30,9 @@ final class AgentPolicyTests: XCTestCase {
     }
 
     private func decide(_ a: AgentAction, origin: Origin = .chat, settings: AgentPolicy.Settings = .init(),
-                        uses: [UUID: Int] = [:], concerns: [Concern] = []) -> Decision {
+                        uses: [UUID: Int] = [:], concerns: [Concern] = [], inAgentList: Bool = false) -> Decision {
         AgentPolicy.decide(a, origin: origin, settings: settings, ownerAddresses: me,
-                           ruleUsesToday: uses, concerns: concerns, now: now)
+                           ruleUsesToday: uses, concerns: concerns, now: now, inAgentList: inAgentList)
     }
 
     private let selfAddr = [Recipient(name: nil, address: "me@example.com", provenance: .ownerProfile)]
@@ -132,7 +132,7 @@ final class AgentPolicyTests: XCTestCase {
     func testPreapprovedNeedsAMatchingStructuredRule() {
         let s = rules([(.eventAdd, "agent-calendar"), (.reminderAdd, "agent-reminders"), (.reminderDone, "agent-reminders")])
         for t in [AgentActionType.eventAdd, .reminderAdd, .reminderDone] {
-            XCTAssertEqual(decide(sample(t), settings: s).tier, .preapproved, "\(t)")
+            XCTAssertEqual(decide(sample(t), settings: s, inAgentList: true).tier, .preapproved, "\(t)")
         }
         // Tier chosen but no rule, or a rule with the wrong target.
         var none = AgentPolicy.Settings()
@@ -146,6 +146,20 @@ final class AgentPolicyTests: XCTestCase {
         var ruleOnly = AgentPolicy.Settings()
         ruleOnly.rules = [ToolRule(type: .eventAdd, target: "agent-calendar")]
         XCTAssertEqual(decide(sample(.eventAdd), settings: ruleOnly).tier, .confirm)
+    }
+
+    /// The rule names the "AI 비서" list: a reminder_done on any other reminder (or one not found) is a card. Adds have
+    /// no list to pick; the executor writes a rule's run into "AI 비서" or nowhere (NativeActionsTests).
+    func testARuleTicksOnlyRemindersInTheAgentList() {
+        let s = rules([(.reminderDone, "agent-reminders"), (.eventAdd, "agent-calendar"), (.reminderAdd, "agent-reminders")])
+        let outside = decide(sample(.reminderDone), settings: s)
+        XCTAssertEqual(outside.tier, .confirm)
+        XCTAssertEqual(outside.reasons, ["AI 비서 목록 밖의 미리알림이라 확인받을게요"])
+        XCTAssertEqual(decide(sample(.reminderDone), settings: s, inAgentList: true).tier, .preapproved)
+        XCTAssertEqual(decide(sample(.eventAdd), settings: s).tier, .preapproved)
+        XCTAssertEqual(decide(sample(.reminderAdd), settings: s).tier, .preapproved)
+        // Without a rule the list makes no difference.
+        XCTAssertEqual(decide(sample(.reminderDone), inAgentList: true).tier, .confirm)
     }
 
     func testEventsFromMailStayConfirm() {

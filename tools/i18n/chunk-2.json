@@ -2602,7 +2602,7 @@
  {
   "key": "내 캐릭터",
   "file": "Sources/DogMonitor/Models.swift",
-  "line": 194
+  "line": 195
  },
  {
   "key": "밥 먹을 시간 지난 것 같아요. 밥 주세요!",
@@ -3223,5 +3223,30 @@
   "key": "장난감 상자",
   "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
   "line": 156
+ },
+ {
+  "key": "스탠드 조명",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 170
+ },
+ {
+  "key": "어항",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 179
+ },
+ {
+  "key": "크림 줄무늬",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 197
+ },
+ {
+  "key": "민트 물방울",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 198
+ },
+ {
+  "key": "딸기 체크",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 199
  }
 ]

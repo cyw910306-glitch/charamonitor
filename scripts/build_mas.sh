@@ -25,10 +25,11 @@ for arg in "$@"; do
         *) echo "알 수 없는 옵션: $arg (쓸 수 있는 것: --debug --pkg)" >&2; exit 2 ;;
     esac
 done
-# Words that must never ship in the App Store build (2.3.1 hidden features, 2.4.5, 2.5.2): checked in the binary
-# and every bundle file at the end, and filtered out of the English strings. Lowercase "codex" alone stays allowed:
-# BYOAPIClient.notChat uses it to skip OpenAI's code-model ids in the ChatGPT model list.
-MAS_BANNED='networkQuality|chat\.db|usernoted|osascript|NSAppleScript|Codex|codex[ -](exec|login|cli)|claude -p|claude-cli|gemini-cli'
+# Words that must never ship in the App Store build (2.3.1 hidden features, 2.4.5, 2.5.2; third-party character
+# names and the old Gumroad store, 5.2.1): checked in the binary and every bundle file at the end, and filtered out of
+# the English strings. Lowercase "codex" alone stays allowed: BYOAPIClient.notChat uses it to skip OpenAI's code-model
+# ids in the ChatGPT model list.
+MAS_BANNED='networkQuality|[Gg]umroad|chat\.db|usernoted|osascript|NSAppleScript|Codex|codex[ -](exec|login|cli)|claude -p|claude-cli|gemini-cli|[Hh]itori|히토리|봇치|기타 소녀|기타를 메고|[Gg]uitar [Gg]irl|짱구|태닝 ?키티|치이카와|먼작귀'
 IDENTITY="${MAS_SIGN_IDENTITY:--}"
 if [ "$PKG" = 1 ] && { [ "$IDENTITY" = "-" ] || [ -z "${MAS_INSTALLER_IDENTITY:-}" ] || [ -z "${MAS_PROVISION:-}" ]; }; then
     echo "--pkg 에는 MAS_SIGN_IDENTITY, MAS_INSTALLER_IDENTITY, MAS_PROVISION 이 모두 필요해요." >&2
@@ -84,7 +85,7 @@ EOF
 plutil -lint -s "$APP/Contents/Resources/en.lproj/InfoPlist.strings"
 # English UI (tools/i18n/merge.py): the Korean source text is the key, so Korean needs no table.
 if [ -f "$ROOT/Resources/en.lproj/Localizable.strings" ]; then
-    # Rows only the direct build uses (CLI engines, Apple Events...) stay out of the App Store bundle.
+    # Rows only the direct build uses (CLI engines, Apple Events, the guitar girl's goodbye...) stay out of the App Store bundle.
     grep -vE "$MAS_BANNED" "$ROOT/Resources/en.lproj/Localizable.strings" > "$APP/Contents/Resources/en.lproj/Localizable.strings"
     plutil -lint -s "$APP/Contents/Resources/en.lproj/Localizable.strings"
 fi

@@ -98,6 +98,71 @@ final class SupportTests: XCTestCase {
         XCTAssertTrue(WhatsNew.announces(last: d.string(forKey: WhatsNew.key), current: "2.2"))
     }
 
+    /// 2.3 removes what only the paid code wrote, once, and an update from the paid era still counts as one.
+    func testOpenSourceCleanupRemovesThePaidEraOnce() throws {
+        let suite = "SupportTests.cleanup.\(UUID().uuidString)"
+        let d = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { d.removePersistentDomain(forName: suite) }
+        for key in OpenSourceCleanup.removedKeys { d.set("x", forKey: key) }
+        d.set("cat", forKey: "assistant.persona")
+        OpenSourceCleanup.run(d, settings: AppSettings(defaults: d))
+        for key in OpenSourceCleanup.removedKeys { XCTAssertNil(d.object(forKey: key), key) }
+        XCTAssertEqual(d.string(forKey: "assistant.persona"), "cat")
+        // "proLicenseKey" was the only sign of an update here: no tour, the one-liner shows, 먼저 말 걸기 stays off.
+        XCTAssertTrue(d.bool(forKey: Tour.seenKey))
+        XCTAssertTrue(WhatsNew.announces(last: d.string(forKey: WhatsNew.key), current: "2.3"))
+        XCTAssertEqual(d.string(forKey: "assistant.nudges"), NudgeFrequency.off.rawValue)
+        d.set("x", forKey: "proNotice")
+        OpenSourceCleanup.run(d, settings: AppSettings(defaults: d))
+        XCTAssertEqual(d.string(forKey: "proNotice"), "x", "once")
+    }
+
+    func testOpenSourceCleanupLeavesANewInstallNew() throws {
+        let suite = "SupportTests.cleanup-new.\(UUID().uuidString)"
+        let d = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { d.removePersistentDomain(forName: suite) }
+        OpenSourceCleanup.run(d, settings: AppSettings(defaults: d))
+        XCTAssertNil(d.string(forKey: WhatsNew.key))
+        XCTAssertFalse(d.bool(forKey: Tour.seenKey))
+        XCTAssertEqual(d.string(forKey: "assistant.nudges"), NudgeFrequency.rarely.rawValue)
+        XCTAssertFalse(d.bool(forKey: OpenSourceCleanup.goodbyeKey))
+    }
+
+    /// The guitar girl retired: her fans get the dog and one goodbye, her 지운 캐릭터 entry and profile go.
+    func testGuitarGirlFansGetTheDogAndOneGoodbye() throws {
+        let suite = "SupportTests.girl.\(UUID().uuidString)"
+        let d = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { d.removePersistentDomain(forName: suite) }
+        d.set("girl", forKey: "character")
+        d.set(try JSONEncoder().encode(["girl", "cat-korean-shorthair"]), forKey: "hiddenCharacters")
+        d.set(Data("{}".utf8), forKey: "girl")
+        let s = AppSettings(defaults: d)
+        OpenSourceCleanup.run(d, settings: s)
+        XCTAssertEqual(d.string(forKey: "character"), "dog")
+        XCTAssertEqual(s.hiddenCharacters, ["cat-korean-shorthair"])
+        XCTAssertEqual(AppSettings(defaults: d).hiddenCharacters, ["cat-korean-shorthair"])
+        XCTAssertNil(d.object(forKey: "girl"))
+
+        let bubble = SpeechBubbleCenter()
+        bubble.isMuted = { true }
+        XCTAssertFalse(OpenSourceCleanup.sayGoodbye(d, on: bubble))   // muted: the next launch tries again
+        bubble.isMuted = { false }
+        XCTAssertTrue(OpenSourceCleanup.sayGoodbye(d, on: bubble))
+        XCTAssertEqual(bubble.current?.text, OpenSourceCleanup.goodbye)
+        XCTAssertFalse(OpenSourceCleanup.goodbye.contains("\u{2014}"))
+        XCTAssertFalse(OpenSourceCleanup.sayGoodbye(d, on: SpeechBubbleCenter()), "once")
+
+        // Her name as builds before 1.4 saved it counts too; anyone else keeps their character and hears nothing.
+        for (stored, goodbye) in [(String("irotih".reversed()), true), ("cat", false)] {
+            let other = try XCTUnwrap(UserDefaults(suiteName: suite + stored))
+            defer { other.removePersistentDomain(forName: suite + stored) }
+            other.set(stored, forKey: "character")
+            OpenSourceCleanup.run(other, settings: AppSettings(defaults: other))
+            XCTAssertEqual(other.string(forKey: "character"), goodbye ? "dog" : stored)
+            XCTAssertEqual(other.bool(forKey: OpenSourceCleanup.goodbyeKey), goodbye, stored)
+        }
+    }
+
     func testRetryIgnoresANegativeRetryAfter() async throws {
         var calls = 0, waited: [TimeInterval] = []
         var client = BYOAPIClient(provider: .claude, key: "k")

@@ -122,7 +122,8 @@ final class CreatorModel: ObservableObject {
     /// Drawings still running, closed creators' included: the automatic update waits for them.
     static private(set) var inFlight = 0
 
-    /// 설정's 자동 다듬기 on, never in QA renders, never for a 도트 character (photo poses would not match its art).
+    /// Only with 설정's 자동 다듬기 on (off until the owner turns it on: it sends the photos), never in QA renders, never
+    /// for a 도트 character (photo poses would not match its art).
     /// Shows nothing at all when no AI can draw on this Mac.
     #if !MAS
     func startAuto(chatGPT: ChatGPTCharacterClient = ChatGPTCharacterClient()) {
@@ -320,9 +321,7 @@ struct CharacterCreatorView: View {
                 }
                 .font(.system(size: 11))
                 autoLine.frame(maxWidth: .infinity, alignment: .leading)
-                Text(((settings.aiAutoRefine ? refine.destination : nil)
-                        .map { L("자동 다듬기: 빈 모습을 그릴 때 사진이 \($0)로 보내져요 (설정에서 끌 수 있어요)") }
-                        ?? L("사진은 이 맥 안에서만 변환돼요")) + L(" · 직접 권리를 가진 이미지를 써 주세요"))
+                Text(privacyLine + L(" · 직접 권리를 가진 이미지를 써 주세요"))
                     .fixedSize(horizontal: false, vertical: true)
                     .font(.system(size: 10)).foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -474,6 +473,13 @@ struct CharacterCreatorView: View {
     }
 
     // MARK: AI
+
+    /// Where the photos go: off (the default) or no AI on this Mac keeps them here; 설정 is named only while it has the switch.
+    private var privacyLine: String {
+        guard let destination = refine.destination else { return L("사진은 이 맥 안에서만 변환돼요") }
+        return settings.aiAutoRefine ? L("자동 다듬기: 빈 모습을 그릴 때 사진이 \(destination)로 보내져요 (설정에서 끌 수 있어요)")
+            : L("사진은 이 맥 안에서만 변환돼요 (AI 자동 다듬기는 설정에서 켤 수 있어요)")
+    }
 
     /// One quiet line while 자동 다듬기 runs or after it, nothing when no AI could draw.
     @ViewBuilder private var autoLine: some View {

@@ -62,10 +62,11 @@ enum AgentPolicy {
     }
 
     /// One action's tier. Order: a blocking concern wins outright; then the owner's tier clamped to the floor; a
-    /// preapproved tier holds only when a rule matches (else confirm); any other concern lifts to confirm; background
-    /// work is never below confirm (a card, never executed).
+    /// preapproved tier holds only when a rule matches (else confirm), and for reminder_done only when `inAgentList`
+    /// (the caller looked the reminder up in the "AI 비서" list; unknown counts as outside); any other concern lifts to
+    /// confirm; background work is never below confirm (a card, never executed).
     static func decide(_ action: AgentAction, origin: Origin, settings: Settings, ownerAddresses: Set<String>,
-                       ruleUsesToday: [UUID: Int], concerns: [Concern], now: Date) -> Decision {
+                       ruleUsesToday: [UUID: Int], concerns: [Concern], now: Date, inAgentList: Bool = false) -> Decision {
         let blocking = concerns.filter(\.blocking)
         if !blocking.isEmpty {
             // The reviewer can neither add nor lift a hard block, so it is not asked.
@@ -82,6 +83,10 @@ enum AgentPolicy {
             if let why = ruleRefusal(action, rules: settings.rules, ruleUsesToday: ruleUsesToday, now: now) {
                 tier = .confirm
                 reasons.append(why)
+            } else if type == .reminderDone && !inAgentList {
+                // The rule names the "AI 비서" list: a reminder the model points at anywhere else is the owner's to tick.
+                tier = .confirm
+                reasons.append(L("AI 비서 목록 밖의 미리알림이라 확인받을게요"))
             }
         }
 
@@ -106,8 +111,8 @@ enum AgentPolicy {
         let type = action.type
         guard let target = ruleTarget(type) else { return L("이 일은 규칙으로 바로 할 수 없어요") }
         if !fromOwnerWords(action) { return L("메일 등에서 가져온 내용이라 확인받을게요") }
-        // ponytail: events and reminder adds have no calendar field, so the Executor must write a preapproved run into
-        // the "AI 비서" calendar or list, and must refuse a preapproved reminder_done outside that list.
+        // Events and reminder adds have no calendar field: a preapproved run goes into the "AI 비서" calendar or list or
+        // nowhere (AgentCalendar, agentOnly). reminder_done outside that list stays confirm (decide, inAgentList).
         let candidates = rules.filter { $0.type == type && $0.target == target }
         if candidates.isEmpty { return L("맞는 규칙이 없어서 확인받을게요") }
         let live = candidates.filter { $0.expires.map { now < $0 } ?? true }

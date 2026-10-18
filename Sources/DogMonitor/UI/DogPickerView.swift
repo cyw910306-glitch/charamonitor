@@ -63,7 +63,7 @@ struct DogPickerView: View {
 
     /// Built-in characters taken off the list in 꾸미기 come back from here.
     @ViewBuilder private var restoreRow: some View {
-        let hidden = settings.hiddenCharacters.count
+        let hidden = settings.restorableHidden.count
         if hidden > 0 {
             Button("지운 캐릭터 \(hidden)개 다시 보기") { settings.hiddenCharacters = [] }
                 .buttonStyle(.plain)

@@ -190,6 +190,114 @@ final class AgentGuardTests: XCTestCase {
                              received: sms), [])
     }
 
+    // MARK: Web step addresses
+
+    func testReadableURLKeepsSeparatorsEncoded() {
+        // 한글 and unreserved characters become readable; separators the server reads stay exactly as sent.
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/%ED%95%9C%EA%B8%80?q=%2F%26x%3D1%25%2B%3F%23"),
+                       "https://a.com/한글?q=%2F%26x%3D1%25%2B%3F%23")
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/%7e%41%2d%5F%2E"), "https://a.com/~A-_.")
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/a%20b%3Ac"), "https://a.com/a%20b%3Ac")
+        // Not one valid character: kept as written (bad byte, cut sequence, overlong "/", a lone %).
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/%FF%41%ED%95%C0%AF%zz%"), "https://a.com/%FFA%ED%95%C0%AF%zz%")
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/x?y=1"), "https://a.com/x?y=1")
+    }
+
+    func testHiddenCharactersAreShownAndBlocked() {
+        // Raw bidi and control characters are written out; encoded ones stay encoded. Both block the step.
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/\u{202E}gpj.exe"), "https://a.com/⟦U+202E⟧gpj.exe")
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/\u{85}\u{2066}x\u{200F}"), "https://a.com/⟦U+0085⟧⟦U+2066⟧x⟦U+200F⟧")
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/%E2%80%AEx%00"), "https://a.com/%E2%80%AEx%00")
+        for bad in ["https://a.com/\u{202E}x", "https://a.com/%E2%80%AE", "https://a.com/%e2%81%a6", "https://a.com/%0A",
+                    "https://a.com/%C2%85", "https://a.com/\u{200E}", "https://a.com/%E3%80%80"] {
+            XCTAssertNotNil(ActionCopy.urlProblem(bad), bad)
+        }
+        XCTAssertNil(ActionCopy.urlProblem("https://a.com/%ED%95%9C%EA%B8%80?q=a%20b&x=%2F"))
+        XCTAssertEqual(ActionCopy.visible("a\u{200F}b\nc"), "a⟦U+200F⟧b⟦U+000A⟧c")
+        XCTAssertEqual(ActionCopy.host("https://good.com%2F@evil.com/x"), "evil.com")
+    }
+
+    func testEncodedHostIsNeverALookalike() {
+        // Foundation decodes %D0%B0 in URL.host to a Cyrillic а; WebKit opens the punycode name. Same for a page href.
+        let page = "https://%D0%B0pple.com/"
+        let href = URL(string: "//%D0%B0pple.com/x", relativeTo: URL(string: "https://a.com/")!)!.absoluteString
+        for s in [page, href] {
+            XCTAssertEqual(ActionCopy.host(s), "xn--pple-43d.com", s)
+            XCTAssertFalse(ActionCopy.readableURL(s).contains("а"), s)
+            XCTAssertNotNil(ActionCopy.urlProblem(s), s)
+        }
+        XCTAssertEqual(ActionCopy.readableURL(page), page)
+        XCTAssertEqual(ActionCopy.readableURL("https://%ED%95%9C@a.com/%ED%95%9C"), "https://%ED%95%9C@a.com/한")
+        XCTAssertNotNil(ActionCopy.urlProblem("https://%E2%80%AE@a.com/"))
+        // One slash or a backslash: Foundation finds no host, WebKit still opens one. Still not decoded, still blocked.
+        for s in ["https:/%D0%B0pple.com/", "https:\\\\%D0%B0pple.com/", "https://x@%D0%B0pple.com:443/"] {
+            XCTAssertFalse(ActionCopy.readableURL(s).contains("а"), s)
+            XCTAssertFalse(ActionCopy.host(s).contains("а"), s)
+            XCTAssertNotNil(ActionCopy.urlProblem(s), s)
+        }
+        // %XX in the name part only: the host is plain, so it is the "name@" that refuses it, not the encoded host.
+        XCTAssertEqual(ActionCopy.urlProblem("https://a%40b@a.com/"), ActionCopy.urlProblem("https://ab@a.com/"))
+        XCTAssertNil(ActionCopy.urlProblem("https://аpple.com/"))  // raw Unicode: Foundation already made it punycode
+        XCTAssertEqual(ActionCopy.host("https://аpple.com/"), "xn--pple-43d.com")
+    }
+
+    func testBlankLookingCharactersAreHidden() {
+        // Default ignorables, Hangul fillers and the braille blank show as ⟦U+XXXX⟧ raw, stay encoded, and refuse.
+        XCTAssertEqual(ActionCopy.readableURL("https://shop.com/ca\u{3164}rt"), "https://shop.com/ca⟦U+3164⟧rt")
+        XCTAssertEqual(ActionCopy.readableURL("https://shop.com/ca%E3%85%A4rt"), "https://shop.com/ca%E3%85%A4rt")
+        XCTAssertEqual(ActionCopy.visible("a\u{2800}\u{115F}\u{1160}\u{FFA0}\u{180E}\u{FE0F}b"),
+                       "a⟦U+2800⟧⟦U+115F⟧⟦U+1160⟧⟦U+FFA0⟧⟦U+180E⟧⟦U+FE0F⟧b")
+        for bad in ["https://shop.com/ca%E3%85%A4rt", "https://shop.com/ca\u{3164}rt", "https://a.com/%E2%A0%80",
+                    "https://a.com/%E1%85%9F", "https://a.com/%E1%85%A0", "https://a.com/%EF%BE%A0", "https://a.com/%CD%8F",
+                    "https://a.com/%EF%B8%8F", "https://a.com/\u{2800}"] {
+            XCTAssertEqual(ActionCopy.urlProblem(bad), ActionCopy.urlProblem("https://a.com/\u{200B}"), bad)
+        }
+        // A combining mark is not decoded: it would fold onto the letter before it.
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/x%CC%B8y"), "https://a.com/x%CC%B8y")
+        XCTAssertEqual(ActionCopy.readableURL("https://a.com/%E0%A4%95%E0%A4%BE"), "https://a.com/का")  // spacing mark: read
+        XCTAssertNil(ActionCopy.urlProblem("https://a.com/x%CC%B8y"))
+    }
+
+    func testAddressesParsedTwoWaysAreRefused() {
+        // Foundation and WebKit (WHATWG) disagree on these hosts: a backslash, "name@", or not exactly "//".
+        for bad in ["https://evil.com\\@good.com/", "https://good.com\\evil.com/", "https://user@evil.com/",
+                    "https://good.com@evil.com/x", "https:evil.com/", "https:/evil.com/", "https:///evil.com/",
+                    "https:\\\\evil.com/", "https:/\\evil.com/"] {
+            XCTAssertNotNil(ActionCopy.urlProblem(bad), bad)
+        }
+        for good in ["https://shop.example.com/p/1?q=a@b#c", "https://a.com:8443/x/y@z", "https://аpple.com/",
+                     "https://한글.com/경로", "http://a.com"] {
+            XCTAssertNil(ActionCopy.urlProblem(good), good)
+        }
+    }
+
+    func testLongURLsAreMarkedAndBlocked() {
+        let base = "https://a.com/"
+        let limit = base + String(repeating: "a", count: ActionCopy.urlLimit - base.count)
+        XCTAssertNil(ActionCopy.urlProblem(limit))
+        XCTAssertNotNil(ActionCopy.urlProblem(limit + "a"))
+        // The card never cuts silently: the full length is shown, and readableURL itself keeps everything.
+        let long = String(repeating: "b", count: ActionCopy.urlShown + 1)
+        XCTAssertEqual(ActionCopy.shortened(long), String(repeating: "b", count: ActionCopy.urlShown) + "…(총 301자)")
+        XCTAssertEqual(ActionCopy.shortened(String(long.dropLast())), String(long.dropLast()))
+        XCTAssertEqual(ActionCopy.readableURL(limit + "a").count, ActionCopy.urlLimit + 1)
+    }
+
+    func testWebStepAddressesAreGuarded() {
+        func step(_ kind: WebStep.Kind, page: String = "https://shop.example.com/p/1", value: String? = nil) -> AgentAction {
+            .webStep(WebStep(kind: kind, pageURL: page, label: "담기", ref: kind == .open ? nil : "e1", signature: nil, value: value, why: "w"))
+        }
+        let long = "https://a.com/" + String(repeating: "a", count: ActionCopy.urlLimit)
+        XCTAssertEqual(check(step(.open)), [])
+        XCTAssertEqual(kinds(check(step(.open, page: long))), [.schema])
+        XCTAssertTrue(check(step(.open, page: long)).allSatisfy(\.blocking))
+        XCTAssertEqual(kinds(check(step(.click, value: "https://a.com/\u{202E}x"))), [.schema])
+        XCTAssertEqual(check(step(.click, value: "https://shop.example.com/cart")), [])
+        // Only the addresses the card shows: the page a click happens on is shown as its host.
+        XCTAssertEqual(check(step(.click, page: long)), [])
+        XCTAssertEqual(check(step(.type, value: "https://a.com/%E2%80%AE")), [])
+    }
+
     // MARK: Caps and expiry
 
     func testDailyCaps() {

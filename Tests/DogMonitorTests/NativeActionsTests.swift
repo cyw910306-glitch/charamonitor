@@ -12,9 +12,10 @@ final class NativeActionsTests: XCTestCase {
 
     private final class Fake: NativeActing {
         var calls: [String] = []
-        func addEvent(_ e: EventDraft) async throws -> String { calls.append("event \(e.title)"); return "e:1" }
-        func addReminder(_ r: ReminderDraft) async throws -> String { calls.append("reminder \(r.title)"); return "r:2" }
-        func completeReminder(id: String) async throws -> String? { calls.append("done \(id)"); return "d:" + id }
+        func addEvent(_ e: EventDraft, agentOnly: Bool) async throws -> String { calls.append("event \(e.title)" + mark(agentOnly)); return "e:1" }
+        func addReminder(_ r: ReminderDraft, agentOnly: Bool) async throws -> String { calls.append("reminder \(r.title)" + mark(agentOnly)); return "r:2" }
+        func completeReminder(id: String, agentOnly: Bool) async throws -> String? { calls.append("done \(id)" + mark(agentOnly)); return "d:" + id }
+        private func mark(_ agentOnly: Bool) -> String { agentOnly ? " (AI 비서만)" : "" }
         func undo(_ undoID: String) async throws { calls.append("undo \(undoID)") }
         func prepareMessage(to: [String], body: String) async throws { calls.append("message \(to.joined(separator: ",")) \(body)") }
         func prepareKakao(body: String) async -> String { calls.append("kakao \(body)"); return "붙여넣고 보내 주세요" }
@@ -89,6 +90,30 @@ final class NativeActionsTests: XCTestCase {
             }
         }
         XCTAssertTrue(f.calls.isEmpty, "nothing ran: \(f.calls)")
+    }
+
+    /// The shared execution point: a card a rule ran (preapproved) reaches EventKit as agentOnly, so it writes into the
+    /// "AI 비서" calendar and list or nowhere and ticks no reminder outside it; a card the owner tapped does not.
+    @MainActor
+    func testARuleRunTouchesOnlyTheAgentCalendarAndList() async throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("native-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let suite = "native-\(UUID().uuidString)"
+        let d = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { d.removePersistentDomain(forName: suite) }
+        let center = AgentCenter(defaults: d, root: root)
+        let f = Fake()
+        center.native = f
+        let actions: [AgentAction] = [.eventAdd(EventDraft(title: "치과", start: day13(15), end: day13(16))),
+                                      .reminderAdd(ReminderDraft(title: "우유")), .reminderDone(id: "X", title: "우유")]
+        for tier in [Tier.preapproved, .confirm] {
+            for a in actions {
+                let card = center.pending.add(a, origin: .chat, decision: Decision(tier: tier, needsReview: false))
+                _ = try await center.perform(a, card.id)
+            }
+        }
+        XCTAssertEqual(f.calls, ["event 치과 (AI 비서만)", "reminder 우유 (AI 비서만)", "done X (AI 비서만)",
+                                 "event 치과", "reminder 우유", "done X"])
     }
 
     // MARK: Contacts ranking

@@ -34,7 +34,7 @@ struct SettingsView: View {
                             Toggle("AI 자동 다듬기", isOn: $settings.aiAutoRefine)
                                 .labelsHidden().toggleStyle(.switch).controlSize(.small)
                         }
-                        Text("새 캐릭터에 사진을 넣으면 비워 둔 모습(자는·뛰는 모습)을 AI가 그려요. 그릴 때만 사진이 \(destination)로 보내져요. 캐릭모니터는 사진을 저장하지 않아요.")
+                        Text("켜 두면 새 캐릭터에 사진을 넣을 때 비워 둔 모습(자는·뛰는 모습)을 AI가 그려요. 이때 사진이 \(destination)로 보내져요. 처음에는 꺼져 있어요.")
                             .font(.system(size: 11)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     }
                 }
@@ -134,7 +134,7 @@ struct HelpSheet: View {
 
 enum AppInfo {
     /// A bare `swift build` binary has no Info.plist; it shows the version scripts/build_app.sh stamps instead.
-    static let unbundledVersion = "2.2"
+    static let unbundledVersion = "2.3"
     static var version: String { Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? unbundledVersion }
     /// Where the source lives (PolyForm Noncommercial 1.0.0).
     static let repoURL = URL(string: "https://github.com/cyw910306-glitch/charamonitor")!

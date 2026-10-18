@@ -12,12 +12,13 @@ import Foundation
 /// What the Executor calls for native actions. A protocol so PendingActions tests and the integrator can inject fakes;
 /// `perform` (below) is shared by every implementation.
 protocol NativeActing {
-    /// Saves the event; returns the undo id.
-    func addEvent(_ e: EventDraft) async throws -> String
-    /// Saves the reminder; returns the undo id.
-    func addReminder(_ r: ReminderDraft) async throws -> String
-    /// Marks it done; returns the undo id, nil when it was already done (nothing to take back).
-    func completeReminder(id: String) async throws -> String?
+    /// Saves the event; returns the undo id. `agentOnly` (a preapproved run): into the "AI 비서" calendar or nowhere.
+    func addEvent(_ e: EventDraft, agentOnly: Bool) async throws -> String
+    /// Saves the reminder; returns the undo id. `agentOnly`: into the "AI 비서" list or nowhere.
+    func addReminder(_ r: ReminderDraft, agentOnly: Bool) async throws -> String
+    /// Marks it done; returns the undo id, nil when it was already done (nothing to take back). `agentOnly`: only a
+    /// reminder in the "AI 비서" list.
+    func completeReminder(id: String, agentOnly: Bool) async throws -> String?
     /// Takes back an add or a done by the id the call returned. An item the owner already deleted counts as undone.
     func undo(_ undoID: String) async throws
     /// The Messages compose sheet with recipients and body filled in.
@@ -46,15 +47,16 @@ enum NativeActionError: LocalizedError, Equatable {
 
 extension NativeActing {
     /// Runs one approved native action. `id` is the FrozenAction id: unused here (EventKit saves are never retried),
-    /// kept so every executor path has the same shape as MailSender's.
-    func perform(_ action: AgentAction, id: UUID) async throws -> (summary: String, undoID: String?) {
+    /// kept so every executor path has the same shape as MailSender's. `agentOnly`: a rule ran it without a card, so it
+    /// may touch only the "AI 비서" calendar and list (AgentPolicy.ruleTarget).
+    func perform(_ action: AgentAction, id: UUID, agentOnly: Bool = false) async throws -> (summary: String, undoID: String?) {
         switch action {
         case .eventAdd(let e):
-            return (NativeSummary.eventAdded(e), try await addEvent(e))
+            return (NativeSummary.eventAdded(e), try await addEvent(e, agentOnly: agentOnly))
         case .reminderAdd(let r):
-            return (NativeSummary.reminderAdded(r), try await addReminder(r))
+            return (NativeSummary.reminderAdded(r), try await addReminder(r, agentOnly: agentOnly))
         case .reminderDone(let rid, let title):
-            return (NativeSummary.reminderDone(title), try await completeReminder(id: rid))
+            return (NativeSummary.reminderDone(title), try await completeReminder(id: rid, agentOnly: agentOnly))
         case .messagePrepare(let to, let body):
             try await prepareMessage(to: to.map(\.address), body: body)
             return (NativeSummary.messagePrepared, nil)
@@ -125,29 +127,43 @@ enum AgentCalendar {
         if let why = await CalendarLink.shared.request(type) { throw NativeActionError.message(why) }
     }
 
-    /// The remembered calendar, else one titled "AI 비서" (the remembered id was lost), else a new one in the default
-    /// calendar's account. Falls back to the default calendar when the account refuses new calendars (some Exchange
-    /// and read-only setups).
-    static func target(_ type: EKEntityType, defaults: UserDefaults = AppDefaults.store) -> EKCalendar? {
+    /// The remembered calendar, else one titled "AI 비서" (the remembered id was lost). Never makes one.
+    static func existing(_ type: EKEntityType, defaults: UserDefaults = AppDefaults.store) -> EKCalendar? {
         let key = type == .event ? calendarKey : reminderListKey
-        let fallback = type == .event ? store.defaultCalendarForNewEvents : store.defaultCalendarForNewReminders()
         if let id = defaults.string(forKey: key), let c = store.calendar(withIdentifier: id), c.allowsContentModifications { return c }
-        if let c = store.calendars(for: type).first(where: { $0.title == title && $0.allowsContentModifications }) {
-            defaults.set(c.calendarIdentifier, forKey: key)
-            return c
-        }
-        guard let source = fallback?.source else { return fallback }
-        let c = EKCalendar(for: type, eventStore: store)
-        c.title = title
-        c.source = source
-        guard (try? store.saveCalendar(c, commit: true)) != nil else { return fallback }
+        guard let c = store.calendars(for: type).first(where: { $0.title == title && $0.allowsContentModifications }) else { return nil }
         defaults.set(c.calendarIdentifier, forKey: key)
         return c
     }
 
-    static func addEvent(_ d: EventDraft) async throws -> String {
+    /// `existing`, else a new one in the default calendar's account. A card the owner tapped falls back to the default
+    /// calendar when the account refuses new calendars (some Exchange and read-only setups); `agentOnly` (a preapproved
+    /// run) gets nil instead, so a rule never writes outside "AI 비서".
+    static func target(_ type: EKEntityType, agentOnly: Bool = false, defaults: UserDefaults = AppDefaults.store) -> EKCalendar? {
+        if let c = existing(type, defaults: defaults) { return c }
+        let main = type == .event ? store.defaultCalendarForNewEvents : store.defaultCalendarForNewReminders()
+        let fallback = agentOnly ? nil : main
+        guard let source = main?.source else { return fallback }
+        let c = EKCalendar(for: type, eventStore: store)
+        c.title = title
+        c.source = source
+        guard (try? store.saveCalendar(c, commit: true)) != nil else { return fallback }
+        defaults.set(c.calendarIdentifier, forKey: type == .event ? calendarKey : reminderListKey)
+        return c
+    }
+
+    /// Whether the reminder with this id is in the "AI 비서" list. No access, no list or no such reminder: false.
+    static func inAgentList(_ id: String) -> Bool {
+        guard let list = existing(.reminder), let r = store.calendarItem(withIdentifier: id) as? EKReminder else { return false }
+        return r.calendar?.calendarIdentifier == list.calendarIdentifier
+    }
+
+    static func addEvent(_ d: EventDraft, agentOnly: Bool = false) async throws -> String {
         try await allow(.event)
-        guard let cal = target(.event) else { throw NativeActionError.message(L("일정을 넣을 캘린더가 없어요. 캘린더 앱에서 캘린더를 하나 만들어 주세요.")) }
+        guard let cal = target(.event, agentOnly: agentOnly) else {
+            throw NativeActionError.message(agentOnly ? L("'AI 비서' 캘린더를 만들지 못해서 규칙으로는 넣지 않았어요.")
+                                                      : L("일정을 넣을 캘린더가 없어요. 캘린더 앱에서 캘린더를 하나 만들어 주세요."))
+        }
         let e = EKEvent(eventStore: store)
         e.calendar = cal
         e.title = d.title
@@ -159,9 +175,12 @@ enum AgentCalendar {
         return eventPrefix + (e.eventIdentifier ?? e.calendarItemIdentifier)
     }
 
-    static func addReminder(_ d: ReminderDraft) async throws -> String {
+    static func addReminder(_ d: ReminderDraft, agentOnly: Bool = false) async throws -> String {
         try await allow(.reminder)
-        guard let list = target(.reminder) else { throw NativeActionError.message(L("미리알림을 넣을 목록이 없어요. 미리알림 앱에서 목록을 하나 만들어 주세요.")) }
+        guard let list = target(.reminder, agentOnly: agentOnly) else {
+            throw NativeActionError.message(agentOnly ? L("'AI 비서' 목록을 만들지 못해서 규칙으로는 넣지 않았어요.")
+                                                      : L("미리알림을 넣을 목록이 없어요. 미리알림 앱에서 목록을 하나 만들어 주세요."))
+        }
         let r = EKReminder(eventStore: store)
         r.calendar = list
         r.title = d.title
@@ -174,9 +193,10 @@ enum AgentCalendar {
         return reminderPrefix + r.calendarItemIdentifier
     }
 
-    static func completeReminder(id: String) async throws -> String? {
+    static func completeReminder(id: String, agentOnly: Bool = false) async throws -> String? {
         try await allow(.reminder)
         guard let r = store.calendarItem(withIdentifier: id) as? EKReminder else { throw NativeActionError.message(L("그 미리알림을 찾지 못했어요.")) }
+        if agentOnly && !inAgentList(id) { throw NativeActionError.message(L("'AI 비서' 목록 밖의 미리알림은 규칙으로 완료하지 않아요.")) }
         if r.isCompleted { return nil }
         r.isCompleted = true
         do { try store.save(r, commit: true) } catch { throw NativeActionError.message(L("미리알림을 완료하지 못했어요.")) }
@@ -351,9 +371,11 @@ enum Composer {
 // MARK: - The live implementation
 
 struct NativeActions: NativeActing {
-    func addEvent(_ e: EventDraft) async throws -> String { try await AgentCalendar.addEvent(e) }
-    func addReminder(_ r: ReminderDraft) async throws -> String { try await AgentCalendar.addReminder(r) }
-    func completeReminder(id: String) async throws -> String? { try await AgentCalendar.completeReminder(id: id) }
+    func addEvent(_ e: EventDraft, agentOnly: Bool) async throws -> String { try await AgentCalendar.addEvent(e, agentOnly: agentOnly) }
+    func addReminder(_ r: ReminderDraft, agentOnly: Bool) async throws -> String { try await AgentCalendar.addReminder(r, agentOnly: agentOnly) }
+    func completeReminder(id: String, agentOnly: Bool) async throws -> String? {
+        try await AgentCalendar.completeReminder(id: id, agentOnly: agentOnly)
+    }
     func undo(_ undoID: String) async throws { try await AgentCalendar.undo(undoID) }
     func prepareMessage(to: [String], body: String) async throws { try await Composer.composeMessage(to: to, body: body) }
     func prepareKakao(body: String) async -> String { await Composer.kakaoPrepare(body: body) }

@@ -94,6 +94,20 @@ final class ChatGPTCharacterTests: XCTestCase {
 
     // MARK: Sign-in
 
+    /// 자동 다듬기 sends the creator's photos to ChatGPT: off for anyone who never chose (a new install, or an update from
+    /// a build where it started on), while a choice the owner saved stays.
+    func testAutoRefineIsOffUntilTheOwnerTurnsItOn() {
+        let suite = "auto-refine-\(UUID().uuidString)"
+        let d = UserDefaults(suiteName: suite)!
+        defer { d.removePersistentDomain(forName: suite) }
+        XCTAssertFalse(AppSettings(defaults: d).aiAutoRefine)
+        XCTAssertNil(d.object(forKey: "aiAutoRefine"), "reading never saves the default")
+        d.set(true, forKey: "aiAutoRefine")
+        XCTAssertTrue(AppSettings(defaults: d).aiAutoRefine)
+        AppSettings(defaults: d).aiAutoRefine = false
+        XCTAssertFalse(AppSettings(defaults: d).aiAutoRefine)
+    }
+
     func testOnlyAChatGPTSignInIsAccepted() {
         XCTAssertEqual(client("ok").status(), .ready(codex: dir.appendingPathComponent("codex").path))
         XCTAssertEqual(client("apikey").status(), .apiKey)

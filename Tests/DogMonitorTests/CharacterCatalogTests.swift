@@ -29,6 +29,12 @@ final class CharacterCatalogTests: XCTestCase {
         UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite)
     }
 
+    /// 지운 캐릭터 다시 보기 counts only what would come back (not the retired guitar girl or a deleted pack).
+    func testRestoreCountsOnlyCharactersThatStillExist() {
+        settings.hiddenCharacters = ["cat-a", "girl", "orig-a", "pack-gone"]
+        XCTAssertEqual(settings.restorableHidden, ["cat-a", "orig-a"])
+    }
+
     func testOldSavedValuesStillDecode() throws {
         for (stored, expected) in [("dog", SpriteCharacter.dog), ("custom", .custom), ("cat", .cat), ("original", .original)] {
             XCTAssertEqual(SpriteCharacter(rawValue: stored), expected, stored)
