@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>지원 · 캐릭모니터</title>
+<meta name="description" content="캐릭모니터 설치, 자주 묻는 질문, 문의. CharaMonitor support: install, FAQ and contact.">
+<meta name="theme-color" content="#F5EDE6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#211915" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-256.png">
+<style>
+:root{
+  --apricot:#D8B290; --bg:#F5EDE6; --card:#FFFBF7; --ink:#3B2C26; --muted:#7A665B;
+  --line:#E8DACD; --accent:#B98A62; --soft:#EFE1D3;
+  --shadow:0 1px 2px rgba(59,44,38,.06),0 8px 24px rgba(59,44,38,.07); color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not(.light){ --bg:#211915; --card:#2C221D; --ink:#F5EDE6; --muted:#BFAE9F; --line:#40322B; --accent:#D8B290; --soft:#3A2D26;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark; }
+}
+:root.dark{ --bg:#211915; --card:#2C221D; --ink:#F5EDE6; --muted:#BFAE9F; --line:#40322B; --accent:#D8B290; --soft:#3A2D26;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark; }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Segoe UI","Noto Sans KR",sans-serif;
+  word-break:keep-all; overflow-wrap:break-word}
+.wrap{max-width:820px; margin:0 auto; padding:0 16px}
+a{color:inherit; text-underline-offset:3px; text-decoration-color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent); outline-offset:3px; border-radius:10px}
+nav.top{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:22px 0 0; font-size:15px; flex-wrap:wrap}
+nav.top .home{display:inline-flex; align-items:center; gap:8px; font-weight:700; text-decoration:none}
+nav.top img{width:28px; height:28px; image-rendering:pixelated}
+nav.top .lang a{margin-left:12px}
+header.page{padding:34px 0 10px}
+header.page h1{font-size:34px; line-height:1.25; margin:0 0 8px; letter-spacing:-.02em}
+header.page p{color:var(--muted); margin:0}
+section.card{background:var(--card); border:1px solid var(--line); border-radius:22px; padding:26px 28px; margin:18px 0; box-shadow:var(--shadow)}
+.card h2{font-size:22px; margin:0 0 10px; letter-spacing:-.01em}
+.card h3{font-size:17px; margin:22px 0 6px}
+.card p{margin:6px 0}
+.card ul{margin:6px 0; padding-left:20px}
+.card li{margin:3px 0}
+.why{background:var(--soft); border-radius:14px; padding:14px 16px; margin:12px 0}
+.tbl{overflow-x:auto; margin:12px 0}
+table{border-collapse:collapse; width:100%; font-size:14.5px; min-width:560px}
+th,td{border-bottom:1px solid var(--line); padding:10px 8px; text-align:left; vertical-align:top}
+th{font-size:13px; color:var(--muted); font-weight:700}
+td:first-child{font-weight:700; white-space:nowrap}
+.tag{display:inline-block; font-size:12px; font-weight:700; background:var(--apricot); color:#3B2C26; padding:1px 8px; border-radius:999px; margin-left:4px; white-space:nowrap}
+.muted{color:var(--muted)}
+footer{color:var(--muted); font-size:14px; text-align:center; padding:26px 0 56px}
+footer a{margin:0 6px}
+@media (max-width:640px){ section.card{padding:22px 18px} header.page h1{font-size:28px} }
+details{border-bottom:1px solid var(--line); padding:10px 0}
+details:last-child{border-bottom:0}
+summary{cursor:pointer; font-weight:700}
+details p, details ul{margin:8px 0 2px}
+kbd{font:600 13px/1 -apple-system,BlinkMacSystemFont,sans-serif; background:var(--soft); border:1px solid var(--line); border-bottom-width:2px; border-radius:6px; padding:3px 7px}
+</style>
+<script>
+(function(){var t=new URLSearchParams(location.search).get('theme'); if(t==='dark'||t==='light') document.documentElement.classList.add(t);})();
+</script>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top" aria-label="사이트">
+    <a class="home" href="./"><img src="favicon.png" alt="" width="28" height="28">캐릭모니터</a>
+    <span class="lang"><a href="#ko" lang="ko">한국어</a><a href="#en" lang="en">English</a><a href="privacy.html">개인정보 · Privacy</a></span>
+  </nav>
+
+  <div id="ko">
+  <header class="page">
+    <h1>캐릭모니터 지원</h1>
+    <p>설치, 자주 묻는 질문, 문의를 모았어요.</p>
+  </header>
+
+  <section class="card">
+    <h2>설치</h2>
+    <h3>맥 앱스토어판</h3>
+    <p>Mac App Store에서 '캐릭모니터'를 검색해 받으면 돼요(출시 준비 중이에요). 설치와 업데이트는 앱스토어가 맡아요.</p>
+    <h3>직접판</h3>
+    <p><a href="./">첫 페이지</a>의 안내대로 터미널 한 줄이나 DMG 파일로 설치해요.</p>
+    <h3>소스로 빌드</h3>
+    <p>캐릭모니터는 무료 비영리 오픈 소스예요. <a href="https://github.com/cyw910306-glitch/charamonitor">GitHub 저장소</a>의 README대로 <code>swift build</code> 로 직접 빌드할 수 있어요.</p>
+    <h3>처음 쓰기</h3>
+    <ul>
+      <li>macOS 13 이상, Apple Silicon과 Intel 맥 모두 돼요.</li>
+      <li>메뉴바의 캐릭터를 클릭하면 대시보드가 열려요. 오른쪽 클릭하면 메뉴와 종료가 나와요.</li>
+      <li>캘린더, 메일, 내 AI 연결, 아이폰 알림 같은 기능은 모두 꺼진 채로 시작하고, 설정에서 직접 켜야 동작해요.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>자주 묻는 질문</h2>
+    <details><summary>메뉴바에 캐릭터가 안 보여요</summary>
+      <p>메뉴바 아이콘이 많으면 노치 뒤로 가려질 수 있어요. <kbd>⌘</kbd>를 누른 채 다른 아이콘을 끌어 빼거나 줄여 보세요. 앱이 꺼졌다면 <kbd>⌘</kbd> + <kbd>Space</kbd>로 Spotlight를 열고 '캐릭'을 검색해 다시 켜요.</p></details>
+    <details><summary>맥을 켤 때 자동으로 실행하고 싶어요</summary>
+      <p>대시보드의 설정에서 '로그인 시 자동 실행'을 켜요. 여러분이 켤 때만 등록되고, 끄면 바로 빠져요.</p></details>
+    <details><summary>정말 무료인가요?</summary>
+      <p>네. 모든 기능이 무료이고 결제, 후원, 잠긴 기능이 없어요. 라이선스는 PolyForm Noncommercial 1.0.0이라 개인적·비영리 목적으로 쓰고 고치고 나눌 수 있지만, 판매나 상업적 사용은 안 돼요.</p></details>
+    <details><summary>내 그림으로 캐릭터를 만들 수 있나요?</summary>
+      <p>캐릭터 선택의 '새 캐릭터 만들기'에 사진을 넣거나, 내 그림 파일로 캐릭터 팩을 만들어 '팩 폴더 열기'로 연 폴더에 넣으면 돼요. 팩 형식은 저장소의 <code>docs/PACKS.md</code>에 있어요. 직접 권리를 가진 이미지를 사용해 주세요.</p></details>
+    <details><summary>내 AI 연결은 요금이 드나요?</summary>
+      <p>여러분이 넣은 Claude, ChatGPT, Gemini API 키로 쓴 만큼 그 회사가 여러분 계정에 청구해요. 캐릭모니터는 그 요금을 받지 않고, 키는 이 맥의 키체인에만 저장해요. 무엇을 보내는지는 <a href="privacy.html">개인정보 처리방침</a>에 적어 두었어요.</p></details>
+    <details><summary>앱스토어판과 직접판은 무엇이 다른가요?</summary>
+      <p>둘 다 무료예요. 앱스토어판은 샌드박스 안에서 돌고, 업데이트를 Apple이 맡아요. 다른 앱 데이터를 읽거나 맥 전체를 다뤄야 하는 기능(클리너, 문자·알림 읽기, 에이전트 브라우저, 이 맥의 AI 프로그램 연결 등)은 직접판에만 있어요.</p></details>
+    <details><summary>앱을 지우고 데이터도 없애고 싶어요</summary>
+      <p>메뉴바 캐릭터를 오른쪽 클릭해 종료하고, 응용 프로그램 폴더의 앱을 휴지통으로 옮겨요. 남은 설정 폴더 위치는 <a href="privacy.html#ko">개인정보 처리방침의 보관과 삭제</a>에 있어요.</p></details>
+    <details><summary>맥이 느려지지 않나요?</summary>
+      <p>평소 CPU 0.3% 정도로 가볍게 돌아가요. 다른 앱을 끄거나 파일을 지우지 않아요.</p></details>
+  </section>
+
+  <section class="card">
+    <h2>문의</h2>
+    <p>버그 제보와 기능 제안은 <a href="https://github.com/cyw910306-glitch/charamonitor/issues">GitHub 이슈</a>나 <a href="mailto:cyw910306@gmail.com?subject=%EC%BA%90%EB%A6%AD%EB%AA%A8%EB%8B%88%ED%84%B0%20%EB%AC%B8%EC%9D%98">cyw910306@gmail.com</a> 으로 보내 주세요.</p>
+    <div class="why">빨리 도와드릴 수 있게 앱 버전(설정 맨 아래), macOS 버전, 앱스토어판인지 직접판인지, 어떤 상황에서 생겼는지, 가능하면 스크린샷을 함께 보내 주세요. API 키나 비밀번호는 절대 보내지 마세요.</div>
+  </section>
+  </div>
+
+  <div id="en" lang="en">
+  <header class="page">
+    <h1>CharaMonitor Support</h1>
+    <p>Install, FAQ and contact.</p>
+  </header>
+
+  <section class="card">
+    <h2>Install</h2>
+    <h3>Mac App Store version</h3>
+    <p>Search for "CharaMonitor" on the Mac App Store (coming soon). The App Store handles installs and updates.</p>
+    <h3>Direct version</h3>
+    <p>Follow the steps on the <a href="./">home page</a>: one Terminal line or the DMG file.</p>
+    <h3>Build from source</h3>
+    <p>CharaMonitor is free, non-commercial open source. Build it with <code>swift build</code> as the README in the <a href="https://github.com/cyw910306-glitch/charamonitor">GitHub repository</a> explains.</p>
+    <h3>Getting started</h3>
+    <ul>
+      <li>Requires macOS 13 or later, on Apple silicon or Intel.</li>
+      <li>Click the character in the menu bar to open the dashboard. Right-click for the menu and Quit.</li>
+      <li>Calendar, mail, Connect my AI and iPhone notifications all start off; turn them on in Settings.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>FAQ</h2>
+    <details><summary>I can't see the character in the menu bar</summary>
+      <p>With many menu bar icons it can hide behind the notch. Hold <kbd>⌘</kbd> and drag other icons out to make room. If the app quit, open Spotlight with <kbd>⌘</kbd> + <kbd>Space</kbd> and search for CharaMonitor.</p></details>
+    <details><summary>How do I start it at login?</summary>
+      <p>Turn on "Open at login" in the dashboard's Settings. It is added only when you turn it on and removed when you turn it off.</p></details>
+    <details><summary>Is it really free?</summary>
+      <p>Yes. Every feature is free, with no payments, donations or locked features. It is licensed under PolyForm Noncommercial 1.0.0: you may use, change and share it for personal and non-commercial purposes, but not sell it or use it commercially.</p></details>
+    <details><summary>Can I make a character from my own art?</summary>
+      <p>Add a photo in "New character" in the character picker, or make a character pack from your own image files and put it in the folder "Open pack folder" opens. The pack format is in <code>docs/PACKS.md</code> in the repository. Please use images you have the rights to.</p></details>
+    <details><summary>Does Connect my AI cost money?</summary>
+      <p>The AI company bills your own account for what you use with your Claude, ChatGPT or Gemini API key. CharaMonitor takes no part of it, and the key stays in this Mac's Keychain. See the <a href="privacy.html#en">Privacy Policy</a> for exactly what is sent.</p></details>
+    <details><summary>How is the App Store version different?</summary>
+      <p>Both are free. The App Store version runs in the macOS sandbox, and Apple handles its updates. Features that need other apps' data or the whole Mac (the cleaner, reading messages and notifications, the agent browser, AI apps signed in on your Mac and so on) are only in the direct version.</p></details>
+    <details><summary>How do I remove the app and its data?</summary>
+      <p>Right-click the character and quit, then move the app from Applications to the Trash. The leftover settings folders are listed under Retention and deletion in the <a href="privacy.html#en">Privacy Policy</a>.</p></details>
+    <details><summary>Will it slow my Mac down?</summary>
+      <p>It usually uses about 0.3% CPU. It never quits other apps or deletes files.</p></details>
+  </section>
+
+  <section class="card">
+    <h2>Contact</h2>
+    <p>For bugs and feature ideas, open a <a href="https://github.com/cyw910306-glitch/charamonitor/issues">GitHub issue</a> or email <a href="mailto:cyw910306@gmail.com?subject=CharaMonitor%20support">cyw910306@gmail.com</a>.</p>
+    <div class="why">To help us help you faster, include the app version (bottom of Settings), your macOS version, whether you use the App Store or direct version, what happened, and a screenshot if you can. Never send API keys or passwords.</div>
+  </section>
+  </div>
+
+  <footer>
+    <a href="./">캐릭모니터</a>·<a href="support.html">지원 · Support</a>·<a href="privacy.html">개인정보 처리방침 · Privacy</a>
+  </footer>
+</div>
+</body>
+</html>

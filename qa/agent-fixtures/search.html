@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>검색 - 테스트몰</title></head>
+<body>
+<form id="f" action="https://search.example.invalid/search" method="get">
+  <input type="search" name="q" placeholder="검색어">
+  <button>검색</button>
+</form>
+<select id="sort"><option value="rank">랭킹순</option><option value="low">낮은가격순</option></select>
+<div id="out"></div>
+<p>오늘의 특가: 하기스 맥스드라이 3단계 <a href="/product/9">상품 보기</a></p>
+<script>
+document.getElementById('f').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('out').textContent = '검색 결과: ' + e.target.q.value;
+});
+document.getElementById('sort').addEventListener('change', e => { document.title = '정렬 ' + e.target.value; });
+</script>
+</body></html>

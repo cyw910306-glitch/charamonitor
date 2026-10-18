@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>장바구니 - 테스트몰</title>
+<style>.hide{display:none} .ghost{width:0;height:0;overflow:hidden;padding:0;border:0} .sr{position:absolute;opacity:0;width:1px;height:1px}
+.icon{width:32px;height:32px}</style></head>
+<body>
+<nav><a href="/">홈</a> <a href="/mypage/order/list">주문 내역</a></nav>
+<h1>장바구니</h1>
+<div class="item">하기스 네이처메이드 4단계 <b>32,900원</b>
+  <button id="add" onclick="this.dataset.n=(+(this.dataset.n||0))+1">장바구니 담기</button>
+  <button id="coupon" onclick="this.textContent='쿠폰 받음'">쿠폰 받기</button>
+  <label><input type="checkbox" class="sr" id="agree"> 선택</label>
+  <select id="qty"><option>1개</option><option>2개</option><option value="3">3개</option></select>
+</div>
+<button class="hide">숨은 버튼</button>
+<button class="ghost">크기 없는 버튼</button>
+<div aria-hidden="true"><button>가린 버튼</button></div>
+<a href="https://shop.example.invalid/product/2" target="_blank">다른 상품 보기</a>
+<form action="/checkout" method="post"><button class="icon" aria-label=""><svg width="24" height="24"><circle cx="12" cy="12" r="10"/></svg></button></form>
+<button id="buy">구매하기</button>
+</body></html>

@@ -1,0 +1,56 @@
+# xcodegen spec for the Mac App Store build (docs/appstore/xcode-archive.md, route B).
+# `xcodegen generate` writes CharaMonitor.xcodeproj; Product > Archive then uploads from the Organizer. The plain
+# build stays SwiftPM.
+# Not generated here yet (xcodegen is not installed on this Mac): check the first `xcodegen generate` by hand.
+name: CharaMonitor
+options:
+  deploymentTarget:
+    macOS: "13.0"
+  developmentLanguage: ko
+targets:
+  CharaMonitor:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/DogMonitor
+      - path: Resources/MAS/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_NAME: CharaMonitor
+        PRODUCT_MODULE_NAME: DogMonitor
+        PRODUCT_BUNDLE_IDENTIFIER: com.jelly.charamonitor.mas
+        INFOPLIST_FILE: Resources/MAS/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: Resources/MAS/CharaMonitor.entitlements
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""   # the 10-character Team ID from developer.apple.com > Membership
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: MAS
+        SWIFT_VERSION: "5.0"
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        # The script below runs the built binary and writes into the bundle.
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+    postBuildScripts:
+      - name: Photo, app name, English strings and icon
+        basedOnDependencyAnalysis: false
+        script: |
+          set -e
+          RES="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH"
+          cp "$SRCROOT/my-dog/jelly-avatar.jpg" "$RES/jelly.jpg"
+          for lang in ko en Base; do
+              mkdir -p "$RES/$lang.lproj"
+              printf '"CFBundleDisplayName" = "캐릭모니터";\n"CFBundleName" = "캐릭모니터";\n' > "$RES/$lang.lproj/InfoPlist.strings"
+          done
+          if [ -f "$SRCROOT/Resources/en.lproj/Localizable.strings" ]; then
+              cp "$SRCROOT/Resources/en.lproj/Localizable.strings" "$RES/en.lproj/Localizable.strings"
+          fi
+          "$SRCROOT/scripts/make_icon.sh" "$TARGET_BUILD_DIR/$EXECUTABLE_PATH" "$RES/AppIcon.icns"
+schemes:
+  CharaMonitor:
+    build:
+      targets:
+        CharaMonitor: all
+    run:
+      config: Debug
+    archive:
+      config: Release

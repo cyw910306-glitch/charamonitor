@@ -1,0 +1,4138 @@
+[
+ {
+  "key": "%@ 모습이 담긴 그림을 골라 주세요",
+  "en": "Pick a picture that shows %@"
+ },
+ {
+  "key": "AI가 자는 모습·뛰는 모습을 그리는 중… 먼저 저장해도 다 그리면 반영돼요",
+  "en": "AI is drawing the sleeping and running poses… You can save now. They'll show up when done"
+ },
+ {
+  "key": "AI가 비어 있던 모습을 그렸어요 ('AI' 표시)",
+  "en": "AI drew the missing poses (marked \"AI\")"
+ },
+ {
+  "key": "AI 다듬기를 못 해서 사진으로 만들었어요",
+  "en": "AI refine didn't work, so we used the photo"
+ },
+ {
+  "key": "스타일",
+  "en": "Style"
+ },
+ {
+  "key": "AI가 그린 도트 그림은 도트로 보여요",
+  "en": "Pixel art drawn by AI shows as pixel art"
+ },
+ {
+  "key": "실사: 잘라낸 사진을 그대로 고해상도로 움직여요",
+  "en": "Realistic: moves the cut-out photo as is, in high resolution"
+ },
+ {
+  "key": "크기",
+  "en": "Size"
+ },
+ {
+  "key": "외곽선",
+  "en": "Outline"
+ },
+ {
+  "key": "밝은 메뉴바 미리보기",
+  "en": "Light menu bar preview"
+ },
+ {
+  "key": "어두운 메뉴바 미리보기",
+  "en": "Dark menu bar preview"
+ },
+ {
+  "key": "상황 · %@",
+  "en": "Situation · %@"
+ },
+ {
+  "key": "배고플 때",
+  "en": "When hungry"
+ },
+ {
+  "key": "밥 먹을 때",
+  "en": "When eating"
+ },
+ {
+  "key": "신날 때",
+  "en": "When excited"
+ },
+ {
+  "key": "삭제…",
+  "en": "Delete…"
+ },
+ {
+  "key": "변경 저장",
+  "en": "Save changes"
+ },
+ {
+  "key": "저장하고 메뉴바에 두기",
+  "en": "Save and put in menu bar"
+ },
+ {
+  "key": "캐릭터는 %lld개까지 만들 수 있어요.",
+  "en": "You can make up to %lld characters."
+ },
+ {
+  "key": "저장하지 못했어요: %@",
+  "en": "Couldn't save: %@"
+ },
+ {
+  "key": "지우지 못했어요: %@",
+  "en": "Couldn't delete: %@"
+ },
+ {
+  "key": "쉬고 잘 때",
+  "en": "When resting and sleeping"
+ },
+ {
+  "key": "걷고 달릴 때",
+  "en": "When walking and running"
+ },
+ {
+  "key": "아주 바쁠 때",
+  "en": "When very busy"
+ },
+ {
+  "key": "%@ %@ 을(를) 실행하는 항목이에요.",
+  "en": "Runs %2$@ (%1$@)."
+ },
+ {
+  "key": " 내가 만든 항목이에요. 이 작업이 멈춰도 괜찮은지 확인해 주세요.",
+  "en": " You made this item. Make sure it's OK for this job to stop."
+ },
+ {
+  "key": " 지금 실행 중이라 끝난 뒤에 끌 수 있어요.",
+  "en": " It's running now, so it can be turned off after it finishes."
+ },
+ {
+  "key": " 끄면 보관 폴더(LaunchAgents 안)에 옮겨 두어서 다시 켜기로 되돌릴 수 있어요.",
+  "en": " Turning it off moves it to an archive folder (inside LaunchAgents), so you can turn it back on later."
+ },
+ {
+  "key": "앱 %lld개 종료 · 파일 크기를 세는 중",
+  "en": "Quit apps (%lld) · Counting file sizes"
+ },
+ {
+  "key": "앱 %lld개 종료",
+  "en": "Quit apps (%lld)"
+ },
+ {
+  "key": "파일 %@ 정리",
+  "en": "Clean up %@ of files"
+ },
+ {
+  "key": "휴지통 비움",
+  "en": "Empty Trash"
+ },
+ {
+  "key": "프로세스 %lld개 멈춤",
+  "en": "Stop processes (%lld)"
+ },
+ {
+  "key": "클리너",
+  "en": "Cleaner"
+ },
+ {
+  "key": "맥을 살펴보는 중이에요",
+  "en": "Checking your Mac"
+ },
+ {
+  "key": "정리하는 중이에요. 앱이 저장을 물으면 답해 주세요",
+  "en": "Cleaning up. If an app asks to save, please answer it"
+ },
+ {
+  "key": "안 쓰는 앱 종료",
+  "en": "Quit unused apps"
+ },
+ {
+  "key": "지금 켜진 다른 앱이 없어요",
+  "en": "No other apps are open right now"
+ },
+ {
+  "key": "30분 넘게 안 쓴 앱, 10분 넘게 안 쓰면서 CPU를 30% 넘게 쓰는 앱을 골라 뒀어요. 자물쇠를 누르면 보호돼요.",
+  "en": "We picked apps unused for over 30 minutes, and apps unused for over 10 minutes using more than 30% CPU. Click the lock to protect one."
+ },
+ {
+  "key": "폭주 프로세스",
+  "en": "Runaway processes"
+ },
+ {
+  "key": "CPU를 붙잡고 도는 백그라운드 프로세스가 없어요",
+  "en": "No background processes are hogging the CPU"
+ },
+ {
+  "key": "3분 넘게 CPU를 절반 넘게 쓰는 백그라운드 프로세스예요. 앱·터미널·Claude Code·로그인 항목이 띄운 건 빼요. 켜 둔 서비스일 수 있어 미리 골라 두지 않아요. 고르면 종료 요청만 보내요.",
+  "en": "Background processes using more than half the CPU for over 3 minutes. Ones started by apps, Terminal, Claude Code, or Login Items are left out. They may be services you turned on, so none are preselected. Selecting one only sends a quit request."
+ },
+ {
+  "key": "정리할 파일",
+  "en": "Files to clean up"
+ },
+ {
+  "key": "정리할 파일이 없어요",
+  "en": "No files to clean up"
+ },
+ {
+  "key": "크기를 세는 중이에요",
+  "en": "Counting sizes"
+ },
+ {
+  "key": "로그인·백그라운드 항목",
+  "en": "Login and background items"
+ },
+ {
+  "key": "내가 설치한 백그라운드 항목이 없어요",
+  "en": "No background items you installed"
+ },
+ {
+  "key": "시스템 설정에서 로그인 항목 열기",
+  "en": "Open Login Items in System Settings"
+ },
+ {
+  "key": "~/Library/LaunchAgents 에 있는 항목이에요. 끄기 전에 한 번 물어보고, 실행 중인 항목은 끝난 뒤에 꺼요. 끄면 보관 폴더에 옮겨 두어서 다시 켤 수 있어요. 정리하기에는 안 들어가요. 앱이 등록한 로그인 항목은 시스템 설정에서 봐요.",
+  "en": "Items in ~/Library/LaunchAgents. We ask once before turning one off, and running items are turned off after they finish. Turned-off items move to an archive folder so you can turn them back on. Clean Up doesn't include these. See Login Items registered by apps in System Settings."
+ },
+ {
+  "key": "내가 만든 항목",
+  "en": "Made by you"
+ },
+ {
+  "key": "지금 실행 중이라 끝난 뒤에 끌 수 있어요",
+  "en": "It's running now, so it can be turned off after it finishes"
+ },
+ {
+  "key": "%lld개 선택",
+  "en": "%lld selected"
+ },
+ {
+  "key": "보호 풀기",
+  "en": "Unprotect"
+ },
+ {
+  "key": "보호하기(종료 안 함)",
+  "en": "Protect (don't quit)"
+ },
+ {
+  "key": "%@ 보호 풀기",
+  "en": "Unprotect %@"
+ },
+ {
+  "key": "%@ 보호하기",
+  "en": "Protect %@"
+ },
+ {
+  "key": "재시동…",
+  "en": "Restart…"
+ },
+ {
+  "key": "프로젝트 %lld개 보기 · 하나씩 고를 수 있어요",
+  "en": "See projects (%lld) · You can pick each one"
+ },
+ {
+  "key": "정리했어요",
+  "en": "All cleaned up"
+ },
+ {
+  "key": "%lld개 · %@",
+  "en": "%lld · %@"
+ },
+ {
+  "key": "종료한 앱",
+  "en": "Quit apps"
+ },
+ {
+  "key": "%@ (저장 안 한 문서가 있을 수 있어요)",
+  "en": "%@ (may have unsaved documents)"
+ },
+ {
+  "key": "확인 창이 떴어요",
+  "en": "A confirmation popped up"
+ },
+ {
+  "key": "멈춘 프로세스",
+  "en": "Stopped processes"
+ },
+ {
+  "key": "%@ (종료 요청을 받지 않았어요. 강제로 끄지는 않아요)",
+  "en": "%@ (didn't accept the quit request. We won't force it)"
+ },
+ {
+  "key": "아직 도는 프로세스",
+  "en": "Still running"
+ },
+ {
+  "key": "%@ (이미 꺼졌거나 요청을 받지 않았어요)",
+  "en": "%@ (already quit or didn't accept the request)"
+ },
+ {
+  "key": "종료하지 않았어요",
+  "en": "Not quit"
+ },
+ {
+  "key": " · 휴지통 비움",
+  "en": " · Trash emptied"
+ },
+ {
+  "key": "확보한 공간",
+  "en": "Space freed"
+ },
+ {
+  "key": "메모리 사용",
+  "en": "Memory used"
+ },
+ {
+  "key": "다시 검사",
+  "en": "Scan again"
+ },
+ {
+  "key": "정리하기",
+  "en": "Clean up"
+ },
+ {
+  "key": "한 번 더 누르는 건 저장 안 한 작업을 지키기 위해서예요",
+  "en": "The second click is there to protect unsaved work"
+ },
+ {
+  "key": "%lld시간 %lld분",
+  "en": "%lldh %lldm"
+ },
+ {
+  "key": "%lld일 %lld시간",
+  "en": "%lldd %lldh"
+ },
+ {
+  "key": "%lld일",
+  "en": "%lldd"
+ },
+ {
+  "key": "사용량",
+  "en": "Usage"
+ },
+ {
+  "key": "최근 1분 기록",
+  "en": "Last minute"
+ },
+ {
+  "key": "켜진 지 %@",
+  "en": "Up %@"
+ },
+ {
+  "key": "재시동 권장",
+  "en": "Restart soon"
+ },
+ {
+  "key": "맥이 바빠요 · 클리너로 정리하기",
+  "en": "Your Mac is busy · Clean up with Cleaner"
+ },
+ {
+  "key": "새 버전 %@ 나왔어요 · 업데이트",
+  "en": "Version %@ is out · Update"
+ },
+ {
+  "key": "보안 점검이 필요해요",
+  "en": "Security check needed"
+ },
+ {
+  "key": "시스템: %@",
+  "en": "System: %@"
+ },
+ {
+  "key": "사용자: %@",
+  "en": "User: %@"
+ },
+ {
+  "key": "대기: %@",
+  "en": "Idle: %@"
+ },
+ {
+  "key": "메모리: %@",
+  "en": "Memory: %@"
+ },
+ {
+  "key": "압력: %@",
+  "en": "Pressure: %@"
+ },
+ {
+  "key": "앱 메모리: %@",
+  "en": "App memory: %@"
+ },
+ {
+  "key": "와이어드 메모리: %@",
+  "en": "Wired memory: %@"
+ },
+ {
+  "key": "압축됨: %@",
+  "en": "Compressed: %@"
+ },
+ {
+  "key": "저장 용량: %@ 사용됨",
+  "en": "Storage: %@ used"
+ },
+ {
+  "key": "배터리: %@",
+  "en": "Battery: %@"
+ },
+ {
+  "key": "배터리",
+  "en": "Battery"
+ },
+ {
+  "key": "전원 공급원: %@",
+  "en": "Power source: %@"
+ },
+ {
+  "key": "전원 어댑터",
+  "en": "Power adapter"
+ },
+ {
+  "key": "성능 최대치: %@",
+  "en": "Maximum capacity: %@"
+ },
+ {
+  "key": "사이클 수: %lld",
+  "en": "Cycle count: %lld"
+ },
+ {
+  "key": "온도: %@",
+  "en": "Temperature: %@"
+ },
+ {
+  "key": "네트워크: %@",
+  "en": "Network: %@"
+ },
+ {
+  "key": "연결 안 됨",
+  "en": "Not connected"
+ },
+ {
+  "key": "로컬 IP: %@",
+  "en": "Local IP: %@"
+ },
+ {
+  "key": "업로드: %@",
+  "en": "Upload: %@"
+ },
+ {
+  "key": "다운로드: %@",
+  "en": "Download: %@"
+ },
+ {
+  "key": "보안",
+  "en": "Security"
+ },
+ {
+  "key": "캐릭터 선택",
+  "en": "Choose character"
+ },
+ {
+  "key": "설정",
+  "en": "Settings"
+ },
+ {
+  "key": "더보기",
+  "en": "More"
+ },
+ {
+  "key": "충전 완료",
+  "en": "Fully charged"
+ },
+ {
+  "key": "충전 중 · %@ 남음",
+  "en": "Charging · %@ left"
+ },
+ {
+  "key": "남은 시간: %@",
+  "en": "Time remaining: %@"
+ },
+ {
+  "key": "조금 따뜻해요",
+  "en": "A bit warm"
+ },
+ {
+  "key": "뜨거워요",
+  "en": "Hot"
+ },
+ {
+  "key": "아주 뜨거워요",
+  "en": "Very hot"
+ },
+ {
+  "key": "동물",
+  "en": "Animals"
+ },
+ {
+  "key": "캐릭터",
+  "en": "Characters"
+ },
+ {
+  "key": "지운 캐릭터 %lld개 다시 보기",
+  "en": "Show %lld deleted characters"
+ },
+ {
+  "key": "목록에서 지우기",
+  "en": "Remove from list"
+ },
+ {
+  "key": "내 그림으로 만든 캐릭터",
+  "en": "A character made from your picture"
+ },
+ {
+  "key": "고양이",
+  "en": "Cat"
+ },
+ {
+  "key": "직접 꾸민 캐릭터",
+  "en": "A character you designed"
+ },
+ {
+  "key": "강아지",
+  "en": "Dog"
+ },
+ {
+  "key": "견종",
+  "en": "Dog breeds"
+ },
+ {
+  "key": "묘종",
+  "en": "Cat breeds"
+ },
+ {
+  "key": "미리보기 열기",
+  "en": "Open preview"
+ },
+ {
+  "key": "고치거나 지우려면 캐릭터를 오른쪽 클릭하세요",
+  "en": "Right-click a character to edit or delete it"
+ },
+ {
+  "key": "꾸미기 · 삭제…",
+  "en": "Customize · Delete…"
+ },
+ {
+  "key": "준비 중",
+  "en": "Coming soon"
+ },
+ {
+  "key": "최대 %lld개 · 하나를 지우면 새로 만들 수 있어요",
+  "en": "Up to %lld · Delete one to make a new one"
+ },
+ {
+  "key": "새 캐릭터 만들기, 최대 개수라 지금은 만들 수 없음",
+  "en": "Make a new character, unavailable at the maximum"
+ },
+ {
+  "key": "상황마다 다른 모션으로 움직여요",
+  "en": "Moves with different motions for each situation"
+ },
+ {
+  "key": "이 캐릭터 쓰기",
+  "en": "Use this character"
+ },
+ {
+  "key": "CPU 5% 미만",
+  "en": "CPU under 5%"
+ },
+ {
+  "key": "CPU 85% 이상",
+  "en": "CPU 85% or more"
+ },
+ {
+  "key": "배터리 20% 이하",
+  "en": "Battery 20% or less"
+ },
+ {
+  "key": "상황별 모션",
+  "en": "Situation motions"
+ },
+ {
+  "key": "캐릭터에 없는 모션은 건너뛰고 평소 모습을 보여 줘요.",
+  "en": "Motions the character doesn't have are skipped and its usual look shows."
+ },
+ {
+  "key": "기본",
+  "en": "Default"
+ },
+ {
+  "key": "꺼짐",
+  "en": "Off"
+ },
+ {
+  "key": "%@ (이 캐릭터엔 없음)",
+  "en": "%@ (not in this character)"
+ },
+ {
+  "key": "%@ 빈도",
+  "en": "%@ frequency"
+ },
+ {
+  "key": "밥 찾기",
+  "en": "Looking for food"
+ },
+ {
+  "key": "냠냠 먹기",
+  "en": "Munching"
+ },
+ {
+  "key": "특수 기술",
+  "en": "Special move"
+ },
+ {
+  "key": "미션",
+  "en": "Missions"
+ },
+ {
+  "key": "상점",
+  "en": "Shop"
+ },
+ {
+  "key": "집중",
+  "en": "Focus"
+ },
+ {
+  "key": "일기",
+  "en": "Diary"
+ },
+ {
+  "key": "다음 레벨까지",
+  "en": "To next level"
+ },
+ {
+  "key": "%lld 코인",
+  "en": "%lld coins"
+ },
+ {
+  "key": "밥 주고 데려오기",
+  "en": "Feed and bring back"
+ },
+ {
+  "key": "밥 주기",
+  "en": "Feed"
+ },
+ {
+  "key": "쓰다듬기",
+  "en": "Pet"
+ },
+ {
+  "key": "씻기기",
+  "en": "Wash"
+ },
+ {
+  "key": "오늘의 미션",
+  "en": "Today's missions"
+ },
+ {
+  "key": "출석 %lld일째",
+  "en": "Check-in day %lld"
+ },
+ {
+  "key": "진화",
+  "en": "Evolution"
+ },
+ {
+  "key": "아직",
+  "en": "Not yet"
+ },
+ {
+  "key": "얻음",
+  "en": "Earned"
+ },
+ {
+  "key": "원래 캐릭터 그림은 그대로, 머리 위에 장식이 더해져요.",
+  "en": "The original character art stays the same, with a decoration added on its head."
+ },
+ {
+  "key": "코인으로만 사요. 뽑기는 없어요.",
+  "en": "Bought with coins only. No loot boxes."
+ },
+ {
+  "key": "가구",
+  "en": "Furniture"
+ },
+ {
+  "key": "벽지",
+  "en": "Wallpaper"
+ },
+ {
+  "key": "바닥",
+  "en": "Floor"
+ },
+ {
+  "key": "바꾸기",
+  "en": "Use"
+ },
+ {
+  "key": "사용 중",
+  "en": "In use"
+ },
+ {
+  "key": "벽",
+  "en": "Wall"
+ },
+ {
+  "key": "벽 %lld",
+  "en": "Wall %lld"
+ },
+ {
+  "key": "바닥 %lld",
+  "en": "Floor %lld"
+ },
+ {
+  "key": "바닥재",
+  "en": "Flooring"
+ },
+ {
+  "key": "상점에서 산 것만 고를 수 있어요.",
+  "en": "You can only pick things you bought in the shop."
+ },
+ {
+  "key": "비어 있음",
+  "en": "Empty"
+ },
+ {
+  "key": "산 가구가 없어요",
+  "en": "No furniture bought yet"
+ },
+ {
+  "key": "비우기",
+  "en": "Clear"
+ },
+ {
+  "key": "25분 집중, 5분 휴식",
+  "en": "Focus 25 minutes, rest 5 minutes"
+ },
+ {
+  "key": "쉬는 시간 · 기지개 켜요",
+  "en": "Break time · Stretching"
+ },
+ {
+  "key": "집중 중 · 끝나면 코인 15개",
+  "en": "Focusing · 15 coins when done"
+ },
+ {
+  "key": "집중 시작",
+  "en": "Start focus"
+ },
+ {
+  "key": "그만하기",
+  "en": "Stop"
+ },
+ {
+  "key": "오늘 집중 %lld번",
+  "en": "Focus sessions today: %lld"
+ },
+ {
+  "key": "20-20-20 눈 휴식 알림",
+  "en": "20-20-20 eye break reminder"
+ },
+ {
+  "key": "화면을 20분 보면 캐릭터가 말풍선으로 20초 동안 6미터 먼 곳을 보자고 알려 줘요.",
+  "en": "After 20 minutes of screen time, your character reminds you in a speech bubble to look 20 feet away for 20 seconds."
+ },
+ {
+  "key": "성장 일기",
+  "en": "Growth diary"
+ },
+ {
+  "key": "오늘",
+  "en": "Today"
+ },
+ {
+  "key": "하루가 지나면 여기에 한 줄씩 적혀요.",
+  "en": "After each day, a line gets written here."
+ },
+ {
+  "key": "%@ 장식",
+  "en": "%@ decoration"
+ },
+ {
+  "key": "배가 너무 고파서 산책 나갔어요.\n밥을 주면 돌아올게요.",
+  "en": "I got so hungry I went for a walk.\nFeed me and I'll come back."
+ },
+ {
+  "key": "돌아다니는 중",
+  "en": "wandering around"
+ },
+ {
+  "key": "배고파하는 중",
+  "en": "hungry"
+ },
+ {
+  "key": "자는 중",
+  "en": "sleeping"
+ },
+ {
+  "key": "책상에서 집중하는 중",
+  "en": "focusing at the desk"
+ },
+ {
+  "key": "확인",
+  "en": "OK"
+ },
+ {
+  "key": "AI 자동 다듬기",
+  "en": "AI auto-refine"
+ },
+ {
+  "key": "실시간 백신이 아니라, macOS 기본 보호가 켜져 있는지와 악성코드가 숨기 쉬운 곳을 점검해요.",
+  "en": "Not a real-time antivirus. It checks that macOS built-in protections are on and looks where malware likes to hide."
+ },
+ {
+  "key": "맥을 점검하는 중이에요",
+  "en": "Checking your Mac"
+ },
+ {
+  "key": "기본 보호",
+  "en": "Built-in protection"
+ },
+ {
+  "key": "수상한 자동 실행 항목",
+  "en": "Suspicious startup items"
+ },
+ {
+  "key": "Apple 것 말고 등록된 자동 실행 항목이 없어요",
+  "en": "No startup items registered other than Apple's"
+ },
+ {
+  "key": "~/Library/LaunchAgents, /Library/LaunchAgents, /Library/LaunchDaemons 에서 Apple 서명 항목을 뺀 것이에요. 끄기는 파일을 옮겨 두는 거라 다시 켤 수 있어요.",
+  "en": "Items in ~/Library/LaunchAgents, /Library/LaunchAgents, and /Library/LaunchDaemons, minus Apple-signed ones. Turning one off just moves the file, so you can turn it back on."
+ },
+ {
+  "key": "서명이 없는 앱",
+  "en": "Unsigned apps"
+ },
+ {
+  "key": "응용 프로그램 폴더의 앱은 모두 서명돼 있어요",
+  "en": "All apps in the Applications folder are signed"
+ },
+ {
+  "key": "최근 차단 기록",
+  "en": "Recent blocks"
+ },
+ {
+  "key": "최근 7일 차단 기록 없음",
+  "en": "No blocks in the last 7 days"
+ },
+ {
+  "key": "모든 사용자",
+  "en": "All users"
+ },
+ {
+  "key": "시스템 데몬",
+  "en": "System daemon"
+ },
+ {
+  "key": "Finder에서 보기",
+  "en": "Show in Finder"
+ },
+ {
+  "key": "관리자 권한으로 끄기",
+  "en": "Turn off as administrator"
+ },
+ {
+  "key": "모든 사용자 항목이라 지우거나 끄려면 관리자 암호가 필요해요",
+  "en": "This is an all-users item, so deleting or turning it off needs an administrator password"
+ },
+ {
+  "key": "%@ 점검 · %@초",
+  "en": "Checked %@ · %@s"
+ },
+ {
+  "key": "메뉴바에 CPU % 표시",
+  "en": "Show CPU % in menu bar"
+ },
+ {
+  "key": "로그인 시 자동 실행",
+  "en": "Open at login"
+ },
+ {
+  "key": "새 캐릭터에 사진을 넣으면 비워 둔 모습(자는·뛰는 모습)을 AI가 그려요. 그릴 때만 사진이 %@로 보내져요. 캐릭모니터는 사진을 저장하지 않아요.",
+  "en": "When you add a photo to a new character, AI draws the poses you left empty (sleeping, running). The photo is sent to %@ only while drawing. CharaMonitor doesn't store your photo."
+ },
+ {
+  "key": "설정하지 못했어요: %@",
+  "en": "Couldn't set it up: %@"
+ },
+ {
+  "key": "%@ 캐릭터를 목록에서 지울까요?",
+  "en": "Remove %@ from the list?"
+ },
+ {
+  "key": "색",
+  "en": "Color"
+ },
+ {
+  "key": "기본 색으로",
+  "en": "Reset to default colors"
+ },
+ {
+  "key": "코색",
+  "en": "Nose color"
+ },
+ {
+  "key": "귀",
+  "en": "Ears"
+ },
+ {
+  "key": "꼬리",
+  "en": "Tail"
+ },
+ {
+  "key": "주둥이",
+  "en": "Muzzle"
+ },
+ {
+  "key": "체형",
+  "en": "Build"
+ },
+ {
+  "key": "무늬",
+  "en": "Markings"
+ },
+ {
+  "key": "무늬색",
+  "en": "Marking color"
+ },
+ {
+  "key": "복슬복슬한 털",
+  "en": "Fluffy coat"
+ },
+ {
+  "key": "털 모양",
+  "en": "Coat"
+ },
+ {
+  "key": "기본 캐릭터라 완전히 지워지지는 않고, 캐릭터 목록에서만 빠져요.",
+  "en": "It's a built-in character, so it isn't fully deleted. It's just removed from the character list."
+ },
+ {
+  "key": "목록에서 지우기…",
+  "en": "Remove from list…"
+ },
+ {
+  "key": "사진 넣기…",
+  "en": "Add photo…"
+ },
+ {
+  "key": "사진 바꾸기…",
+  "en": "Change photo…"
+ },
+ {
+  "key": "사진 빼기",
+  "en": "Remove photo"
+ },
+ {
+  "key": "기본 사진",
+  "en": "Default photo"
+ },
+ {
+  "key": "캐릭터 사진을 골라 주세요",
+  "en": "Pick a photo for your character"
+ },
+ {
+  "key": "쫑긋 귀",
+  "en": "Pointy ears"
+ },
+ {
+  "key": "늘어진 귀",
+  "en": "Floppy ears"
+ },
+ {
+  "key": "접힌 귀",
+  "en": "Folded ears"
+ },
+ {
+  "key": "긴 귀",
+  "en": "Long ears"
+ },
+ {
+  "key": "말린 꼬리",
+  "en": "Curled tail"
+ },
+ {
+  "key": "곧은 꼬리",
+  "en": "Straight tail"
+ },
+ {
+  "key": "짧은 꼬리",
+  "en": "Short tail"
+ },
+ {
+  "key": "복슬 꼬리",
+  "en": "Fluffy tail"
+ },
+ {
+  "key": "짧게",
+  "en": "Short"
+ },
+ {
+  "key": "길게",
+  "en": "Long"
+ },
+ {
+  "key": "작은 체구",
+  "en": "Small build"
+ },
+ {
+  "key": "보통 체구",
+  "en": "Medium build"
+ },
+ {
+  "key": "큰 체구",
+  "en": "Large build"
+ },
+ {
+  "key": "허리 긴 체형",
+  "en": "Long body"
+ },
+ {
+  "key": "단색",
+  "en": "Solid"
+ },
+ {
+  "key": "얼굴 마스크",
+  "en": "Face mask"
+ },
+ {
+  "key": "등 안장 무늬",
+  "en": "Saddle"
+ },
+ {
+  "key": "흰 가슴",
+  "en": "White chest"
+ },
+ {
+  "key": "흰 양말",
+  "en": "White socks"
+ },
+ {
+  "key": "점박이",
+  "en": "Spotted"
+ },
+ {
+  "key": "인터넷 속도 재는 중… (약 15초)",
+  "en": "Measuring internet speed… (about 15 s)"
+ },
+ {
+  "key": "인터넷 속도: ↓ %@ · ↑ %@ Mbps",
+  "en": "Internet speed: ↓ %@ · ↑ %@ Mbps"
+ },
+ {
+  "key": "인터넷 속도 다운로드 %@, 업로드 %@",
+  "en": "Internet speed: download %@, upload %@"
+ },
+ {
+  "key": "%@ 측정",
+  "en": "Measured %@"
+ },
+ {
+  "key": "측정 실패, 연결을 확인해 주세요",
+  "en": "Measurement failed. Please check your connection"
+ },
+ {
+  "key": "다시 재기",
+  "en": "Measure again"
+ },
+ {
+  "key": "측정 실패",
+  "en": "Measurement failed"
+ },
+ {
+  "key": "인터넷 속도 재기",
+  "en": "Measure internet speed"
+ },
+ {
+  "key": "방금",
+  "en": "just now"
+ },
+ {
+  "key": "닫기",
+  "en": "Close"
+ },
+ {
+  "key": "자동 업데이트",
+  "en": "Automatic updates"
+ },
+ {
+  "key": "새 버전 %@ 나왔어요",
+  "en": "Version %@ is out"
+ },
+ {
+  "key": "지금 업데이트",
+  "en": "Update now"
+ },
+ {
+  "key": "지금 버전 %@",
+  "en": "Current version %@"
+ },
+ {
+  "key": "업데이트 진행 중",
+  "en": "Updating"
+ },
+ {
+  "key": "메모리",
+  "en": "Memory"
+ },
+ {
+  "key": "발열",
+  "en": "Heat"
+ },
+ {
+  "key": "저장 공간",
+  "en": "Storage"
+ },
+ {
+  "key": "네트워크",
+  "en": "Network"
+ },
+ {
+  "key": "바쁜 앱",
+  "en": "Busy apps"
+ },
+ {
+  "key": "켜진 지",
+  "en": "Up"
+ },
+ {
+  "key": "뜨거움",
+  "en": "Hot"
+ },
+ {
+  "key": "아주 뜨거움",
+  "en": "Very hot"
+ },
+ {
+  "key": "조금 따뜻함",
+  "en": "A little warm"
+ },
+ {
+  "key": "남음",
+  "en": "left"
+ },
+ {
+  "key": "다운로드",
+  "en": "down"
+ },
+ {
+  "key": "업로드",
+  "en": "up"
+ },
+ {
+  "key": "캘린더 접근이 꺼져 있어서 일정 알림을 껐어요. 비서 설정에서 다시 켜 주세요.",
+  "en": "Calendar access is off, so calendar alerts are turned off. Turn them back on in Assistant Settings."
+ },
+ {
+  "key": "미리알림 접근이 꺼져 있어서 미리알림 알림을 껐어요. 비서 설정에서 다시 켜 주세요.",
+  "en": "Reminders access is off, so reminder alerts are turned off. Turn them back on in Assistant Settings."
+ },
+ {
+  "key": "Mail 제어 허용이 꺼져 있어서 메일 알림을 껐어요. 비서 설정에서 다시 켜 주세요.",
+  "en": "Permission to control Mail is off, so mail alerts are turned off. Turn them back on in Assistant Settings."
+ },
+ {
+  "key": "단축어: ",
+  "en": "Shortcut: "
+ },
+ {
+  "key": "펫이 부를 때",
+  "en": "When your pet calls"
+ },
+ {
+  "key": "펫이 산책 나갔어요",
+  "en": "Your pet went out for a walk"
+ },
+ {
+  "key": "펫이 배고파요",
+  "en": "Your pet is hungry"
+ },
+ {
+  "key": "펫이 졸려요",
+  "en": "Your pet is sleepy"
+ },
+ {
+  "key": "펫을 씻겨 주세요",
+  "en": "Please give your pet a bath"
+ },
+ {
+  "key": "펫 키우기",
+  "en": "Pet Room"
+ },
+ {
+  "key": "단축어의 'URL 열기'로 부르면 캐릭터가 말풍선에 '단축어:'를 붙여 보여 줘요 (200자, 30초에 한 번, 소리 없이). 웹 페이지도 이 주소를 열 수 있어서 처음엔 꺼져 있어요.",
+  "en": "Call it with Shortcuts' Open URL action and your character shows the text in a bubble marked 'Shortcut:' (up to 200 characters, once every 30 seconds, never read aloud). Web pages can open this address too, so it starts off."
+ },
+ {
+  "key": "macOS가 Mail 제어를 막았어요. 시스템 설정 > 개인정보 보호 및 보안 > 자동화에서 캐릭모니터의 Mail을 켜 주세요.",
+  "en": "macOS blocked control of Mail. Turn on Mail for CharaMonitor in System Settings > Privacy & Security > Automation."
+ },
+ {
+  "key": "Mail이 열려 있지 않아요. Mail을 열면 처음 한 번 macOS가 허락을 물어요.",
+  "en": "Mail isn't open. macOS asks for permission once the first time Mail is open."
+ },
+ {
+  "key": "펫 키우기 방. 캐릭터가 편지를 남기고 산책 나갔어요",
+  "en": "Pet room. Your character left a note and went for a walk"
+ },
+ {
+  "key": "펫 키우기 방. 캐릭터가 %@",
+  "en": "Pet room. Your character is %@"
+ },
+ {
+  "key": "메뉴바는 강아지 캐릭터로 돌아가요. 캐릭터 선택 맨 아래 '지운 캐릭터 다시 보기'로 언제든 되돌릴 수 있어요.",
+  "en": "The menu bar goes back to the dog character. You can bring it back anytime from \"Show deleted characters\" at the bottom of Choose Character."
+ },
+ {
+  "key": "일정은 내가 직접 못 만들어. 캘린더 앱에서 추가해 줘.",
+  "en": "I can't create events myself. Add it in the Calendar app."
+ },
+ {
+  "key": "일정은 제가 직접 만들 수 없어요. 캘린더 앱에서 추가해 주세요.",
+  "en": "I can't create events myself. Please add it in the Calendar app."
+ },
+ {
+  "key": "알람은 내가 못 맞춰. 시계 앱이나 Siri에게 부탁해 줘.",
+  "en": "I can't set alarms. Ask the Clock app or Siri."
+ },
+ {
+  "key": "알람은 제가 맞출 수 없어요. 시계 앱이나 Siri에게 부탁해 주세요.",
+  "en": "I can't set alarms. Please ask the Clock app or Siri."
+ },
+ {
+  "key": "메시지는 내가 직접 못 보내. 메일이나 메시지 앱에서 보내 줘.",
+  "en": "I can't send messages myself. Send it from Mail or Messages."
+ },
+ {
+  "key": "메시지는 제가 직접 보낼 수 없어요. 메일이나 메시지 앱에서 보내 주세요.",
+  "en": "I can't send messages myself. Please send it from Mail or Messages."
+ },
+ {
+  "key": "파일은 내가 직접 못 지워. Finder에서 정리해 줘.",
+  "en": "I can't delete files myself. Tidy them up in Finder."
+ },
+ {
+  "key": "파일은 제가 직접 지울 수 없어요. Finder에서 정리해 주세요.",
+  "en": "I can't delete files myself. Please tidy them up in Finder."
+ },
+ {
+  "key": "파일은 내가 직접 못 지워. 클리너에서 확인하고 정리할 수 있어.",
+  "en": "I can't delete files myself. You can check and clean them up in Cleaner."
+ },
+ {
+  "key": "파일은 제가 직접 지울 수 없어요. 클리너에서 확인하고 정리할 수 있어요.",
+  "en": "I can't delete files myself. You can check and clean them up in Cleaner."
+ },
+ {
+  "key": "앱을 열거나 끄는 건 내가 직접 못 해. 활성 상태 보기에서 확인할 수 있어.",
+  "en": "I can't open or quit apps myself. You can check them in Activity Monitor."
+ },
+ {
+  "key": "앱을 열거나 끄는 건 제가 직접 못 해요. 활성 상태 보기에서 확인할 수 있어요.",
+  "en": "I can't open or quit apps myself. You can check them in Activity Monitor."
+ },
+ {
+  "key": "그건 내가 직접 할 수 없어. 하는 방법이 궁금하면 물어봐 줘.",
+  "en": "I can't do that myself. Ask me if you want to know how."
+ },
+ {
+  "key": "그건 제가 직접 할 수 없어요. 하는 방법이 궁금하면 물어봐 주세요.",
+  "en": "I can't do that myself. Please ask if you'd like to know how."
+ },
+ {
+  "key": "지금은 %@이야.",
+  "en": "It's %@."
+ },
+ {
+  "key": "지금은 %@이에요.",
+  "en": "It's %@."
+ },
+ {
+  "key": "환율이나 시세는 실시간 정보라 지금 알 수 없어. 은행이나 증권 앱에서 확인해 줘.",
+  "en": "Exchange rates and prices are live data, so I can't know them now. Check your bank or stocks app."
+ },
+ {
+  "key": "환율이나 시세는 실시간 정보라 지금 알 수 없어요. 은행이나 증권 앱에서 확인해 주세요.",
+  "en": "Exchange rates and prices are live data, so I can't know them now. Please check your bank or stocks app."
+ },
+ {
+  "key": "날씨는 실시간 정보라 지금 알 수 없어. 날씨 앱에서 확인해 줘.",
+  "en": "Weather is live data, so I can't know it now. Check the Weather app."
+ },
+ {
+  "key": "날씨는 실시간 정보라 지금 알 수 없어요. 날씨 앱에서 확인해 주세요.",
+  "en": "Weather is live data, so I can't know it now. Please check the Weather app."
+ },
+ {
+  "key": "뉴스는 실시간 정보라 지금 알 수 없어. 뉴스 앱이나 검색으로 확인해 줘.",
+  "en": "News is live data, so I can't know it now. Check a news app or search."
+ },
+ {
+  "key": "뉴스는 실시간 정보라 지금 알 수 없어요. 뉴스 앱이나 검색으로 확인해 주세요.",
+  "en": "News is live data, so I can't know it now. Please check a news app or search."
+ },
+ {
+  "key": "경기 결과는 실시간 정보라 지금 알 수 없어. 스포츠 앱에서 확인해 줘.",
+  "en": "Game results are live data, so I can't know them now. Check a sports app."
+ },
+ {
+  "key": "경기 결과는 실시간 정보라 지금 알 수 없어요. 스포츠 앱에서 확인해 주세요.",
+  "en": "Game results are live data, so I can't know them now. Please check a sports app."
+ },
+ {
+  "key": "문제 하나 낼게. %@ 정답은 %@.",
+  "en": "Here's a riddle. %1$@ The answer: %2$@."
+ },
+ {
+  "key": "문제 하나 낼게요. %@ 정답은 %@.",
+  "en": "Here's a riddle. %1$@ The answer: %2$@."
+ },
+ {
+  "key": "오늘 남은 일정은 없어.",
+  "en": "Nothing left on your calendar today."
+ },
+ {
+  "key": "오늘 남은 일정은 없어요.",
+  "en": "Nothing left on your calendar today."
+ },
+ {
+  "key": "캘린더 연동이 꺼져 있어서 일정을 볼 수 없어. 비서 설정에서 켜 줘.",
+  "en": "Calendar is off, so I can't see your events. Turn it on in Assistant settings."
+ },
+ {
+  "key": "캘린더 연동이 꺼져 있어서 일정을 볼 수 없어요. 비서 설정에서 켜 주세요.",
+  "en": "Calendar is off, so I can't see your events. Please turn it on in Assistant settings."
+ },
+ {
+  "key": "오늘 남은 일정은 %@%@.",
+  "en": "Still on today: %1$@."
+ },
+ {
+  "key": "그건 지금 기본 답변으로는 답하기 어려워요. 맥 상태, 일정, 메일, 계산은 물어봐 주세요.",
+  "en": "That's hard to answer with basic replies. Please ask about your Mac, calendar, mail or a calculation."
+ },
+ {
+  "key": "그건 지금 기본 답변으로는 답하기 어려워. 맥 상태, 일정, 메일, 계산은 물어봐 줘.",
+  "en": "That's hard to answer with basic replies. Ask about your Mac, calendar, mail or a calculation."
+ },
+ {
+  "key": "켜진 지 %@ 됐어.",
+  "en": "It's been on for %@."
+ },
+ {
+  "key": "켜진 지 %@ 됐어요.",
+  "en": "It's been on for %@."
+ },
+ {
+  "key": "왔어",
+  "en": "came in"
+ },
+ {
+  "key": "왔어요",
+  "en": "came in"
+ },
+ {
+  "key": "%@한테서 문자 %@",
+  "en": "New text from %1$@"
+ },
+ {
+  "key": "%@한테서 메일 %@",
+  "en": "New mail from %1$@"
+ },
+ {
+  "key": "%@ 알림 %@",
+  "en": "New %1$@ notification"
+ },
+ {
+  "key": " 외 %lld",
+  "en": " and %lld more"
+ },
+ {
+  "key": "문자 %lld개 %@: %@",
+  "en": "%1$lld texts %2$@: %3$@"
+ },
+ {
+  "key": "메일 %lld통 %@: %@",
+  "en": "%1$lld emails %2$@: %3$@"
+ },
+ {
+  "key": "알림 %lld개 %@: %@",
+  "en": "%1$lld notifications %2$@: %3$@"
+ },
+ {
+  "key": "메일",
+  "en": "Mail"
+ },
+ {
+  "key": "문자",
+  "en": "Text"
+ },
+ {
+  "key": "알림",
+  "en": "Notification"
+ },
+ {
+  "key": "앱이 업데이트되면서 '전체 디스크 접근' 허용이 풀렸어요. 설정에서 캐릭모니터를 한 번 껐다가 다시 켜 주세요. 그래도 안 되면 목록에서 빼고(−) 다시 추가해 주세요.",
+  "en": "The app update turned off 'Full Disk Access'. In Settings, turn CharaMonitor off and on again. If that doesn't work, remove it from the list (−) and add it again."
+ },
+ {
+  "key": "문자·메일·카톡 알림을 대신 말해드리려면 '전체 디스크 접근' 허용이 필요해요. '시스템 설정 열기'를 누르고 목록에서 캐릭모니터를 켜 주세요. 켠 뒤에는 앱을 한 번 다시 실행해 주세요. 알림 내용은 이 맥 안에서 말풍선으로만 보여주고, 어디에도 저장하거나 보내지 않아요.",
+  "en": "To tell you about texts, mail and app notifications, I need 'Full Disk Access'. Click 'Open System Settings' and turn on CharaMonitor in the list, then restart the app once. Notification content is only shown in a bubble on this Mac and is never saved or sent anywhere."
+ },
+ {
+  "key": "이 macOS 버전에서는 알림 기록 위치가 바뀌어서 아직 읽을 수 없어요. 다음 업데이트에서 맞춰 드릴게요.",
+  "en": "This macOS version moved the notification records, so I can't read them yet. A future update will catch up."
+ },
+ {
+  "key": "이 맥에서 메시지 기록을 찾지 못했어요. 메시지 앱에 로그인했는지 확인해 주세요.",
+  "en": "I couldn't find Messages history on this Mac. Please check that you're signed in to Messages."
+ },
+ {
+  "key": "사진이나 파일을 보냈어요",
+  "en": "Sent a photo or file"
+ },
+ {
+  "key": "업데이트로 '전체 디스크 접근' 허용이 풀렸어요. 비서 설정에서 다시 켜는 법을 확인해 주세요.",
+  "en": "An update turned off 'Full Disk Access'. See Assistant settings for how to turn it back on."
+ },
+ {
+  "key": "문자·알림을 알려드리려면 '전체 디스크 접근' 허용이 필요해요. 비서 설정을 확인해 주세요.",
+  "en": "To tell you about texts and notifications, I need 'Full Disk Access'. Please check Assistant settings."
+ },
+ {
+  "key": "이 macOS 버전에서는 알림 기록 위치가 바뀌어서 아직 다른 앱 알림을 읽을 수 없어요.",
+  "en": "This macOS version moved the notification records, so I can't read other apps' notifications yet."
+ },
+ {
+  "key": "모르는 번호",
+  "en": "Unknown number"
+ },
+ {
+  "key": "메시지 앱 내용과 다른 앱의 알림은 읽지 않아요. 앱 스토어 버전은 다른 앱의 기록을 열 수 없어요.",
+  "en": "I don't read Messages or other apps' notifications. The App Store version can't open other apps' records."
+ },
+ {
+  "key": "메일 제목도 말하기",
+  "en": "Also say mail subjects"
+ },
+ {
+  "key": "Mail이 켜져 있을 때만 1분마다 안 읽은 메일의 보낸 사람과 제목을 봐요. 켜는 순간 macOS가 허락을 한 번 물어요.",
+  "en": "Only while Mail is open, I check the sender and subject of unread mail every minute. macOS asks for permission once when you turn this on."
+ },
+ {
+  "key": "문자 메시지 알려주기",
+  "en": "Tell me about texts"
+ },
+ {
+  "key": "내용 미리보기 (30자)",
+  "en": "Preview (30 characters)"
+ },
+ {
+  "key": "보낸 사람을 번호 대신 연락처 이름으로 말해요.",
+  "en": "Says the sender's contact name instead of the number."
+ },
+ {
+  "key": "연락처 이름으로 보기",
+  "en": "Use contact names"
+ },
+ {
+  "key": "아이폰 문자도 받으려면 아이폰 설정 > 메시지 > 문자 메시지 전달에서 이 맥을 켜 주세요.",
+  "en": "To get iPhone texts too, turn on this Mac in iPhone Settings > Messages > Text Message Forwarding."
+ },
+ {
+  "key": "다른 앱 알림 알려주기 (카톡·슬랙 등)",
+  "en": "Tell me about app notifications (KakaoTalk, Slack, etc.)"
+ },
+ {
+  "key": "제목과 내용 미리보기 (30자)",
+  "en": "Title and preview (30 characters)"
+ },
+ {
+  "key": "알려 줄 앱 (자주 알림을 보내는 순)",
+  "en": "Apps to announce (most frequent first)"
+ },
+ {
+  "key": "시스템 설정 열기",
+  "en": "Open System Settings"
+ },
+ {
+  "key": "'전체 디스크 접근' 허용이 필요해요. 내용은 이 맥 안에서 말풍선으로만 보여주고, 저장하거나 어디에도 보내지 않아요. macOS가 공개하지 않은 기록을 읽는 거라 OS 업데이트 뒤엔 잠시 안 될 수 있어요.",
+  "en": "Needs 'Full Disk Access'. Content is only shown in a bubble on this Mac and is never saved or sent anywhere. These are records macOS doesn't officially expose, so it may stop working for a while after an OS update."
+ },
+ {
+  "key": "메모리 %@",
+  "en": "memory %@"
+ },
+ {
+  "key": "남은 저장 공간 %@",
+  "en": "%@ of storage free"
+ },
+ {
+  "key": "배터리 %@",
+  "en": "battery %@"
+ },
+ {
+  "key": "%@에서 대화용 모델을 찾지 못했어요.",
+  "en": "Couldn't find a chat model on %@."
+ },
+ {
+  "key": "%@가 너무 오래 걸려요.",
+  "en": "%@ is taking too long."
+ },
+ {
+  "key": "%@ API 키가 맞지 않거나 권한이 없어요. 키를 다시 확인해 주세요.",
+  "en": "The %@ API key is wrong or has no access. Please check the key."
+ },
+ {
+  "key": "%@에서 이 모델을 찾지 못했어요. 비서 설정에서 연결 확인을 다시 해 주세요.",
+  "en": "%@ doesn't have this model. Run Check connection again in Assistant Settings."
+ },
+ {
+  "key": "%@ 서버가 잠시 응답하지 않아요.",
+  "en": "The %@ server isn't responding right now."
+ },
+ {
+  "key": "%@가 답하지 못했어요 (%lld).",
+  "en": "%1$@ couldn't answer (%2$lld)."
+ },
+ {
+  "key": "이 맥의 AI 프로그램이 준비되지 않았어요.",
+  "en": "The AI program on this Mac isn't ready."
+ },
+ {
+  "key": "이 맥에서 %@ 프로그램을 찾지 못했어요.",
+  "en": "Couldn't find the %@ program on this Mac."
+ },
+ {
+  "key": "Claude가 답하지 못했어요.",
+  "en": "Claude couldn't answer."
+ },
+ {
+  "key": "ChatGPT가 답하지 못했어요.",
+  "en": "ChatGPT couldn't answer."
+ },
+ {
+  "key": "Gemini 사용 한도에 도달했어요. 잠시 뒤 다시 해 주세요.",
+  "en": "Gemini usage limit reached. Please try again in a moment."
+ },
+ {
+  "key": "이 맥의 Gemini CLI에 Google 계정으로 로그인되어 있지 않아요. 터미널에서 gemini 를 열어 로그인해 주세요.",
+  "en": "The Gemini CLI on this Mac isn't signed in to a Google account. Open gemini in Terminal and sign in."
+ },
+ {
+  "key": "Gemini가 답하지 못했어요.",
+  "en": "Gemini couldn't answer."
+ },
+ {
+  "key": "%@ 프로그램을 실행하지 못했어요.",
+  "en": "Couldn't run the %@ program."
+ },
+ {
+  "key": "구독 계정",
+  "en": "Subscription"
+ },
+ {
+  "key": "내 API 키",
+  "en": "My API key"
+ },
+ {
+  "key": "%@(%@)로 답해요. 질문과 필요한 맥 숫자만 보내요.",
+  "en": "Answering with %1$@ (%2$@). Only the question and the Mac numbers it needs are sent."
+ },
+ {
+  "key": "%@ API 키가 없어요. 비서 설정에서 넣어 주세요.",
+  "en": "No %@ API key. Add one in Assistant Settings."
+ },
+ {
+  "key": "앱 스토어 버전은 이 맥의 AI 프로그램을 쓸 수 없어요. API 키로 연결해 주세요.",
+  "en": "The App Store version can't use AI programs on this Mac. Connect with an API key."
+ },
+ {
+  "key": "네이버 메일",
+  "en": "Naver Mail"
+ },
+ {
+  "key": "다음 메일",
+  "en": "Daum Mail"
+ },
+ {
+  "key": "iCloud 메일",
+  "en": "iCloud Mail"
+ },
+ {
+  "key": "직접 입력",
+  "en": "Other (manual)"
+ },
+ {
+  "key": "Google 계정에서 2단계 인증을 켠 뒤, '발급 페이지 열기'에서 앱 비밀번호(16자리)를 만들어 넣어 주세요. 평소 비밀번호로는 연결되지 않아요.",
+  "en": "Turn on 2-Step Verification in your Google Account, then create a 16-character app password via 'Open setup page' and enter it. Your regular password won't work."
+ },
+ {
+  "key": "네이버 메일 > 환경설정 > POP3/IMAP 설정에서 'IMAP/SMTP 사용'을 켜 주세요. 2단계 인증을 쓰고 있으면 네이버 ID > 보안설정 > 2단계 인증 관리 > 애플리케이션 비밀번호 관리에서 만든 비밀번호를 넣어요.",
+  "en": "In Naver Mail > Settings > POP3/IMAP, turn on 'Use IMAP/SMTP'. If you use 2-step verification, enter a password made in Naver ID > Security > 2-step verification > Application passwords."
+ },
+ {
+  "key": "다음 메일 > 설정 > IMAP/POP3에서 '사용함'으로 켜 주세요. 카카오계정 > 계정 보안 > 2단계 인증 > 앱 비밀번호에서 만든 비밀번호를 넣어요 (평소 비밀번호는 안 돼요).",
+  "en": "In Daum Mail > Settings > IMAP/POP3, set it to 'On'. Enter a password made in Kakao Account > Account security > 2-step verification > App passwords (your regular password won't work)."
+ },
+ {
+  "key": "Apple 계정(account.apple.com) > 로그인 및 보안 > 앱 암호에서 만든 암호를 넣어 주세요. 2단계 인증이 켜져 있어야 만들 수 있어요.",
+  "en": "Enter a password made in Apple Account (account.apple.com) > Sign-In and Security > App-Specific Passwords. Two-factor authentication must be on to make one."
+ },
+ {
+  "key": "메일 서비스의 도움말에서 IMAP 서버 주소를 확인해 넣어 주세요. 보안 연결(SSL/TLS) 포트만 돼요 (보통 993).",
+  "en": "Find the IMAP server address in your mail service's help and enter it. Only secure (SSL/TLS) ports work (usually 993)."
+ },
+ {
+  "key": "주소와 앱 비밀번호를 넣어 주세요.",
+  "en": "Enter the address and app password."
+ },
+ {
+  "key": "IMAP 서버 주소와 포트를 넣어 주세요.",
+  "en": "Enter the IMAP server address and port."
+ },
+ {
+  "key": "이미 추가한 계정이에요.",
+  "en": "This account is already added."
+ },
+ {
+  "key": "키체인에 비밀번호를 저장하지 못했어요.",
+  "en": "Couldn't save the password to the keychain."
+ },
+ {
+  "key": "키체인에서 비밀번호를 찾지 못했어요. 앱 비밀번호를 다시 넣어 주세요.",
+  "en": "Couldn't find the password in the keychain. Please enter the app password again."
+ },
+ {
+  "key": "모르는 사람",
+  "en": "Unknown sender"
+ },
+ {
+  "key": "%@ 로그인이 안 돼요. 비서 설정 > 메일 계정에서 앱 비밀번호를 확인해 주세요.",
+  "en": "Can't sign in to %@. Check the app password in Assistant Settings > Mail Accounts."
+ },
+ {
+  "key": "로그인에 실패했어요. ",
+  "en": "Sign-in failed. "
+ },
+ {
+  "key": "메일 서버가 거절했어요: %@",
+  "en": "The mail server refused: %@"
+ },
+ {
+  "key": "메일 서버에 연결하지 못했어요. 인터넷 연결과 서버 주소를 확인해 주세요. 다음 확인 때 다시 시도해요.",
+  "en": "Couldn't reach the mail server. Check your internet connection and the server address. It will try again next check."
+ },
+ {
+  "key": "새 메일 알림",
+  "en": "New mail alerts"
+ },
+ {
+  "key": "계정 추가",
+  "en": "Add account"
+ },
+ {
+  "key": "Gmail·네이버·다음·iCloud 메일을 Apple Mail 없이 2분마다 확인해서 보낸 사람과 제목만 말해 줘요. 메일을 읽음으로 바꾸지 않고, 앱 비밀번호는 이 맥의 키체인에만 저장해요.",
+  "en": "Checks Gmail, Naver, Daum and iCloud mail every 2 minutes without Apple Mail and tells you only the sender and subject. Mail isn't marked as read, and app passwords stay in this Mac's keychain."
+ },
+ {
+  "key": "삭제",
+  "en": "Delete"
+ },
+ {
+  "key": "확인함 %@",
+  "en": "Checked %@"
+ },
+ {
+  "key": "확인하는 중…",
+  "en": "Checking…"
+ },
+ {
+  "key": "새 앱 비밀번호",
+  "en": "New app password"
+ },
+ {
+  "key": "다시 연결",
+  "en": "Reconnect"
+ },
+ {
+  "key": "곧 처음 확인해요. 이미 와 있던 메일은 말하지 않아요.",
+  "en": "First check coming up. Mail that's already there won't be announced."
+ },
+ {
+  "key": "네이버 ID 또는 주소",
+  "en": "Naver ID or address"
+ },
+ {
+  "key": "메일 주소",
+  "en": "Email address"
+ },
+ {
+  "key": "앱 비밀번호",
+  "en": "App password"
+ },
+ {
+  "key": "IMAP 서버 (imap.example.com)",
+  "en": "IMAP server (imap.example.com)"
+ },
+ {
+  "key": "포트",
+  "en": "Port"
+ },
+ {
+  "key": "연결하고 추가",
+  "en": "Connect and add"
+ },
+ {
+  "key": "연결하는 중…",
+  "en": "Connecting…"
+ },
+ {
+  "key": "발급 페이지 열기",
+  "en": "Open setup page"
+ },
+ {
+  "key": "AI 엔진",
+  "en": "AI engine"
+ },
+ {
+  "key": "기본 (이 맥)",
+  "en": "Default (this Mac)"
+ },
+ {
+  "key": "내가 쓰는 AI를 연결하면 답이 더 똑똑해져요. 연결이 안 될 때는 이 맥의 AI가 대신 답해요.",
+  "en": "Connect the AI you use for smarter answers. If it can't connect, this Mac's AI answers instead."
+ },
+ {
+  "key": "연결 방법",
+  "en": "Connect with"
+ },
+ {
+  "key": "API 키",
+  "en": "API key"
+ },
+ {
+  "key": "구독 계정 (이 맥의 %@)",
+  "en": "Subscription (%@ on this Mac)"
+ },
+ {
+  "key": "최근 연결 실패: %@",
+  "en": "Last connection failure: %@"
+ },
+ {
+  "key": "받은 메시지·일정도 내 AI로 보내 더 똑똑하게",
+  "en": "Also send messages and schedule to my AI"
+ },
+ {
+  "key": "받은 메시지·일정도 내 AI로",
+  "en": "Messages and schedule to my AI too"
+ },
+ {
+  "key": "일정 질문도 내 AI가 답해요. 받은 메시지 목록은 지금처럼 앱이 그대로 읽어 줘요.",
+  "en": "My AI also answers schedule questions. The app still reads your received messages as is."
+ },
+ {
+  "key": "일정과 받은 메시지 질문은 지금처럼 이 맥 안에서만 답해요.",
+  "en": "Schedule and message questions are still answered only on this Mac."
+ },
+ {
+  "key": "내 AI로는 질문, 최근 대화, 질문에 필요한 맥 숫자 스냅샷(CPU·메모리 같은 상태 숫자)만 보내요. 파일이나 다른 기록은 보내지 않아요.",
+  "en": "Only the question, recent chat and the Mac numbers it needs (status like CPU and memory) go to your AI. No files or other records are sent."
+ },
+ {
+  "key": "%@ API 키 붙여 넣기",
+  "en": "Paste %@ API key"
+ },
+ {
+  "key": "저장된 키가 있어요. 바꾸려면 새 키를 붙여 넣어요",
+  "en": "A key is saved. Paste a new key to replace it"
+ },
+ {
+  "key": "연결 확인",
+  "en": "Check connection"
+ },
+ {
+  "key": "확인 중…",
+  "en": "Checking…"
+ },
+ {
+  "key": "키 만들러 가기",
+  "en": "Get a key"
+ },
+ {
+  "key": "키 지우기",
+  "en": "Remove key"
+ },
+ {
+  "key": "키를 지웠어요.",
+  "en": "Key removed."
+ },
+ {
+  "key": "모델",
+  "en": "Model"
+ },
+ {
+  "key": "키는 이 맥의 키체인에만 저장해요. 쓴 만큼 내 %@ 계정에 요금이 나가요. 연결 확인을 누르면 쓸 수 있는 모델 중 최신 대화용 모델을 골라요.",
+  "en": "The key is stored only in this Mac's keychain. Usage is billed to your %@ account. Check connection picks the newest chat model available."
+ },
+ {
+  "key": "API 키를 붙여 넣어 주세요.",
+  "en": "Paste an API key."
+ },
+ {
+  "key": "연결됐어요. %@ 모델로 답해요.",
+  "en": "Connected. Answering with %@."
+ },
+ {
+  "key": "키를 저장하지 못했어요. 다시 해 주세요.",
+  "en": "Couldn't save the key. Please try again."
+ },
+ {
+  "key": "준비됐어요. 이 맥에 로그인된 %@ 구독으로 답해요.",
+  "en": "Ready. Answering with the %@ subscription signed in on this Mac."
+ },
+ {
+  "key": "이 맥의 %@에 로그인된 내 구독 계정으로 답해요. 추가 요금 없이 구독 사용 한도를 써요. 도구와 파일 접근은 모두 끈 채로 실행해요.",
+  "en": "Answers with your subscription signed in to %@ on this Mac. No extra charge; it uses your subscription limits. Tools and file access stay off."
+ },
+ {
+  "key": "이 맥에서 %@ 프로그램을 찾지 못했어요. 설치하고 로그인하면 쓸 수 있어요. 아니면 API 키로 연결해 주세요.",
+  "en": "Couldn't find the %@ program on this Mac. Install it and sign in to use it, or connect with an API key."
+ },
+ {
+  "key": "메일 계정",
+  "en": "Mail Accounts"
+ },
+ {
+  "key": "방금은 연결이 안 돼서 이 맥이 답했어요: %@",
+  "en": "Couldn't connect just now, so this Mac answered: %@"
+ },
+ {
+  "key": "%@ 구독 계정 연결은 읽기 전용 도구가 켜진 채로 실행돼서, 일정 질문은 이 맥 안에서만 답해요. 일정도 보내려면 API 키로 연결해 주세요.",
+  "en": "The %@ subscription connection runs with read-only tools on, so schedule questions are answered on this Mac only. To send your schedule too, connect with an API key."
+ },
+ {
+  "key": "이 맥의 %@에 로그인된 내 구독 계정으로 답해요. 추가 요금 없이 구독 사용 한도를 써요. 빈 폴더에서 실행하지만 읽기 전용 도구는 켜져 있어서, 일정은 보내지 않아요.",
+  "en": "Answers with your subscription signed in to %@ on this Mac. No extra charge, it uses your plan's limits. It runs in an empty folder but its read-only tools stay on, so your schedule is never sent."
+ },
+ {
+  "key": "처럼 이어져.",
+  "en": ", and so on."
+ },
+ {
+  "key": "처럼 이어져요.",
+  "en": ", and so on."
+ },
+ {
+  "key": "어떤 걸 말씀하시는 건지 조금만 더 알려 주세요.",
+  "en": "Could you tell me a bit more about what you mean?"
+ },
+ {
+  "key": "어떤 걸 말하는 건지 조금만 더 알려 줘.",
+  "en": "Tell me a bit more about what you mean."
+ },
+ {
+  "key": "원",
+  "en": " won"
+ },
+ {
+  "key": "천만에, 또 필요하면 불러 줘.",
+  "en": "Anytime. Call me if you need anything."
+ },
+ {
+  "key": "천만에요, 또 필요하면 불러 주세요.",
+  "en": "You're welcome. Call me anytime you need something."
+ },
+ {
+  "key": "안녕! 궁금한 거 있으면 언제든 물어봐.",
+  "en": "Hi! Ask me anything, anytime."
+ },
+ {
+  "key": "안녕하세요! 궁금한 거 있으면 언제든 물어봐 주세요.",
+  "en": "Hello! Feel free to ask me anything, anytime."
+ },
+ {
+  "key": "%@ %@%@ %@ 어때?",
+  "en": "%1$@ %2$@%3$@ or %4$@?"
+ },
+ {
+  "key": "%@ %@%@ %@ 어때요?",
+  "en": "%1$@ %2$@%3$@ or %4$@?"
+ },
+ {
+  "key": "야식으로",
+  "en": "For a late-night snack, how about"
+ },
+ {
+  "key": "오늘 %@은",
+  "en": "For %@ today, how about"
+ },
+ {
+  "key": "%@%@ 이미 시작했어.",
+  "en": "%1$@%2$@ already started."
+ },
+ {
+  "key": "%@%@ 이미 시작했어요.",
+  "en": "%1$@%2$@ already started."
+ },
+ {
+  "key": "오늘 남은 %@%@ 없어.",
+  "en": "No more %1$@%2$@ today."
+ },
+ {
+  "key": "오늘 남은 %@%@ 없어요.",
+  "en": "No more %1$@%2$@ today."
+ },
+ {
+  "key": "다음 일정은 %@%@.",
+  "en": "Next up: %1$@."
+ },
+ {
+  "key": "할 일은 %@%@ 남았어.",
+  "en": "To-dos left: %1$@."
+ },
+ {
+  "key": "할 일은 %@%@ 남았어요.",
+  "en": "To-dos left: %1$@."
+ },
+ {
+  "key": "다음 %@%@",
+  "en": "Next %1$@%2$@:"
+ },
+ {
+  "key": "그 전에 %@도 있어.",
+  "en": "Before that, there's %@."
+ },
+ {
+  "key": "그 전에 %@도 있어요.",
+  "en": "Before that, there's %@."
+ },
+ {
+  "key": "%@에는 일정이 없어.",
+  "en": "Nothing scheduled for %@."
+ },
+ {
+  "key": "%@에는 일정이 없어요.",
+  "en": "Nothing scheduled for %@."
+ },
+ {
+  "key": "%@에는 %@%@ 있어.",
+  "en": "%1$@: %2$@."
+ },
+ {
+  "key": "%@에는 %@%@ 있어요.",
+  "en": "%1$@: %2$@."
+ },
+ {
+  "key": "오늘 남은 할 일은 없어.",
+  "en": "No to-dos left today."
+ },
+ {
+  "key": "오늘 남은 할 일은 없어요.",
+  "en": "No to-dos left today."
+ },
+ {
+  "key": "오늘 %@%@ %@%@ 있어.",
+  "en": "Today's %1$@%2$@: %3$@%4$@."
+ },
+ {
+  "key": "오늘 %@%@ %@%@ 있어요.",
+  "en": "Today's %1$@%2$@: %3$@%4$@."
+ },
+ {
+  "key": "네트워크는 %@%@.",
+  "en": "Network: %1$@."
+ },
+ {
+  "key": "CPU가 %@로 많이 바빠.",
+  "en": "CPU is very busy at %@."
+ },
+ {
+  "key": "CPU가 %@로 많이 바빠요.",
+  "en": "CPU is very busy at %@."
+ },
+ {
+  "key": "CPU는 %@로 조금 바쁘지만 괜찮아.",
+  "en": "CPU is a bit busy at %@, but it's fine."
+ },
+ {
+  "key": "CPU는 %@로 조금 바쁘지만 괜찮아요.",
+  "en": "CPU is a bit busy at %@, but it's fine."
+ },
+ {
+  "key": "CPU는 %@라 여유 있어.",
+  "en": "CPU is at %@, plenty of room."
+ },
+ {
+  "key": "CPU는 %@라 여유 있어요.",
+  "en": "CPU is at %@, plenty of room."
+ },
+ {
+  "key": "어떤 앱인지는 활성 상태 보기에서 확인해 주세요.",
+  "en": "Check Activity Monitor to see which app."
+ },
+ {
+  "key": "어떤 앱인지는 활성 상태 보기에서 확인해 줘.",
+  "en": "Check Activity Monitor to see which app."
+ },
+ {
+  "key": "지금은 눈에 띄게 CPU를 많이 쓰는 앱이 없어.",
+  "en": "No app stands out on CPU right now."
+ },
+ {
+  "key": "지금은 눈에 띄게 CPU를 많이 쓰는 앱이 없어요.",
+  "en": "No app stands out on CPU right now."
+ },
+ {
+  "key": "CPU를 제일 많이 쓰는 앱은 %@%@.",
+  "en": "The app using the most CPU is %1$@."
+ },
+ {
+  "key": "CPU를 많이 쓰는 앱은 %@ 순이야.",
+  "en": "Apps using the most CPU, in order: %@."
+ },
+ {
+  "key": "CPU를 많이 쓰는 앱은 %@ 순이에요.",
+  "en": "Apps using the most CPU, in order: %@."
+ },
+ {
+  "key": "앱별 사용량은 지금 내가 못 읽어서, 어떤 앱인지는 활성 상태 보기에서 확인해 줘.",
+  "en": "I can't read per-app usage right now, so check Activity Monitor to see which app."
+ },
+ {
+  "key": "앱별 사용량은 지금 제가 못 읽어서, 어떤 앱인지는 활성 상태 보기에서 확인해 주세요.",
+  "en": "I can't read per-app usage right now, so please check Activity Monitor to see which app."
+ },
+ {
+  "key": "전체로는 CPU %@, 메모리 %@를 쓰는 중이라 빠듯해.",
+  "en": "Overall it's using CPU %1$@ and memory %2$@, so things are tight."
+ },
+ {
+  "key": "전체로는 CPU %@, 메모리 %@를 쓰는 중이라 빠듯해요.",
+  "en": "Overall it's using CPU %1$@ and memory %2$@, so things are tight."
+ },
+ {
+  "key": "전체로는 CPU %@, 메모리 %@를 쓰는 중이라 여유 있어.",
+  "en": "Overall it's using CPU %1$@ and memory %2$@, so there's room."
+ },
+ {
+  "key": "전체로는 CPU %@, 메모리 %@를 쓰는 중이라 여유 있어요.",
+  "en": "Overall it's using CPU %1$@ and memory %2$@, so there's room."
+ },
+ {
+  "key": "메모리는 %@ 중 %@를 쓰고 있어서 %@(%@)가 남았어.",
+  "en": "Memory: %2$@ of %1$@ in use, %3$@ (%4$@) free."
+ },
+ {
+  "key": "메모리는 %@ 중 %@를 쓰고 있어서 %@(%@)가 남았어요.",
+  "en": "Memory: %2$@ of %1$@ in use, %3$@ (%4$@) free."
+ },
+ {
+  "key": "메모리는 %@를 쓰고 있어서 %@가 남았어.",
+  "en": "Memory is %1$@ used, %2$@ free."
+ },
+ {
+  "key": "메모리는 %@를 쓰고 있어서 %@가 남았어요.",
+  "en": "Memory is %1$@ used, %2$@ free."
+ },
+ {
+  "key": "압력이 보통이라 아직 넉넉해.",
+  "en": "Memory pressure is normal, so there's still plenty."
+ },
+ {
+  "key": "압력이 보통이라 아직 넉넉해요.",
+  "en": "Memory pressure is normal, so there's still plenty."
+ },
+ {
+  "key": "압력이 높아서 부족해지는 중이야. 안 쓰는 앱을 닫아 봐.",
+  "en": "Memory pressure is high and it's running low. Try closing apps you're not using."
+ },
+ {
+  "key": "압력이 높아서 부족해지는 중이에요. 안 쓰는 앱을 닫아 보세요.",
+  "en": "Memory pressure is high and it's running low. Try closing apps you're not using."
+ },
+ {
+  "key": "압력이 매우 높아서 많이 부족해. 안 쓰는 앱을 닫아 줘.",
+  "en": "Memory pressure is very high and it's really short. Please close apps you're not using."
+ },
+ {
+  "key": "압력이 매우 높아서 많이 부족해요. 안 쓰는 앱을 닫아 주세요.",
+  "en": "Memory pressure is very high and it's really short. Please close apps you're not using."
+ },
+ {
+  "key": "전체 %@ 중 ",
+  "en": " of %@ total"
+ },
+ {
+  "key": "저장 공간은 %@%@만 남아서 거의 꽉 찼어. 정리가 필요해.",
+  "en": "Only %2$@%1$@ left in storage, so it's almost full. Time to clean up."
+ },
+ {
+  "key": "저장 공간은 %@%@만 남아서 거의 꽉 찼어요. 정리가 필요해요.",
+  "en": "Only %2$@%1$@ left in storage, so it's almost full. Time to clean up."
+ },
+ {
+  "key": "저장 공간은 %@%@ 남아서 조금 빠듯해.",
+  "en": "Storage has %2$@%1$@ left, a bit tight."
+ },
+ {
+  "key": "저장 공간은 %@%@ 남아서 조금 빠듯해요.",
+  "en": "Storage has %2$@%1$@ left, a bit tight."
+ },
+ {
+  "key": "저장 공간은 %@%@ 남아서 넉넉해.",
+  "en": "Storage has %2$@%1$@ left, plenty of room."
+ },
+ {
+  "key": "저장 공간은 %@%@ 남아서 넉넉해요.",
+  "en": "Storage has %2$@%1$@ left, plenty of room."
+ },
+ {
+  "key": "네, 지금 충전해 주세요. 배터리가 %@밖에 안 남아서 곧 꺼질 수 있어요.",
+  "en": "Yes, please charge now. The battery is down to %@ and could shut off soon."
+ },
+ {
+  "key": "응, 지금 충전해 줘. 배터리가 %@밖에 안 남아서 곧 꺼질 수 있어.",
+  "en": "Yes, charge it now. The battery is down to %@ and could shut off soon."
+ },
+ {
+  "key": "네, 지금 충전해 두시는 게 좋아요. 배터리가 %@ 남았어요.",
+  "en": "Yes, it's a good time to charge. The battery has %@ left."
+ },
+ {
+  "key": "응, 지금 충전해 두는 게 좋아. 배터리가 %@ 남았어.",
+  "en": "Yes, it's a good time to charge. The battery has %@ left."
+ },
+ {
+  "key": "아직 충전 안 하셔도 돼요. 배터리가 %@ 남았어요.",
+  "en": "No need to charge yet. The battery has %@ left."
+ },
+ {
+  "key": "아직 충전 안 해도 돼. 배터리가 %@ 남았어.",
+  "en": "No need to charge yet. The battery has %@ left."
+ },
+ {
+  "key": "배터리는 %@고 전원에 연결돼 있어.",
+  "en": "Battery is at %@ and plugged in."
+ },
+ {
+  "key": "배터리는 %@이고 전원에 연결돼 있어요.",
+  "en": "Battery is at %@ and plugged in."
+ },
+ {
+  "key": "곧 꺼질 수 있으니 충전해 주세요.",
+  "en": "It could shut off soon, so please charge it."
+ },
+ {
+  "key": "곧 꺼질 수 있으니 충전해 줘.",
+  "en": "It could shut off soon, so charge it."
+ },
+ {
+  "key": "여유 있을 때 충전해 두면 좋아.",
+  "en": "Charging it when you get a chance would be good."
+ },
+ {
+  "key": "여유 있을 때 충전해 두시면 좋아요.",
+  "en": "Charging it when you get a chance would be good."
+ },
+ {
+  "key": "아직 충전 안 하셔도 돼요.",
+  "en": "No need to charge yet."
+ },
+ {
+  "key": "아직 충전 안 해도 돼.",
+  "en": "No need to charge yet."
+ },
+ {
+  "key": "맥이 뜨거워서 스스로 속도를 낮추는 중이야.",
+  "en": "Your Mac is hot and slowing itself down."
+ },
+ {
+  "key": "맥이 뜨거워서 스스로 속도를 낮추는 중이에요.",
+  "en": "Your Mac is hot and slowing itself down."
+ },
+ {
+  "key": "조금 따뜻하지만 걱정할 정도는 아니야.",
+  "en": "It's a little warm, but nothing to worry about."
+ },
+ {
+  "key": "조금 따뜻하지만 걱정할 정도는 아니에요.",
+  "en": "It's a little warm, but nothing to worry about."
+ },
+ {
+  "key": "발열은 보통이라 괜찮아.",
+  "en": "Temperature is normal, so it's fine."
+ },
+ {
+  "key": "발열은 보통이라 괜찮아요.",
+  "en": "Temperature is normal, so it's fine."
+ },
+ {
+  "key": "네, 한 번 재시동하시는 게 좋아요.",
+  "en": "Yes, a restart would be a good idea."
+ },
+ {
+  "key": "응, 한 번 재시동하는 게 좋아.",
+  "en": "Yes, a restart would be a good idea."
+ },
+ {
+  "key": "네, 메모리가 빠듯해서 재시동하시면 나아질 거예요.",
+  "en": "Yes, memory is tight, so a restart should help."
+ },
+ {
+  "key": "응, 메모리가 빠듯해서 재시동하면 나아질 거야.",
+  "en": "Yes, memory is tight, so a restart should help."
+ },
+ {
+  "key": "아직 재시동은 안 하셔도 돼요.",
+  "en": "No need to restart yet."
+ },
+ {
+  "key": "아직 재시동은 안 해도 돼.",
+  "en": "No need to restart yet."
+ },
+ {
+  "key": "오래 켜 두셨으니 한 번 재시동하시면 좋아요.",
+  "en": "It's been on a long time, so a restart would be good."
+ },
+ {
+  "key": "오래 켜 뒀으니 한 번 재시동하면 좋아.",
+  "en": "It's been on a long time, so a restart would be good."
+ },
+ {
+  "key": "메모리가 빠듯하니 재시동하면 나아질 거야.",
+  "en": "Memory is tight, so a restart should help."
+ },
+ {
+  "key": "메모리가 빠듯하니 재시동하시면 나아질 거예요.",
+  "en": "Memory is tight, so a restart should help."
+ },
+ {
+  "key": "배터리가 %@밖에 안 남아서 충전이 필요해.",
+  "en": "The battery is down to %@, so it needs charging."
+ },
+ {
+  "key": "배터리가 %@밖에 안 남아서 충전이 필요해요.",
+  "en": "The battery is down to %@, so it needs charging."
+ },
+ {
+  "key": "다만 켜진 지 %@%@ 재시동하면 나아질 수 있어.",
+  "en": "That said, it's been on for %1$@%2$@, so a restart might help."
+ },
+ {
+  "key": "다만 켜진 지 %@%@ 재시동하면 나아질 수 있어요.",
+  "en": "That said, it's been on for %1$@%2$@, so a restart might help."
+ },
+ {
+  "key": "켜진 지 %@%@ 재시동하면 나아질 수 있어.",
+  "en": "It's been on for %1$@%2$@, so a restart might help."
+ },
+ {
+  "key": "켜진 지 %@%@ 재시동하면 나아질 수 있어요.",
+  "en": "It's been on for %1$@%2$@, so a restart might help."
+ },
+ {
+  "key": "지금 숫자로는 느릴 뚜렷한 이유가 없어.",
+  "en": "The numbers don't show a clear reason for it to be slow."
+ },
+ {
+  "key": "지금 숫자로는 느릴 뚜렷한 이유가 없어요.",
+  "en": "The numbers don't show a clear reason for it to be slow."
+ },
+ {
+  "key": "CPU는 %@, 메모리는 %@를 쓰는 중이라 둘 다 여유 있어.",
+  "en": "CPU is at %1$@ and memory at %2$@, so both have room."
+ },
+ {
+  "key": "CPU는 %@, 메모리는 %@를 쓰는 중이라 둘 다 여유 있어요.",
+  "en": "CPU is at %1$@ and memory at %2$@, so both have room."
+ },
+ {
+  "key": "지금 전체적으로 괜찮아.",
+  "en": "Everything looks fine right now."
+ },
+ {
+  "key": "지금 전체적으로 괜찮아요.",
+  "en": "Everything looks fine right now."
+ },
+ {
+  "key": "어제",
+  "en": "Yesterday"
+ },
+ {
+  "key": "'문자 메시지 알려주기'",
+  "en": "'Tell me about texts'"
+ },
+ {
+  "key": "'다른 앱 알림 알려주기'",
+  "en": "'Tell me about other apps' notifications'"
+ },
+ {
+  "key": "'메일 계정'",
+  "en": "'Mail accounts'"
+ },
+ {
+  "key": "'Apple Mail 새 메일 알림'이나 '메일 계정'",
+  "en": "'Apple Mail new mail alerts' or 'Mail accounts'"
+ },
+ {
+  "key": "%@ 연동이 꺼져 있어서 지금은 볼 수 없어. 비서 설정에서 %@%@ 켜 줘.",
+  "en": "The %1$@ connection is off, so I can't see them right now. Turn on %2$@%3$@ in assistant settings."
+ },
+ {
+  "key": "%@ 연동이 꺼져 있어서 지금은 볼 수 없어요. 비서 설정에서 %@%@ 켜 주세요.",
+  "en": "The %1$@ connection is off, so I can't see them right now. Please turn on %2$@%3$@ in assistant settings."
+ },
+ {
+  "key": "시스템 설정 > 개인정보 보호 및 보안 > 전체 디스크 접근",
+  "en": "System Settings > Privacy & Security > Full Disk Access"
+ },
+ {
+  "key": "업데이트하면서 전체 디스크 접근 권한이 풀려서 지금은 %@ 읽을 수 없어. %@에서 캐릭모니터를 다시 켜 줘.",
+  "en": "The update reset Full Disk Access, so I can't read %1$@ right now. Turn CharMonitor back on in %2$@."
+ },
+ {
+  "key": "업데이트하면서 전체 디스크 접근 권한이 풀려서 지금은 %@ 읽을 수 없어요. %@에서 캐릭모니터를 다시 켜 주세요.",
+  "en": "The update reset Full Disk Access, so I can't read %1$@ right now. Please turn CharMonitor back on in %2$@."
+ },
+ {
+  "key": "전체 디스크 접근 권한이 없어서 지금은 %@ 읽을 수 없어. %@에서 캐릭모니터를 켜 줘.",
+  "en": "Without Full Disk Access I can't read %1$@ right now. Turn on CharMonitor in %2$@."
+ },
+ {
+  "key": "전체 디스크 접근 권한이 없어서 지금은 %@ 읽을 수 없어요. %@에서 캐릭모니터를 켜 주세요.",
+  "en": "Without Full Disk Access I can't read %1$@ right now. Please turn on CharMonitor in %2$@."
+ },
+ {
+  "key": "이 맥에서 메시지 기록을 찾지 못했어. 메시지 앱에 로그인했는지 확인해 줘.",
+  "en": "I couldn't find a Messages history on this Mac. Check that you're signed in to Messages."
+ },
+ {
+  "key": "이 macOS에서는 알림 기록 위치가 바뀌어서 아직 알림을 읽을 수 없어.",
+  "en": "This macOS moved where it keeps notifications, so I can't read them yet."
+ },
+ {
+  "key": "이 macOS에서는 알림 기록 위치가 바뀌어서 아직 알림을 읽을 수 없어요.",
+  "en": "This macOS moved where it keeps notifications, so I can't read them yet."
+ },
+ {
+  "key": "App Store 버전은 %@ 읽을 수 없어. 메일은 비서 설정의 메일 계정에서 연결할 수 있어.",
+  "en": "The App Store version can't read %@. You can connect mail under Mail accounts in assistant settings."
+ },
+ {
+  "key": "App Store 버전은 %@ 읽을 수 없어요. 메일은 비서 설정의 메일 계정에서 연결할 수 있어요.",
+  "en": "The App Store version can't read %@. You can connect mail under Mail accounts in assistant settings."
+ },
+ {
+  "key": "%@에서",
+  "en": "from %@"
+ },
+ {
+  "key": "%@한테서",
+  "en": "from %@"
+ },
+ {
+  "key": "%@ 받은 ",
+  "en": "%@'s "
+ },
+ {
+  "key": "최근 받은 ",
+  "en": "recent "
+ },
+ {
+  "key": "%@ 중엔 %@ 온 게 없어.",
+  "en": "None of the %1$@ are %2$@."
+ },
+ {
+  "key": "%@ 중엔 %@ 온 게 없어요.",
+  "en": "None of the %1$@ are %2$@."
+ },
+ {
+  "key": "그 전에 받은 ",
+  "en": "earlier "
+ },
+ {
+  "key": "최근에 받은 ",
+  "en": "recent "
+ },
+ {
+  "key": "%@%@ 없어.",
+  "en": "No %1$@%2$@."
+ },
+ {
+  "key": "%@%@ 없어요.",
+  "en": "No %1$@%2$@."
+ },
+ {
+  "key": "앱이 켜진 뒤로 새로 온 메일은 아직 없어.",
+  "en": "No new mail since the app started."
+ },
+ {
+  "key": "앱이 켜진 뒤로 새로 온 메일은 아직 없어요.",
+  "en": "No new mail since the app started."
+ },
+ {
+  "key": "받은 메일이나 문자는 지금 내가 볼 수 없어. 비서 설정의 연동에서 켜 줘.",
+  "en": "I can't see your mail or texts right now. Turn them on under Connections in assistant settings."
+ },
+ {
+  "key": "받은 메일이나 문자는 지금 제가 볼 수 없어요. 비서 설정의 연동에서 켜 주세요.",
+  "en": "I can't see your mail or texts right now. Please turn them on under Connections in assistant settings."
+ },
+ {
+  "key": "읽었는지는 내가 알 수 없어서 최근 받은 걸 알려 줄게.",
+  "en": "I can't tell what you've read, so here's the latest one."
+ },
+ {
+  "key": "읽었는지는 제가 알 수 없어서 최근 받은 걸 알려 드릴게요.",
+  "en": "I can't tell what you've read, so here's the latest one."
+ },
+ {
+  "key": "%@ %@에 온 %@%@",
+  "en": "A %3$@ %1$@ at %2$@"
+ },
+ {
+  "key": "그 전 %@%@ %@ %@에 온 거야",
+  "en": "The one before that is a %1$@%2$@ %3$@ at %4$@"
+ },
+ {
+  "key": "그 전 %@%@ %@ %@에 온 거예요",
+  "en": "The one before that is a %1$@%2$@ %3$@ at %4$@"
+ },
+ {
+  "key": "가장 최근 %@%@",
+  "en": "The latest %1$@%2$@"
+ },
+ {
+  "key": "%@ %@ %@에 온 거야",
+  "en": "%1$@ is %2$@ at %3$@"
+ },
+ {
+  "key": "%@ %@ %@에 온 거예요",
+  "en": "%1$@ is %2$@ at %3$@"
+ },
+ {
+  "key": "%@ 이거 하나야. %@ %@에 왔어",
+  "en": "Just one in %1$@: %2$@ at %3$@"
+ },
+ {
+  "key": "%@ 이거 하나예요. %@ %@에 왔어요",
+  "en": "Just one in %1$@: %2$@ at %3$@"
+ },
+ {
+  "key": "%lld개",
+  "en": "%lld"
+ },
+ {
+  "key": "중 최근 %lld개",
+  "en": "latest %lld"
+ },
+ {
+  "key": "%@ 온 %@ %@",
+  "en": "%3$@ %2$@ %1$@"
+ },
+ {
+  "key": "그 전 %@ %lld개",
+  "en": "%2$lld earlier %1$@"
+ },
+ {
+  "key": "%@ 받은 %@ %@",
+  "en": "%1$@: %3$@ %2$@"
+ },
+ {
+  "key": "받은 %@ %@",
+  "en": "%2$@ %1$@"
+ },
+ {
+  "key": "최근 받은 %@ %@",
+  "en": "%2$@ recent %1$@"
+ },
+ {
+  "key": "읽었는지는 내가 알 수 없어서 %@%@ 알려 줄게.",
+  "en": "I can't tell what you've read, so here are the %1$@%2$@."
+ },
+ {
+  "key": "읽었는지는 제가 알 수 없어서 %@%@ 알려 드릴게요.",
+  "en": "I can't tell what you've read, so here are the %1$@%2$@."
+ },
+ {
+  "key": "%@야.",
+  "en": "%@:"
+ },
+ {
+  "key": "%@예요.",
+  "en": "%@:"
+ },
+ {
+  "key": "'내용 미리보기'",
+  "en": "'Preview content'"
+ },
+ {
+  "key": "'메일 제목도 말하기'",
+  "en": "'Read mail subjects too'"
+ },
+ {
+  "key": "'제목과 내용 미리보기'",
+  "en": "'Preview title and content'"
+ },
+ {
+  "key": "%@ 내용 보기가 꺼져 있어서 보낸 사람과 시각만 알려 줬어. 내용까지 들으려면 비서 설정에서 %@%@ 켜 줘.",
+  "en": "%1$@ previews are off, so I only told you who and when. To hear the content, turn on %2$@%3$@ in assistant settings."
+ },
+ {
+  "key": "%@ 내용 보기가 꺼져 있어서 보낸 사람과 시각만 알려 드렸어요. 내용까지 들으시려면 비서 설정에서 %@%@ 켜 주세요.",
+  "en": "%1$@ previews are off, so I only told you who and when. To hear the content, please turn on %2$@%3$@ in assistant settings."
+ },
+ {
+  "key": "더 있어. '더 보여줘'라고 하면 이어서 알려 줄게.",
+  "en": "There's more. Say 'show more' and I'll keep going."
+ },
+ {
+  "key": "더 있어요. '더 보여줘'라고 하시면 이어서 알려 드릴게요.",
+  "en": "There's more. Say 'show more' and I'll keep going."
+ },
+ {
+  "key": "카카오톡",
+  "en": "KakaoTalk"
+ },
+ {
+  "key": "연결하기 전에 확인해 주세요",
+  "en": "Please read this before you connect"
+ },
+ {
+  "key": "• 질문, 최근 대화, 답에 필요한 맥 상태 숫자(CPU·메모리 같은 것)를 %@의 %@로 보내요.",
+  "en": "• Your question, the recent chat and the Mac status numbers the answer needs (CPU, memory and such) go to %1$@'s %2$@."
+ },
+ {
+  "key": "• 아래 '받은 메시지·일정도 내 AI로'를 켜면 일정 제목도 보내요. 기본은 꺼져 있어요.",
+  "en": "• Turn on 'Messages and schedule to my AI too' below and event titles are sent as well. It is off by default."
+ },
+ {
+  "key": "• 내 API 키로 보내서 %@의 약관과 개인정보 처리방침을 따라요. 파일, 사진, 비밀번호는 보내지 않아요.",
+  "en": "• It goes with your own API key, under %@'s terms and privacy policy. Files, photos and passwords are never sent."
+ },
+ {
+  "key": "• 언제든 'AI 엔진'을 기본으로 바꾸면 더는 보내지 않아요.",
+  "en": "• Set 'AI engine' back to Default at any time and nothing more is sent."
+ },
+ {
+  "key": "동의하고 연결하기",
+  "en": "Agree and connect"
+ },
+ {
+  "key": "있지, ",
+  "en": "Hey! "
+ },
+ {
+  "key": "저기, ",
+  "en": "So… "
+ },
+ {
+  "key": "저, 저기… ",
+  "en": "Um, uh… "
+ },
+ {
+  "key": "그, 그게… ",
+  "en": "W-well… "
+ },
+ {
+  "key": "흥, ",
+  "en": "Hmph. "
+ },
+ {
+  "key": "뭐, ",
+  "en": "Well… "
+ },
+ {
+  "key": "좋아! ",
+  "en": "Okay! "
+ },
+ {
+  "key": "자! ",
+  "en": "Right! "
+ },
+ {
+  "key": " 헤헤",
+  "en": " hehe"
+ },
+ {
+  "key": " 히히",
+  "en": " heehee"
+ },
+ {
+  "key": " (부끄)",
+  "en": " (blush)"
+ },
+ {
+  "key": " …헤헤",
+  "en": " …hehe"
+ },
+ {
+  "key": " 에헴",
+  "en": " Ahem."
+ },
+ {
+  "key": " 흥",
+  "en": " Hmph."
+ },
+ {
+  "key": " 파이팅!",
+  "en": " You got this!"
+ },
+ {
+  "key": " 아자!",
+  "en": " Let's go!"
+ },
+ {
+  "key": "배터리 %lld%% 남았어. 꺼지기 전에 충전해 줘!",
+  "en": "Battery at %lld%%. Charge me before I shut down!"
+ },
+ {
+  "key": "배터리가 %lld%%뿐이에요. 꺼지기 전에 충전해 주세요.",
+  "en": "Only %lld%% battery left. Please charge before it shuts down."
+ },
+ {
+  "key": "배터리가 %lld%%야. 충전기 어디 있어?",
+  "en": "Battery's at %lld%%. Where's the charger?"
+ },
+ {
+  "key": "배터리가 %lld%%예요. 충전기를 연결해 주세요.",
+  "en": "Battery is at %lld%%. Please plug in the charger."
+ },
+ {
+  "key": "맥이 후끈후끈해. 창 몇 개 닫아 볼까?",
+  "en": "Your Mac is getting toasty. Close a few windows?"
+ },
+ {
+  "key": "맥이 많이 뜨거워요. 창 몇 개를 닫아 보는 건 어때요?",
+  "en": "Your Mac is quite hot. How about closing a few windows?"
+ },
+ {
+  "key": "열이 나서 맥이 속도를 줄였어. 잠깐 쉬게 해 주자.",
+  "en": "Your Mac slowed down to cool off. Let it rest a bit."
+ },
+ {
+  "key": "열이 나서 맥이 속도를 줄였어요. 잠깐 쉬게 해 주세요.",
+  "en": "Your Mac slowed down to cool off. Please let it rest a bit."
+ },
+ {
+  "key": "%lld분 동안 돌던 일, 끝난 것 같아. 확인해 봐!",
+  "en": "The job that ran for %lld min looks done. Take a look!"
+ },
+ {
+  "key": "%lld분 동안 돌던 작업이 끝난 것 같아요. 확인해 보세요.",
+  "en": "The task that ran for %lld min looks done. Have a look."
+ },
+ {
+  "key": "맥이 이제 조용해졌어. %lld분 걸린 일이 끝났나 봐.",
+  "en": "Your Mac went quiet. The %lld-min job must be done."
+ },
+ {
+  "key": "맥이 이제 조용해졌어요. %lld분 걸린 작업이 끝났나 봐요.",
+  "en": "Your Mac went quiet. The %lld-minute task seems to be done."
+ },
+ {
+  "key": "'%@'까지 %lld분 남았어. 준비하자!",
+  "en": "%2$lld min until '%1$@'. Let's get ready!"
+ },
+ {
+  "key": "'%@'까지 %lld분 남았어요. 준비해요.",
+  "en": "%2$lld minutes until '%1$@'. Time to get ready."
+ },
+ {
+  "key": "곧 '%@' 시간이야. %lld분 뒤에 시작해.",
+  "en": "'%1$@' is coming up. It starts in %2$lld min."
+ },
+ {
+  "key": "곧 '%@' 시간이에요. %lld분 뒤에 시작해요.",
+  "en": "'%1$@' is coming up. It starts in %2$lld minutes."
+ },
+ {
+  "key": "'%@' 잊지 마!",
+  "en": "Don't forget: '%@'!"
+ },
+ {
+  "key": "'%@' 잊지 마세요.",
+  "en": "Don't forget: '%@'."
+ },
+ {
+  "key": "미리알림이야: '%@'",
+  "en": "Reminder: '%@'"
+ },
+ {
+  "key": "미리알림이에요: '%@'",
+  "en": "Reminder: '%@'"
+ },
+ {
+  "key": "메일 %lld통 도착!%@",
+  "en": "%lld new emails!%@"
+ },
+ {
+  "key": "메일이 %lld통 도착했어요.%@",
+  "en": "%lld new emails arrived.%@"
+ },
+ {
+  "key": "메일함에 새 메일 %lld통 있어.%@",
+  "en": "%lld new emails in your inbox.%@"
+ },
+ {
+  "key": "메일함에 새 메일이 %lld통 있어요.%@",
+  "en": "You have %lld new emails in your inbox.%@"
+ },
+ {
+  "key": "밥 먹을 시간 지난 것 같아요. 밥 주세요!",
+  "en": "I think it's past mealtime. Feed me, please!"
+ },
+ {
+  "key": "배에서 꼬르륵 소리가 나요.",
+  "en": "My tummy is rumbling."
+ },
+ {
+  "key": "역시 집이 최고예요. 밥 고마워요!",
+  "en": "Home sweet home. Thanks for the food!"
+ },
+ {
+  "key": "돌아왔어요! 배부르니까 기분 좋아요.",
+  "en": "I'm back! A full tummy feels great."
+ },
+ {
+  "key": "집중 한 번 해냈어요! 코인 %lld개 받았어요. 5분만 쉬어요.",
+  "en": "One focus session done! You got %lld coins. Rest for 5 minutes."
+ },
+ {
+  "key": "25분 잘 버텼어요. 코인 %lld개! 이제 5분 쉬어요.",
+  "en": "You made it through 25 minutes. %lld coins! Now rest for 5."
+ },
+ {
+  "key": "5분 다 쉬었어요. 다시 해 볼까요?",
+  "en": "That's 5 minutes of rest. Shall we go again?"
+ },
+ {
+  "key": "충전 완료! 다음 25분 시작해 볼까요?",
+  "en": "Fully recharged! Start the next 25 minutes?"
+ },
+ {
+  "key": "눈 쉴 시간이에요. 20초만 창밖을 봐요.",
+  "en": "Time to rest your eyes. Look out the window for 20 seconds."
+ },
+ {
+  "key": "화면에서 잠깐 눈을 떼요. 6미터 먼 곳을 20초 동안 봐요.",
+  "en": "Look away from the screen. Gaze 20 feet away for 20 seconds."
+ },
+ {
+  "key": "20분 동안 화면만 봤어요. 먼 곳을 20초 바라봐요.",
+  "en": "You've stared at the screen for 20 minutes. Look far away for 20 seconds."
+ },
+ {
+  "key": "울음소리 말투",
+  "en": "Animal sounds"
+ },
+ {
+  "key": "끄응…",
+  "en": "Hmmph…"
+ },
+ {
+  "key": "멍!",
+  "en": "Woof!"
+ },
+ {
+  "key": "왕왕",
+  "en": "Arf arf"
+ },
+ {
+  "key": "냐앙",
+  "en": "Meow"
+ },
+ {
+  "key": "냥냥",
+  "en": "Mew mew"
+ },
+ {
+  "key": "먀?",
+  "en": "Mrrp?"
+ },
+ {
+  "key": "오!",
+  "en": "Oh!"
+ },
+ {
+  "key": "음!",
+  "en": "Mm!"
+ },
+ {
+  "key": "흠흠",
+  "en": "Hmm hmm"
+ },
+ {
+  "key": "오래 걸린 작업 끝",
+  "en": "Long task finished"
+ },
+ {
+  "key": "약 먹기",
+  "en": "Take medicine"
+ },
+ {
+  "key": "일정 알림",
+  "en": "Event alert"
+ },
+ {
+  "key": "팀 회의",
+  "en": "Team meeting"
+ },
+ {
+  "key": "집중 끝",
+  "en": "Focus done"
+ },
+ {
+  "key": "펫이 돌아왔을 때",
+  "en": "Pet comes home"
+ },
+ {
+  "key": "펫이 배고플 때",
+  "en": "Pet is hungry"
+ },
+ {
+  "key": "눈 쉬기",
+  "en": "Eye rest"
+ },
+ {
+  "key": "쉬는 시간 끝",
+  "en": "Break over"
+ },
+ {
+  "key": "고친 대사는 말풍선에 그대로 나와요. AI에게는 보내지 않아요.",
+  "en": "Your lines show in the bubble exactly as written. They are never sent to the AI."
+ },
+ {
+  "key": "대사 고치기",
+  "en": "Edit lines"
+ },
+ {
+  "key": "고친 대사 %lld개",
+  "en": "%lld edited"
+ },
+ {
+  "key": "기본값",
+  "en": "Default"
+ },
+ {
+  "key": "모르는 자리표시예요: {%@}",
+  "en": "Unknown placeholder: {%@}"
+ },
+ {
+  "key": "%@ 쓸 수 있어요",
+  "en": "You can use %@"
+ },
+ {
+  "key": "울음소리",
+  "en": "Sounds"
+ },
+ {
+  "key": "쉼표로 나눠 6개까지, 하나에 8자까지 써요",
+  "en": "Up to 6, separated by commas, 8 characters each"
+ },
+ {
+  "key": "비우면 %@ 모습을 써요",
+  "en": "Empty: uses the %@ picture"
+ },
+ {
+  "key": "오늘 일정 %lld개",
+  "en": "%lld events today"
+ },
+ {
+  "key": "첫 일정 %@ '%@'",
+  "en": "first at %1$@ '%2$@'"
+ },
+ {
+  "key": "오늘 일정 없음",
+  "en": "No events today"
+ },
+ {
+  "key": "미리알림 %lld개",
+  "en": "%lld reminders"
+ },
+ {
+  "key": "%@분 전",
+  "en": "%@ min before"
+ },
+ {
+  "key": "좋은 아침! 오늘도 같이 힘내자.",
+  "en": "Good morning! Let's do our best today."
+ },
+ {
+  "key": "좋은 아침이에요. 오늘도 같이 힘내요.",
+  "en": "Good morning. Let's do our best today."
+ },
+ {
+  "key": "출근하셨네요. 오늘 하루도 잘 부탁드려요.",
+  "en": "You're in. Let's have a good day."
+ },
+ {
+  "key": "출근했구나! 오늘 하루도 잘 부탁해.",
+  "en": "You're in! Let's have a good day."
+ },
+ {
+  "key": "오셨어요? 물 한 잔 마시고 시작해요.",
+  "en": "Welcome. Have a glass of water and let's start."
+ },
+ {
+  "key": "왔구나! 물 한 잔 마시고 시작하자.",
+  "en": "Hey, you're here! Grab some water and let's start."
+ },
+ {
+  "key": "점심시간이야! 맛있는 거 먹고 와.",
+  "en": "Lunchtime! Go eat something good."
+ },
+ {
+  "key": "점심시간이에요. 맛있는 거 드시고 오세요.",
+  "en": "It's lunchtime. Enjoy a good meal."
+ },
+ {
+  "key": "배고프시죠? 식사하고 하세요.",
+  "en": "Hungry? Have lunch first."
+ },
+ {
+  "key": "배고프지? 밥 먹고 하자!",
+  "en": "Hungry? Lunch first!"
+ },
+ {
+  "key": "냠냠, 점심 드실 시간이에요.",
+  "en": "Nom nom, time for lunch."
+ },
+ {
+  "key": "냠냠, 점심 먹을 시간이야.",
+  "en": "Nom nom, lunch time!"
+ },
+ {
+  "key": "%lld분 뒤면 퇴근이야! 조금만 더 힘내.",
+  "en": "%lld min until you're off! Almost there."
+ },
+ {
+  "key": "%lld분 뒤면 퇴근이에요. 조금만 더 힘내요.",
+  "en": "%lld min until the end of the day. Almost there."
+ },
+ {
+  "key": "퇴근까지 %lld분 남았어. 마무리하자!",
+  "en": "%lld min left in the workday. Let's wrap up!"
+ },
+ {
+  "key": "퇴근까지 %lld분 남았어요. 마무리해요.",
+  "en": "%lld min left in the workday. Time to wrap up."
+ },
+ {
+  "key": "곧 퇴근이야. %lld분만 더 버티자!",
+  "en": "Almost done for the day. Just %lld more min!"
+ },
+ {
+  "key": "곧 퇴근이에요. %lld분만 더 힘내요.",
+  "en": "Almost done for the day. Just %lld more min."
+ },
+ {
+  "key": "출근 인사",
+  "en": "Morning hello"
+ },
+ {
+  "key": "점심시간 알림",
+  "en": "Lunchtime nudge"
+ },
+ {
+  "key": "퇴근 10분 전 알림",
+  "en": "10 min before the end of the day"
+ },
+ {
+  "key": "캘린더 연동은 꺼져 있어서 일정은 볼 수 없어.",
+  "en": "Calendar is off, so I can't see events."
+ },
+ {
+  "key": "캘린더 연동은 꺼져 있어서 일정은 볼 수 없어요.",
+  "en": "Calendar is off, so I can't see your events."
+ },
+ {
+  "key": "미리알림 연동이 꺼져 있어서 할 일을 볼 수 없어요. 비서 설정에서 켜 주세요.",
+  "en": "Reminders are off, so I can't see your to-dos. Turn them on in Assistant settings."
+ },
+ {
+  "key": "미리알림 연동이 꺼져 있어서 할 일을 볼 수 없어. 비서 설정에서 켜 줘.",
+  "en": "Reminders are off, so I can't see your to-dos. Turn them on in Assistant settings."
+ },
+ {
+  "key": "좋아, 춤 간다! 하나 둘, 하나 둘!",
+  "en": "Okay, here comes the dance! One two, one two!"
+ },
+ {
+  "key": "좋아요, 춤 갑니다! 하나 둘, 하나 둘!",
+  "en": "Okay, here comes the dance! One two, one two!"
+ },
+ {
+  "key": "빙글빙글~ 내 춤 어때?",
+  "en": "Spin spin~ How's my dance?"
+ },
+ {
+  "key": "빙글빙글~ 제 춤 어때요?",
+  "en": "Spin spin~ How's my dance?"
+ },
+ {
+  "key": "음악 없어도 출 수 있어. 둠칫둠칫!",
+  "en": "No music needed. Boom-chk boom-chk!"
+ },
+ {
+  "key": "음악 없어도 출 수 있어요. 둠칫둠칫!",
+  "en": "No music needed. Boom-chk boom-chk!"
+ },
+ {
+  "key": "신나요! 같이 어깨 들썩여 봐요.",
+  "en": "So fun! Shake your shoulders with me."
+ },
+ {
+  "key": "신난다! 너도 같이 어깨 들썩여 봐.",
+  "en": "So fun! Shake your shoulders with me."
+ },
+ {
+  "key": "넌 잘하고 있어. 내가 옆에서 응원할게!",
+  "en": "You're doing great. I'm cheering right here!"
+ },
+ {
+  "key": "잘하고 계세요. 제가 옆에서 응원할게요!",
+  "en": "You're doing great. I'm cheering for you right here!"
+ },
+ {
+  "key": "영차영차! 조금만 더 가 보자. 힘내!",
+  "en": "Heave-ho! Just a little further. You've got this!"
+ },
+ {
+  "key": "영차영차! 조금만 더 가 봐요. 힘내세요!",
+  "en": "Heave-ho! Just a little further. You've got this!"
+ },
+ {
+  "key": "오늘도 여기까지 오신 거 대단해요. 파이팅!",
+  "en": "Getting this far today is amazing. Go for it!"
+ },
+ {
+  "key": "오늘도 여기까지 온 거 대단해. 파이팅!",
+  "en": "Getting this far today is amazing. Go for it!"
+ },
+ {
+  "key": "힘들면 잠깐 쉬어 가셔도 돼요. 저는 계속 응원할게요!",
+  "en": "It's okay to take a short break. I'll keep cheering for you!"
+ },
+ {
+  "key": "힘들면 잠깐 쉬어도 돼. 난 계속 네 편이야!",
+  "en": "It's okay to take a break. I'm always on your side!"
+ },
+ {
+  "key": "미션을 다 해냈어요! 오늘 정말 최고예요.",
+  "en": "All missions done! You're the best today."
+ },
+ {
+  "key": "오늘 미션 완주! 내일도 같이 해요.",
+  "en": "Today's missions complete! Let's do it again tomorrow."
+ },
+ {
+  "key": "오늘 미션 전부 끝! 축하 춤 출게요.",
+  "en": "Every mission done today! Here's a victory dance."
+ },
+ {
+  "key": "하루에 한 번씩만 말해요. 점심엔 냠냠 모션을 보여 주고, 공휴일엔 쉬어요. 먼저 말 걸기를 끄면 함께 꺼져요.",
+  "en": "Each one speaks once a day. Lunch plays the eating motion, and holidays stay quiet. Turning Chime in off turns these off too."
+ },
+ {
+  "key": "캘린더 일정 알림",
+  "en": "Calendar event alerts"
+ },
+ {
+  "key": "알림 시점",
+  "en": "Alert time"
+ },
+ {
+  "key": "시작할 때까지 말풍선이 떠 있고 캐릭터가 특별 모션을 보여 줘요. 취소·불참·한가함 일정은 건너뛰어요.",
+  "en": "The bubble stays until it starts and the character plays its special motion. Cancelled, declined and free events are skipped."
+ },
+ {
+  "key": "응원해 줘",
+  "en": "Cheer me on"
+ },
+ {
+  "key": "집중 중 · %lld분 남음",
+  "en": "Focusing · %lld min left"
+ },
+ {
+  "key": "쉬는 중 · %lld분",
+  "en": "Resting · %lld min"
+ },
+ {
+  "key": "집중 기록",
+  "en": "Focus log"
+ },
+ {
+  "key": "12주 집중 기록",
+  "en": "12-week focus log"
+ },
+ {
+  "key": "이번 주 %lld번",
+  "en": "%lld this week"
+ },
+ {
+  "key": " · 최고 %@ %lld번",
+  "en": " · best %1$@, %2$lld"
+ },
+ {
+  "key": "%@ 크레딧이 부족해요. %@ 콘솔에서 결제를 확인해 주세요.",
+  "en": "Your %1$@ credit is low. Check billing in the %2$@ console."
+ },
+ {
+  "key": "OpenAI 크레딧이 없어요. ChatGPT 구독과 API 요금은 따로예요. OpenAI 콘솔에서 결제를 확인해 주세요.",
+  "en": "No OpenAI credit left. A ChatGPT subscription and API billing are separate. Check billing in the OpenAI console."
+ },
+ {
+  "key": "오늘 무료 사용 한도를 다 썼어요. 무료 키는 모델마다 하루 횟수가 정해져 있어요. 내일 다시 해 주세요.",
+  "en": "Today's free usage limit is used up. Free keys get a set number of requests per model each day. Try again tomorrow."
+ },
+ {
+  "key": "%@ 요청 한도에 잠깐 걸렸어요. 잠시 뒤 다시 물어봐 주세요.",
+  "en": "Hit the %@ request limit for a moment. Ask again shortly."
+ },
+ {
+  "key": "%@ 서버가 붐벼요. 잠시 뒤 다시 물어봐 주세요.",
+  "en": "%@ is busy right now. Ask again in a moment."
+ },
+ {
+  "key": "연결은 됐어요. ",
+  "en": "Connected. "
+ },
+ {
+  "key": "연결은 됐어요. 잠깐 요청이 많았어요. 조금 뒤 연결 확인을 다시 해 주세요.",
+  "en": "Connected. There were a lot of requests just now. Check the connection again in a bit."
+ },
+ {
+  "key": "(1/4) 맥이 바쁘면 내가 뛰고, 한가하면 쉬어. 말풍선을 누르면 다음 이야기야.",
+  "en": "(1/4) When your Mac is busy I run, and when it's quiet I rest. Click this bubble for more."
+ },
+ {
+  "key": "(1/4) 맥이 바쁘면 제가 뛰고, 한가하면 쉬어요. 말풍선을 누르면 다음 이야기예요.",
+  "en": "(1/4) When your Mac is busy I run, and when it's quiet I rest. Click this bubble for more."
+ },
+ {
+  "key": "(2/4) 메뉴바의 나를 누르면 대시보드가 열려.",
+  "en": "(2/4) Click me in the menu bar to open the dashboard."
+ },
+ {
+  "key": "(2/4) 메뉴바의 저를 누르면 대시보드가 열려요.",
+  "en": "(2/4) Click me in the menu bar to open the dashboard."
+ },
+ {
+  "key": "(3/4) 캐릭터는 대시보드의 캐릭터 선택에서 바꿀 수 있어.",
+  "en": "(3/4) You can switch characters in Choose character on the dashboard."
+ },
+ {
+  "key": "(3/4) 캐릭터는 대시보드의 캐릭터 선택에서 바꿀 수 있어요.",
+  "en": "(3/4) You can switch characters in Choose character on the dashboard."
+ },
+ {
+  "key": "(4/4) 대시보드의 AI 비서에서 나한테 말 걸어 봐.",
+  "en": "(4/4) Talk to me in AI Assistant on the dashboard."
+ },
+ {
+  "key": "(4/4) 대시보드의 AI 비서에서 저한테 말 걸어 보세요.",
+  "en": "(4/4) Talk to me in AI Assistant on the dashboard."
+ },
+ {
+  "key": "업데이트됐어요! ",
+  "en": "Updated! "
+ },
+ {
+  "key": "캐릭모니터 문제 보내기",
+  "en": "CharaMonitor problem report"
+ },
+ {
+  "key": "어떤 문제인지 적어 주세요:",
+  "en": "Tell us what went wrong:"
+ },
+ {
+  "key": "사용법 다시 보기",
+  "en": "Show the tour again"
+ },
+ {
+  "key": "문제 보내기",
+  "en": "Report a problem"
+ },
+ {
+  "key": "보내는 내용은 아래가 전부예요. 대화·메모·메일·일정 내용과 키는 넣지 않아요.",
+  "en": "This is everything that gets sent. No chats, memories, mail, calendar items or keys."
+ },
+ {
+  "key": "복사했어요",
+  "en": "Copied"
+ },
+ {
+  "key": "복사",
+  "en": "Copy"
+ },
+ {
+  "key": "메일로 보내기",
+  "en": "Send by mail"
+ },
+ {
+  "key": "장소: %@",
+  "en": "Where: %@"
+ },
+ {
+  "key": "퇴근 시간을 아직 몰라요. 비서 설정에서 퇴근 10분 전 알림을 켜고 시간을 정해 주세요.",
+  "en": "I don't know when you finish work yet. Turn on \"10 min before the end of the day\" in Assistant Settings and set the time."
+ },
+ {
+  "key": "퇴근 시간을 아직 몰라. 비서 설정에서 퇴근 10분 전 알림을 켜고 시간을 정해 줘.",
+  "en": "I don't know when you finish work yet. Turn on \"10 min before the end of the day\" in Assistant Settings and set the time."
+ },
+ {
+  "key": "퇴근 시간(%@)이 지났어. 오늘도 수고했어!",
+  "en": "It's past quitting time (%@). Good work today!"
+ },
+ {
+  "key": "퇴근 시간(%@)이 지났어요. 오늘도 수고하셨어요!",
+  "en": "It's past quitting time (%@). Great work today!"
+ },
+ {
+  "key": "%lld시간",
+  "en": "%lldh"
+ },
+ {
+  "key": "퇴근(%@)까지 %@ 남았어.",
+  "en": "%2$@ left until quitting time (%1$@)."
+ },
+ {
+  "key": "퇴근(%@)까지 %@ 남았어요.",
+  "en": "%2$@ left until quitting time (%1$@)."
+ },
+ {
+  "key": "출근·점심·퇴근 인사, 울음소리 말투, 집중 잔디가 생겼어요.",
+  "en": "New: work-day greetings, the animal-sound voice and a focus streak grid."
+ },
+ {
+  "key": "데스크톱 친구",
+  "en": "Desktop Friends"
+ },
+ {
+  "key": "눈앞이 핑핑 돌아요",
+  "en": "Everything is spinning"
+ },
+ {
+  "key": "세상이 빙글빙글 돌아요",
+  "en": "The world is going round and round"
+ },
+ {
+  "key": "어질어질…",
+  "en": "So dizzy…"
+ },
+ {
+  "key": "커서를 움직이면 걸어서 따라오고, 커서가 멀리 가면 뛰어와요. 멈추면 곁에서 기다리다 가끔 혼자 놀고, 충전 중엔 밥을 먹어요. 한동안 손을 안 대면 낮잠을 자요. (macOS는 시스템 커서 자체를 바꾸지 못하게 해서 따라다니는 친구로 만들었어요)",
+  "en": "It walks after your cursor and runs when the cursor gets far ahead. When you stop, it waits nearby and plays now and then, and eats while charging. Leave the Mac alone for a while and it naps. (macOS doesn't let apps change the system cursor itself, so it's a friend that follows it instead)"
+ },
+ {
+  "key": "빠르게 움직이면",
+  "en": "When you move fast"
+ },
+ {
+  "key": "마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 한 번 누르면 반가워하고, 두 번 누르면 AI 비서가 열려요. 잡아 끌 수도 있고, 오른쪽 클릭은 메뉴예요.",
+  "en": "Whip the mouse around and it grows and leans. Shake it hard and it gets dizzy. Click once to say hi, double-click to open the AI assistant. You can drag it around, and right-click shows the menu."
+ },
+ {
+  "key": "아주 크게",
+  "en": "Extra large"
+ },
+ {
+  "key": "끔",
+  "en": "Off"
+ },
+ {
+  "key": "살짝",
+  "en": "A little"
+ },
+ {
+  "key": "혼자 놀기",
+  "en": "Play on its own"
+ },
+ {
+  "key": "혼자 놀기를 켜 두면 가끔 맨 앞 창의 위쪽 끝에 올라가 앉고, 나비를 쫓거나 커서에 매달리기도 해요. 앉을 자리는 창의 위치만 보고 찾아요. 창 안의 내용은 보지 않아요.",
+  "en": "With Play on its own on, it sometimes sits on the top edge of the front window, chases a butterfly or clings to your cursor. It finds a seat from the window's position only and never looks at what's inside the window."
+ },
+ {
+  "key": "고요",
+  "en": "Still"
+ },
+ {
+  "key": "산들",
+  "en": "Breezy"
+ },
+ {
+  "key": "선선",
+  "en": "Windy"
+ },
+ {
+  "key": "쌩쌩",
+  "en": "Gusty"
+ },
+ {
+  "key": "우리 동네 바람",
+  "en": "My local wind"
+ },
+ {
+  "key": "구름",
+  "en": "Cloud"
+ },
+ {
+  "key": "별",
+  "en": "Star"
+ },
+ {
+  "key": "달",
+  "en": "Moon"
+ },
+ {
+  "key": "하트",
+  "en": "Heart"
+ },
+ {
+  "key": "물방울",
+  "en": "Raindrop"
+ },
+ {
+  "key": "네잎클로버",
+  "en": "Four-leaf clover"
+ },
+ {
+  "key": "실",
+  "en": "Thread"
+ },
+ {
+  "key": "구슬줄",
+  "en": "Beads"
+ },
+ {
+  "key": "대롱대롱 친구",
+  "en": "Hanging Friends"
+ },
+ {
+  "key": "메뉴바 바로 아래 줄에 매달려 흔들려요. 잡아서 던지면 줄이 늘었다 튕기고, 누르면 풍경 소리가 나요. 끌어다 놓고 잠깐 멈췄다 놓으면 그 자리, 그 줄 길이로 다시 매달아요. 다른 화면으로 끌어 옮길 수도 있어요.",
+  "en": "They hang on strings right below the menu bar and sway. Grab and throw one and the string stretches and springs back. Click one to ring its chime. Drag one, hold still for a moment and let go to hang it there with that string length. You can drag them to another display too."
+ },
+ {
+  "key": "몇 명",
+  "en": "How many"
+ },
+ {
+  "key": "바람",
+  "en": "Wind"
+ },
+ {
+  "key": "풍경 소리",
+  "en": "Chime"
+ },
+ {
+  "key": "들어보기",
+  "en": "Listen"
+ },
+ {
+  "key": "항상 위",
+  "en": "On top"
+ },
+ {
+  "key": "다른 창보다 위에 두기",
+  "en": "Keep above other windows"
+ },
+ {
+  "key": "누구",
+  "en": "Who"
+ },
+ {
+  "key": "지금 캐릭터",
+  "en": "Current character"
+ },
+ {
+  "key": "사진·스크린샷…",
+  "en": "Photo or screenshot…"
+ },
+ {
+  "key": "장식",
+  "en": "Charm"
+ },
+ {
+  "key": "줄",
+  "en": "String"
+ },
+ {
+  "key": "매달 사진이나 스크린샷을 골라 주세요",
+  "en": "Pick a photo or screenshot to hang"
+ },
+ {
+  "key": "다른 도시 검색…",
+  "en": "Search another city…"
+ },
+ {
+  "key": "도시 바꾸기 (%@)",
+  "en": "Change city (%@)"
+ },
+ {
+  "key": "실제 날씨",
+  "en": "Real weather"
+ },
+ {
+  "key": "날씨 미리보기",
+  "en": "Weather preview"
+ },
+ {
+  "key": "밤으로 보기",
+  "en": "Show as night"
+ },
+ {
+  "key": "창 크기",
+  "en": "Window size"
+ },
+ {
+  "key": "항상 위에 두기",
+  "en": "Always on top"
+ },
+ {
+  "key": "위치 초기화",
+  "en": "Reset position"
+ },
+ {
+  "key": "날씨 창문 닫기",
+  "en": "Close weather window"
+ },
+ {
+  "key": "어느 도시의 날씨를 볼까요?",
+  "en": "Which city's weather should we show?"
+ },
+ {
+  "key": "도시 이름을 한글이나 영어로 적어 주세요.",
+  "en": "Type a city name in Korean or English."
+ },
+ {
+  "key": "예: 춘천, Tokyo, Paris",
+  "en": "e.g. Chuncheon, Tokyo, Paris"
+ },
+ {
+  "key": "찾기",
+  "en": "Find"
+ },
+ {
+  "key": "'%@' 도시를 찾지 못했어요.",
+  "en": "Couldn't find the city '%@'."
+ },
+ {
+  "key": "시나 군 이름, 또는 영어 이름으로 다시 찾아보세요.",
+  "en": "Try again with a city or county name, or its English name."
+ },
+ {
+  "key": "날씨 창문: %@",
+  "en": "Weather window: %@"
+ },
+ {
+  "key": "맑음",
+  "en": "Clear"
+ },
+ {
+  "key": "구름 조금",
+  "en": "Partly cloudy"
+ },
+ {
+  "key": "흐림",
+  "en": "Cloudy"
+ },
+ {
+  "key": "안개",
+  "en": "Fog"
+ },
+ {
+  "key": "비",
+  "en": "Rain"
+ },
+ {
+  "key": "눈",
+  "en": "Snow"
+ },
+ {
+  "key": "천둥 번개",
+  "en": "Thunderstorm"
+ },
+ {
+  "key": "맑아",
+  "en": "clear"
+ },
+ {
+  "key": "맑아요",
+  "en": "clear"
+ },
+ {
+  "key": "구름이 조금 있어",
+  "en": "partly cloudy"
+ },
+ {
+  "key": "구름이 조금 있어요",
+  "en": "partly cloudy"
+ },
+ {
+  "key": "흐려",
+  "en": "cloudy"
+ },
+ {
+  "key": "흐려요",
+  "en": "cloudy"
+ },
+ {
+  "key": "안개가 꼈어",
+  "en": "foggy"
+ },
+ {
+  "key": "안개가 꼈어요",
+  "en": "foggy"
+ },
+ {
+  "key": "비가 와",
+  "en": "raining"
+ },
+ {
+  "key": "비가 와요",
+  "en": "raining"
+ },
+ {
+  "key": "눈이 와",
+  "en": "snowing"
+ },
+ {
+  "key": "눈이 와요",
+  "en": "snowing"
+ },
+ {
+  "key": "천둥 번개가 쳐",
+  "en": "stormy with thunder"
+ },
+ {
+  "key": "천둥 번개가 쳐요",
+  "en": "stormy with thunder"
+ },
+ {
+  "key": "서울",
+  "en": "Seoul"
+ },
+ {
+  "key": "인천",
+  "en": "Incheon"
+ },
+ {
+  "key": "수원",
+  "en": "Suwon"
+ },
+ {
+  "key": "춘천",
+  "en": "Chuncheon"
+ },
+ {
+  "key": "강릉",
+  "en": "Gangneung"
+ },
+ {
+  "key": "대전",
+  "en": "Daejeon"
+ },
+ {
+  "key": "전주",
+  "en": "Jeonju"
+ },
+ {
+  "key": "청주",
+  "en": "Cheongju"
+ },
+ {
+  "key": "광주",
+  "en": "Gwangju"
+ },
+ {
+  "key": "대구",
+  "en": "Daegu"
+ },
+ {
+  "key": "부산",
+  "en": "Busan"
+ },
+ {
+  "key": "울산",
+  "en": "Ulsan"
+ },
+ {
+  "key": "제주",
+  "en": "Jeju"
+ },
+ {
+  "key": "지금 %@ 날씨는 %lld도이고 %@. 오늘 최고 %lld도, 최저 %lld도야.",
+  "en": "It's %2$lld° in %1$@ right now and %3$@. Today's high is %4$lld°, low %5$lld°."
+ },
+ {
+  "key": "지금 %@ 날씨는 %lld도이고 %@. 오늘 최고 %lld도, 최저 %lld도예요.",
+  "en": "It's %2$lld° in %1$@ right now and %3$@. Today's high is %4$lld°, low %5$lld°."
+ },
+ {
+  "key": "이따 비 소식이 있으니 우산 챙겨.",
+  "en": "Rain is on the way later, so take an umbrella."
+ },
+ {
+  "key": "이따 비 소식이 있으니 우산 챙기세요.",
+  "en": "Rain is on the way later, so take an umbrella."
+ },
+ {
+  "key": "내일 %@ 날씨는 최고 %lld도, 최저 %lld도야.",
+  "en": "Tomorrow in %1$@: high %2$lld°, low %3$lld°."
+ },
+ {
+  "key": "내일 %@ 날씨는 최고 %lld도, 최저 %lld도예요.",
+  "en": "Tomorrow in %1$@: high %2$lld°, low %3$lld°."
+ },
+ {
+  "key": "눈 소식이 있어.",
+  "en": "Snow is expected."
+ },
+ {
+  "key": "눈 소식이 있어요.",
+  "en": "Snow is expected."
+ },
+ {
+  "key": "비 소식이 있어.",
+  "en": "Rain is expected."
+ },
+ {
+  "key": "비 소식이 있어요.",
+  "en": "Rain is expected."
+ },
+ {
+  "key": "비 소식은 없어.",
+  "en": "No rain expected."
+ },
+ {
+  "key": "비 소식은 없어요.",
+  "en": "No rain expected."
+ },
+ {
+  "key": "오늘 %@에 비 소식이 있어. 나갈 때 우산 챙겨.",
+  "en": "Rain is expected in %@ today. Take an umbrella when you go out."
+ },
+ {
+  "key": "오늘 %@에 비 소식이 있어요. 나갈 때 우산 챙기세요.",
+  "en": "Rain is expected in %@ today. Take an umbrella when you go out."
+ },
+ {
+  "key": "이따 비가 올 것 같아. 가방에 우산 하나 넣어 두자.",
+  "en": "Looks like rain later. Pop an umbrella in your bag."
+ },
+ {
+  "key": "이따 비가 올 것 같아요. 가방에 우산 하나 넣어 두세요.",
+  "en": "Looks like rain later. Pop an umbrella in your bag."
+ },
+ {
+  "key": "오늘 %@에 눈 소식이 있어. 길이 미끄러우니 천천히 걷자.",
+  "en": "Snow is expected in %@ today. Roads get slippery, so walk slowly."
+ },
+ {
+  "key": "오늘 %@에 눈 소식이 있어요. 길이 미끄러우니 천천히 걸으세요.",
+  "en": "Snow is expected in %@ today. Roads get slippery, so walk slowly."
+ },
+ {
+  "key": "눈이 올 것 같아. 따뜻한 신발 신고 나가.",
+  "en": "Looks like snow. Wear warm shoes when you head out."
+ },
+ {
+  "key": "눈이 올 것 같아요. 따뜻한 신발 신고 나가세요.",
+  "en": "Looks like snow. Wear warm shoes when you head out."
+ },
+ {
+  "key": "오늘 최저 %lld도, 영하야. 두꺼운 겉옷 꼭 입어.",
+  "en": "Today's low is %lld°, below freezing. Wear a thick coat."
+ },
+ {
+  "key": "오늘 최저 %lld도로 영하예요. 두꺼운 겉옷 꼭 입으세요.",
+  "en": "Today's low is %lld°, below freezing. Wear a thick coat."
+ },
+ {
+  "key": "밖은 영하래. 장갑이랑 겉옷 챙겨.",
+  "en": "It's below freezing outside. Grab gloves and a coat."
+ },
+ {
+  "key": "밖은 영하래요. 장갑이랑 겉옷 챙기세요.",
+  "en": "It's below freezing outside. Grab gloves and a coat."
+ },
+ {
+  "key": "오늘 낮 최고 %lld도까지 올라. 물 자주 마셔.",
+  "en": "It climbs to %lld° today. Drink water often."
+ },
+ {
+  "key": "오늘 낮 최고 %lld도까지 올라요. 물 자주 드세요.",
+  "en": "It climbs to %lld° today. Drink water often."
+ },
+ {
+  "key": "많이 더운 날이야. 물병 하나 곁에 두자.",
+  "en": "It's a hot one today. Keep a water bottle nearby."
+ },
+ {
+  "key": "많이 더운 날이에요. 물병 하나 곁에 두세요.",
+  "en": "It's a hot one today. Keep a water bottle nearby."
+ },
+ {
+  "key": "%@ · 불러오는 중",
+  "en": "%@ · Loading"
+ },
+ {
+  "key": "%@ · 연결 안 됨",
+  "en": "%@ · Offline"
+ },
+ {
+  "key": "날씨 창문",
+  "en": "Weather Window"
+ },
+ {
+  "key": "고른 도시의 지금 날씨 속에서 캐릭터가 지내는 작은 창문이에요. 빈 곳을 끌면 옮겨지고, 오른쪽 클릭으로 미리보기와 위치 초기화를 할 수 있어요. 켜 두면 아침에 우산이나 겉옷 이야기를 하루 한 번 해 줘요.",
+  "en": "A little window where your character lives in the weather of the city you picked. Drag an empty spot to move it, and right-click for previews and resetting its position. While it's on, it mentions an umbrella or a coat once a morning."
+ },
+ {
+  "key": "도시",
+  "en": "City"
+ },
+ {
+  "key": "날씨 정보: MET Norway (CC BY 4.0)",
+  "en": "Weather data: MET Norway (CC BY 4.0)"
+ },
+ {
+  "key": "자동",
+  "en": "Auto"
+ },
+ {
+  "key": "일러스트",
+  "en": "Illustration"
+ },
+ {
+  "key": "캐릭터마다 그려진 그대로 보여 줘요",
+  "en": "Shows each character as it was drawn"
+ },
+ {
+  "key": "모든 캐릭터를 또렷한 도트로 보여 줘요",
+  "en": "Shows every character as crisp pixel art"
+ },
+ {
+  "key": "도트 그림은 매끈하게, 사진 캐릭터는 실사로 보여 줘요",
+  "en": "Smooths pixel art and shows photo characters as photos"
+ },
+ {
+  "key": "남은 배경 지우기",
+  "en": "Erase leftover background"
+ },
+ {
+  "key": "%@ 배경 다듬기",
+  "en": "Clean up %@ background"
+ },
+ {
+  "key": "비슷한 색 지우기",
+  "en": "Erase similar colors"
+ },
+ {
+  "key": "지우개",
+  "en": "Eraser"
+ },
+ {
+  "key": "배경 다듬기",
+  "en": "Clean Up Background"
+ },
+ {
+  "key": "도구",
+  "en": "Tool"
+ },
+ {
+  "key": "비슷한 정도",
+  "en": "Similarity"
+ },
+ {
+  "key": "지우개 크기",
+  "en": "Eraser size"
+ },
+ {
+  "key": "남은 배경을 누르면 이어진 비슷한 색이 한 번에 지워져요",
+  "en": "Click leftover background to erase the connected similar colors at once"
+ },
+ {
+  "key": "문질러서 지워요. 잘못 지우면 되돌리기를 눌러 주세요",
+  "en": "Rub to erase. If you erase too much, press Undo"
+ },
+ {
+  "key": "다듬는 그림",
+  "en": "Picture being cleaned up"
+ },
+ {
+  "key": "완료",
+  "en": "Done"
+ },
+ {
+  "key": "모두 지워졌어요. 되돌리기로 돌아가 주세요",
+  "en": "Everything was erased. Press Undo to go back"
+ },
+ {
+  "key": "그림 스타일",
+  "en": "Art Style"
+ },
+ {
+  "key": "되돌리기",
+  "en": "Undo"
+ },
+ {
+  "key": "날씨 창문을 켜 두면 그 도시 바람을 따라요. 지금은 산들바람이에요",
+  "en": "With the Weather Window on, they follow that city's wind. For now it's a light breeze"
+ },
+ {
+  "key": "메뉴바, 커서 친구, 대롱대롱 친구, 날씨 창문이 모두 같은 그림체로 바뀌어요",
+  "en": "The menu bar, Cursor Buddy, Hanging Friends and the Weather Window all switch to the same art style"
+ },
+ {
+  "key": "빳빳",
+  "en": "Stiff"
+ },
+ {
+  "key": "흐물",
+  "en": "Floppy"
+ },
+ {
+  "key": "주름 쫙 펴는 중이야",
+  "en": "Smoothing out the wrinkles"
+ },
+ {
+  "key": "주름을 쫙 펴고 있어요",
+  "en": "Smoothing out the wrinkles"
+ },
+ {
+  "key": "빳빳하게 펼치기",
+  "en": "Smooth It Out"
+ },
+ {
+  "key": "러그를 화면 가운데로",
+  "en": "Move Rug to Center"
+ },
+ {
+  "key": "부드러움",
+  "en": "Softness"
+ },
+ {
+  "key": "러그 치우기",
+  "en": "Put the Rug Away"
+ },
+ {
+  "key": "잠깐 쉬는 중",
+  "en": "On a break"
+ },
+ {
+  "key": "집중 중",
+  "en": "Focusing"
+ },
+ {
+  "key": "다시 시작",
+  "en": "Resume"
+ },
+ {
+  "key": "일시정지",
+  "en": "Pause"
+ },
+ {
+  "key": "진행 중",
+  "en": "In progress"
+ },
+ {
+  "key": "다 했어요",
+  "en": "Done"
+ },
+ {
+  "key": "%lld분 집중했어. 수고했어!",
+  "en": "You focused for %lld min. Nice work!"
+ },
+ {
+  "key": "%lld분 집중했어요. 수고 많으셨어요!",
+  "en": "You focused for %lld min. Great work!"
+ },
+ {
+  "key": "잠깐 집중했네. 다음엔 조금 더 해 보자.",
+  "en": "A short focus. Let's go a bit longer next time."
+ },
+ {
+  "key": "잠깐 집중했어요. 다음엔 조금 더 해 봐요.",
+  "en": "A short focus. Try a bit longer next time."
+ },
+ {
+  "key": "지금은 집중하고 있지 않아.",
+  "en": "You're not focusing right now."
+ },
+ {
+  "key": "지금은 집중하고 있지 않아요.",
+  "en": "You're not focusing right now."
+ },
+ {
+  "key": "%lld분 집중하고 마쳤어.",
+  "en": "Done after %lld min of focus."
+ },
+ {
+  "key": "%lld분 집중하고 마쳤어요.",
+  "en": "Done after %lld min of focus."
+ },
+ {
+  "key": "이미 집중 중이야. 지금 %@째야.",
+  "en": "Already focusing. %@ so far."
+ },
+ {
+  "key": "이미 집중 중이에요. 지금 %@째예요.",
+  "en": "Already focusing. %@ so far."
+ },
+ {
+  "key": "집중 시작! 다 하면 친구 위의 그만하기를 눌러 주세요.",
+  "en": "Focus started! When you're done, press Stop over your friend."
+ },
+ {
+  "key": "집중 시작! 다 하면 친구 위의 그만하기를 눌러 줘.",
+  "en": "Focus started! When you're done, press Stop over your friend."
+ },
+ {
+  "key": "오늘 할 일 얼마나 했어요?",
+  "en": "How much of today's to-dos is done?"
+ },
+ {
+  "key": "지금 할 일 뭐 있어요?",
+  "en": "What should I do now?"
+ },
+ {
+  "key": "다음 일정은요?",
+  "en": "What's next on my calendar?"
+ },
+ {
+  "key": "춤춰 줘",
+  "en": "Dance for me"
+ },
+ {
+  "key": "캘린더가 연결돼 있지 않아서 알 수 없어요. 비서 설정에서 캘린더를 켜 주세요.",
+  "en": "Calendar isn't connected, so I can't tell. Turn on Calendar in Assistant Settings."
+ },
+ {
+  "key": "캘린더가 연결돼 있지 않아서 몰라. 비서 설정에서 캘린더를 켜 줘.",
+  "en": "Calendar isn't connected, so I can't tell. Turn on Calendar in Assistant Settings."
+ },
+ {
+  "key": "다음 일정은 %@ '%@'%@.",
+  "en": "Next up: %1$@ '%2$@'%3$@."
+ },
+ {
+  "key": "할 일 보기",
+  "en": "Open Reminders"
+ },
+ {
+  "key": "무엇이 궁금하세요?",
+  "en": "What would you like to know?"
+ },
+ {
+  "key": "AI 없이도 이건 바로 알려 드려요",
+  "en": "These I can answer right away, no AI needed"
+ },
+ {
+  "key": "더 물어보기",
+  "en": "Ask More"
+ },
+ {
+  "key": "덩굴줄기",
+  "en": "Vine"
+ },
+ {
+  "key": "뜨개 목도리",
+  "en": "Knit scarf"
+ },
+ {
+  "key": "통통 튀는 줄",
+  "en": "Bouncy"
+ },
+ {
+  "key": "팽팽한 줄",
+  "en": "Taut"
+ },
+ {
+  "key": "집중 그만하기",
+  "en": "Stop Focus"
+ },
+ {
+  "key": "이 맥",
+  "en": "This Mac"
+ },
+ {
+  "key": "뭐야, 오늘 할 일 %lld개 다 끝냈어? 흥, 제법인걸.",
+  "en": "What, you finished all %lld of today's to-dos? Hmph, not bad."
+ },
+ {
+  "key": "오늘 할 일 %lld개 다 했네… 정말 대단해.",
+  "en": "You did all %lld of today's to-dos… that's amazing."
+ },
+ {
+  "key": "오늘 할 일 %lld개 완주! 최고야!",
+  "en": "All %lld of today's to-dos done! You're the best!"
+ },
+ {
+  "key": "오늘 할 일 %lld개 다 했어. 수고했어.",
+  "en": "All %lld of today's to-dos are done. Good work."
+ },
+ {
+  "key": "오늘 할 일 %lld개를 다 끝내셨어요. 정말 수고하셨어요!",
+  "en": "You finished all %lld of today's to-dos. Great work!"
+ },
+ {
+  "key": "오늘 할 일 %lld개 다 끝냈어! 정말 잘했어.",
+  "en": "All %lld of today's to-dos are done! Well done."
+ },
+ {
+  "key": "흠! 벌써 %lld/%lld! 나쁘지 않네.",
+  "en": "Hmm! %lld/%lld already! Not bad."
+ },
+ {
+  "key": "벌써 %lld/%lld! 잘 가고 계세요.",
+  "en": "%lld/%lld already! You're doing great."
+ },
+ {
+  "key": "벌써 %lld/%lld! 잘 가고 있어.",
+  "en": "%lld/%lld already! You're doing great."
+ },
+ {
+  "key": "미리알림이 연결돼 있지 않아서 몰라. 비서 설정에서 미리알림을 켜 줘.",
+  "en": "Reminders isn't connected, so I can't tell. Turn on Reminders in Assistant Settings."
+ },
+ {
+  "key": "미리알림이 연결돼 있지 않아서 알 수 없어요. 비서 설정에서 미리알림을 켜 주세요.",
+  "en": "Reminders isn't connected, so I can't tell. Turn on Reminders in Assistant Settings."
+ },
+ {
+  "key": "오늘까지 할 일은 없어.",
+  "en": "Nothing to do today."
+ },
+ {
+  "key": "오늘까지 할 일은 없어요.",
+  "en": "Nothing to do today."
+ },
+ {
+  "key": "오늘 할 일 %lld개 다 했어!",
+  "en": "All %lld of today's to-dos are done!"
+ },
+ {
+  "key": "오늘 할 일 %lld개를 다 했어요!",
+  "en": "All %lld of today's to-dos are done!"
+ },
+ {
+  "key": "오늘 할 일 %lld개 중 %lld개 했어. %lld개 남았어.",
+  "en": "Of today's %1$lld to-dos, %2$lld are done. %3$lld to go."
+ },
+ {
+  "key": "오늘 할 일 %lld개 중 %lld개 했어요. %lld개 남았어요.",
+  "en": "Of today's %1$lld to-dos, %2$lld are done. %3$lld to go."
+ },
+ {
+  "key": "지금은 '%@'부터 해 보면 좋겠어요.",
+  "en": "How about starting with '%@'?"
+ },
+ {
+  "key": "지금은 '%@'부터 해 보자.",
+  "en": "Let's start with '%@'."
+ },
+ {
+  "key": "%@ 계정을 뺄까요?",
+  "en": "Remove the account %@?"
+ },
+ {
+  "key": "빼기",
+  "en": "Remove"
+ },
+ {
+  "key": "이 맥 키체인에 저장한 앱 비밀번호도 함께 지워요.",
+  "en": "The app password saved in this Mac's keychain is deleted too."
+ },
+ {
+  "key": "답할 AI 고르기",
+  "en": "Choose who answers"
+ },
+ {
+  "key": "풀밭 친구들",
+  "en": "Meadow Friends"
+ },
+ {
+  "key": "바탕화면 러그",
+  "en": "Desktop Rug"
+ },
+ {
+  "key": "줄 느낌",
+  "en": "String feel"
+ },
+ {
+  "key": "매다는 곳",
+  "en": "Hang from"
+ },
+ {
+  "key": "화면 맨 위에서 매달기 (메뉴바 너머로 줄이 보여요)",
+  "en": "The very top of the screen (strings show through the menu bar)"
+ },
+ {
+  "key": "스치면",
+  "en": "On touch"
+ },
+ {
+  "key": "커서가 스치면 흔들기",
+  "en": "Swing when the cursor brushes past"
+ },
+ {
+  "key": "화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 그 친구 위에 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요.",
+  "en": "Friends live along the bottom of the screen, just above the Dock. They bob in place and now and then stroll, sit or rest. Click one for Quick Ask over it; pick one up and let go and it drops. Windows cover them."
+ },
+ {
+  "key": "바탕화면에 작은 천 러그를 깔아요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.",
+  "en": "A small cloth rug on your desktop. Drag an edge and it folds over to show its back; rub the middle around and wrinkles form and stay. Double-click, or choose Smooth It Out from the right-click menu, to flatten it again."
+ },
+ {
+  "key": "펼치기",
+  "en": "Smooth Out"
+ },
+ {
+  "key": "집중 타이머",
+  "en": "Focus Timer"
+ },
+ {
+  "key": "집중하는 동안 친구 머리 위에 시간이 올라가고, 친구는 책상에 앉아 공부해요. 오늘 할 일이 있으면 첫 번째 일을 '진행 중'으로 보여 주고, 체크하면 미리알림에서도 끝낸 일로 바꿔요. 메뉴바 메뉴나 AI 비서에게 '집중 시작'이라고 해도 돼요.",
+  "en": "While you focus, the time shows over your friend's head and your friend studies at a desk. If you have to-dos today, the first one shows as In progress; tick it and it's marked done in Reminders too. You can also start from the menu bar menu or by telling the AI Assistant \"start focus\"."
+ },
+ {
+  "key": "메뉴바에 시간 보이기",
+  "en": "Show time in the menu bar"
+ },
+ {
+  "key": "문자·메일·알림 내용은 이 맥 안에서 말풍선과 대화에만 쓰고, 파일이나 기록에 남기지 않아요. 아이폰 알림으로도 보내지 않아요. 내 AI에는 위에서 직접 켠 경우에만 일정 질문을 보내요.",
+  "en": "Texts, mail and notifications are used only for bubbles and chat on this Mac and are never saved to files or logs. They're not sent to iPhone alerts either. Your AI gets schedule questions only if you turn that on above."
+ },
+ {
+  "key": "자동 다듬기: 빈 모습을 그릴 때 사진이 %@로 보내져요 (설정에서 끌 수 있어요)",
+  "en": "Auto-refine: your photo is sent to %@ to draw empty poses (you can turn this off in Settings)"
+ },
+ {
+  "key": "오리지널 캐릭터",
+  "en": "Original character"
+ },
+ {
+  "key": "내 그림 파일로 캐릭터 팩을 만들 수도 있어요. 팩은 앱을 다시 켜면 읽어요.",
+  "en": "You can also make a character pack from your own image files. Packs load the next time the app starts."
+ },
+ {
+  "key": "팩 폴더 열기",
+  "en": "Open pack folder"
+ },
+ {
+  "key": "소스 코드 (GitHub)",
+  "en": "Source code (GitHub)"
+ },
+ {
+  "key": "캐릭모니터 %@ · 무료 비영리 오픈 소스",
+  "en": "CharaMonitor %@ · Free, non-commercial open source"
+ },
+ {
+  "key": "무료 비영리 오픈 소스",
+  "en": "Free, non-commercial open source"
+ }
+]

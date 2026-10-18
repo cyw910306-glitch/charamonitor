@@ -1,0 +1,350 @@
+import AppKit
+import Combine
+import SwiftUI
+
+/// The 날씨 창문's shape, y up like window frames: a round window and its sill below.
+enum WeatherFrame {
+    /// The window is this much taller than the circle, for the sill.
+    static let heightRatio: CGFloat = 1.08
+    static let baseDiameter: CGFloat = 160
+    /// 창 크기 steps. Each keeps the character at a whole number of pixels on a Retina screen (2 pt per art px at 100%).
+    static let scales: [CGFloat] = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+    static let defaultStep = 2
+
+    static func size(_ step: Int) -> CGSize {
+        let d = baseDiameter * scales[min(max(step, 0), scales.count - 1)]
+        return CGSize(width: d, height: (d * heightRatio).rounded())
+    }
+
+    /// Whether `p` (in a window of `size`) is on the drawing: the circle or the sill. Elsewhere clicks pass through.
+    static func hits(_ p: CGPoint, size: CGSize) -> Bool {
+        let d = size.width, r = d / 2
+        let dx = p.x - r, dy = p.y - (size.height - r)
+        if dx * dx + dy * dy <= r * r { return true }
+        return sill(size).contains(p)
+    }
+
+    /// The sill, y up.
+    static func sill(_ size: CGSize) -> CGRect {
+        let d = size.width
+        return CGRect(x: d * 0.18, y: size.height - d * 1.06, width: d * 0.64, height: d * 0.11)
+    }
+}
+
+/// "날씨 창문" (데스크톱 친구): a small round window on the desktop where the current character lives in the city's
+/// weather. Never takes focus, passes clicks through outside the drawing, on every Space. Drag empty glass to move it,
+/// click for hearts, right-click for city, preview, size and on-top. Draws only while it is on screen.
+final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
+    static let shared = WeatherWindow()
+
+    @Published var on: Bool { didSet { defaults.set(on, forKey: "weatherWindow") } }
+    @Published var sizeStep: Int { didSet { defaults.set(sizeStep, forKey: "weatherSize") } }
+    @Published var onTop: Bool { didSet { defaults.set(onTop, forKey: "weatherOnTop") } }
+
+    /// For the scene: the character's frames at this size, and whether to animate.
+    @Published var cache: DogSpriteCache?   // set by refresh(); QA renders set their own
+    @Published private(set) var animating = false
+    @Published private(set) var heartsAt: Date?
+
+    var scale: CGFloat { WeatherFrame.scales[min(max(sizeStep, 0), WeatherFrame.scales.count - 1)] }
+
+    private let defaults = AppDefaults.store
+    private var panel: NSPanel?
+    private var bag: Set<AnyCancellable> = []
+    private var hitTimer: Timer?
+    private var weatherTimer: Timer?
+    private var look: (SpriteLook, CGFloat)?
+    private var asleep = false
+    private var visible = false
+    private var wasEnabled = false
+
+    private var enabled: Bool { on }
+
+    override init() {
+        on = defaults.bool(forKey: "weatherWindow")
+        sizeStep = defaults.object(forKey: "weatherSize") as? Int ?? WeatherFrame.defaultStep
+        onTop = defaults.object(forKey: "weatherOnTop") as? Bool ?? true
+        super.init()
+    }
+
+    /// Call once at launch. Follows its switch, the character and 동작 줄이기 on its own.
+    func start() {
+        guard bag.isEmpty else { return }
+        AppSettings.shared.objectWillChange
+            .merge(with: CustomCharacterStore.shared.objectWillChange, objectWillChange)
+            .debounce(for: .milliseconds(150), scheduler: RunLoop.main)
+            .sink { [weak self] _ in self?.refresh() }
+            .store(in: &bag)
+        WeatherService.shared.$city.dropFirst().removeDuplicates()
+            .sink { [weak self] _ in if self?.enabled == true { Task { await WeatherService.shared.refresh() } } }
+            .store(in: &bag)
+        DesktopKit.displayOptionsChanged.sink { [weak self] in self?.updateAnimating() }.store(in: &bag)
+        let nc = NSWorkspace.shared.notificationCenter, dc = DistributedNotificationCenter.default()
+        // A plain lock and unlock (display still on) posts only the screenIs* notices; the session ones are user switching.
+        let notices: [(NotificationCenter, Notification.Name, Bool)] = [
+            (nc, NSWorkspace.screensDidSleepNotification, true), (nc, NSWorkspace.screensDidWakeNotification, false),
+            (nc, NSWorkspace.sessionDidResignActiveNotification, true), (nc, NSWorkspace.sessionDidBecomeActiveNotification, false),
+            (dc, Notification.Name("com.apple.screenIsLocked"), true), (dc, Notification.Name("com.apple.screenIsUnlocked"), false),
+        ]
+        for (center, name, sleep) in notices {
+            center.publisher(for: name).receive(on: RunLoop.main).sink { [weak self] _ in
+                self?.asleep = sleep
+                self?.updateAnimating()
+                if !sleep { self?.wake() }
+            }.store(in: &bag)
+        }
+        refresh()   // and wake() once it is enabled
+    }
+
+    /// The day's first wake or unlock (and launch): fresh weather, and the morning line once a day.
+    private func wake() {
+        guard enabled else { return }
+        Task { @MainActor in
+            if let line = await WeatherService.shared.morningLine() { SpeechBubbleCenter.shared.say(text: line, source: .system) }
+        }
+    }
+
+    private func refresh() {
+        let was = wasEnabled
+        wasEnabled = enabled
+        guard enabled else { stop(); return }
+        if !was { wake() }
+        let px = 2 * scale
+        let now = SpriteLook(AppSettings.shared)
+        if look.map({ $0.0 != now || $0.1 != px }) ?? true {
+            look = (now, px)
+            cache = DogSpriteCache(now, pixelSize: px)
+        }
+        if panel == nil { makePanel() }
+        guard let panel else { return }
+        let size = WeatherFrame.size(sizeStep)
+        if panel.frame.size != size {
+            let old = panel.frame
+            // Grows and shrinks about the bottom centre, where the sill sits.
+            panel.setFrame(CGRect(x: old.midX - size.width / 2, y: old.minY, width: size.width, height: size.height), display: true)
+            savePosition()
+        }
+        panel.level = onTop ? .floating : .normal
+        if !panel.isVisible { panel.orderFrontRegardless(); visible = true }   // the occlusion notice corrects it
+        if weatherTimer == nil {
+            let t = Timer(timeInterval: 10 * 60, repeats: true) { [weak self] _ in
+                guard self?.asleep == false else { return }
+                Task { await WeatherService.shared.refresh() }   // GETs only when due (Expires, 30 min)
+            }
+            t.tolerance = 60
+            RunLoop.main.add(t, forMode: .common)
+            weatherTimer = t
+            Task { await WeatherService.shared.refresh() }
+        }
+        updateAnimating()
+    }
+
+    private func stop() {
+        weatherTimer?.invalidate(); weatherTimer = nil
+        panel?.orderOut(nil)
+        visible = false
+        updateAnimating()
+    }
+
+    private func makePanel() {
+        let size = WeatherFrame.size(sizeStep)
+        let p = NSPanel(contentRect: CGRect(origin: .zero, size: size), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: true)
+        p.isOpaque = false
+        p.backgroundColor = .clear
+        p.hasShadow = false
+        p.hidesOnDeactivate = false
+        p.becomesKeyOnlyIfNeeded = true
+        p.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary]
+        p.isExcludedFromWindowsMenu = true
+        p.isReleasedWhenClosed = false
+        p.ignoresMouseEvents = true
+        p.delegate = self
+        let host = WeatherHostView(frame: CGRect(origin: .zero, size: size))
+        host.owner = self
+        let scene = NSHostingView(rootView: WeatherSceneView(window: self, service: .shared))
+        scene.frame = host.bounds
+        scene.autoresizingMask = [.width, .height]
+        host.addSubview(scene)
+        p.contentView = host
+        panel = p
+        place(saved: true)
+    }
+
+    /// The saved spot if it is still on a screen, else the bottom right of the main screen.
+    private func place(saved: Bool) {
+        guard let panel else { return }
+        let size = panel.frame.size
+        if saved, defaults.object(forKey: "weatherX") != nil {
+            let o = CGPoint(x: defaults.double(forKey: "weatherX"), y: defaults.double(forKey: "weatherY"))
+            if NSScreen.screens.contains(where: { $0.visibleFrame.contains(CGPoint(x: o.x + size.width / 2, y: o.y + size.height / 2)) }) {
+                panel.setFrameOrigin(o)
+                return
+            }
+        }
+        let v = NSScreen.main?.visibleFrame ?? .zero
+        panel.setFrameOrigin(CGPoint(x: v.maxX - size.width - 24, y: v.minY + 24))
+        if !saved { savePosition() }
+    }
+
+    private func savePosition() {
+        guard let o = panel?.frame.origin else { return }
+        defaults.set(Double(o.x), forKey: "weatherX")
+        defaults.set(Double(o.y), forKey: "weatherY")
+    }
+
+    private func trackMouse() {
+        guard let panel, panel.isVisible else { return }
+        let m = NSEvent.mouseLocation
+        let inside = WeatherFrame.hits(CGPoint(x: m.x - panel.frame.minX, y: m.y - panel.frame.minY), size: panel.frame.size)
+        if panel.ignoresMouseEvents == inside { panel.ignoresMouseEvents = !inside }
+    }
+
+    func windowDidChangeOcclusionState(_ notification: Notification) {
+        visible = panel?.occlusionState.contains(.visible) ?? false
+        updateAnimating()
+    }
+
+    /// Moves only while someone can see it, the screens are awake and 동작 줄이기 is off. The click-through poll runs
+    /// only while it can be seen and the screens are awake, so a hidden or sleeping window costs nothing.
+    private func updateAnimating() {
+        let live = enabled && visible && !asleep
+        let a = live && !DesktopKit.reduceMotion
+        if a != animating { animating = a }
+        if !live {
+            hitTimer?.invalidate(); hitTimer = nil
+        } else if hitTimer == nil {
+            // Click-through: the window takes the mouse only while it is over the drawing.
+            let t = Timer(timeInterval: 0.1, repeats: true) { [weak self] _ in self?.trackMouse() }
+            t.tolerance = 0.03
+            RunLoop.main.add(t, forMode: .common)
+            hitTimer = t
+        }
+    }
+
+    // MARK: Mouse (from WeatherHostView)
+
+    fileprivate func clicked() {
+        heartsAt = Date()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) { [weak self] in
+            if let at = self?.heartsAt, Date().timeIntervalSince(at) >= 1.2 { self?.heartsAt = nil }
+        }
+    }
+
+    fileprivate func moved() { savePosition() }
+
+    fileprivate func menu() -> NSMenu {
+        let service = WeatherService.shared
+        let menu = NSMenu()
+        menu.autoenablesItems = false
+        let info = NSMenuItem(title: service.summary, action: nil, keyEquivalent: "")
+        info.isEnabled = false
+        menu.addItem(info)
+        menu.addItem(.separator())
+
+        let cities = NSMenu()
+        for (i, c) in WeatherCity.presets.enumerated() {
+            cities.addItem(item(c.name, #selector(pickCity(_:)), tag: i, on: c == service.city))
+        }
+        cities.addItem(.separator())
+        cities.addItem(item(L("다른 도시 검색…"), #selector(searchCity)))
+        menu.addItem(submenu(L("도시 바꾸기 (\(service.city.name))"), cities))
+
+        let preview = NSMenu()
+        preview.addItem(item(L("실제 날씨"), #selector(pickPreview(_:)), tag: -1, on: service.preview == nil))
+        for (i, k) in WeatherKind.allCases.enumerated() {
+            preview.addItem(item(k.title, #selector(pickPreview(_:)), tag: i, on: service.preview == k))
+        }
+        menu.addItem(submenu(L("날씨 미리보기"), preview))
+        menu.addItem(item(L("밤으로 보기"), #selector(toggleNight), on: service.previewNight))
+
+        let sizes = NSMenu()
+        for (i, s) in WeatherFrame.scales.enumerated() {
+            sizes.addItem(item("\(Int(s * 100))%", #selector(pickSize(_:)), tag: i, on: i == sizeStep))
+        }
+        menu.addItem(submenu(L("창 크기"), sizes))
+        menu.addItem(item(L("항상 위에 두기"), #selector(toggleOnTop), on: onTop))
+        menu.addItem(item(L("위치 초기화"), #selector(resetPosition)))
+        menu.addItem(.separator())
+        menu.addItem(item(L("날씨 창문 닫기"), #selector(close)))
+        return menu
+    }
+
+    private func item(_ title: String, _ action: Selector, tag: Int = 0, on: Bool = false) -> NSMenuItem {
+        let i = NSMenuItem(title: title, action: action, keyEquivalent: "")
+        i.target = self
+        i.tag = tag
+        i.state = on ? .on : .off
+        return i
+    }
+
+    private func submenu(_ title: String, _ sub: NSMenu) -> NSMenuItem {
+        let i = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+        i.submenu = sub
+        return i
+    }
+
+    @objc private func pickCity(_ i: NSMenuItem) { WeatherService.shared.city = WeatherCity.presets[i.tag] }
+    @objc private func pickPreview(_ i: NSMenuItem) { WeatherService.shared.preview = i.tag < 0 ? nil : WeatherKind.allCases[i.tag] }
+    @objc private func toggleNight() { WeatherService.shared.previewNight.toggle() }
+    @objc private func pickSize(_ i: NSMenuItem) { sizeStep = i.tag }
+    @objc private func toggleOnTop() { onTop.toggle() }
+    @objc private func resetPosition() { place(saved: false) }
+    @objc private func close() { on = false }
+    @objc private func searchCity() { Self.askCity() }
+
+    /// 다른 도시 검색…: a name in a small dialog, looked up with Apple's geocoder. The one place this window takes focus,
+    /// since the owner asked to type.
+    static func askCity() {
+        let alert = NSAlert()
+        alert.messageText = L("어느 도시의 날씨를 볼까요?")
+        alert.informativeText = L("도시 이름을 한글이나 영어로 적어 주세요.")
+        let field = NSTextField(frame: CGRect(x: 0, y: 0, width: 240, height: 24))
+        field.placeholderString = L("예: 춘천, Tokyo, Paris")
+        alert.accessoryView = field
+        alert.addButton(withTitle: L("찾기"))
+        alert.addButton(withTitle: L("취소"))
+        alert.window.initialFirstResponder = field
+        NSApp.activate(ignoringOtherApps: true)
+        guard alert.runModal() == .alertFirstButtonReturn else { return }
+        let q = field.stringValue
+        Task { @MainActor in
+            if let city = await WeatherService.search(q) {
+                WeatherService.shared.city = city
+            } else {
+                let miss = NSAlert()
+                miss.messageText = L("'\(q)' 도시를 찾지 못했어요.")
+                miss.informativeText = L("시나 군 이름, 또는 영어 이름으로 다시 찾아보세요.")
+                NSApp.activate(ignoringOtherApps: true)
+                miss.runModal()
+            }
+        }
+    }
+}
+
+/// Takes the mouse for the whole drawing (the SwiftUI scene underneath only draws): a press drags the window, a press
+/// that did not move it is a click, a right press opens the menu. Never becomes key, so the app in front stays in front.
+private final class WeatherHostView: NSView {
+    weak var owner: WeatherWindow?
+
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        WeatherFrame.hits(convert(point, from: superview), size: bounds.size) ? self : nil
+    }
+
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+
+    override func mouseDown(with event: NSEvent) {
+        guard let window else { return }
+        let before = window.frame.origin
+        window.performDrag(with: event)   // returns once the button is up
+        if window.frame.origin == before { owner?.clicked() } else { owner?.moved() }
+    }
+
+    override func rightMouseDown(with event: NSEvent) {
+        guard let menu = owner?.menu() else { return }
+        NSMenu.popUpContextMenu(menu, with: event, for: self)
+    }
+
+    override func accessibilityRole() -> NSAccessibility.Role? { .image }
+    override func accessibilityLabel() -> String? { L("날씨 창문: \(WeatherService.shared.summary)") }
+    override func isAccessibilityElement() -> Bool { true }
+}

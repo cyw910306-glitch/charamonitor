@@ -1,0 +1,894 @@
+[
+ {
+  "key": "다녀왔어요! 밥 고마워요.",
+  "en": "I'm back! Thanks for the food."
+ },
+ {
+  "key": "출석 %lld일째! 코인 %lld개 받았어요.",
+  "en": "Day %lld check-in! You got %lld coins."
+ },
+ {
+  "key": "레벨 %lld까지 컸어요!",
+  "en": "Grew to level %lld!"
+ },
+ {
+  "key": "%@을 얻었어요!",
+  "en": "Got %@!"
+ },
+ {
+  "key": "미션 완료: %@. 코인 %lld개 받았어요.",
+  "en": "Mission done: %@. You got %lld coins."
+ },
+ {
+  "key": "25분 집중 끝! 코인 %lld개 받았어요. 5분 쉬어요.",
+  "en": "25-minute focus done! You got %lld coins. Take a 5-minute break."
+ },
+ {
+  "key": "쉬는 시간 끝. 다시 집중해 볼까요?",
+  "en": "Break's over. Ready to focus again?"
+ },
+ {
+  "key": "20분 지났어요. 20초 동안 6미터 먼 곳을 바라봐요.",
+  "en": "20 minutes passed. Look at something 20 feet away for 20 seconds."
+ },
+ {
+  "key": "배부름",
+  "en": "Food"
+ },
+ {
+  "key": "기분",
+  "en": "Mood"
+ },
+ {
+  "key": "기운",
+  "en": "Energy"
+ },
+ {
+  "key": "청결",
+  "en": "Clean"
+ },
+ {
+  "key": "쉬는 시간 %lld번 갖기",
+  "en": "Take breaks"
+ },
+ {
+  "key": "밥 %lld번 주기",
+  "en": "Feed your pet"
+ },
+ {
+  "key": "클리너 %lld번 돌리기",
+  "en": "Run the Cleaner"
+ },
+ {
+  "key": "쓰다듬기 %lld번",
+  "en": "Pets: %lld"
+ },
+ {
+  "key": "25분 집중 %lld번",
+  "en": "Focus for 25 min"
+ },
+ {
+  "key": "씻기기 %lld번",
+  "en": "Give a bath"
+ },
+ {
+  "key": "인터넷 속도 %lld번 재기",
+  "en": "Test internet speed"
+ },
+ {
+  "key": "아기",
+  "en": "Baby"
+ },
+ {
+  "key": "리본",
+  "en": "Ribbon"
+ },
+ {
+  "key": "꽃 화관",
+  "en": "Flower crown"
+ },
+ {
+  "key": "왕관",
+  "en": "Crown"
+ },
+ {
+  "key": "밥 %lld번",
+  "en": "Meals: %lld"
+ },
+ {
+  "key": "목욕 %lld번",
+  "en": "Baths: %lld"
+ },
+ {
+  "key": "집중 %lld번",
+  "en": "Focus sessions: %lld"
+ },
+ {
+  "key": "쉬는 시간 %lld번",
+  "en": "Breaks: %lld"
+ },
+ {
+  "key": "청소 %lld번",
+  "en": "Cleanups: %lld"
+ },
+ {
+  "key": "조용한 하루였어요.",
+  "en": "A quiet day."
+ },
+ {
+  "key": " 미션 %lld개 완료.",
+  "en": " Missions done: %lld."
+ },
+ {
+  "key": " 레벨 %lld까지 컸어요.",
+  "en": " Grew to level %lld."
+ },
+ {
+  "key": " 코인 %lld개.",
+  "en": " Coins: %lld."
+ },
+ {
+  "key": "그림을 한 장 이상 넣어 주세요.",
+  "en": "Add at least one image."
+ },
+ {
+  "key": "사진을 준비하지 못했어요. 다른 사진으로 해 보세요.",
+  "en": "Couldn't prepare the photo. Try a different one."
+ },
+ {
+  "key": "이 맥에 로그인된 ChatGPT(OpenAI)",
+  "en": "ChatGPT signed in on this Mac (OpenAI)"
+ },
+ {
+  "key": "이 맥에 Codex(ChatGPT)가 없어요. Codex를 설치하고 ChatGPT로 로그인하면 쓸 수 있어요.",
+  "en": "Codex (ChatGPT) isn't on this Mac. Install Codex and sign in with ChatGPT to use it."
+ },
+ {
+  "key": "Codex에 ChatGPT로 로그인되어 있지 않아요. 터미널에서 codex login 으로 로그인해 주세요.",
+  "en": "Codex isn't signed in with ChatGPT. Run codex login in Terminal to sign in."
+ },
+ {
+  "key": "Codex가 API 키로 로그인되어 있어요. 내 ChatGPT는 ChatGPT 로그인에서만 써요.",
+  "en": "Codex is signed in with an API key. My ChatGPT only works with a ChatGPT sign-in."
+ },
+ {
+  "key": "ChatGPT 로그인을 확인하지 못했어요.",
+  "en": "Couldn't check your ChatGPT sign-in."
+ },
+ {
+  "key": "스타일 기준 그림을 찾지 못했어요. 앱을 다시 설치해 주세요.",
+  "en": "Couldn't find the style reference image. Please reinstall the app."
+ },
+ {
+  "key": "ChatGPT가 그림을 만들지 못했어요. 사진을 다시 넣으면 다시 그려요.",
+  "en": "ChatGPT couldn't make the image. Add the photo again to redraw it."
+ },
+ {
+  "key": "ChatGPT가 너무 오래 걸려요. 잠시 뒤 다시 해 주세요.",
+  "en": "ChatGPT is taking too long. Please try again in a bit."
+ },
+ {
+  "key": "%@ 이후에",
+  "en": "after %@"
+ },
+ {
+  "key": "ChatGPT 사용 한도에 도달했어요. %@ 다시 시도해 주세요.",
+  "en": "ChatGPT usage limit reached. Please try again %@."
+ },
+ {
+  "key": "한도가 풀린 뒤",
+  "en": "once the limit resets"
+ },
+ {
+  "key": "지금 ChatGPT 요금제에서는 그림 만들기를 쓸 수 없어요.",
+  "en": "Your current ChatGPT plan doesn't support image generation."
+ },
+ {
+  "key": "이 맥에 Claude Code가 없어요. Claude Code를 설치하면 쓸 수 있어요.",
+  "en": "Claude Code isn't on this Mac. Install Claude Code to use it."
+ },
+ {
+  "key": "설정 > Claude 연결에서 개인 토큰을 넣거나 이 맥의 Claude Code 로그인 사용을 켜 주세요.",
+  "en": "Add a personal token in Settings > Claude Connection, or turn on Use this Mac's Claude Code sign-in."
+ },
+ {
+  "key": "Claude Code를 실행하지 못했어요. 다시 확인해 주세요.",
+  "en": "Couldn't run Claude Code. Please check it and try again."
+ },
+ {
+  "key": "Claude가 그림(frames.json)을 만들지 못했어요. 다시 해 보거나 다른 방법을 골라 주세요.",
+  "en": "Claude couldn't make the image (frames.json). Try again or pick another method."
+ },
+ {
+  "key": "Claude가 너무 오래 걸려요. 잠시 뒤 다시 해 주세요.",
+  "en": "Claude is taking too long. Please try again in a bit."
+ },
+ {
+  "key": "이 Claude Code 버전은 안전 모드를 지원하지 않아요. 업데이트해 주세요.",
+  "en": "This Claude Code version doesn't support safe mode. Please update it."
+ },
+ {
+  "key": "Claude 사용 한도에 도달했어요. %@ 다시 시도해 주세요.",
+  "en": "Claude usage limit reached. Please try again %@."
+ },
+ {
+  "key": "저장한 개인 토큰이 맞지 않거나 만료됐어요. 터미널에서 claude setup-token 으로 새 토큰을 만들어 설정 > Claude 연결에 넣어 주세요.",
+  "en": "Your saved personal token is wrong or expired. Run claude setup-token in Terminal to make a new one, then add it in Settings > Claude Connection."
+ },
+ {
+  "key": "이 맥의 Claude Code에 로그인되어 있지 않아요. 터미널에서 claude 를 열어 /login 하거나, 설정 > Claude 연결에 개인 토큰을 넣어 주세요.",
+  "en": "Claude Code on this Mac isn't signed in. Open claude in Terminal and run /login, or add a personal token in Settings > Claude Connection."
+ },
+ {
+  "key": "이 맥의 Claude Code 로그인이 만료됐어요. 터미널에서 claude 를 열어 /login 해 주세요.",
+  "en": "Claude Code sign-in on this Mac has expired. Open claude in Terminal and run /login."
+ },
+ {
+  "key": "이 계정에서는 %@ 모델을 쓸 수 없어요.",
+  "en": "This account can't use the %@ model."
+ },
+ {
+  "key": "토큰을 붙여 넣어 주세요.",
+  "en": "Paste a token."
+ },
+ {
+  "key": "API 키는 쓰지 않아요. claude setup-token 이 만든 토큰(sk-ant-oat…)을 넣어 주세요.",
+  "en": "API keys aren't used. Paste the token from claude setup-token (sk-ant-oat…)."
+ },
+ {
+  "key": "claude setup-token 이 만든 토큰(sk-ant-oat…)을 그대로 붙여 넣어 주세요.",
+  "en": "Paste the token from claude setup-token (sk-ant-oat…) exactly as is."
+ },
+ {
+  "key": "커서 친구",
+  "en": "Cursor Buddy"
+ },
+ {
+  "key": "AI 비서",
+  "en": "AI Assistant"
+ },
+ {
+  "key": "%@원",
+  "en": "₩%@"
+ },
+ {
+  "key": "보유 중",
+  "en": "Owned"
+ },
+ {
+  "key": "코리안 숏헤어(고등어)",
+  "en": "Korean Shorthair (tabby)"
+ },
+ {
+  "key": "치즈 태비",
+  "en": "Orange Tabby"
+ },
+ {
+  "key": "삼색이",
+  "en": "Calico"
+ },
+ {
+  "key": "턱시도",
+  "en": "Tuxedo"
+ },
+ {
+  "key": "러시안 블루",
+  "en": "Russian Blue"
+ },
+ {
+  "key": "페르시안",
+  "en": "Persian"
+ },
+ {
+  "key": "샴",
+  "en": "Siamese"
+ },
+ {
+  "key": "먼치킨",
+  "en": "Munchkin"
+ },
+ {
+  "key": "스코티시 폴드",
+  "en": "Scottish Fold"
+ },
+ {
+  "key": "노르웨이 숲",
+  "en": "Norwegian Forest Cat"
+ },
+ {
+  "key": "브리티시 숏헤어",
+  "en": "British Shorthair"
+ },
+ {
+  "key": "검은 고양이",
+  "en": "Black Cat"
+ },
+ {
+  "key": "바지색",
+  "en": "Pants color"
+ },
+ {
+  "key": "눈색",
+  "en": "Eye color"
+ },
+ {
+  "key": "포인트색",
+  "en": "Accent color"
+ },
+ {
+  "key": "모자색",
+  "en": "Hat color"
+ },
+ {
+  "key": "털색",
+  "en": "Fur color"
+ },
+ {
+  "key": "후드티색",
+  "en": "Hoodie color"
+ },
+ {
+  "key": "보드색",
+  "en": "Board color"
+ },
+ {
+  "key": "배고파서 먹을 걸 찾는 중",
+  "en": "Hungry, looking for food"
+ },
+ {
+  "key": "충전하며 냠냠",
+  "en": "Snacking on power"
+ },
+ {
+  "key": "특수 기술!",
+  "en": "Special move!"
+ },
+ {
+  "key": "코리안 숏헤어",
+  "en": "Korean Shorthair"
+ },
+ {
+  "key": "나만의 캐릭터",
+  "en": "My Character"
+ },
+ {
+  "key": "쉴 때",
+  "en": "Resting"
+ },
+ {
+  "key": "평소",
+  "en": "Normal"
+ },
+ {
+  "key": "젤리",
+  "en": "Jelly"
+ },
+ {
+  "key": "골든 리트리버",
+  "en": "Golden Retriever"
+ },
+ {
+  "key": "시바견",
+  "en": "Shiba Inu"
+ },
+ {
+  "key": "시베리안 허스키",
+  "en": "Siberian Husky"
+ },
+ {
+  "key": "래브라도 리트리버",
+  "en": "Labrador Retriever"
+ },
+ {
+  "key": "푸들",
+  "en": "Poodle"
+ },
+ {
+  "key": "토이 푸들",
+  "en": "Toy Poodle"
+ },
+ {
+  "key": "말티푸",
+  "en": "Maltipoo"
+ },
+ {
+  "key": "비글",
+  "en": "Beagle"
+ },
+ {
+  "key": "닥스훈트",
+  "en": "Dachshund"
+ },
+ {
+  "key": "불독",
+  "en": "Bulldog"
+ },
+ {
+  "key": "보더콜리",
+  "en": "Border Collie"
+ },
+ {
+  "key": "치와와",
+  "en": "Chihuahua"
+ },
+ {
+  "key": "포메라니안",
+  "en": "Pomeranian"
+ },
+ {
+  "key": "웰시코기",
+  "en": "Welsh Corgi"
+ },
+ {
+  "key": "저먼 셰퍼드",
+  "en": "German Shepherd"
+ },
+ {
+  "key": "도베르만",
+  "en": "Doberman"
+ },
+ {
+  "key": "잭 러셀 테리어",
+  "en": "Jack Russell Terrier"
+ },
+ {
+  "key": "말티즈",
+  "en": "Maltese"
+ },
+ {
+  "key": "비숑 프리제",
+  "en": "Bichon Frise"
+ },
+ {
+  "key": "사모예드",
+  "en": "Samoyed"
+ },
+ {
+  "key": "진돗개",
+  "en": "Jindo"
+ },
+ {
+  "key": "프렌치 불독",
+  "en": "French Bulldog"
+ },
+ {
+  "key": "frames.json을 읽지 못했어요",
+  "en": "Couldn't read frames.json"
+ },
+ {
+  "key": "palette 또는 poses가 없어요",
+  "en": "palette or poses is missing"
+ },
+ {
+  "key": "색 '%@'가 #RRGGBB 형식이 아니에요",
+  "en": "Color '%@' isn't in #RRGGBB format"
+ },
+ {
+  "key": "색이 하나도 없어요",
+  "en": "There are no colors"
+ },
+ {
+  "key": "색이 %lld개예요 (%lld개까지)",
+  "en": "%lld colors (up to %lld)"
+ },
+ {
+  "key": "테두리용 어두운 색이 없어요",
+  "en": "No dark color for the outline"
+ },
+ {
+  "key": "'%@' 동작의 그림 수가 맞지 않아요",
+  "en": "Wrong number of frames for the '%@' motion"
+ },
+ {
+  "key": "'%@' 그림이 %lld줄 × %lld칸이 아니에요",
+  "en": "'%@' frame isn't %lld rows × %lld columns"
+ },
+ {
+  "key": "'%@' 그림이 비어 있어요",
+  "en": "'%@' frame is empty"
+ },
+ {
+  "key": "Claude가 그린 그림이 규칙에 맞지 않아요 (%@). 다시 그려 주세요.",
+  "en": "Claude's drawing doesn't follow the rules (%@). Please redraw it."
+ },
+ {
+  "key": "킥플립",
+  "en": "Kickflip"
+ },
+ {
+  "key": "태닝 고양이",
+  "en": "Tanned Cat"
+ },
+ {
+  "key": "햇볕에 그을린 스케이터 고양이. 킥플립 한 방에 윙크까지 해요.",
+  "en": "A sun-tanned skater cat. Lands a kickflip and throws in a wink."
+ },
+ {
+  "key": "창문",
+  "en": "Window"
+ },
+ {
+  "key": "꽃 액자",
+  "en": "Flower frame"
+ },
+ {
+  "key": "벽시계",
+  "en": "Wall clock"
+ },
+ {
+  "key": "화분 선반",
+  "en": "Plant shelf"
+ },
+ {
+  "key": "깃발 가랜드",
+  "en": "Flag garland"
+ },
+ {
+  "key": "폭신 침대",
+  "en": "Fluffy bed"
+ },
+ {
+  "key": "큰 화분",
+  "en": "Big plant"
+ },
+ {
+  "key": "책상과 스탠드",
+  "en": "Desk and lamp"
+ },
+ {
+  "key": "라벤더 소파",
+  "en": "Lavender sofa"
+ },
+ {
+  "key": "책장",
+  "en": "Bookshelf"
+ },
+ {
+  "key": "장난감 상자",
+  "en": "Toy box"
+ },
+ {
+  "key": "스탠드 조명",
+  "en": "Floor lamp"
+ },
+ {
+  "key": "어항",
+  "en": "Fish tank"
+ },
+ {
+  "key": "크림 줄무늬",
+  "en": "Cream stripes"
+ },
+ {
+  "key": "민트 물방울",
+  "en": "Mint polka dots"
+ },
+ {
+  "key": "딸기 체크",
+  "en": "Strawberry check"
+ },
+ {
+  "key": "밤하늘 별",
+  "en": "Starry night"
+ },
+ {
+  "key": "원목 마루",
+  "en": "Wood floor"
+ },
+ {
+  "key": "체크 타일",
+  "en": "Checkered tile"
+ },
+ {
+  "key": "하늘 카펫",
+  "en": "Sky carpet"
+ },
+ {
+  "key": "도트",
+  "en": "Pixel"
+ },
+ {
+  "key": "실사",
+  "en": "Realistic"
+ },
+ {
+  "key": "작게",
+  "en": "Small"
+ },
+ {
+  "key": "크게",
+  "en": "Large"
+ },
+ {
+  "key": "없음",
+  "en": "None"
+ },
+ {
+  "key": "얇게",
+  "en": "Thin"
+ },
+ {
+  "key": "진하게",
+  "en": "Bold"
+ },
+ {
+  "key": "캐릭터 사진",
+  "en": "Character photo"
+ },
+ {
+  "key": "비서 설정",
+  "en": "Assistant Settings"
+ },
+ {
+  "key": "하지 않는 것",
+  "en": "What it doesn't do"
+ },
+ {
+  "key": "말투",
+  "en": "Tone"
+ },
+ {
+  "key": "%@의 기본 말투는 '%@'이에요. 캐릭터를 바꾸면 말투도 따라 바뀌어요.",
+  "en": "%@'s default tone is '%@'. Changing the character changes the tone too."
+ },
+ {
+  "key": "어떤 캐릭터든 이 말투로 말해요.",
+  "en": "Every character talks in this tone."
+ },
+ {
+  "key": "대화 엔진",
+  "en": "Chat engine"
+ },
+ {
+  "key": "먼저 말 걸기",
+  "en": "Chime in"
+ },
+ {
+  "key": "배터리 10%, 맥이 뜨거울 때, 오래 걸린 작업이 끝났을 때, CPU를 오래 쓰는 프로그램이 있을 때 말풍선으로 알려 줘요. 영상 회의 앱이 앞에 있으면 조용히 있어요.",
+  "en": "Lets you know in a speech bubble at 10% battery, when your Mac runs hot, when a long task finishes, or when an app hogs the CPU. Stays quiet when a video call app is in front."
+ },
+ {
+  "key": "AI가 그때그때 대사 만들기",
+  "en": "Let AI write lines on the fly"
+ },
+ {
+  "key": "%@까지 조용히 있어요",
+  "en": "Quiet until %@"
+ },
+ {
+  "key": "다시 말하기",
+  "en": "Speak again"
+ },
+ {
+  "key": "말풍선 잠시 끄기",
+  "en": "Mute speech bubbles for now"
+ },
+ {
+  "key": "1시간 조용히",
+  "en": "Quiet for 1 hour"
+ },
+ {
+  "key": "목소리로 읽어 주기",
+  "en": "Read aloud"
+ },
+ {
+  "key": "답과 말풍선을 소리 내 읽어 줘요. 회의 중엔 꺼 두세요.",
+  "en": "Reads answers and speech bubbles out loud. Turn it off during meetings."
+ },
+ {
+  "key": "연동",
+  "en": "Integrations"
+ },
+ {
+  "key": "처음엔 모두 꺼져 있어요. 켠 것만 이 맥에서 확인해요.",
+  "en": "Everything starts off. Only what you turn on is checked, on this Mac."
+ },
+ {
+  "key": "미리알림 시간 알림",
+  "en": "Reminders at their due time"
+ },
+ {
+  "key": "Apple Mail 새 메일 알림",
+  "en": "New mail alerts from Apple Mail"
+ },
+ {
+  "key": "아이폰으로 알림 보내기",
+  "en": "Send alerts to iPhone"
+ },
+ {
+  "key": "서비스",
+  "en": "Service"
+ },
+ {
+  "key": "구독 주소 QR 코드",
+  "en": "Subscription URL QR code"
+ },
+ {
+  "key": "1. 아이폰에 ntfy 앱을 받아요.\n2. QR을 찍거나 아래 주소를 구독해요.",
+  "en": "1. Get the ntfy app on your iPhone.\n2. Scan the QR or subscribe to the URL below."
+ },
+ {
+  "key": "주소 복사",
+  "en": "Copy URL"
+ },
+ {
+  "key": "새 주소",
+  "en": "New URL"
+ },
+ {
+  "key": "주소를 아는 사람은 누구나 알림을 볼 수 있어요. 남에게 보여 주지 마세요.",
+  "en": "Anyone with this URL can see your alerts. Don't share it."
+ },
+ {
+  "key": "사용자 키 (User Key)",
+  "en": "User Key"
+ },
+ {
+  "key": "앱 토큰 (API Token)",
+  "en": "API Token"
+ },
+ {
+  "key": "pushover.net에서 내 계정의 사용자 키와 직접 만든 앱 토큰을 넣어요.",
+  "en": "Enter your account's user key and the app token you made on pushover.net."
+ },
+ {
+  "key": "보내는 중…",
+  "en": "Sending…"
+ },
+ {
+  "key": "테스트 알림 보내기",
+  "en": "Send test alert"
+ },
+ {
+  "key": "%@의 테스트 알림이에요.",
+  "en": "Test alert from %@."
+ },
+ {
+  "key": "보냈어요. 아이폰을 확인해 주세요.",
+  "en": "Sent. Check your iPhone."
+ },
+ {
+  "key": "단축어로 말 시키기",
+  "en": "Make it talk with Shortcuts"
+ },
+ {
+  "key": "charamonitor://say?text=안녕",
+  "en": "charamonitor://say?text=Hello"
+ },
+ {
+  "key": "내 맥 왜 느려?",
+  "en": "Why is my Mac slow?"
+ },
+ {
+  "key": "배터리 얼마나 남았어?",
+  "en": "How much battery is left?"
+ },
+ {
+  "key": "오늘 일정 알려줘",
+  "en": "What's on my calendar today?"
+ },
+ {
+  "key": "저장 공간 괜찮아?",
+  "en": "Is my storage OK?"
+ },
+ {
+  "key": "뒤로",
+  "en": "Back"
+ },
+ {
+  "key": "무엇이든 물어보세요. 지금 맥의 숫자를 보고 답해요.",
+  "en": "Ask anything. Answers use your Mac's live stats."
+ },
+ {
+  "key": "답에 쓴 숫자: ",
+  "en": "Stats used in this answer: "
+ },
+ {
+  "key": "%@에게 물어보기",
+  "en": "Ask %@"
+ },
+ {
+  "key": "보내기",
+  "en": "Send"
+ },
+ {
+  "key": "대화 지우기",
+  "en": "Clear chat"
+ },
+ {
+  "key": "더 보기",
+  "en": "More"
+ },
+ {
+  "key": "AI 그림에서 모습을 찾지 못했어요.",
+  "en": "Couldn't find a figure in the AI image."
+ },
+ {
+  "key": "AI 다듬기에 실패했어요.",
+  "en": "AI refine failed."
+ },
+ {
+  "key": "이 그림에서 모습을 찾지 못했어요. 배경이 단순한 다른 그림을 써 보세요.",
+  "en": "Couldn't find a figure in this image. Try another one with a simple background."
+ },
+ {
+  "key": "주인공이 잘 안 보여요. 한 대상만 크게 찍힌 그림이 좋아요.",
+  "en": "The subject is hard to see. An image with one large subject works best."
+ },
+ {
+  "key": "꾸미기",
+  "en": "Customize"
+ },
+ {
+  "key": "새 캐릭터 만들기",
+  "en": "New character"
+ },
+ {
+  "key": "이름",
+  "en": "Name"
+ },
+ {
+  "key": "다른 모습도 넣기 (선택)",
+  "en": "Add other poses (optional)"
+ },
+ {
+  "key": " · 직접 권리를 가진 이미지를 써 주세요",
+  "en": " · Use images you own the rights to"
+ },
+ {
+  "key": "사진은 이 맥 안에서만 변환돼요",
+  "en": "Photos are converted only on this Mac"
+ },
+ {
+  "key": "귀여운 비율 (머리 크게)",
+  "en": "Cute proportions (big head)"
+ },
+ {
+  "key": "좌우 뒤집기 (오른쪽을 보게)",
+  "en": "Flip horizontally (face right)"
+ },
+ {
+  "key": "어두운 메뉴바용 밝은 테두리",
+  "en": "Light outline for dark menu bars"
+ },
+ {
+  "key": "그림 한 장이면 충분해요. 넣으면 움직이는 모습을 여기서 미리 볼 수 있어요",
+  "en": "One image is enough. Add it to preview the motion here"
+ },
+ {
+  "key": "이 캐릭터를 지울까요?",
+  "en": "Delete this character?"
+ },
+ {
+  "key": "지우기",
+  "en": "Delete"
+ },
+ {
+  "key": "만든 캐릭터와 저장된 그림이 이 맥에서 사라져요.",
+  "en": "The character and its saved images will be removed from this Mac."
+ },
+ {
+  "key": "캐릭터 그림",
+  "en": "Character images"
+ },
+ {
+  "key": "그림 넣기",
+  "en": "Add image"
+ },
+ {
+  "key": "AI가 그린 그림",
+  "en": "AI-drawn image"
+ },
+ {
+  "key": "%@ 그림 빼기",
+  "en": "Remove %@ image"
+ },
+ {
+  "key": "%@ 그림",
+  "en": "%@ image"
+ },
+ {
+  "key": "한 장이면 모든 동작을 만들어요",
+  "en": "One image makes every motion"
+ }
+]

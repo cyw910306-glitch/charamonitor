@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleIdentifier</key><string>com.jelly.charamonitor.mas</string>
+    <key>CFBundleName</key><string>CharaMonitor</string>
+    <key>CFBundleDisplayName</key><string>CharaMonitor</string>
+    <key>CFBundleExecutable</key><string>CharaMonitor</string>
+    <key>CFBundlePackageType</key><string>APPL</string>
+    <key>CFBundleShortVersionString</key><string>2.2</string>
+    <key>CFBundleVersion</key><string>1</string>
+    <key>CFBundleIconFile</key><string>AppIcon</string>
+    <key>CFBundleDevelopmentRegion</key><string>ko</string>
+    <key>CFBundleLocalizations</key><array><string>ko</string><string>en</string></array>
+    <key>CFBundleSupportedPlatforms</key><array><string>MacOSX</string></array>
+    <key>LSHasLocalizedDisplayName</key><true/>
+    <key>LSApplicationCategoryType</key><string>public.app-category.utilities</string>
+    <key>LSMinimumSystemVersion</key><string>13.0</string>
+    <key>LSUIElement</key><true/>
+    <key>NSHighResolutionCapable</key><true/>
+    <key>NSHumanReadableCopyright</key><string>© 2026 Jelly</string>
+    <!-- HTTPS only, which is exempt: no export compliance questions on every upload. -->
+    <key>ITSAppUsesNonExemptEncryption</key><false/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key><string>com.jelly.charamonitor.say</string>
+            <key>CFBundleURLSchemes</key><array><string>charamonitor</string></array>
+        </dict>
+    </array>
+    <key>NSCalendarsUsageDescription</key><string>AI 비서가 곧 시작하는 일정을 말풍선으로 알려 드리고, 부탁하면 확인을 받은 뒤 'AI 비서' 캘린더에 일정을 추가해요. 설정에서 켠 경우에만 읽고 써요.</string>
+    <key>NSCalendarsFullAccessUsageDescription</key><string>AI 비서가 곧 시작하는 일정을 말풍선으로 알려 드리고, 부탁하면 확인을 받은 뒤 'AI 비서' 캘린더에 일정을 추가해요. 설정에서 켠 경우에만 읽고 써요.</string>
+    <key>NSRemindersUsageDescription</key><string>AI 비서가 마감이 다가온 미리 알림을 알려 드리고, 부탁하면 확인을 받은 뒤 'AI 비서' 목록에 미리 알림을 추가해요. 설정에서 켠 경우에만 읽고 써요.</string>
+    <key>NSContactsUsageDescription</key><string>AI 비서가 메일을 부탁할 때 이름으로 주소를 찾아요. 주소는 메일을 보낼 때 메일 서버로만 가고 AI로 보내지 않아요.</string>
+    <key>NSRemindersFullAccessUsageDescription</key><string>AI 비서가 마감이 다가온 미리 알림을 알려 드리고, 부탁하면 확인을 받은 뒤 'AI 비서' 목록에 미리 알림을 추가해요. 설정에서 켠 경우에만 읽고 써요.</string>
+</dict>
+</plist>

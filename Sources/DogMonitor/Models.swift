@@ -1,0 +1,286 @@
+// Shared contract. Every other file builds against these types.
+// Change a type here only in the integration step, never from one builder alone.
+import AppKit
+import Foundation
+
+// MARK: - System metrics (filled by Metrics/SystemMonitor.swift)
+
+struct CPUStats: Equatable {
+    var user: Double        // 0...1 of total machine capacity (user + nice)
+    var system: Double      // 0...1
+    var idle: Double        // 0...1
+    var perCore: [Double]   // 0...1 busy fraction per logical core
+    var usage: Double { min(1, max(0, user + system)) }
+}
+
+enum MemoryPressureLevel: String, Codable { case normal, warning, critical }
+
+struct MemoryStats: Equatable {
+    var total: UInt64         // bytes, hw.memsize
+    var app: UInt64           // Activity Monitor "App Memory" (internal - purgeable)
+    var wired: UInt64
+    var compressed: UInt64    // compressor_page_count * page size
+    var cachedFiles: UInt64   // external + purgeable
+    var free: UInt64
+    var swapUsed: UInt64
+    var pressure: Double      // 0...1, 1 - kern.memorystatus_level/100
+    var pressureLevel: MemoryPressureLevel
+    var used: UInt64 { app + wired + compressed }
+}
+
+struct DiskStats: Equatable {
+    var volumeName: String
+    var total: UInt64
+    var available: UInt64     // volumeAvailableCapacityForImportantUsage
+    var used: UInt64 { total > available ? total - available : 0 }
+}
+
+struct BatteryStats: Equatable {
+    var percent: Int              // 0...100
+    var isCharging: Bool
+    var isPluggedIn: Bool         // on AC power
+    var isCharged: Bool
+    var minutesRemaining: Int?    // to empty on battery, to full while charging; nil = calculating
+    var cycleCount: Int?
+    var healthPercent: Int?       // max capacity / design capacity
+    var levelPrecise: Double? = nil       // 0...100 with decimals, raw current / raw max capacity (mAh)
+    var healthPrecise: Double? = nil      // 0...100 with decimals, "성능 최대치"
+    var temperatureCelsius: Double? = nil // AppleSmartBattery Temperature / 100
+}
+
+struct NetworkInterfaceStats: Equatable, Identifiable {
+    var id: String { bsdName }
+    var bsdName: String           // "en0"
+    var displayName: String       // "Wi-Fi"
+    var ipv4: String?
+    var uploadBytesPerSec: Double
+    var downloadBytesPerSec: Double
+    var totalSent: UInt64
+    var totalReceived: UInt64
+}
+
+struct NetworkStats: Equatable {
+    var interfaces: [NetworkInterfaceStats]   // up, non-loopback, has IPv4 or traffic
+    var uploadBytesPerSec: Double
+    var downloadBytesPerSec: Double
+}
+
+struct SystemSnapshot: Equatable {
+    var timestamp: Date
+    var cpu: CPUStats
+    var memory: MemoryStats
+    var disk: DiskStats?
+    var battery: BatteryStats?    // nil on desktops
+    var network: NetworkStats
+    var uptime: TimeInterval
+    var thermalState: ProcessInfo.ThermalState
+}
+
+// MARK: - Dog
+
+enum DogPose: Int, CaseIterable, Codable {
+    case lying, slowWalk, walk, fastWalk, run, sprint, exhausted
+
+    /// CPU usage (0...1) to pose. Lower bounds: 0, 5, 15, 30, 45, 65, 85 %.
+    static func forCPU(_ usage: Double) -> DogPose {
+        let p = usage * 100
+        switch p {
+        case ..<5: return .lying
+        case ..<15: return .slowWalk
+        case ..<30: return .walk
+        case ..<45: return .fastWalk
+        case ..<65: return .run
+        case ..<85: return .sprint
+        default: return .exhausted
+        }
+    }
+
+    var label: String {
+        switch self {
+        case .lying: return L("쿨쿨 자는 중")
+        case .slowWalk: return L("어슬렁어슬렁")
+        case .walk: return L("산책 중")
+        case .fastWalk: return L("총총총")
+        case .run: return L("달리는 중")
+        case .sprint: return L("전속력 질주!")
+        case .exhausted: return L("헉헉 땀 뻘뻘")
+        }
+    }
+}
+
+/// Who lives in the menu bar: the customizable dog, a character made from the user's own pictures (which one:
+/// AppSettings.customCharacterID), a cat breed (AppSettings.catID) or an original character or local pack
+/// (AppSettings.originalID). Raw values are saved; never rename one. A value this build no longer has (a
+/// removed character) reads as nil and loads as the dog.
+/// Not named `Character`, which would shadow Swift.Character in this module.
+enum SpriteCharacter: String, Codable, CaseIterable {
+    case dog, custom, cat, original
+}
+
+enum EarStyle: String, Codable, CaseIterable { case pointy, floppy, folded, long }
+enum TailStyle: String, Codable, CaseIterable { case curly, straight, short, fluffy }
+enum SnoutStyle: String, Codable, CaseIterable { case short, medium, long }
+enum BodyBuild: String, Codable, CaseIterable { case small, medium, large, long }  // long = dachshund-like
+enum CoatPattern: String, Codable, CaseIterable { case solid, mask, saddle, whiteChest, socks, spots }
+
+struct RGBColor: Codable, Equatable, Hashable {
+    var r: UInt8, g: UInt8, b: UInt8
+
+    init(r: UInt8, g: UInt8, b: UInt8) { self.r = r; self.g = g; self.b = b }
+
+    /// "#C8913A" or "C8913A". Invalid input gives mid gray.
+    init(hex: String) {
+        let s = hex.trimmingCharacters(in: CharacterSet(charactersIn: "# "))
+        guard s.count == 6, let v = UInt32(s, radix: 16) else { self.init(r: 128, g: 128, b: 128); return }
+        self.init(r: UInt8(v >> 16 & 0xFF), g: UInt8(v >> 8 & 0xFF), b: UInt8(v & 0xFF))
+    }
+
+    var hex: String { String(format: "#%02X%02X%02X", r, g, b) }
+    var nsColor: NSColor { NSColor(srgbRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1) }
+}
+
+struct DogProfile: Codable, Equatable {
+    var name: String
+    var ears: EarStyle
+    var tail: TailStyle
+    var snout: SnoutStyle
+    var build: BodyBuild
+    var fluffy: Bool
+    var pattern: CoatPattern
+    var baseColor: RGBColor       // main coat
+    var secondaryColor: RGBColor  // pattern color (mask/saddle/chest/socks/spots)
+    var noseColor: RGBColor
+}
+
+// MARK: - App settings (persisted in UserDefaults, owned by App/)
+
+/// Where every setting lives. `--render-dashboard` points it at a throwaway suite before anything reads it
+/// (cfprefsd ignores HOME, so this is the only way a QA run cannot write the owner's preferences).
+enum AppDefaults {
+    static var store: UserDefaults = .standard
+}
+
+final class AppSettings: ObservableObject {
+    static let shared = AppSettings()
+    private let defaults: UserDefaults
+
+    @Published var profile: DogProfile { didSet { save(profile, "profile") } }
+    /// Settings saved before this existed have no "character" key and load as the dog.
+    @Published var character: SpriteCharacter { didSet { defaults.set(character.rawValue, forKey: "character") } }
+    /// The saved custom character `character == .custom` means. Unknown ids show the dog.
+    @Published var customCharacterID: String? { didSet { defaults.set(customCharacterID, forKey: "customCharacterID") } }
+    /// CatCatalog id `character == .cat` means. Unknown ids show the dog.
+    @Published var catID: String? { didSet { defaults.set(catID, forKey: "catID") } }
+    /// OriginalCatalog id `character == .original` means. Unknown ids show the dog.
+    @Published var originalID: String? { didSet { defaults.set(originalID, forKey: "originalID") } }
+    @Published var showCPUPercent: Bool { didSet { defaults.set(showCPUPercent, forKey: "showCPUPercent") } }
+    /// 내 Claude without a Keychain token: the user agreed to use whatever account this Mac's Claude Code is signed into.
+    @Published var claudeUseCLILogin: Bool { didSet { defaults.set(claudeUseCLILogin, forKey: "claudeUseCLILogin") } }
+    /// 내 Claude's second turn that looks at the render and fixes the frames.
+    @Published var claudeRefine: Bool { didSet { defaults.set(claudeRefine, forKey: "claudeRefine") } }
+    /// 자동 다듬기: the creator has this Mac's AI draw the poses without a picture (설정 can turn it off).
+    @Published var aiAutoRefine: Bool { didSet { defaults.set(aiAutoRefine, forKey: "aiAutoRefine") } }
+    /// 꾸미기 colours of the originals: character id to part id (CharacterColors.parts) to colour. Missing: as drawn.
+    @Published var characterColors: [String: [String: RGBColor]] { didSet { save(characterColors, "characterColors") } }
+    /// 꾸미기 of a cat breed: its own profile once a colour changed, by cat id.
+    @Published var catLooks: [String: CatProfile] { didSet { save(catLooks, "catLooks") } }
+    /// Built-in characters taken off 캐릭터 선택 ("목록에서 지우기"), by id. Restorable there.
+    @Published var hiddenCharacters: [String] { didSet { save(hiddenCharacters, "hiddenCharacters") } }
+    /// 그림 스타일 of every drawn character (RenderStyle); unknown or missing: 자동.
+    @Published var renderStyle: RenderStyle { didSet { defaults.set(renderStyle.rawValue, forKey: "renderStyle") } }
+    /// nil = no photo. Stored "" means the user removed it; never set means the bundled jelly.jpg.
+    @Published var photoPath: String? { didSet { defaults.set(photoPath ?? "", forKey: "photoPath") } }
+
+    var dogName: String { profile.name.isEmpty ? L("내 캐릭터") : profile.name }
+    /// Name of whoever is in the menu bar right now.
+    var characterName: String {
+        switch shownCharacter {
+        case .dog: return dogName
+        case .custom: return activeCustom?.displayName ?? dogName
+        case .cat: return activeCat?.displayName ?? dogName
+        case .original: return activeOriginal?.displayName ?? dogName
+        }
+    }
+
+    /// The shown character's own 말투 and 울음소리 (a pack's pack.json, a custom character's choice); nil and [] for the rest.
+    var shownVoice: (style: PersonaStyle?, cries: [String]) {
+        switch shownCharacter {
+        case .custom: return (activeCustom?.voice, activeCustom?.cries ?? [])
+        case .original: return (activeOriginal?.voice, activeOriginal?.cries ?? [])
+        default: return (nil, [])
+        }
+    }
+
+    /// The custom character to draw, or nil.
+    var activeCustom: CustomCharacter? {
+        guard character == .custom else { return nil }
+        return CustomCharacterStore.shared.character(customCharacterID)
+    }
+
+    /// With its 꾸미기 colours.
+    var activeCat: (any AnimatedCharacter)? {
+        guard character == .cat, let cat = CatCatalog.character(catID), !hiddenCharacters.contains(cat.id) else { return nil }
+        return CharacterColors.cat(cat, catLooks[cat.id])
+    }
+
+    /// With its 꾸미기 colours; a removed id or a pack that no longer loads shows the dog.
+    var activeOriginal: (any AnimatedCharacter)? {
+        guard character == .original, let c = OriginalCatalog.character(originalID), !hiddenCharacters.contains(c.id) else { return nil }
+        return CharacterColors.apply(characterColors[c.id], to: c)
+    }
+
+    /// `character`, with one that cannot be shown (deleted, unknown id, hidden) standing in as the dog.
+    var shownCharacter: SpriteCharacter {
+        switch character {
+        case .dog: return character
+        case .custom: return activeCustom == nil ? .dog : .custom
+        case .cat: return activeCat == nil ? .dog : .cat
+        case .original: return activeOriginal == nil ? .dog : .original
+        }
+    }
+
+    func useCustom(_ id: UUID) {
+        customCharacterID = id.uuidString
+        character = .custom
+    }
+
+    func useCat(_ id: String) {
+        catID = id
+        character = .cat
+    }
+
+    func useOriginal(_ id: String) {
+        originalID = id
+        character = .original
+    }
+
+    static var bundledPhotoPath: String? { Bundle.main.path(forResource: "jelly", ofType: "jpg") }
+
+    /// Tests pass their own suite; the app uses `shared`.
+    init(defaults: UserDefaults = AppDefaults.store) {
+        self.defaults = defaults
+        profile = (defaults.data(forKey: "profile")).flatMap { try? JSONDecoder().decode(DogProfile.self, from: $0) }
+            ?? DogProfile.defaultDog
+        character = defaults.string(forKey: "character").flatMap(SpriteCharacter.init(rawValue:)) ?? .dog
+        customCharacterID = defaults.string(forKey: "customCharacterID")
+        catID = defaults.string(forKey: "catID")
+        originalID = defaults.string(forKey: "originalID")
+        showCPUPercent = defaults.object(forKey: "showCPUPercent") as? Bool ?? true
+        claudeUseCLILogin = defaults.object(forKey: "claudeUseCLILogin") as? Bool ?? false
+        claudeRefine = defaults.object(forKey: "claudeRefine") as? Bool ?? true
+        aiAutoRefine = defaults.object(forKey: "aiAutoRefine") as? Bool ?? true
+        characterColors = defaults.data(forKey: "characterColors").flatMap { try? JSONDecoder().decode([String: [String: RGBColor]].self, from: $0) } ?? [:]
+        catLooks = defaults.data(forKey: "catLooks").flatMap { try? JSONDecoder().decode([String: CatProfile].self, from: $0) } ?? [:]
+        renderStyle = defaults.string(forKey: "renderStyle").flatMap(RenderStyle.init(rawValue:)) ?? .auto
+        hiddenCharacters = defaults.data(forKey: "hiddenCharacters").flatMap { try? JSONDecoder().decode([String].self, from: $0) } ?? []
+        if let stored = defaults.string(forKey: "photoPath") {
+            photoPath = stored.isEmpty ? nil : stored
+        } else {
+            photoPath = AppSettings.bundledPhotoPath
+        }
+    }
+
+    private func save<T: Encodable>(_ value: T, _ key: String) {
+        if let data = try? JSONEncoder().encode(value) { defaults.set(data, forKey: key) }
+    }
+}
