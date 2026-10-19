@@ -12,6 +12,12 @@ final class MotionStore: ObservableObject {
     @Published var buddyBoost: BuddyBoost { didSet { defaults.set(buddyBoost.rawValue, forKey: "cursorBuddyBoost") } }
     /// 혼자 놀기: idle play, sitting on the front window, the butterfly and clinging on. On by default.
     @Published var buddyPlay: Bool { didSet { defaults.set(buddyPlay, forKey: "cursorBuddyPlay") } }
+    /// 퀵물어보기: the bubble's colours, type size, motion, chime and the friend's face in it.
+    @Published var quickAskTheme: QuickAskTheme { didSet { defaults.set(quickAskTheme.rawValue, forKey: "quickAskTheme") } }
+    @Published var quickAskTextSize: QuickAskTextSize { didSet { defaults.set(quickAskTextSize.rawValue, forKey: "quickAskTextSize") } }
+    @Published var quickAskMotion: QuickAskMotion { didSet { defaults.set(quickAskMotion.rawValue, forKey: "quickAskMotion") } }
+    @Published var quickAskSound: Bool { didSet { defaults.set(quickAskSound, forKey: "quickAskSound") } }
+    @Published var quickAskShowAvatar: Bool { didSet { defaults.set(quickAskShowAvatar, forKey: "quickAskShowAvatar") } }
 
     init(defaults: UserDefaults = AppDefaults.store) {
         self.defaults = defaults
@@ -20,6 +26,11 @@ final class MotionStore: ObservableObject {
         buddySize = defaults.string(forKey: "cursorBuddySize").flatMap(BuddySize.init) ?? .medium
         buddyBoost = defaults.string(forKey: "cursorBuddyBoost").flatMap(BuddyBoost.init) ?? .normal
         buddyPlay = defaults.object(forKey: "cursorBuddyPlay") as? Bool ?? true
+        quickAskTheme = defaults.string(forKey: "quickAskTheme").flatMap(QuickAskTheme.init) ?? .peach
+        quickAskTextSize = defaults.string(forKey: "quickAskTextSize").flatMap(QuickAskTextSize.init) ?? .regular
+        quickAskMotion = defaults.string(forKey: "quickAskMotion").flatMap(QuickAskMotion.init) ?? .bouncy
+        quickAskSound = defaults.bool(forKey: "quickAskSound")
+        quickAskShowAvatar = defaults.object(forKey: "quickAskShowAvatar") as? Bool ?? true
     }
 }
 

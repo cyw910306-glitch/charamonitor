@@ -5,15 +5,38 @@ import Combine
 /// Shared pieces for the 데스크톱 친구 (커서 친구, 대롱대롱 친구, 날씨 창문). Everything but `reduceMotion` is pure and tested
 /// (DesktopTests). Coordinates are screen points with y up, like NSWindow frames.
 enum DesktopKit {
-    /// macOS 손쉬운 사용 > 동작 줄이기: no speed growth, tilt, wind or idle motion, a still pose only.
-    static var reduceMotion: Bool { NSWorkspace.shared.accessibilityDisplayShouldReduceMotion }
-    /// Fires when 동작 줄이기 (or another display option) changes; re-read `reduceMotion` then.
+    /// No speed growth, tilt, wind or idle motion, a still pose only: 꾸미기 > 움직임 잔잔하게, or 자동 with macOS
+    /// 손쉬운 사용 > 동작 줄이기 on. 통통 keeps full motion either way.
+    static var reduceMotion: Bool {
+        switch AppSettings.shared.motionLevel {
+        case .calm: return true
+        case .bouncy: return false   // ponytail: the same motion as 자동 for now; livelier idle play can come later
+        case .auto: return NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
+        }
+    }
+    /// Fires when 동작 줄이기 (or another display option) or 꾸미기 > 움직임 changes; re-read `reduceMotion` then.
     static var displayOptionsChanged: AnyPublisher<Void, Never> {
-        NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.accessibilityDisplayOptionsDidChangeNotification)
-            .map { _ in () }.eraseToAnyPublisher()
+        Publishers.Merge(
+            NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.accessibilityDisplayOptionsDidChangeNotification).map { _ in () },
+            // @Published sends before the value is stored: hop once so `reduceMotion` reads the new level.
+            AppSettings.shared.$motionLevel.dropFirst().map { _ in () }.receive(on: DispatchQueue.main))
+            .eraseToAnyPublisher()
     }
     /// "춤춰 줘", "응원해 줘", a focus well done: every desktop friend joins in (커서 친구, 대롱대롱 친구, 풀밭 친구들).
     static let celebrate = PassthroughSubject<PoseCard, Never>()
+}
+
+/// 꾸미기 > 움직임 (AppSettings.motionLevel). Raw values are saved; never rename one.
+enum MotionLevel: String, CaseIterable {
+    case auto, calm, bouncy
+
+    var label: String {
+        switch self {
+        case .auto: return L("자동")
+        case .calm: return L("잔잔하게")
+        case .bouncy: return L("통통")
+        }
+    }
 }
 
 /// One frame's alpha mask, for click-through on transparent pixels: the window takes the mouse only over the drawing.
@@ -116,6 +139,74 @@ struct ClickRecognizer {
         pending = nil
         return [.single(w.p)]
     }
+
+    /// A menu opens mid-press and swallows the release: a drag ends where it is (no throw), a press or a click still
+    /// waiting for its pair is dropped, and the next press starts clean. Feed what it returns like any other gesture.
+    mutating func cancel(at p: CGPoint) -> [Gesture] {
+        defer { self = ClickRecognizer() }
+        return dragging ? [.dragEnded(p, velocity: .zero)] : []
+    }
+}
+
+/// The right click (or control click) on every 데스크톱 친구: the friend's own items, then 데스크톱 친구 ▸ (the quick
+/// on/off, 집중) and 설정 열기. Built fresh each time, so no menu is popped from two places or hung under two parents.
+enum FriendMenu {
+    /// Opens the dashboard on 설정. Set by StatusItemController.
+    static var openSettings: (() -> Void)?
+    /// A friend's menu is up. It runs its own loop while timers keep ticking, so the 커서 친구 holds still meanwhile.
+    private(set) static var isOpen = false
+
+    /// An item that runs `run`; the item keeps its action alive.
+    static func item(_ title: String, on: Bool = false, _ run: @escaping () -> Void) -> NSMenuItem {
+        let item = NSMenuItem(title: title, action: #selector(MenuAction.fire), keyEquivalent: "")
+        let a = MenuAction(run)
+        item.target = a
+        item.representedObject = a
+        item.state = on ? .on : .off
+        return item
+    }
+
+    static func submenu(_ title: String, _ items: [NSMenuItem]) -> NSMenuItem {
+        let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+        let menu = NSMenu()
+        items.forEach(menu.addItem)
+        item.submenu = menu
+        return item
+    }
+
+    /// Each friend on or off, then 집중 시작 / 그만하기. Also fills the menu bar's 데스크톱 친구 submenu.
+    static func desktopItems() -> [NSMenuItem] {
+        let focus = FocusCenter.shared
+        return DesktopFriends.toggles.map { t in item(t.title, on: t.isOn()) { t.set(!t.isOn()) } } + [
+            .separator(),
+            item(focus.running ? L("집중 그만하기") : L("집중 시작")) { if focus.running { focus.stop() } else { focus.start() } },
+        ]
+    }
+
+    static func build(_ own: [NSMenuItem]) -> NSMenu {
+        let menu = NSMenu()
+        own.forEach(menu.addItem)
+        if !own.isEmpty { menu.addItem(.separator()) }
+        menu.addItem(submenu(L("데스크톱 친구"), desktopItems()))
+        menu.addItem(item(L("설정 열기")) { openSettings?() })
+        return menu
+    }
+
+    /// Shows the menu at `event` and returns once it is closed. A 퀵물어보기 bubble over the friend closes first.
+    static func pop(_ own: [NSMenuItem], with event: NSEvent, for view: NSView) {
+        MainActor.assumeIsolated { FriendQuickAsk.shared.close() }
+        isOpen = true
+        defer { isOpen = false }
+        NSMenu.popUpContextMenu(build(own), with: event, for: view)
+    }
+}
+
+private final class MenuAction: NSObject {
+    let run: () -> Void
+    init(_ run: @escaping () -> Void) { self.run = run }
+    /// After the menu has fully let go: a 치우기 or the 다른 도시 검색 dialog then runs with FriendMenu.isOpen false
+    /// and the friend's press already ended.
+    @objc func fire() { DispatchQueue.main.async(execute: run) }
 }
 
 /// A friend hanging from `anchor` on a springy string: a damped spring pendulum. Drag it (`grab`/`drag`),
@@ -290,10 +381,11 @@ enum ChimeSound {
     private static var players: [Int: AVAudioPlayer] = [:]
     private static var lastRing: TimeInterval = 0
 
-    /// Rings note `index` (wrapped) at `volume` 0...1, at most every 0.15 s and never while the bubble is muted (meetings).
+    /// Rings note `index` (wrapped) at `volume` 0...1, at most every 0.15 s and never while the bubble is muted (meetings)
+    /// or 꾸미기 > 효과음 is off.
     static func play(_ index: Int, volume: Double) {
         let now = ProcessInfo.processInfo.systemUptime
-        guard volume > 0, now - lastRing >= 0.15, !SpeechBubbleCenter.shared.isMuted() else { return }
+        guard volume > 0, AppSettings.shared.friendSounds, now - lastRing >= 0.15, !SpeechBubbleCenter.shared.isMuted() else { return }
         lastRing = now
         let i = ((index % notes.count) + notes.count) % notes.count
         if players[i] == nil { players[i] = try? AVAudioPlayer(data: make(freq: notes[i])) }

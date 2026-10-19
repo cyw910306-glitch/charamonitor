@@ -73,14 +73,8 @@ final class StatusItemController: NSObject, NSPopoverDelegate, NSMenuDelegate {
         startTimer()
         PermissionFlow.reopen = { [weak self] in self?.permissionFlowEnded() }
         PermissionFlow.started = { [weak self] in self?.shownAtBegin = self?.popover?.isShown ?? false }
-        // The 커서 친구: a right click shows this menu, a double click opens the AI 비서.
-        CursorBuddy.shared.showMenu = { [weak self] event, view in
-            MainActor.assumeIsolated {
-                guard let self else { return }
-                self.closePopover()
-                NSMenu.popUpContextMenu(self.menu, with: event, for: view)
-            }
-        }
+        // A friend's right click menu ends in 설정 열기; the 커서 친구's double click opens the AI 비서.
+        FriendMenu.openSettings = { [weak self] in MainActor.assumeIsolated { self?.showPopover(page: .settings) } }
         CursorBuddy.shared.openAssistant = { [weak self] in MainActor.assumeIsolated { self?.showPopover(page: .assistant) } }
     }
 
@@ -472,29 +466,7 @@ final class StatusItemController: NSObject, NSPopoverDelegate, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         guard menu === desktopMenu else { return }
         menu.removeAllItems()
-        for (i, t) in DesktopFriends.toggles.enumerated() {
-            let item = NSMenuItem(title: t.title, action: #selector(menuToggleDesktop(_:)), keyEquivalent: "")
-            item.target = self
-            item.tag = i
-            item.state = t.isOn() ? .on : .off
-            menu.addItem(item)
-        }
-        menu.addItem(.separator())
-        let focus = NSMenuItem(title: FocusCenter.shared.running ? L("집중 그만하기") : L("집중 시작"), action: #selector(menuFocus), keyEquivalent: "")
-        focus.target = self
-        menu.addItem(focus)
-    }
-
-    /// 집중 시작 / 그만하기 (the widget shows over a desktop friend, or under this icon).
-    @objc private func menuFocus() {
-        let f = FocusCenter.shared
-        if f.running { f.stop() } else { f.start() }
-    }
-
-    @objc private func menuToggleDesktop(_ item: NSMenuItem) {
-        let toggles = DesktopFriends.toggles
-        guard toggles.indices.contains(item.tag) else { return }
-        toggles[item.tag].set(!toggles[item.tag].isOn())
+        FriendMenu.desktopItems().forEach(menu.addItem)
     }
 
     private func showMenu() {

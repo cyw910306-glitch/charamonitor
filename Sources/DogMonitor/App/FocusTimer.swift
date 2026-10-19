@@ -25,6 +25,85 @@ struct FocusSession: Equatable {
         let s = Int(max(0, seconds)), h = s / 3600, m = s / 60 % 60, r = s % 60
         return h > 0 ? String(format: "%d:%02d:%02d", h, m, r) : String(format: "%02d:%02d", m, r)
     }
+
+    /// 0...1 of the way to a `goal` of minutes; nil with no goal (0).
+    static func progress(_ elapsed: TimeInterval, goal: Int) -> Double? {
+        goal > 0 ? min(1, max(0, elapsed / Double(goal * 60))) : nil
+    }
+
+    /// The widget's status line: the friend talking, by how long the run is and the time of day.
+    static func mood(elapsed: TimeInterval, hour: Int, paused: Bool, polite: Bool) -> String {
+        if paused { return L("잠깐 쉬는 중 ☕") }
+        if hour >= 23 || hour < 5 { return L("늦은 밤 집중 🌙") }
+        let m = elapsed / 60
+        if m < 5 { return (6..<9).contains(hour) ? L("아침 집중 ☀️") : L("시작이 반!") }
+        if m < 20 { return L("집중 시작!") }
+        if m < 45 { return polite ? L("몰입 중이에요 ✨") : L("몰입 중이야 ✨") }
+        return polite ? L("대단해요, 오래 버텼어요!") : L("대단해, 오래 버텼어!")
+    }
+}
+
+/// 위젯 색: a pastel sticker in light mode, a deep tint of the same in dark mode. 그만하기 and the progress bar take `accent`.
+enum FocusTheme: String, CaseIterable {
+    case lavender, strawberry, mint, lemon, sky
+
+    var label: String {
+        switch self {
+        case .lavender: return L("라벤더")
+        case .strawberry: return L("딸기우유")
+        case .mint: return L("민트")
+        case .lemon: return L("레몬")
+        case .sky: return L("하늘")
+        }
+    }
+
+    /// Next to the time in the menu bar.
+    var emoji: String {
+        switch self {
+        case .lavender: return "🍇"
+        case .strawberry: return "🍓"
+        case .mint: return "🌿"
+        case .lemon: return "🍋"
+        case .sky: return "☁️"
+        }
+    }
+
+    /// Hexes for light or dark: the card's fill, its text, and the accent (white text on it at least 4.5:1).
+    func hexes(dark: Bool) -> (fill: String, ink: String, accent: String) {
+        switch (self, dark) {
+        case (.lavender, false): return ("#EFE8FC", "#3E3166", "#7459E0")
+        case (.lavender, true): return ("#2E2747", "#E4DAF7", "#7459E0")
+        case (.strawberry, false): return ("#FFE4EC", "#6E2A40", "#CC3F72")
+        case (.strawberry, true): return ("#45263A", "#FFD6E0", "#CC3F72")
+        case (.mint, false): return ("#DDF5EA", "#1F4A3C", "#1F8460")
+        case (.mint, true): return ("#1F3A33", "#CDEFE0", "#1F8460")
+        case (.lemon, false): return ("#FFF4C7", "#5C4500", "#9A6A00")
+        case (.lemon, true): return ("#3E3620", "#FFF0B8", "#9A6A00")
+        case (.sky, false): return ("#E0F0FD", "#23415E", "#2A72B0")
+        case (.sky, true): return ("#1F3247", "#D3EAFB", "#2A72B0")
+        }
+    }
+}
+
+/// 위젯 크기: the scale for the widget's type and padding.
+enum FocusSize: String, CaseIterable {
+    case small, normal, large
+
+    var label: String {
+        switch self {
+        case .small: return L("작게")
+        case .normal: return L("보통")
+        case .large: return L("크게")
+        }
+    }
+
+    var scale: CGFloat {
+        switch self {
+        case .small: return 0.9
+        case .normal: return 1
+        case .large: return 1.25
+        }
+    }
 }
 
 /// The to-do being worked on: shown as a pill over the focusing friend (진행 중).
@@ -45,13 +124,36 @@ final class FocusCenter: ObservableObject {
     @Published private(set) var menuTitle: String?
     /// 메뉴바에 시간 보이기.
     @Published var showInMenuBar: Bool { didSet { defaults.set(showInMenuBar, forKey: "focus.menuBar"); tick() } }
+    /// 메뉴바 시간에 이모지 붙이기: "🍇 12:03", "☕ 12:03" while paused.
+    @Published var menuEmoji: Bool { didSet { defaults.set(menuEmoji, forKey: "focus.menuEmoji"); tick() } }
+    /// 위젯 색.
+    @Published var theme: FocusTheme { didSet { defaults.set(theme.rawValue, forKey: "focus.theme"); tick() } }
+    /// 위젯 크기.
+    @Published var size: FocusSize { didSet { defaults.set(size.rawValue, forKey: "focus.size") } }
+    /// 목표 시간 in minutes, 0 = none: a progress bar on the widget and a cheer when it is reached (the run keeps counting).
+    @Published var goalMinutes: Int { didSet { defaults.set(goalMinutes, forKey: "focus.goal") } }
+    /// 목표 달성 소리: a chime at the goal and on stopping a run that reached it.
+    @Published var sound: Bool { didSet { defaults.set(sound, forKey: "focus.sound") } }
 
     private let defaults: UserDefaults
     private var timer: Timer?
+    /// This run reached its goal (cheered once; the stop line says so).
+    private var goalHit = false
 
     init(defaults: UserDefaults = AppDefaults.store) {
         self.defaults = defaults
         showInMenuBar = defaults.object(forKey: "focus.menuBar") as? Bool ?? true
+        menuEmoji = defaults.object(forKey: "focus.menuEmoji") as? Bool ?? true
+        theme = defaults.string(forKey: "focus.theme").flatMap(FocusTheme.init) ?? .lavender
+        size = defaults.string(forKey: "focus.size").flatMap(FocusSize.init) ?? .normal
+        goalMinutes = defaults.object(forKey: "focus.goal") as? Int ?? 25
+        sound = defaults.object(forKey: "focus.sound") as? Bool ?? true
+    }
+
+    /// QA only (DesktopQA): a run and a pill to draw, with no timer, panel or reminder read.
+    func seed(session: FocusSession?, task: FocusTask? = nil) {
+        self.session = session
+        self.task = task
     }
 
     var running: Bool { session != nil }
@@ -61,6 +163,7 @@ final class FocusCenter: ObservableObject {
     func start(task: FocusTask? = nil) {
         guard session == nil else { return }
         session = FocusSession(start: Date())
+        goalHit = false
         self.task = task
         if task == nil {
             let linked = AssistantSettings.shared.reminders
@@ -89,14 +192,19 @@ final class FocusCenter: ObservableObject {
         let persona = AssistantModel.persona()
         let polite = !persona.style.banmal
         let line: String
-        if minutes >= 1 {
+        if goalHit {
+            line = polite ? L("목표까지 해냈어요! \(minutes)분 집중 완료 🎉") : L("목표까지 해냈다! \(minutes)분 집중 완료 🎉")
+            DesktopKit.celebrate.send(.dance)
+            chime()
+        } else if minutes >= 1 {
             line = polite ? L("\(minutes)분 집중했어요. 수고 많으셨어요!") : L("\(minutes)분 집중했어. 수고했어!")
             DesktopKit.celebrate.send(.proud)
         } else {
             line = polite ? L("잠깐 집중했어요. 다음엔 조금 더 해 봐요.") : L("잠깐 집중했네. 다음엔 조금 더 해 보자.")
         }
         SpeechBubbleCenter.shared.say(text: persona.exclaim(line), source: .system, aloud: false,
-                                      card: minutes >= 1 ? .proud : nil, anchor: DesktopFriends.speaker)
+                                      card: goalHit ? .dance : minutes >= 1 ? .proud : nil, anchor: DesktopFriends.speaker)
+        goalHit = false
     }
 
     /// "집중 시작" or "집중 그만" in the chat (AssistantIntent.focus): does it and says so.
@@ -139,7 +247,24 @@ final class FocusCenter: ObservableObject {
     }
 
     private func tick() {
-        let title = session.flatMap { s in showInMenuBar ? FocusSession.clock(s.elapsed(Date())) : nil }
+        guard let s = session else { if menuTitle != nil { menuTitle = nil }; return }
+        let elapsed = s.elapsed(Date())
+        if !goalHit, !s.paused, goalMinutes > 0, elapsed >= Double(goalMinutes * 60) { reachGoal() }
+        let title = showInMenuBar ? (menuEmoji ? (s.paused ? "☕" : theme.emoji) + " " : "") + FocusSession.clock(elapsed) : nil
         if title != menuTitle { menuTitle = title }
     }
+
+    /// The first time this run passes 목표 시간: a cheer, a line and the chime; the time keeps counting.
+    private func reachGoal() {
+        goalHit = true
+        let g = goalMinutes
+        let persona = AssistantModel.persona()
+        let line = persona.style.banmal ? L("\(g)분 채웠다! 잠깐 쉬어도 돼.") : L("\(g)분 채웠어요! 쉬어 가도 좋아요.")
+        DesktopKit.celebrate.send(.cheer)
+        SpeechBubbleCenter.shared.say(text: persona.exclaim(line), source: .system, aloud: false, card: .cheer, anchor: DesktopFriends.speaker)
+        chime()
+    }
+
+    /// AppKit's own Glass sound: no asset, fine in the App Store build.
+    private func chime() { if sound && AppSettings.shared.friendSounds { NSSound(named: "Glass")?.play() } }
 }

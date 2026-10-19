@@ -297,6 +297,22 @@ enum DashboardSnapshot {
                 }
             }
         }
+        // 창틀 색: each theme at 200% on a real (made-up) clear day, a temperature apiece so the sill tag and the
+        // sunglasses (31°) and knit hat (-2°) show too; then 50% for the small tag.
+        service.preview = nil
+        service.previewNight = false
+        let w = WeatherWindow()
+        w.sizeStep = WeatherFrame.scales.count - 1
+        w.cache = DogSpriteCache(SpriteLook(settings), pixelSize: 2 * w.scale)
+        let day = WeatherDay(high: 20, low: 10, wet: false, snowy: false)
+        for (theme, temp) in zip(WeatherTheme.allCases, [18, 31, -2, 9, 24]) {
+            w.theme = theme
+            service.show(WeatherNow(city: "서울", kind: .clear, night: false, temperature: temp, wind: 1, today: day))
+            try snapshot(WeatherSceneView(window: w, service: service), appearance: .aqua, to: dir.appendingPathComponent("weather-theme-\(theme.rawValue).png"))
+        }
+        w.sizeStep = 0
+        w.cache = DogSpriteCache(SpriteLook(settings), pixelSize: 2 * w.scale)
+        try snapshot(WeatherSceneView(window: w, service: service), appearance: .aqua, to: dir.appendingPathComponent("weather-theme-50.png"))
         try snapshot(DesktopSettingsView().frame(width: 380).padding(), appearance: .aqua, to: dir.appendingPathComponent("weather-settings-light.png"))
         try snapshot(DesktopSettingsView().frame(width: 380).padding(), appearance: .darkAqua, to: dir.appendingPathComponent("weather-settings-dark.png"))
     }

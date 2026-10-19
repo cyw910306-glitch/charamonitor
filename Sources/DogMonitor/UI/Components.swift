@@ -159,15 +159,19 @@ struct PageScaffold<Content: View>: View {
     }
 }
 
-/// Plain rounded group used on the sub pages.
+/// Plain rounded group used on the sub pages. With a `tint` it is a pastel sticker card (데스크톱 친구).
 struct Panel<Content: View>: View {
+    var tint: Color? = nil
     @ViewBuilder var content: Content
+    @Environment(\.colorScheme) var scheme
 
     var body: some View {
+        let shape = RoundedRectangle(cornerRadius: tint == nil ? 12 : 16, style: .continuous)
         VStack(alignment: .leading, spacing: 8) { content }
-            .padding(10)
+            .padding(tint == nil ? 10 : 12)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.primary.opacity(0.06)))
+            .background(shape.fill(tint.map { $0.opacity(scheme == .dark ? 0.16 : 0.10) } ?? Color.primary.opacity(0.06)))
+            .overlay(tint.map { shape.strokeBorder($0.opacity(0.35), lineWidth: 1.5) })
     }
 }
 

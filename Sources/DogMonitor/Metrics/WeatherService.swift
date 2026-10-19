@@ -35,6 +35,22 @@ enum WeatherKind: String, CaseIterable, Equatable {
         }
     }
 
+    /// What the 날씨 창문's character says now and then on a click (WeatherWindow.clicked).
+    var quips: [String] {
+        switch self {
+        case .clear: return [L("햇살 냠냠, 기분 좋아요!"), L("오늘 산책 각이에요")]
+        case .partly: return [L("구름이 풍선 같아요"), L("해님이랑 숨바꼭질 중이에요")]
+        case .cloudy: return [L("구름 뒤에 해님 숨었어요"), L("포근한 회색 하늘이에요")]
+        case .fog: return [L("어디 있어요? 손전등 켰어요"), L("뿌연 게 솜사탕 같아요")]
+        case .rain: return [L("우산 챙겼어요?"), L("찰박찰박 재밌어요")]
+        case .snow: return [L("눈사람 만들고 싶어요"), L("발 시려요")]
+        case .thunder: return [L("쾅! 무서워요…"), L("꼭 안아 주세요")]
+        }
+    }
+
+    /// Asleep in the window at night.
+    static var nightQuips: [String] { [L("쿨쿨… 깨우지 마요"), L("좋은 꿈 꿀게요")] }
+
     /// "지금 서울 날씨는 12도이고 ___." in (반말, 존댓말).
     var phrase: (String, String) {
         switch self {
@@ -364,6 +380,9 @@ final class WeatherService: ObservableObject {
         return WeatherCity(name: place.locality ?? place.name ?? q, lat: at.latitude, lon: at.longitude,
                            timeZone: place.timeZone?.identifier ?? TimeZone.current.identifier)
     }
+
+    /// QA renders: a made-up answer, nothing fetched.
+    func show(_ w: WeatherNow) { current = w }
 
     /// "서울 · 12° 흐림" for the window's menu and its accessibility label.
     var summary: String {

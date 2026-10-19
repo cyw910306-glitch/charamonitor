@@ -191,6 +191,13 @@ final class AppSettings: ObservableObject {
     @Published var renderStyle: RenderStyle { didSet { defaults.set(renderStyle.rawValue, forKey: "renderStyle") } }
     /// nil = no photo. Stored "" means the user removed it; never set means the bundled jelly.jpg.
     @Published var photoPath: String? { didSet { defaults.set(photoPath ?? "", forKey: "photoPath") } }
+    /// 데스크톱 친구 꾸미기: the settings page's colours (AppPalette), how much the friends move (DesktopKit.reduceMotion),
+    /// every friend's sounds at once, bigger settings text, and 자세히 open from the start.
+    @Published var palette: AppPalette { didSet { defaults.set(palette.rawValue, forKey: "palette") } }
+    @Published var motionLevel: MotionLevel { didSet { defaults.set(motionLevel.rawValue, forKey: "motionLevel") } }
+    @Published var friendSounds: Bool { didSet { defaults.set(friendSounds, forKey: "friendSounds") } }
+    @Published var settingsTextLarge: Bool { didSet { defaults.set(settingsTextLarge, forKey: "settingsTextLarge") } }
+    @Published var expandDetails: Bool { didSet { defaults.set(expandDetails, forKey: "expandDetails") } }
 
     var dogName: String { profile.name.isEmpty ? L("내 캐릭터") : profile.name }
     /// Name of whoever is in the menu bar right now.
@@ -280,6 +287,11 @@ final class AppSettings: ObservableObject {
         catLooks = defaults.data(forKey: "catLooks").flatMap { try? JSONDecoder().decode([String: CatProfile].self, from: $0) } ?? [:]
         renderStyle = defaults.string(forKey: "renderStyle").flatMap(RenderStyle.init(rawValue:)) ?? .auto
         hiddenCharacters = defaults.data(forKey: "hiddenCharacters").flatMap { try? JSONDecoder().decode([String].self, from: $0) } ?? []
+        palette = defaults.string(forKey: "palette").flatMap(AppPalette.init) ?? .strawberry
+        motionLevel = defaults.string(forKey: "motionLevel").flatMap(MotionLevel.init) ?? .auto
+        friendSounds = defaults.object(forKey: "friendSounds") as? Bool ?? true
+        settingsTextLarge = defaults.bool(forKey: "settingsTextLarge")
+        expandDetails = defaults.bool(forKey: "expandDetails")
         if let stored = defaults.string(forKey: "photoPath") {
             photoPath = stored.isEmpty ? nil : stored
         } else {

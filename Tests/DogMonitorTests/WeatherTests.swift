@@ -207,4 +207,17 @@ final class WeatherTests: XCTestCase {
         XCTAssertEqual(WeatherFrame.size(99).width, 320)
         for s in WeatherFrame.scales { XCTAssertEqual((2 * s * 2).truncatingRemainder(dividingBy: 1), 0, "whole Retina pixels at \(s)") }
     }
+
+    func testTemperatureDressesASunnyDayAndEverySkyHasLines() {
+        XCTAssertTrue(WeatherProps.prop(.clear, night: false, temp: 31)?.image === WeatherProps.sunglasses.image)
+        XCTAssertTrue(WeatherProps.prop(.partly, night: false, temp: -2)?.image === WeatherProps.knitHat.image)
+        XCTAssertNil(WeatherProps.prop(.clear, night: false, temp: 18), "a mild clear day keeps no prop")
+        XCTAssertNil(WeatherProps.prop(.clear, night: true, temp: 31), "asleep, nothing worn")
+        XCTAssertTrue(WeatherProps.prop(.rain, night: false, temp: 31)?.image === WeatherProps.umbrella.image, "rain still means the umbrella")
+        for k in WeatherKind.allCases {
+            XCTAssertFalse(k.quips.isEmpty)
+            XCTAssertEqual(WeatherArt.reaction(k, asleep: false).marks.count, 3)
+        }
+        XCTAssertFalse((WeatherKind.allCases.flatMap(\.quips) + WeatherKind.nightQuips).contains { $0.contains("\u{2014}") })
+    }
 }

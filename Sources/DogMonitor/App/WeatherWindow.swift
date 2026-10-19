@@ -11,6 +11,17 @@ enum WeatherFrame {
     static let scales: [CGFloat] = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
     static let defaultStep = 2
 
+    /// "100% 보통" for the size menus.
+    static func label(_ step: Int) -> String {
+        let s = scales[min(max(step, 0), scales.count - 1)], pct = "\(Int(s * 100))%"
+        switch s {
+        case 0.5: return pct + " " + L("꼬마")
+        case 1: return pct + " " + L("보통")
+        case 2: return pct + " " + L("크게")
+        default: return pct
+        }
+    }
+
     static func size(_ step: Int) -> CGSize {
         let d = baseDiameter * scales[min(max(step, 0), scales.count - 1)]
         return CGSize(width: d, height: (d * heightRatio).rounded())
@@ -33,13 +44,18 @@ enum WeatherFrame {
 
 /// "날씨 창문" (데스크톱 친구): a small round window on the desktop where the current character lives in the city's
 /// weather. Never takes focus, passes clicks through outside the drawing, on every Space. Drag empty glass to move it,
-/// click for hearts, right-click for city, preview, size and on-top. Draws only while it is on screen.
+/// click for a hop and a reaction (now and then a line), right-click for city, preview, look, size and on-top. Draws only while it is on screen.
 final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
     static let shared = WeatherWindow()
 
     @Published var on: Bool { didSet { defaults.set(on, forKey: "weatherWindow") } }
     @Published var sizeStep: Int { didSet { defaults.set(sizeStep, forKey: "weatherSize") } }
     @Published var onTop: Bool { didSet { defaults.set(onTop, forKey: "weatherOnTop") } }
+    /// 꾸미기: 창틀 색, the sill's temperature, a line now and then on clicks, petals and leaves by the month.
+    @Published var theme: WeatherTheme { didSet { defaults.set(theme.rawValue, forKey: "weatherTheme") } }
+    @Published var showTemp: Bool { didSet { defaults.set(showTemp, forKey: "weatherShowTemp") } }
+    @Published var chatter: Bool { didSet { defaults.set(chatter, forKey: "weatherChatter") } }
+    @Published var seasonal: Bool { didSet { defaults.set(seasonal, forKey: "weatherSeasonal") } }
 
     /// For the scene: the character's frames at this size, and whether to animate.
     @Published var cache: DogSpriteCache?   // set by refresh(); QA renders set their own
@@ -57,6 +73,8 @@ final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
     private var asleep = false
     private var visible = false
     private var wasEnabled = false
+    private var clickCount = 0
+    private var lastQuip = Date.distantPast
 
     private var enabled: Bool { on }
 
@@ -64,6 +82,10 @@ final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
         on = defaults.bool(forKey: "weatherWindow")
         sizeStep = defaults.object(forKey: "weatherSize") as? Int ?? WeatherFrame.defaultStep
         onTop = defaults.object(forKey: "weatherOnTop") as? Bool ?? true
+        theme = WeatherTheme(rawValue: defaults.string(forKey: "weatherTheme") ?? "") ?? .cream
+        showTemp = defaults.object(forKey: "weatherShowTemp") as? Bool ?? true
+        chatter = defaults.object(forKey: "weatherChatter") as? Bool ?? true
+        seasonal = defaults.object(forKey: "weatherSeasonal") as? Bool ?? true
         super.init()
     }
 
@@ -223,8 +245,20 @@ final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
 
     // MARK: Mouse (from WeatherHostView)
 
+    /// Every third click, at most every 20 s, a short line for the sky (asleep: a sleepy one) over the window.
     fileprivate func clicked() {
         heartsAt = Date()
+        clickCount += 1
+        if chatter, clickCount >= 3, Date().timeIntervalSince(lastQuip) >= 20 {
+            let (kind, night) = WeatherService.shared.scene()
+            let lines = WeatherSceneView.pose((kind, night)) == .lying ? WeatherKind.nightQuips : kind.quips
+            if let line = lines.randomElement() {
+                clickCount = 0
+                lastQuip = Date()
+                SpeechBubbleCenter.shared.say(text: line, source: .system, aloud: false,
+                                              anchor: { [weak self] in self?.panel.flatMap { $0.isVisible ? CGPoint(x: $0.frame.midX, y: $0.frame.maxY) : nil } })
+            }
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) { [weak self] in
             if let at = self?.heartsAt, Date().timeIntervalSince(at) >= 1.2 { self?.heartsAt = nil }
         }
@@ -232,65 +266,31 @@ final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
 
     fileprivate func moved() { savePosition() }
 
-    fileprivate func menu() -> NSMenu {
+    fileprivate func menuItems() -> [NSMenuItem] {
         let service = WeatherService.shared
-        let menu = NSMenu()
-        menu.autoenablesItems = false
+        let item = FriendMenu.item, submenu = FriendMenu.submenu
         let info = NSMenuItem(title: service.summary, action: nil, keyEquivalent: "")
         info.isEnabled = false
-        menu.addItem(info)
-        menu.addItem(.separator())
-
-        let cities = NSMenu()
-        for (i, c) in WeatherCity.presets.enumerated() {
-            cities.addItem(item(c.name, #selector(pickCity(_:)), tag: i, on: c == service.city))
-        }
-        cities.addItem(.separator())
-        cities.addItem(item(L("다른 도시 검색…"), #selector(searchCity)))
-        menu.addItem(submenu(L("도시 바꾸기 (\(service.city.name))"), cities))
-
-        let preview = NSMenu()
-        preview.addItem(item(L("실제 날씨"), #selector(pickPreview(_:)), tag: -1, on: service.preview == nil))
-        for (i, k) in WeatherKind.allCases.enumerated() {
-            preview.addItem(item(k.title, #selector(pickPreview(_:)), tag: i, on: service.preview == k))
-        }
-        menu.addItem(submenu(L("날씨 미리보기"), preview))
-        menu.addItem(item(L("밤으로 보기"), #selector(toggleNight), on: service.previewNight))
-
-        let sizes = NSMenu()
-        for (i, s) in WeatherFrame.scales.enumerated() {
-            sizes.addItem(item("\(Int(s * 100))%", #selector(pickSize(_:)), tag: i, on: i == sizeStep))
-        }
-        menu.addItem(submenu(L("창 크기"), sizes))
-        menu.addItem(item(L("항상 위에 두기"), #selector(toggleOnTop), on: onTop))
-        menu.addItem(item(L("위치 초기화"), #selector(resetPosition)))
-        menu.addItem(.separator())
-        menu.addItem(item(L("날씨 창문 닫기"), #selector(close)))
-        return menu
+        return [
+            info,
+            .separator(),
+            submenu(L("도시 바꾸기 (\(service.city.name))"),
+                    WeatherCity.presets.map { c in item(c.name, c == service.city) { service.city = c } }
+                    + [.separator(), item(L("다른 도시 검색…"), false) { Self.askCity() }]),
+            submenu(L("날씨 미리보기"),
+                    [item(L("실제 날씨"), service.preview == nil) { service.preview = nil }]
+                    + WeatherKind.allCases.map { k in item(k.title, service.preview == k) { service.preview = k } }),
+            item(L("밤으로 보기"), service.previewNight) { service.previewNight.toggle() },
+            .separator(),
+            submenu(L("창틀 색"), WeatherTheme.allCases.map { t in item(t.label, t == self.theme) { self.theme = t } }),
+            item(L("온도 보이기"), showTemp) { self.showTemp.toggle() },
+            submenu(L("창 크기"), WeatherFrame.scales.indices.map { i in item(WeatherFrame.label(i), i == self.sizeStep) { self.sizeStep = i } }),
+            item(L("항상 위에 두기"), onTop) { self.onTop.toggle() },
+            item(L("위치 초기화"), false) { self.place(saved: false) },
+            .separator(),
+            item(L("날씨 창문 닫기"), false) { self.on = false },
+        ]
     }
-
-    private func item(_ title: String, _ action: Selector, tag: Int = 0, on: Bool = false) -> NSMenuItem {
-        let i = NSMenuItem(title: title, action: action, keyEquivalent: "")
-        i.target = self
-        i.tag = tag
-        i.state = on ? .on : .off
-        return i
-    }
-
-    private func submenu(_ title: String, _ sub: NSMenu) -> NSMenuItem {
-        let i = NSMenuItem(title: title, action: nil, keyEquivalent: "")
-        i.submenu = sub
-        return i
-    }
-
-    @objc private func pickCity(_ i: NSMenuItem) { WeatherService.shared.city = WeatherCity.presets[i.tag] }
-    @objc private func pickPreview(_ i: NSMenuItem) { WeatherService.shared.preview = i.tag < 0 ? nil : WeatherKind.allCases[i.tag] }
-    @objc private func toggleNight() { WeatherService.shared.previewNight.toggle() }
-    @objc private func pickSize(_ i: NSMenuItem) { sizeStep = i.tag }
-    @objc private func toggleOnTop() { onTop.toggle() }
-    @objc private func resetPosition() { place(saved: false) }
-    @objc private func close() { on = false }
-    @objc private func searchCity() { Self.askCity() }
 
     /// 다른 도시 검색…: a name in a small dialog, looked up with Apple's geocoder. The one place this window takes focus,
     /// since the owner asked to type.
@@ -333,6 +333,7 @@ private final class WeatherHostView: NSView {
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
 
     override func mouseDown(with event: NSEvent) {
+        if event.modifierFlags.contains(.control) { rightMouseDown(with: event); return }
         guard let window else { return }
         let before = window.frame.origin
         window.performDrag(with: event)   // returns once the button is up
@@ -340,8 +341,8 @@ private final class WeatherHostView: NSView {
     }
 
     override func rightMouseDown(with event: NSEvent) {
-        guard let menu = owner?.menu() else { return }
-        NSMenu.popUpContextMenu(menu, with: event, for: self)
+        guard let items = owner?.menuItems() else { return }
+        FriendMenu.pop(items, with: event, for: self)
     }
 
     override func accessibilityRole() -> NSAccessibility.Role? { .image }

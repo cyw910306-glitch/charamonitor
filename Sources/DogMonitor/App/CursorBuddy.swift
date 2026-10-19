@@ -156,14 +156,13 @@ struct ButterflyStory {
 /// macOS does not let an app replace the system cursor, so this is the oneko way.
 /// Walks after the cursor, runs when the cursor got far ahead (bigger, leaning, with speed lines when the mouse is fast);
 /// once there it waits until the cursor goes farther than it is big, so it can be clicked (반가워하기), double clicked
-/// (AI 비서), dragged (it hangs and swings, then drops) or right clicked (the menu bar menu). At rest it eats while
+/// (AI 비서), dragged (it hangs and swings, then drops) or right clicked (its menu, FriendMenu). At rest it eats while
 /// charging, plays now and then, sits on the front window's top edge, chases a butterfly; it naps after 90 s without
 /// input and gets dizzy when shaken. 30 fps only while something moves, the rest pose's own pace otherwise,
 /// nothing while off or the screens sleep. 동작 줄이기: no growing, swinging or idle play, still poses.
 final class CursorBuddy {
     static let shared = CursorBuddy()
-    /// The menu bar's menu for a right click, and the AI 비서 for a double click. Set by StatusItemController.
-    var showMenu: ((NSEvent, NSView) -> Void)?
+    /// The AI 비서 for a double click. Set by StatusItemController.
     var openAssistant: (() -> Void)?
 
     private var window: NSWindow?
@@ -383,6 +382,7 @@ final class CursorBuddy {
     private func face(_ dx: CGFloat) { if dx < -0.5 { facingLeft = true } else if dx > 0.5 { facingLeft = false } }
 
     private func tick() {
+        guard !FriendMenu.isOpen else { return }   // its menu is up: wait there instead of chasing the cursor into it
         let now = ProcessInfo.processInfo.systemUptime
         let elapsed = max(0, now - lastTick)
         let dt = min(0.1, elapsed)
@@ -690,14 +690,23 @@ final class CursorBuddy {
     private func mouse(_ e: NSEvent) {
         let p = NSEvent.mouseLocation, t = e.timestamp   // seconds since boot, like systemUptime
         switch e.type {
-        case .rightMouseDown: showMenu?(e, view)
-        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu?(e, view)
+        case .rightMouseDown: showMenu(e)
+        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e)
         case .leftMouseDown: clicks.mouseDown(p, at: t).forEach(handle)
         case .leftMouseDragged: clicks.mouseMoved(p, at: t).forEach(handle)
         case .leftMouseUp: clicks.mouseUp(p, at: t).forEach(handle)
         default: break
         }
         schedule(1.0 / 30)
+    }
+
+    /// The menu swallows the button's release: a held buddy is let go first, so it never stays stuck to the cursor.
+    private func showMenu(_ e: NSEvent) {
+        clicks.cancel(at: NSEvent.mouseLocation).forEach(handle)
+        FriendMenu.pop([
+            FriendMenu.item(L("AI 비서랑 이야기하기")) { [weak self] in self?.openAssistant?() },
+            FriendMenu.item(L("커서 친구 쉬게 하기")) { MotionStore.shared.cursorBuddy = false },
+        ], with: e, for: view)
     }
 
     private func handle(_ g: ClickRecognizer.Gesture) {

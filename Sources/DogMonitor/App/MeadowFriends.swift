@@ -439,10 +439,8 @@ final class MeadowFriends {
     fileprivate func mouse(_ e: NSEvent) {
         let p = NSEvent.mouseLocation, t = ProcessInfo.processInfo.systemUptime
         switch e.type {
-        case .rightMouseDown:
-            if let v = panel?.contentView { CursorBuddy.shared.showMenu?(e, v) }
-        case .leftMouseDown where e.modifierFlags.contains(.control):
-            if let v = panel?.contentView { CursorBuddy.shared.showMenu?(e, v) }
+        case .rightMouseDown: showMenu(e, at: p)
+        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e, at: p)
         case .leftMouseDown:
             handle(clicks.mouseDown(p, at: t))
             pressed = friend(at: p)
@@ -458,6 +456,19 @@ final class MeadowFriends {
         default: break
         }
         wake()
+    }
+
+    /// The menu swallows the button's release: a friend held up is put down first, and the press ends, so it never
+    /// hangs in the air and the panel goes back to letting clicks through.
+    private func showMenu(_ e: NSEvent, at p: CGPoint) {
+        handle(clicks.cancel(at: p))
+        pressed = nil
+        guard let v = panel?.contentView else { return }
+        FriendMenu.pop([
+            FriendMenu.item(L("다른 창보다 위에 두기"), on: store.prefs.onTop) { MeadowStore.shared.prefs.onTop.toggle() },
+            FriendMenu.item(L("풀밭 친구들 치우기")) { MeadowStore.shared.prefs.on = false },
+        ], with: e, for: v)
+        hover()   // the cursor may have left the friend while the menu was up
     }
 
     private func handle(_ gestures: [ClickRecognizer.Gesture]) {

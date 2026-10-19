@@ -840,6 +840,23 @@ final class HangingFriends {
         handle(g)
     }
 
+    /// Right click or control click on a friend. The menu swallows the button's release: a friend in the hand is let
+    /// go first and the press ends, so it never stays held (held, the panel would keep eating clicks).
+    fileprivate func showMenu(_ e: NSEvent, in view: NSView) {
+        handle(clicks.cancel(at: NSEvent.mouseLocation))
+        pressed = nil
+        let prefs = store.prefs
+        FriendMenu.pop([
+            FriendMenu.submenu(L("바람"), WindLevel.allCases.map { w in
+                FriendMenu.item(w.label, on: prefs.wind == w) { HangingStore.shared.prefs.wind = w }
+            }),
+            FriendMenu.item(L("풍경 소리"), on: prefs.sound) { HangingStore.shared.prefs.sound.toggle() },
+            FriendMenu.item(L("다른 창보다 위에 두기"), on: prefs.onTop) { HangingStore.shared.prefs.onTop.toggle() },
+            FriendMenu.item(L("대롱대롱 친구 치우기")) { HangingStore.shared.prefs.on = false },
+        ], with: e, for: view)
+        hover()
+    }
+
     private func handle(_ gestures: [ClickRecognizer.Gesture]) {
         guard let f = pressed else { return }
         for g in gestures {
@@ -944,7 +961,10 @@ private final class HangPanel: NSPanel {
 private final class HangView: NSView {
     weak var owner: HangingFriends?
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
-    override func mouseDown(with event: NSEvent) { owner?.mouseDown() }
+    override func mouseDown(with event: NSEvent) {
+        if event.modifierFlags.contains(.control) { owner?.showMenu(event, in: self) } else { owner?.mouseDown() }
+    }
     override func mouseDragged(with event: NSEvent) { owner?.mouseDragged() }
     override func mouseUp(with event: NSEvent) { owner?.mouseUp() }
+    override func rightMouseDown(with event: NSEvent) { owner?.showMenu(event, in: self) }
 }

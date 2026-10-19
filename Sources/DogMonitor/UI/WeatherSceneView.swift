@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 
 /// What the 날씨 창문 draws: sky, ground and weather drawn in code, the current character walking on the ground with a
-/// prop for the weather (umbrella, knit hat, cloud balloon, little cloud, flashlight), then the round frame and sill.
+/// prop for the weather (umbrella, knit hat, cloud balloon, little cloud, flashlight, sunglasses), then the round frame and sill.
 /// The props are pixel stamps placed at the character's head (PetWalker.anchor), so they fit any character.
 /// Everything moves as a pure function of the clock, and only while WeatherWindow.animating.
 struct WeatherSceneView: View {
@@ -45,10 +45,16 @@ struct WeatherSceneView: View {
         let frames = walker.shown(plays ? all : Array(all.prefix(1)), flipped: walker.facingLeft && pose == .walk)
         let shake = kind == .thunder && !still ? sin(t * 50) * u * 0.5 : 0
         let x = d / 2 - half + CGFloat(walker.position) * max(0, 2 * half - sprite.width) + shake
-        let top = ground - sprite.height
+        // A click hops the character (and its prop) for 0.35 s.
+        let hopAge = window.heartsAt.map { now.timeIntervalSince($0) } ?? 1
+        let hop = !still && hopAge >= 0 && hopAge < 0.35 ? CGFloat(sin(hopAge / 0.35 * .pi)) * u * 4 : 0
+        let top = ground - sprite.height - hop
         let anchor = walker.anchor(frames)
         let head = anchor.map { CGPoint(x: x + $0.x * sprite.width, y: top + $0.y * sprite.height) }
         let left = walker.facingLeft && pose == .walk
+        let theme = window.theme
+        let temp = service.preview == nil ? service.current?.temperature : nil
+        let season = window.seasonal ? Calendar.current.component(.month, from: now) : nil
         let every = pose == .walk ? DogSpriteCache.frameDuration(for: .walk, cpu: 0.2) : DogSpriteCache.frameDuration(for: pose, cpu: 0.95)
 
         return ZStack(alignment: .topLeading) {
@@ -59,7 +65,7 @@ struct WeatherSceneView: View {
                         .frame(width: sprite.width, height: sprite.height)
                         .offset(x: x, y: top)
                 }
-                if let head, let prop = WeatherProps.prop(kind, night: night) {
+                if let head, let prop = WeatherProps.prop(kind, night: night, temp: temp) {
                     let bob = still ? 0 : (sin(t * 2) * u).rounded()
                     Image(decorative: prop.image, scale: 1).interpolation(.none).resizable()
                         .frame(width: CGFloat(prop.image.width) * u, height: CGFloat(prop.image.height) * u)
@@ -68,16 +74,20 @@ struct WeatherSceneView: View {
                                 y: head.y - CGFloat(prop.image.height) * u + prop.dy * u + (prop.bobs ? bob : 0))
                 }
                 Canvas { ctx, _ in
-                    WeatherArt.front(ctx, d: d, u: u, kind: kind, night: night, t: t, ground: ground, still: still,
+                    WeatherArt.front(ctx, d: d, u: u, kind: kind, night: night, t: t, ground: ground, still: still, season: season,
                                      beam: kind == .fog && !night ? head.map { ($0, left) } : nil)
                 }
             }
             .frame(width: d, height: d)
             .clipShape(Circle().inset(by: ring * 0.5))
             Canvas { ctx, _ in
-                WeatherArt.frame(ctx, d: d, u: u, ring: ring)
+                WeatherArt.frame(ctx, d: d, u: u, ring: ring, theme: theme, december: season == 12)
+                if window.showTemp {
+                    WeatherArt.label(ctx, d: d, theme: theme,
+                                     text: window.scale <= 0.5 ? temp.map { "\($0)°" } ?? kind.title : temp.map { "\($0)° \(kind.title)" } ?? kind.title)
+                }
                 if let at = window.heartsAt, let head {
-                    WeatherArt.hearts(ctx, at: head, u: u, age: still ? 0.3 : max(0, now.timeIntervalSince(at)))
+                    WeatherArt.hearts(ctx, at: head, u: u, age: still ? 0.3 : max(0, now.timeIntervalSince(at)), reaction: WeatherArt.reaction(kind, asleep: pose == .lying))
                 }
             }
         }
@@ -132,12 +142,22 @@ enum WeatherProps {
         ".nnnnnnnn.",
     ]).image, dy: -3, bobs: true)
 
+    static let sunglasses = Prop(image: PetRoomArt.sprite([
+        "wk.wk",
+        "kk.kk",
+    ]).image, dy: 6, faces: true)
+
     static let flashlight = Prop(image: PetRoomArt.sprite([
         "nnnny",
         "Nnnny",
     ]).image, dx: 5, dy: 9, faces: true)
 
-    static func prop(_ kind: WeatherKind, night: Bool) -> Prop? {
+    /// `temp` (°C) dresses a sunny day: sunglasses from 28°, a knit hat at 3° and below.
+    static func prop(_ kind: WeatherKind, night: Bool, temp: Int? = nil) -> Prop? {
+        if !night, kind == .clear || kind == .partly, let temp {
+            if temp >= 28 { return sunglasses }
+            if temp <= 3 { return knitHat }
+        }
         switch kind {
         case .rain: return umbrella
         case .snow: return night ? nil : knitHat   // asleep, the head sits under the sprite's z, so a worn hat would float
@@ -145,6 +165,31 @@ enum WeatherProps {
         case .partly: return night ? nil : balloon
         case .fog: return night ? nil : flashlight
         case .clear, .thunder: return nil
+        }
+    }
+}
+
+/// 창틀 색: the frame's pastel stickers. `ink` is the outline and the sill's words, at least 4.5:1 on `sill`.
+enum WeatherTheme: String, CaseIterable {
+    case cream, strawberry, mint, lavender, sky
+
+    var label: String {
+        switch self {
+        case .cream: return L("크림")
+        case .strawberry: return L("딸기우유")
+        case .mint: return L("민트")
+        case .lavender: return L("라벤더")
+        case .sky: return L("하늘")
+        }
+    }
+
+    var hexes: (ring: String, bolt: String, sill: String, sillHi: String, ink: String) {
+        switch self {
+        case .cream: return ("#F3E2C0", "#E39BA8", "#E8B88A", "#F3CFA6", "#5A3E36")
+        case .strawberry: return ("#FFD6E0", "#F59AB5", "#FFB3C7", "#FFD0DC", "#7A3B4E")
+        case .mint: return ("#CDEFE0", "#7FC4A8", "#9ED9BF", "#C2EAD7", "#285447")
+        case .lavender: return ("#E4DAF7", "#A88FDB", "#CDBDF0", "#E0D6F7", "#4E3F78")
+        case .sky: return ("#D3EAFB", "#7FB7E3", "#A9D3F2", "#CBE5F8", "#2F4F6E")
         }
     }
 }
@@ -248,7 +293,7 @@ enum WeatherArt {
 
     /// In front of the character: rain and ripples, snow, fog bands, the flashlight's beam, lightning.
     static func front(_ ctx: GraphicsContext, d: CGFloat, u: CGFloat, kind: WeatherKind, night: Bool, t: Double, ground: CGFloat,
-                      still: Bool, beam: (CGPoint, Bool)?) {
+                      still: Bool, season: Int? = nil, beam: (CGPoint, Bool)?) {
         switch kind {
         case .rain, .thunder:
             var drops = Path()
@@ -288,7 +333,21 @@ enum WeatherArt {
                          with: .color(.white.opacity(night ? 0.2 : 0.42)))
             }
         case .clear, .partly, .cloudy:
-            break
+            // 계절 장식: petals in March and April, leaves in October and November, drifting down with a sway.
+            guard let season, [3, 4, 10, 11].contains(season) else { break }
+            let leaves = season >= 10
+            for i in 0..<10 {
+                let y = (t * Double(d) * (0.06 + 0.03 * rnd(i, 17)) + rnd(i, 18) * Double(ground)).truncatingRemainder(dividingBy: Double(ground))
+                let x = rnd(i, 19) * d + sin(t * 0.9 + Double(i)) * u * 5
+                var p = ctx
+                p.translateBy(x: x, y: y)
+                if leaves {
+                    p.rotate(by: .radians(sin(t + Double(i))))
+                    p.fill(Path(CGRect(x: -u, y: -u, width: u * 2, height: u * 2)), with: .color(color(i % 2 == 0 ? "#F2A65A" : "#E2763F")))
+                } else {
+                    p.fill(Path(ellipseIn: CGRect(x: -u, y: -u * 0.75, width: u * 2, height: u * 1.5)), with: .color(color("#FFC4D6")))
+                }
+            }
         }
         guard kind == .thunder, !still else { return }
         let period = 4.5, k = (t / period).rounded(.down), ph = t - k * period
@@ -303,33 +362,63 @@ enum WeatherArt {
         ctx.stroke(bolt, with: .color(color("#FFE45C")), style: StrokeStyle(lineWidth: u * 1.2, lineCap: .round, lineJoin: .round))
     }
 
-    /// The round frame, its glass glint and the sill.
-    static func frame(_ ctx: GraphicsContext, d: CGFloat, u: CGFloat, ring: CGFloat) {
-        let outline = color("#5A3E36")
+    static let star = PetRoomArt.sprite([".y.", "yYy", ".y."]).image
+
+    /// The round frame in its theme (a white sticker edge, four heart bolts), its glass glint and the sill.
+    /// `december` puts a little star on top.
+    static func frame(_ ctx: GraphicsContext, d: CGFloat, u: CGFloat, ring: CGFloat, theme: WeatherTheme = .cream, december: Bool = false) {
+        let hex = theme.hexes
+        let outline = color(hex.ink)
         let circle = { (inset: CGFloat) in Path(ellipseIn: CGRect(x: inset, y: inset, width: d - inset * 2, height: d - inset * 2)) }
-        ctx.stroke(circle(ring / 2), with: .color(color("#F3E2C0")), lineWidth: ring)
+        ctx.stroke(circle(ring / 2), with: .color(color(hex.ring)), lineWidth: ring)
+        ctx.stroke(circle(u), with: .color(.white.opacity(0.85)), lineWidth: u)
         ctx.stroke(circle(u * 0.25), with: .color(outline), lineWidth: u * 0.5)
         ctx.stroke(circle(ring), with: .color(outline), lineWidth: u * 0.5)
-        for a in stride(from: 45.0, to: 360, by: 90) {   // four little bolts in the frame
+        for a in stride(from: 45.0, to: 360, by: 90) {   // four little heart bolts in the frame
             let rad = a * .pi / 180, rr = d / 2 - ring / 2
             let p = CGPoint(x: d / 2 + CGFloat(cos(rad)) * rr, y: d / 2 + CGFloat(sin(rad)) * rr)
-            ctx.fill(Path(ellipseIn: CGRect(x: p.x - u * 0.8, y: p.y - u * 0.8, width: u * 1.6, height: u * 1.6)), with: .color(color("#C9A97A")))
+            ctx.draw(Text("♥").font(.system(size: u * 3.2, weight: .bold)).foregroundColor(color(hex.bolt)), at: p)
+        }
+        if december {
+            let s = CGFloat(star.width) * u
+            ctx.draw(Image(decorative: star, scale: 1).interpolation(.none), in: CGRect(x: d / 2 - s / 2, y: ring / 2 - s / 2, width: s, height: s))
         }
         var glint = Path()
         glint.addArc(center: CGPoint(x: d / 2, y: d / 2), radius: d / 2 - ring - u * 2.5, startAngle: .degrees(200), endAngle: .degrees(245), clockwise: false)
         ctx.stroke(glint, with: .color(.white.opacity(0.5)), style: StrokeStyle(lineWidth: u, lineCap: .round))
         let sill = CGRect(x: d * 0.18, y: d * 0.95, width: d * 0.64, height: d * 0.11)
-        ctx.fill(Path(roundedRect: sill, cornerRadius: u * 1.5), with: .color(color("#C98E5E")))
-        ctx.fill(Path(CGRect(x: sill.minX + u, y: sill.minY + u, width: sill.width - u * 2, height: u)), with: .color(color("#E0AE7E")))
+        ctx.fill(Path(roundedRect: sill, cornerRadius: u * 1.5), with: .color(color(hex.sill)))
+        ctx.fill(Path(CGRect(x: sill.minX + u, y: sill.minY + u, width: sill.width - u * 2, height: u)), with: .color(color(hex.sillHi)))
         ctx.stroke(Path(roundedRect: sill, cornerRadius: u * 1.5), with: .color(outline), lineWidth: u * 0.5)
     }
 
-    /// A click: three hearts float up from the head and fade within 1.2 s.
-    static func hearts(_ ctx: GraphicsContext, at head: CGPoint, u: CGFloat, age: TimeInterval) {
+    /// The sill's name tag: "18° 비", centred on the sill in the theme's ink.
+    static func label(_ ctx: GraphicsContext, d: CGFloat, theme: WeatherTheme, text: String) {
+        ctx.draw(Text(text).font(.system(size: max(9, d * 0.062), weight: .heavy, design: .rounded)).foregroundColor(color(theme.hexes.ink)),
+                 at: CGPoint(x: d / 2, y: d * 1.005))
+    }
+
+    /// What a click floats up for this sky: three marks and their colour. Asleep, little z's.
+    static func reaction(_ kind: WeatherKind, asleep: Bool) -> (marks: [String], hex: String) {
+        if asleep { return (["z", "Z", "z"], "#B7C4F5") }
+        let m: [String] = switch kind {
+        case .clear: ["♥", "✦", "♥"]
+        case .partly, .cloudy: ["♥", "☁\u{FE0E}", "♥"]
+        case .rain: ["♪", "♥", "♪"]
+        case .snow: ["❄\u{FE0E}", "♥", "❄\u{FE0E}"]
+        case .fog: ["♥", "?", "♥"]
+        case .thunder: ["!", "♥", "!"]
+        }
+        return (m, "#F07C9A")
+    }
+
+    /// A click: three marks float up from the head and fade within 1.2 s.
+    static func hearts(_ ctx: GraphicsContext, at head: CGPoint, u: CGFloat, age: TimeInterval,
+                       reaction: (marks: [String], hex: String) = (["♥", "♥", "♥"], "#F07C9A")) {
         guard age < 1.2 else { return }
-        for i in 0..<3 {
+        for (i, mark) in reaction.marks.enumerated() {
             let p = CGPoint(x: head.x + CGFloat(i - 1) * u * 5, y: head.y - u * (4 + CGFloat(i % 2) * 2) - CGFloat(age) * u * 10)
-            ctx.draw(Text("♥").font(.system(size: u * 5, weight: .bold)).foregroundColor(color("#F07C9A", 1 - age / 1.2)), at: p)
+            ctx.draw(Text(mark).font(.system(size: u * 5, weight: .heavy, design: .rounded)).foregroundColor(color(reaction.hex, 1 - age / 1.2)), at: p)
         }
     }
 }

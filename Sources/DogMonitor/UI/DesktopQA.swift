@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 
-/// QA_ONLY=desktop renders: 데스크톱 친구 in 설정 (off, on), 대롱대롱 친구 as they hang, and the 커서 친구 at each boost.
+/// QA_ONLY=desktop renders: 데스크톱 친구 in 설정 (off, on), 대롱대롱 친구 as they hang, the 커서 친구 at each boost, the 집중 위젯 and the 퀵물어보기 bubble.
 /// The floating windows are made see-through (alpha 0) and their layers drawn offscreen, so nothing shows on the screen.
 /// Everything lives in the QA's own defaults suite; no fetch, no sound.
 enum DesktopQA {
@@ -20,7 +20,14 @@ enum DesktopQA {
         HangingStore.shared.prefs.count = HangPrefs.maxCount
         HangingStore.shared.prefs.sound = false
         WeatherWindow.shared.on = true   // the switch only: WeatherWindow.start() never runs here, so nothing is fetched
+        RugStore.shared.prefs.on = true   // the switch only: DesktopRug.start() never runs here
         try settings("on")
+        // 꾸미기: another 색 테마, big text and every 자세히 open, then back to the defaults.
+        let look = AppSettings.shared
+        (look.palette, look.settingsTextLarge, look.expandDetails) = (.lavender, true, true)
+        try settings("custom")
+        (look.palette, look.settingsTextLarge, look.expandDetails) = (.strawberry, false, false)
+        RugStore.shared.prefs.on = false
 
         // 대롱대롱 친구: five on the main screen, one of them a framed photo when my-dog/jelly-avatar.jpg is there.
         HangingFriends.qaHidden = true
@@ -50,6 +57,94 @@ enum DesktopQA {
             }
         }
         MotionStore.shared.cursorBuddy = false
+
+        try focusWidgets(to: dir, looks: looks)
+        try quickAsk(to: dir, looks: looks)
+        try rugFaces(to: dir)
+    }
+
+    /// 바탕화면 러그's faces as flat textures: 캐릭터 for a pixel dog and an illustrated original in two 러그 색, a pixel
+    /// original printed in dark mode, its back, and the old 무늬.
+    @MainActor
+    private static func rugFaces(to dir: URL) throws {
+        let shiba = DogProfile.presets.first { $0.id == "shiba" }?.profile ?? .defaultDog
+        var shots: [(String, NSImage)] = [
+            ("character-dog-strawberry", RugArt.front(.character, color: .strawberry, character: RugArt.art(DogSpriteCache(profile: shiba, style: .pixel)))),
+            ("back-strawberry", RugArt.back(.character, color: .strawberry)),
+            ("pattern", RugArt.front(.pattern, color: .strawberry, character: nil)),
+        ]
+        if let original = OriginalCatalog.all.first {
+            shots.append(("character-original-mint", RugArt.front(.character, color: .mint, character: RugArt.art(DogSpriteCache(original, style: .illustration)))))
+            // Printed while the Mac is dark: must match the light one (the frames' dark menu bar copy never shows).
+            var dark: NSImage?
+            NSAppearance(named: .darkAqua)?.performAsCurrentDrawingAppearance {
+                dark = RugArt.front(.character, color: .lemon, character: RugArt.art(DogSpriteCache(original, style: .pixel)))
+            }
+            if let dark { shots.append(("character-original-lemon-darkmode", dark)) }
+        }
+        for (name, image) in shots {
+            guard let tiff = image.tiffRepresentation, let data = NSBitmapImageRep(data: tiff)?.representation(using: .png, properties: [:])
+            else { throw CocoaError(.fileWriteUnknown) }
+            try data.write(to: dir.appendingPathComponent("desktop-rug-\(name).png"))
+        }
+    }
+
+    /// 퀵물어보기 (seeded, nothing asked): the greeting, a 오늘 진도 answer and a cheer side by side, per 색 테마, in light
+    /// and dark; then 크게 without the face.
+    @MainActor
+    private static func quickAsk(to dir: URL, looks: [(NSAppearance.Name, String)]) throws {
+        let store = MotionStore.shared
+        let greet = FriendQuickAsk(), cheer = FriendQuickAsk()
+        cheer.seed(answer: "최고예요! 오늘도 정말 잘하고 있어요!", chip: .cheer)
+        let states = HStack(alignment: .bottom, spacing: 0) {
+            FriendQuickAskView(model: greet)
+            FriendQuickAskView(model: FriendQuickAsk.sample())
+            FriendQuickAskView(model: cheer)
+        }
+        for t in QuickAskTheme.allCases {
+            store.quickAskTheme = t
+            for (appearance, suffix) in looks {
+                try DashboardSnapshot.snapshot(states.padding(), appearance: appearance,
+                                               to: dir.appendingPathComponent("desktop-quickask-\(t.rawValue)-\(suffix).png"))
+            }
+        }
+        store.quickAskTheme = .peach
+        store.quickAskTextSize = .large
+        store.quickAskShowAvatar = false
+        for (appearance, suffix) in looks {
+            try DashboardSnapshot.snapshot(states.padding(), appearance: appearance,
+                                           to: dir.appendingPathComponent("desktop-quickask-large-noface-\(suffix).png"))
+        }
+        store.quickAskTextSize = .regular
+        store.quickAskShowAvatar = true
+    }
+
+    /// 집중 위젯 (seeded, nothing ticks): the states side by side, then each 위젯 색, in light and dark.
+    @MainActor
+    private static func focusWidgets(to dir: URL, looks: [(NSAppearance.Name, String)]) throws {
+        let now = Date()
+        func widget(_ minutes: Double, paused: Bool = false, task: String? = nil, theme: FocusTheme = .lavender,
+                    size: FocusSize = .normal, goal: Int = 25) -> FocusWidget {
+            let c = FocusCenter(defaults: AppDefaults.store)
+            var s = FocusSession(start: now - minutes * 60)
+            if paused { s.pause(now) }
+            c.seed(session: s, task: task.map { FocusTask(id: "qa", title: $0) })
+            c.theme = theme; c.size = size; c.goalMinutes = goal
+            return FocusWidget(center: c)
+        }
+        let states = HStack(alignment: .bottom, spacing: 4) {
+            widget(5, task: "주간 회의 자료 정리")
+            widget(30)
+            widget(12, paused: true)
+            widget(52, goal: 50)
+            widget(8, goal: 0)
+            widget(18, task: "메일 답장", size: .large)
+        }
+        let themes = HStack(alignment: .bottom, spacing: 4) { ForEach(FocusTheme.allCases, id: \.self) { widget(18, theme: $0) } }
+        for (appearance, suffix) in looks {
+            try DashboardSnapshot.snapshot(states.padding(), appearance: appearance, to: dir.appendingPathComponent("focus-states-\(suffix).png"))
+            try DashboardSnapshot.snapshot(themes.padding(), appearance: appearance, to: dir.appendingPathComponent("focus-themes-\(suffix).png"))
+        }
     }
 
     /// `layer` drawn at `scale` over `background` (the floating windows are clear; this stands in for the desktop).

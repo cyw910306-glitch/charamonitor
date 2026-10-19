@@ -84,3 +84,41 @@ final class RugTests: XCTestCase {
         XCTAssertFalse(c.covers(CGPoint(x: 10, y: 10)))
     }
 }
+
+/// 바탕화면 러그's prefs and faces.
+final class RugFaceTests: XCTestCase {
+    func testOldSavedPrefsGetTheCharacterFace() throws {
+        let old = #"{"on":true,"softness":"floppy","home":[0.5,0.5]}"#.data(using: .utf8)!
+        let p = try JSONDecoder().decode(RugPrefs.self, from: old)
+        XCTAssertTrue(p.on)
+        XCTAssertEqual(p.softness, .floppy)
+        XCTAssertEqual(p.face, .character)
+        XCTAssertEqual(p.color, .strawberry)
+        let round = try JSONDecoder().decode(RugPrefs.self, from: JSONEncoder().encode(RugPrefs(face: .pattern, color: .sky)))
+        XCTAssertEqual(round.face, .pattern)
+        XCTAssertEqual(round.color, .sky)
+    }
+
+    func testCharacterFaceDrawsABuiltInCharacter() throws {
+        let art = try XCTUnwrap(RugArt.art(DogSpriteCache(profile: .defaultDog, style: .pixel)))
+        XCTAssertGreaterThan(RugArt.opaqueBounds(art.image).width, 0)
+        let face = RugArt.front(.character, color: .mint, character: art)
+        XCTAssertEqual(face.size, RugArt.size)
+        XCTAssertNotNil(face.cgImage(forProposedRect: nil, context: nil, hints: nil))
+    }
+}
+
+extension RugFaceTests {
+    /// The tan cat's frames carry a dark menu bar copy (lifted outline): a rug printed in dark mode must still use the light one.
+    func testCharacterFaceIgnoresDarkMode() throws {
+        let cat = try XCTUnwrap(OriginalCatalog.all.first)
+        let art = try XCTUnwrap(RugArt.art(DogSpriteCache(cat, style: .pixel)))
+        func pixels(_ name: NSAppearance.Name) throws -> Data {
+            var image: NSImage?
+            NSAppearance(named: name)!.performAsCurrentDrawingAppearance { image = RugArt.front(.character, color: .lemon, character: art) }
+            let cg = try XCTUnwrap(image?.cgImage(forProposedRect: nil, context: nil, hints: nil))
+            return try XCTUnwrap(cg.dataProvider?.data as Data?)
+        }
+        XCTAssertEqual(try pixels(.darkAqua), try pixels(.aqua))
+    }
+}

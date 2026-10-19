@@ -62,6 +62,41 @@ final class DesktopTests: XCTestCase {
         XCTAssertEqual(r.mouseDown(p, at: 2.5), [.single(p)])
     }
 
+    /// A right click mid-press: the menu swallows the release, so cancel ends a drag in place and leaves nothing waiting.
+    func testClickRecognizerCancelEndsADragAndDropsAWaitingClick() {
+        var r = ClickRecognizer()
+        let p = CGPoint(x: 30, y: 0)
+        _ = r.mouseDown(.zero, at: 0); _ = r.mouseMoved(p, at: 0.01)
+        XCTAssertEqual(r.cancel(at: p), [.dragEnded(p, velocity: .zero)])
+        XCTAssertEqual(r.mouseUp(p, at: 0.5), [])            // the swallowed release, should it ever come, does nothing
+        XCTAssertEqual(r.mouseMoved(.zero, at: 0.6), [])     // and no drag goes on
+        // A click waiting for its pair never fires later (the timers keep polling while the menu is up).
+        _ = r.mouseDown(p, at: 1); _ = r.mouseUp(p, at: 1.05)
+        XCTAssertEqual(r.cancel(at: p), [])
+        XCTAssertNil(r.pollAt)
+        XCTAssertEqual(r.poll(at: 2), [])
+    }
+
+    /// Every friend's menu: its own items, then 데스크톱 친구 ▸ and 설정 열기; a fresh submenu each time.
+    func testFriendMenuEndsWithTheSharedItems() {
+        var ran = false, settings = false
+        FriendMenu.openSettings = { settings = true }
+        defer { FriendMenu.openSettings = nil }
+        let a = FriendMenu.build([FriendMenu.item("own") { ran = true }])
+        XCTAssertEqual(a.items.map(\.title), ["own", "", L("데스크톱 친구"), L("설정 열기")])
+        XCTAssertEqual(a.items[2].submenu?.items.count, DesktopFriends.toggles.count + 2)   // toggles, separator, 집중
+        a.performActionForItem(at: 0)
+        a.performActionForItem(at: 3)
+        XCTAssertFalse(ran)   // runs once the menu has let go
+        RunLoop.main.run(until: Date().addingTimeInterval(0.05))
+        XCTAssertTrue(ran)
+        XCTAssertTrue(settings)
+        XCTAssertFalse(FriendMenu.isOpen)
+        let b = FriendMenu.build([])
+        XCTAssertEqual(b.items.map(\.title), [L("데스크톱 친구"), L("설정 열기")])
+        XCTAssertFalse(a.items[2].submenu === b.items[0].submenu)
+    }
+
     func testClickRecognizerDragAndThrow() {
         var r = ClickRecognizer()
         _ = r.mouseDown(.zero, at: 0)
@@ -225,6 +260,90 @@ final class DesktopFriendsMoreTests: XCTestCase {
         XCTAssertEqual(FocusSession.clock(3723), "1:02:03")
     }
 
+    func testFocusProgressToTheGoal() {
+        XCTAssertNil(FocusSession.progress(600, goal: 0))   // 끄기
+        XCTAssertEqual(FocusSession.progress(0, goal: 25), 0)
+        XCTAssertEqual(FocusSession.progress(750, goal: 25), 0.5)
+        XCTAssertEqual(FocusSession.progress(3600, goal: 25), 1)   // past the goal stays full
+    }
+
+    func testFocusMoodByStageAndHour() {
+        let cases: [(min: Double, hour: Int, paused: Bool, polite: Bool, line: String)] = [
+            (10, 14, true, false, "잠깐 쉬는 중 ☕"),
+            (2, 14, false, false, "시작이 반!"),
+            (2, 7, false, false, "아침 집중 ☀️"),
+            (30, 7, false, false, "몰입 중이야 ✨"),   // morning is only for a start
+            (10, 14, false, false, "집중 시작!"),
+            (30, 14, false, true, "몰입 중이에요 ✨"),
+            (60, 14, false, false, "대단해, 오래 버텼어!"),
+            (60, 23, false, false, "늦은 밤 집중 🌙"),
+            (2, 3, false, true, "늦은 밤 집중 🌙"),
+            (2, 3, true, true, "잠깐 쉬는 중 ☕"),   // a pause wins over the hour
+        ]
+        for c in cases {
+            XCTAssertEqual(FocusSession.mood(elapsed: c.min * 60, hour: c.hour, paused: c.paused, polite: c.polite), c.line, "\(c)")
+        }
+    }
+
+    func testFocusSettingsDefaultForExistingUsers() {
+        let suite = "test.focus.defaults"
+        let d = UserDefaults(suiteName: suite)!
+        d.removePersistentDomain(forName: suite)
+        defer { d.removePersistentDomain(forName: suite) }
+        d.set(false, forKey: "focus.menuBar")   // an owner who set only the old key
+        let c = FocusCenter(defaults: d)
+        XCTAssertFalse(c.showInMenuBar)
+        XCTAssertEqual(c.theme, .lavender)
+        XCTAssertEqual(c.size, .normal)
+        XCTAssertEqual(c.goalMinutes, 25)
+        XCTAssertTrue(c.sound)
+        XCTAssertTrue(c.menuEmoji)
+        c.theme = .mint; c.goalMinutes = 0
+        let again = FocusCenter(defaults: d)
+        XCTAssertEqual(again.theme, .mint)
+        XCTAssertEqual(again.goalMinutes, 0)
+    }
+
+    func testQuickAskGreetingFollowsTheHourAndPersona() {
+        XCTAssertEqual(FriendQuickAsk.greeting(hour: 8, polite: true), "좋은 아침이에요! 뭐 궁금해요?")
+        XCTAssertEqual(FriendQuickAsk.greeting(hour: 8, polite: false), "좋은 아침! 뭐 궁금해?")
+        XCTAssertEqual(FriendQuickAsk.greeting(hour: 12, polite: true), "점심 먹었어요? 뭐 궁금해요?")
+        XCTAssertEqual(FriendQuickAsk.greeting(hour: 23, polite: false), "밤이 깊었네. 뭐 도와줄까?")
+        XCTAssertEqual(FriendQuickAsk.greeting(hour: 3, polite: true), "밤이 깊었네요. 뭐 도와줄까요?")
+        for h in 0..<24 { XCTAssertFalse(FriendQuickAsk.greeting(hour: h, polite: false).contains("요"), "\(h)") }
+    }
+
+    func testQuickAskCardAndConfetti() {
+        XCTAssertEqual(FriendQuickAsk.card(for: .progress, progress: TodoProgress(done: 4, total: 4)), .proud)
+        XCTAssertEqual(FriendQuickAsk.card(for: .progress, progress: TodoProgress(done: 1, total: 4)), .cheer)
+        XCTAssertEqual(FriendQuickAsk.card(for: .progress, progress: nil), .cheer)
+        XCTAssertEqual(FriendQuickAsk.card(for: .next, progress: nil), .wave)
+        XCTAssertEqual(FriendQuickAsk.card(for: .dance, progress: nil), .dance)
+        XCTAssertEqual(FriendQuickAsk.confetti(month: 4).first, "🌸")
+        XCTAssertEqual(FriendQuickAsk.confetti(month: 12).first, "⛄️")
+        for m in 1...12 { XCTAssertFalse(FriendQuickAsk.confetti(month: m).isEmpty) }
+    }
+
+    func testQuickAskSettingsDefaultForExistingUsers() {
+        let suite = "test.quickask.defaults"
+        let d = UserDefaults(suiteName: suite)!
+        d.removePersistentDomain(forName: suite)
+        defer { d.removePersistentDomain(forName: suite) }
+        d.set(true, forKey: MotionStore.buddyKey)   // an owner from before 퀵물어보기 had settings
+        let m = MotionStore(defaults: d)
+        XCTAssertTrue(m.cursorBuddy)
+        XCTAssertEqual(m.quickAskTheme, .peach)
+        XCTAssertEqual(m.quickAskTextSize, .regular)
+        XCTAssertEqual(m.quickAskMotion, .bouncy)
+        XCTAssertFalse(m.quickAskSound)
+        XCTAssertTrue(m.quickAskShowAvatar)
+        m.quickAskTheme = .mint; m.quickAskShowAvatar = false; m.quickAskTextSize = .large
+        let again = MotionStore(defaults: d)
+        XCTAssertEqual(again.quickAskTheme, .mint)
+        XCTAssertEqual(again.quickAskTextSize, .large)
+        XCTAssertFalse(again.quickAskShowAvatar)
+    }
+
     func testTodoProgressPraisesOnlyANewTick() {
         let a = TodoProgress(done: 1, total: 4), b = TodoProgress(done: 2, total: 4), all = TodoProgress(done: 4, total: 4)
         XCTAssertNil(TodoProgress.milestone(old: nil, new: b, style: .friendly))   // the first read is no news
@@ -240,5 +359,66 @@ final class DesktopFriendsMoreTests: XCTestCase {
         XCTAssertEqual(AssistantIntent.route("집중 그만할래", hasHistory: false), .focus)
         XCTAssertEqual(AssistantIntent.route("오늘 할 일 얼마나 했어?", hasHistory: false), .todoProgress)
         XCTAssertEqual(AssistantIntent.route("오늘 할 일 뭐 있어?", hasHistory: false), .schedule)
+    }
+
+    // MARK: 꾸미기
+
+    func testDecorSettingsDefaultAndSave() {
+        let suite = "decor-\(UUID().uuidString)"
+        let d = UserDefaults(suiteName: suite)!
+        defer { d.removePersistentDomain(forName: suite) }
+        let s = AppSettings(defaults: d)
+        XCTAssertEqual(s.palette, .strawberry)
+        XCTAssertEqual(s.motionLevel, .auto)
+        XCTAssertTrue(s.friendSounds)
+        XCTAssertFalse(s.settingsTextLarge)
+        XCTAssertFalse(s.expandDetails)
+        s.palette = .mint; s.motionLevel = .calm; s.friendSounds = false; s.settingsTextLarge = true; s.expandDetails = true
+        let again = AppSettings(defaults: d)
+        XCTAssertEqual(again.palette, .mint)
+        XCTAssertEqual(again.motionLevel, .calm)
+        XCTAssertFalse(again.friendSounds)
+        XCTAssertTrue(again.settingsTextLarge)
+        XCTAssertTrue(again.expandDetails)
+        d.set("neon", forKey: "palette"); d.set("wild", forKey: "motionLevel")
+        XCTAssertEqual(AppSettings(defaults: d).palette, .strawberry)
+        XCTAssertEqual(AppSettings(defaults: d).motionLevel, .auto)
+    }
+
+    func testPaletteTints() {
+        XCTAssertEqual(AppPalette.stickers.count, DesktopTool.allCases.count)
+        XCTAssertNil(AppPalette.plain.tint(.cursor))
+        XCTAssertNotEqual(AppPalette.strawberry.tint(.cursor), AppPalette.strawberry.tint(.meadow))
+        XCTAssertEqual(AppPalette.mint.tint(.rug), AppPalette.mint.accent)
+    }
+
+    func testGreetingByHourAndSeason() {
+        var cal = Calendar(identifier: .gregorian)
+        cal.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        func at(_ m: Int, _ d: Int, _ h: Int) -> String {
+            DesktopSettingsView.greeting(cal.date(from: DateComponents(year: 2026, month: m, day: d, hour: h))!, calendar: cal)
+        }
+        XCTAssertEqual(at(5, 3, 8), L("좋은 아침이에요"))
+        XCTAssertEqual(at(5, 3, 15), L("오늘도 같이 놀아요"))
+        XCTAssertEqual(at(5, 3, 23), L("늦었어요, 살살 놀아요"))
+        XCTAssertEqual(at(5, 3, 2), L("늦었어요, 살살 놀아요"))
+        XCTAssertEqual(at(10, 30, 9), L("🎃 오늘은 살짝 으스스하게"))
+        XCTAssertEqual(at(12, 5, 9), L("🎄 포근한 12월이에요"))
+    }
+    /// White words sit on every accent (그만하기, 더 물어보기), in light and dark: WCAG AA, 4.5:1.
+    func testWhiteOnAccentsIsReadable() {
+        func lum(_ hex: String) -> Double {
+            let v = Int(hex.dropFirst(), radix: 16) ?? 0
+            let bytes: [Int] = [v >> 16, (v >> 8) & 255, v & 255]
+            let c: [Double] = bytes.map { b in
+                let x = Double(b) / 255
+                return x <= 0.03928 ? x / 12.92 : pow((x + 0.055) / 1.055, 2.4)
+            }
+            return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+        }
+        let accents = [false, true].flatMap { dark in
+            FocusTheme.allCases.map { $0.hexes(dark: dark).accent } + QuickAskTheme.allCases.map { $0.hexes(dark: dark).accent }
+        }
+        for a in accents { XCTAssertGreaterThanOrEqual(1.05 / (lum(a) + 0.05), 4.5, a) }
     }
 }
