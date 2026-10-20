@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 
-/// QA_ONLY=desktop renders: 데스크톱 친구 in 설정 (off, on), 대롱대롱 친구 as they hang, the 커서 친구 at each boost, the 집중 위젯 and the 퀵물어보기 bubble.
+/// QA_ONLY=desktop renders: 데스크톱 친구 in 설정 (off, on), 대롱대롱 친구 as they hang, the 커서 친구 at each boost, 복제 친구, the 집중 위젯 and the 퀵물어보기 bubble.
 /// The floating windows are made see-through (alpha 0) and their layers drawn offscreen, so nothing shows on the screen.
 /// Everything lives in the QA's own defaults suite; no fetch, no sound.
 enum DesktopQA {
@@ -21,6 +21,8 @@ enum DesktopQA {
         HangingStore.shared.prefs.sound = false
         WeatherWindow.shared.on = true   // the switch only: WeatherWindow.start() never runs here, so nothing is fetched
         RugStore.shared.prefs.on = true   // the switch only: DesktopRug.start() never runs here
+        // 복제 친구: three out (the card says 3/8); DesktopClones.start() runs only for its own render below.
+        CloneStore.shared.prefs = ClonePrefs(on: true, clones: (0..<3).map { CloneSpot(character: nil, x: 0.2 + 0.1 * Double($0), y: 0.05) })
         try settings("on")
         // 꾸미기: another 색 테마, big text and every 자세히 open, then back to the defaults.
         let look = AppSettings.shared
@@ -56,7 +58,45 @@ enum DesktopQA {
                         to: dir.appendingPathComponent("desktop-buddy-\(boost.rawValue)-\(name).png"))
             }
         }
+        // 꾸욱 held before a throw, and tumbling through the air.
+        for (name, windup, fly) in [("windup", true, nil), ("fly", false, CGFloat(0.6))] {
+            let view = CursorBuddy.shared.qaPose(k: 0, windup: windup, fly: fly)
+            RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
+            guard let layer = view.layer else { continue }
+            try png(layer, background: NSColor(red: 0.80, green: 0.86, blue: 0.93, alpha: 1), scale: 3,
+                    to: dir.appendingPathComponent("desktop-buddy-\(name).png"))
+        }
+        // Clicked: each reaction 40 % in, its mark held in place.
+        FriendMark.qa = true
+        var shown: NSView?
+        for r in Reaction.allCases {
+            let view = CursorBuddy.shared.qaPose(reaction: r, at: r.duration * 0.4)
+            shown = view
+            RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.1))
+            guard let layer = view.layer else { continue }
+            try png(layer, background: NSColor(red: 0.80, green: 0.86, blue: 0.93, alpha: 1), scale: 3,
+                    to: dir.appendingPathComponent("desktop-buddy-react-\(r.rawValue).png"))
+        }
+        shown?.layer?.sublayers?.filter { $0.name == FriendMark.name }.forEach { $0.removeFromSuperlayer() }
+        FriendMark.qa = false
         MotionStore.shared.cursorBuddy = false
+
+        // 복제 친구: five on the desktop, 움직이기 off so nothing ticks: sitting, mid-hop, blushing, two saying hi.
+        DesktopClones.qaHidden = true
+        FriendMark.qa = true
+        CloneStore.shared.prefs = ClonePrefs(on: true, clones: [0.10, 0.17, 0.24, 0.31, 0.355].map { CloneSpot(character: nil, x: $0, y: 0.04) },
+                                             moves: false)
+        DesktopClones.shared.start()
+        RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.5))
+        let box = DesktopClones.shared.qaStage()
+        if let layer = DesktopClones.shared.qaLayer, !box.isEmpty {
+            for (bg, suffix) in [(NSColor(red: 0.80, green: 0.86, blue: 0.93, alpha: 1), "light"), (NSColor(red: 0.13, green: 0.15, blue: 0.20, alpha: 1), "dark")] {
+                try png(layer, background: bg, crop: box, to: dir.appendingPathComponent("desktop-clones-\(suffix).png"))
+            }
+        }
+        FriendMark.qa = false
+        CloneStore.shared.prefs = ClonePrefs()
+        RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.3))
 
         try focusWidgets(to: dir, looks: looks)
         try quickAsk(to: dir, looks: looks)
@@ -147,9 +187,9 @@ enum DesktopQA {
         }
     }
 
-    /// `layer` drawn at `scale` over `background` (the floating windows are clear; this stands in for the desktop).
-    private static func png(_ layer: CALayer, background: NSColor, scale: CGFloat = 2, to url: URL) throws {
-        let size = layer.bounds.size
+    /// `layer` (or its `crop` part) drawn at `scale` over `background` (the floating windows are clear; this stands in for the desktop).
+    private static func png(_ layer: CALayer, background: NSColor, scale: CGFloat = 2, crop: CGRect? = nil, to url: URL) throws {
+        let size = crop?.size ?? layer.bounds.size
         guard size.width > 0, size.height > 0,
               let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: Int(size.width * scale), pixelsHigh: Int(size.height * scale),
                                          bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
@@ -158,6 +198,7 @@ enum DesktopQA {
         ctx.scaleBy(x: scale, y: scale)
         ctx.setFillColor(background.cgColor)
         ctx.fill(CGRect(origin: .zero, size: size))
+        if let crop { ctx.translateBy(x: -crop.minX, y: -crop.minY) }
         layer.render(in: ctx)
         guard let data = rep.representation(using: .png, properties: [:]) else { throw CocoaError(.fileWriteUnknown) }
         try data.write(to: url)

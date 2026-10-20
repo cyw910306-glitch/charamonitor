@@ -16,6 +16,7 @@ enum DesktopFriends {
             DesktopToggle(title: L("날씨 창문"), isOn: { WeatherWindow.shared.on }, set: { WeatherWindow.shared.on = $0 }),
             DesktopToggle(title: L("풀밭 친구들"), isOn: { MeadowStore.shared.prefs.on }, set: { MeadowStore.shared.prefs.on = $0 }),
             DesktopToggle(title: L("바탕화면 러그"), isOn: { RugStore.shared.prefs.on }, set: { RugStore.shared.prefs.on = $0 }),
+            DesktopToggle(title: L("복제 친구"), isOn: { CloneStore.shared.prefs.on }, set: { CloneStore.shared.prefs.on = $0 }),
         ]
     }
 
@@ -29,12 +30,13 @@ enum DesktopFriends {
 }
 
 /// "데스크톱 친구" in 설정: the friend saying hi, 꾸미기, then one sticker card per friend; changes show at once.
-/// Sections in order: 꾸미기 / 커서 친구 / 대롱대롱 친구 / 풀밭 친구들 / 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기.
+/// Sections in order: 꾸미기 / 커서 친구 / 복제 친구 / 대롱대롱 친구 / 풀밭 친구들 / 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기.
 struct DesktopSettingsView: View {
     @ObservedObject var store: MotionStore = .shared
     @ObservedObject var hanging: HangingStore = .shared
     @ObservedObject var meadow: MeadowStore = .shared
     @ObservedObject var rug: RugStore = .shared
+    @ObservedObject var clones: CloneStore = .shared
     @ObservedObject var focus: FocusCenter = .shared
     @ObservedObject var settings: AppSettings = .shared
     @StateObject private var quickSample = FriendQuickAsk.sample()
@@ -48,6 +50,7 @@ struct DesktopSettingsView: View {
             hero
             decorSection
             cursorSection
+            clonesSection
             hangingSection
             meadowSection
             rugSection
@@ -148,8 +151,38 @@ struct DesktopSettingsView: View {
                 }
                 details("커서를 움직이면 걸어서 따라오고, 커서가 멀리 가면 뛰어와요. 멈추면 곁에서 기다리다 가끔 혼자 놀고, 충전 중엔 밥을 먹어요. 한동안 손을 안 대면 낮잠을 자요.",
                         "혼자 놀기를 켜 두면 가끔 맨 앞 창의 위쪽 끝에 올라가 앉고, 나비를 쫓거나 커서에 매달리기도 해요. 앉을 자리는 창의 위치만 보고 찾아요. 창 안의 내용은 보지 않아요.",
-                        "마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 한 번 누르면 반가워하고, 두 번 누르면 AI 비서가 열려요. 잡아 끌 수도 있고, 오른쪽 클릭은 메뉴예요.",
+                        "마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 누를 때마다 여러 가지로 반응하고, 연달아 누르면 어질어질하다 삐쳐요. 꾸욱 누르고 있다 놓으면 폴짝 뛰고, 잡아서 휙 던지면 날아갔다 다시 돌아와요. ⌥ 누른 채 클릭하면 퀵물어보기, AI 비서와 메뉴는 오른쪽 클릭이에요.",
                         "macOS는 시스템 커서 자체를 바꾸지 못하게 해서 따라다니는 친구로 만들었어요.")
+            }
+        }
+    }
+
+    // MARK: 복제 친구
+
+    private var clonesSection: some View {
+        let n = clones.prefs.clones.count
+        return Panel(tint: tint(.clones, on: clones.prefs.on)) {
+            header("👯", "복제 친구", .clones, isOn: $clones.prefs.on)
+            tagline("커서 친구를 복사해 바탕화면을 꾸며요")
+            if clones.prefs.on {
+                VStack(alignment: .leading, spacing: 7) {
+                    row("몇 명") {
+                        HStack(spacing: 8) {
+                            Text(verbatim: "\(n)/\(ClonePrefs.maxCount)").font(f(12)).monospacedDigit()
+                            Button("하나 더") {
+                                guard let r = NSScreen.screens.first?.visibleFrame else { return }
+                                DesktopClones.shared.add(at: CGPoint(x: .random(in: r.minX + 80...r.maxX - 80), y: .random(in: r.minY...r.minY + r.height * 0.4)))
+                            }
+                            .controlSize(.small).disabled(n >= ClonePrefs.maxCount)
+                            Button("모두 치우기") { clones.prefs.clones = [] }.controlSize(.small).disabled(n == 0)
+                        }
+                    }
+                    row("움직이기") { onOff("움직이기", $clones.prefs.moves, .clones) }
+                    row("어울리기") { onOff("어울리기", $clones.prefs.interacts, .clones) }
+                }
+                details("커서 친구를 오른쪽 클릭해서 '복제해서 바탕화면에 두기'를 누르면 똑같은 친구가 바탕화면에 생겨요. 8명까지 두고, 다시 켜도 그 자리에 있어요.",
+                        "혼자 산책하고 앉고 낮잠도 자요. 어울리기를 켜 두면 서로 인사하거나 쫓아다니고, 커서를 쳐다보거나 달려오고, 러그가 있으면 올라가 앉아요.",
+                        "누르면 반응하고, 잡아서 옮기거나 휙 던질 수 있어요. 움직이기를 끄면 놓은 자리 그대로 장식이 돼요. 오른쪽 클릭으로 한 명씩 치울 수 있어요.")
             }
         }
     }
@@ -423,7 +456,7 @@ struct DesktopSettingsView: View {
     private var quickAskSection: some View {
         Panel(tint: tint(.quickAsk, on: true)) {
             badge("💬", "퀵물어보기", .quickAsk)
-            tagline("친구를 누르면 바로 답해 줘요")
+            tagline("머리 위 말풍선이 바로 답해 줘요")
             Shrink(scale: 0.85) { FriendQuickAskView(model: quickSample).scaleEffect(0.85) }
                 .frame(maxWidth: .infinity)
                 .allowsHitTesting(false)
@@ -450,7 +483,7 @@ struct DesktopSettingsView: View {
                 row("친구 얼굴") { onOff("친구 얼굴 보이기", $store.quickAskShowAvatar, .quickAsk) }
                 row("응원 효과음") { onOff("응원·춤에 효과음", $store.quickAskSound, .quickAsk) }
             }
-            details("친구를 한 번 누르면 머리 위에 말풍선이 떠요. AI 없이 바로 답해 줘요.")
+            details("풀밭 친구는 한 번 누르면, 커서 친구·복제 친구는 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.")
         }
     }
 
@@ -713,7 +746,7 @@ private struct Details: View {
 
 /// One 데스크톱 친구 card, for its colour (AppPalette.tint) and its hello.
 enum DesktopTool: Int, CaseIterable {
-    case cursor, hanging, meadow, rug, weather, focus, quickAsk
+    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones
 }
 
 /// 꾸미기 > 색 테마 (AppSettings.palette). Raw values are saved; never rename one. 딸기우유 is the sticker book (a
@@ -751,8 +784,8 @@ enum AppPalette: String, CaseIterable {
         }
     }
 
-    /// 딸기우유's card colours in DesktopTool order: peach, lavender, mint, pink, sky, lemon, coral.
-    static let stickers = ["#FF9F6B", "#A88BF0", "#4FC98E", "#FF7EB3", "#5AAEF5", "#F2C230", "#FF8577"]
+    /// 딸기우유's card colours in DesktopTool order: peach, lavender, mint, pink, sky, lemon, coral, aqua.
+    static let stickers = ["#FF9F6B", "#A88BF0", "#4FC98E", "#FF7EB3", "#5AAEF5", "#F2C230", "#FF8577", "#5EC4DE"]
 }
 
 

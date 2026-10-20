@@ -141,6 +141,14 @@ final class DesktopRug {
         refresh()
     }
 
+    /// Where the cloth lies on screen (the box round it), for friends to sit on; nil while it is off.
+    func footprint() -> CGRect? {
+        guard enabled, let c = cloth, let o = panel?.frame.origin, !c.points.isEmpty else { return nil }
+        let xs = c.points.map { CGFloat($0.x) }, ys = c.points.map { CGFloat($0.y) }
+        let lo = CGPoint(x: xs.min() ?? 0, y: ys.min() ?? 0)
+        return CGRect(x: o.x + lo.x, y: o.y + lo.y, width: (xs.max() ?? 0) - lo.x, height: (ys.max() ?? 0) - lo.y)
+    }
+
     // MARK: Building
 
     private func refresh() {

@@ -27,6 +27,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         WeatherWindow.shared.start()     // the same for the 날씨 창문; its weather GETs only while it shows
         MeadowFriends.shared.start()     // the same for 풀밭 친구들
         DesktopRug.shared.start()        // the same for the 바탕화면 러그
+        DesktopClones.shared.start()     // the same for the 복제 친구 (over the rug)
         // 우리 동네 바람 follows the 날씨 창문's city while the window is on (no fetch of its own), else 산들.
         HangingFriends.localWind = { WeatherWindow.shared.on ? WeatherService.shared.current?.wind : nil }
         AssistantCenter.shared.start()   // speech bubble, 먼저 말 걸기, opt-in integrations

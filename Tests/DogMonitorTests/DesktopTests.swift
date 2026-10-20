@@ -219,6 +219,105 @@ final class DesktopFriendsMoreTests: XCTestCase {
         XCTAssertFalse(HangSlot.defaults[0].grips)
     }
 
+    // MARK: Fling (커서 친구 던지기)
+
+    private func fly(_ f: inout Fling, seconds: Double = 5, check: (Fling) -> Void = { _ in }) {
+        for _ in 0..<Int(seconds * 60) where !f.isSettled { f.step(dt: 1.0 / 60); check(f) }
+    }
+
+    func testFlingBouncesOffWallsAndSettlesOnTheFloor() {
+        let walls = CGRect(x: 0, y: 0, width: 800, height: 600)
+        var f = Fling(at: CGPoint(x: 400, y: 300), velocity: CGVector(dx: 2800, dy: 400), walls: walls)
+        fly(&f) { XCTAssertTrue(walls.minX...walls.maxX ~= $0.position.x) }
+        XCTAssertTrue(f.isSettled)
+        XCTAssertGreaterThanOrEqual(f.bounces, 1)
+        XCTAssertEqual(f.position.y, 0)
+        XCTAssertFalse(f.landedOnLedge)
+        XCTAssertEqual(f.spin, 0, accuracy: 0.05)   // back on its feet
+    }
+
+    func testFlingWithoutVelocityFallsStraight() {
+        var f = Fling(at: CGPoint(x: 100, y: 300), velocity: .zero, walls: CGRect(x: 0, y: 0, width: 800, height: 600))
+        fly(&f)
+        XCTAssertTrue(f.isSettled)
+        XCTAssertEqual(f.position, CGPoint(x: 100, y: 0))
+        XCTAssertLessThan(f.impact, 1500)   // a short fall: no dizzy landing
+    }
+
+    func testFlingLandsOnALedgeOnlyFromAbove() {
+        let walls = CGRect(x: 0, y: 0, width: 800, height: 600)
+        var above = Fling(at: CGPoint(x: 300, y: 500), velocity: CGVector(dx: 50, dy: 0), walls: walls, ledge: (100, 600, 250))
+        fly(&above)
+        XCTAssertTrue(above.isSettled && above.landedOnLedge)
+        XCTAssertEqual(above.position.y, 250)
+        // From under the window's top it passes up through, then lands on it on the way down.
+        var under = Fling(at: CGPoint(x: 300, y: 50), velocity: CGVector(dx: 0, dy: 1200), walls: walls, ledge: (100, 600, 250))
+        var top: CGFloat = 0
+        fly(&under) { top = max(top, $0.position.y) }
+        XCTAssertGreaterThan(top, 250)
+        XCTAssertEqual(under.position.y, 250)
+        // Off the ledge's side it falls past to the floor.
+        var beside = Fling(at: CGPoint(x: 700, y: 500), velocity: .zero, walls: walls, ledge: (100, 600, 250))
+        fly(&beside)
+        XCTAssertEqual(beside.position.y, 0)
+        XCTAssertFalse(beside.landedOnLedge)
+    }
+
+    func testFlingCapsItsSpeed() {
+        let f = Fling(at: .zero, velocity: CGVector(dx: 9000, dy: 9000), walls: CGRect(x: 0, y: 0, width: 800, height: 600))
+        XCTAssertLessThanOrEqual(hypot(f.velocity.dx, f.velocity.dy), Dangle.maxThrow + 0.001)
+    }
+
+    func testWindupSquishCurve() {
+        XCTAssertTrue(BuddyMath.windup(held: 0.05) == (1, 1))
+        let full = BuddyMath.windup(held: 0.5)
+        XCTAssertEqual(full.sx, 1.18, accuracy: 0.001); XCTAssertEqual(full.sy, 0.78, accuracy: 0.001)
+        XCTAssertTrue(BuddyMath.windup(held: 2) == full)   // held there
+        XCTAssertGreaterThan(BuddyMath.windup(held: 0.3).sx, 1)
+    }
+
+    // MARK: Click reactions (커서 친구 누르기)
+
+    func testComboEscalatesToDizzyThenPout() {
+        var c = ClickCombo()
+        let first: ([Reaction]) -> Reaction = { $0[0] }
+        XCTAssertEqual(c.click(at: 0, pick: first), .hearts)
+        XCTAssertEqual(c.click(at: 0.3, pick: first), .hearts)
+        XCTAssertEqual(c.click(at: 0.6, pick: first), .dizzy)
+        XCTAssertEqual(c.click(at: 0.9, pick: first), .hearts)
+        XCTAssertEqual(c.click(at: 1.2, pick: first), .pout)
+        XCTAssertEqual(c.count, 0)
+        XCTAssertEqual(c.click(at: 1.5, pick: first), .hearts)   // starts over
+        XCTAssertEqual(c.count, 1)
+    }
+
+    func testComboResetsAfterAGap() {
+        var c = ClickCombo()
+        _ = c.click(at: 0); _ = c.click(at: 0.5)
+        XCTAssertEqual(c.count, 2)
+        XCTAssertNotEqual(c.click(at: 0.5 + ClickCombo.gap + 0.1), .dizzy)
+        XCTAssertEqual(c.count, 1)
+        XCTAssertTrue(Reaction.cute.contains(c.click(at: 5)))
+    }
+
+    func testReactionPoseEndsAndStillIsFlat() {
+        for r in Reaction.allCases {
+            XCTAssertTrue(r.pose(r.duration, still: false) == (0, 0, 1, 1), r.rawValue)
+            XCTAssertTrue(r.pose(r.duration * 0.4, still: true) == (0, 0, 1, 1), r.rawValue)
+            XCTAssertGreaterThan(r.duration, 0.5)
+        }
+        XCTAssertGreaterThan(Reaction.jump.pose(0.3, still: false).lift, 0.5)
+        XCTAssertGreaterThan(Reaction.spin.pose(0.3, still: false).angle, 1)
+        XCTAssertLessThan(Reaction.sneeze.pose(0.45, still: false).sy, 1)
+    }
+
+    func testEveryReactionHasAPoseAndCuteOnesNeverEscalate() {
+        let shown: Set<BuddyGait> = [.special, .stand, .dizzy, .sulk]   // special falls back to eat, then walk
+        for r in Reaction.allCases { XCTAssertTrue(shown.contains(r.gait), r.rawValue) }
+        XCTAssertFalse(Reaction.cute.contains(.dizzy) || Reaction.cute.contains(.pout))
+        XCTAssertEqual(Reaction.pout.mark?.text, L("흥!"))
+    }
+
     func testMeadowWalkWalksHopsAndLands() {
         var w = MeadowWalk(x: 100)
         w.walk(to: 145)
@@ -245,6 +344,73 @@ final class DesktopFriendsMoreTests: XCTestCase {
         var pinned = [MeadowWalk(x: 100), MeadowWalk(x: 110)]
         MeadowWalk.separate(&pinned, widths: [40, 40], gap: 6, lo: 0, hi: 400, pinned: 0)
         XCTAssertEqual(pinned[0].x, 100)   // the held one stays in the hand
+    }
+
+    func testMeadowWalkCustomSpeed() {
+        var slow = MeadowWalk(x: 0), fast = MeadowWalk(x: 0)
+        fast.speed = 140
+        slow.walk(to: 100); fast.walk(to: 100)
+        for _ in 0..<30 { slow.step(dt: 1.0 / 30); fast.step(dt: 1.0 / 30) }   // one second
+        XCTAssertEqual(fast.x, 100)
+        XCTAssertEqual(fast.state, .idle)
+        XCTAssertEqual(slow.x, MeadowWalk.speed, accuracy: 0.5)
+        XCTAssertEqual(slow.state, .walk)
+    }
+
+    // MARK: 복제 친구
+
+    func testClonePrefsDecodeOldAndCapAtEight() throws {
+        let old = try JSONDecoder().decode(ClonePrefs.self, from: Data("{}".utf8))
+        XCTAssertEqual(old, ClonePrefs())
+        XCTAssertFalse(old.on)
+        XCTAssertTrue(old.moves)
+        XCTAssertTrue(old.interacts)
+        let kept = try JSONDecoder().decode(ClonePrefs.self, from: Data(#"{"on":true,"moves":false}"#.utf8))
+        XCTAssertTrue(kept.on)
+        XCTAssertFalse(kept.moves)
+        XCTAssertTrue(kept.interacts)
+        var p = ClonePrefs()
+        for i in 0..<ClonePrefs.maxCount { XCTAssertTrue(p.add(CloneSpot(character: nil, x: Double(i) / 8, y: 0))) }
+        XCTAssertFalse(p.add(CloneSpot(character: nil, x: 0.5, y: 0.5)))
+        XCTAssertEqual(p.clones.count, 8)
+    }
+
+    func testCloneSpotRoundTripsAndClamps() {
+        let r = CGRect(x: 100, y: 50, width: 1000, height: 600), size = CGSize(width: 40, height: 30)
+        let s = CloneSpot(point: CGPoint(x: 600, y: 200), in: r, character: "x")
+        XCTAssertEqual(s.x, 0.5, accuracy: 1e-9)
+        XCTAssertEqual(s.y, 0.25, accuracy: 1e-9)
+        XCTAssertEqual(s.character, "x")
+        XCTAssertEqual(s.point(in: r, size: size), CGPoint(x: 600, y: 200))
+        let off = CloneSpot(point: CGPoint(x: -500, y: 9000), in: r, character: nil)
+        XCTAssertEqual(off.x, 0)
+        XCTAssertEqual(off.y, 1)
+        // The whole drawing stays inside: feet at least half its width from the sides, its head under the top.
+        XCTAssertEqual(off.point(in: r, size: size), CGPoint(x: 120, y: 620))
+        XCTAssertEqual(CloneSpot(character: nil, x: 1, y: 0).point(in: r, size: size), CGPoint(x: 1080, y: 50))
+    }
+
+    func testCloneStoreSavesPositionsWithoutLosingIds() {
+        let suite = "test.clones.defaults"
+        let d = UserDefaults(suiteName: suite)!
+        d.removePersistentDomain(forName: suite)
+        defer { d.removePersistentDomain(forName: suite) }
+        let a = CloneStore(defaults: d)
+        XCTAssertEqual(a.prefs, ClonePrefs())
+        let spot = CloneSpot(character: "orig", x: 0.3, y: 0.1)
+        XCTAssertTrue(a.prefs.add(spot))
+        a.prefs.clones[0].x = 0.7
+        let b = CloneStore(defaults: d)
+        XCTAssertEqual(b.prefs.clones.map(\.id), [spot.id])
+        XCTAssertEqual(b.prefs.clones[0].x, 0.7)
+        XCTAssertEqual(b.prefs.clones[0].character, "orig")
+    }
+
+    func testCloneSocialPicksOnlyNearIdlePairs() {
+        XCTAssertNil(CloneSocial.pick(distance: CloneSocial.reach + 1, random: 0))
+        XCTAssertEqual(CloneSocial.pick(distance: 50, random: 0), .greet)
+        XCTAssertEqual(CloneSocial.pick(distance: 50, random: 0.5), .chase)
+        XCTAssertEqual(CloneSocial.pick(distance: CloneSocial.reach, random: 0.99), .follow)
     }
 
     func testFocusTimeLeavesOutThePauses() {

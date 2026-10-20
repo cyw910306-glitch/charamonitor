@@ -307,6 +307,211 @@ struct Dangle {
     }
 }
 
+/// A thrown friend in flight: gravity, bounces off the side walls and ceiling, and lands on the floor or on a ledge
+/// (the front window's top) when it comes down onto it. `position` is the bottom middle of the drawing; the caller
+/// insets `walls` by the drawing's size (x range for that middle, maxY for the feet). Step it until `isSettled`.
+struct Fling {
+    var position: CGPoint
+    var velocity: CGVector
+    var walls: CGRect
+    var ledge: (minX: CGFloat, maxX: CGFloat, y: CGFloat)?
+    var gravity: CGFloat = 2400   // the same as the 커서 친구's drop
+    /// Share of the vertical speed kept at a bounce, and of the sideways speed at each floor hit.
+    var restitution: CGFloat = 0.45
+    var friction: CGFloat = 0.7
+    /// Slower than this off the floor it stops bouncing and rests.
+    static let rest: CGFloat = 120
+
+    /// Hits that bounced it back (floor, ledge, walls, ceiling).
+    private(set) var bounces = 0
+    private(set) var landedOnLedge = false
+    /// Tumble angle in radians, + clockwise when it flies right; eases back upright while it slides.
+    private(set) var spin: CGFloat = 0
+    /// The hardest floor or ledge hit (its vertical speed), for the landing reaction.
+    private(set) var impact: CGFloat = 0
+
+    init(at p: CGPoint, velocity v: CGVector, walls: CGRect, ledge: (minX: CGFloat, maxX: CGFloat, y: CGFloat)? = nil) {
+        let s = hypot(v.dx, v.dy), k = s > Dangle.maxThrow ? Dangle.maxThrow / s : 1
+        position = p
+        velocity = CGVector(dx: v.dx * k, dy: v.dy * k)
+        self.walls = walls
+        self.ledge = ledge
+    }
+
+    private func onLedge(_ x: CGFloat) -> Bool { ledge.map { x >= $0.minX && x <= $0.maxX } ?? false }
+    /// Lying on the floor or the ledge, no vertical speed.
+    private var resting: Bool {
+        velocity.dy == 0 && (position.y == walls.minY || onLedge(position.x) && position.y == ledge?.y)
+    }
+    var isSettled: Bool { resting && abs(velocity.dx) < 30 && abs(spin) < 0.05 }
+
+    /// Advances `dt` seconds (capped at 0.1) in fixed small steps.
+    mutating func step(dt: TimeInterval) {
+        var left = min(0.1, max(0, dt))
+        while left > 0 {
+            let h = CGFloat(min(left, 1.0 / 240)); left -= Double(h)
+            if resting {
+                // Slides to a stop and gets back on its feet.
+                velocity.dx -= (velocity.dx < 0 ? -1 : 1) * min(abs(velocity.dx), 1500 * h)
+                position.x = min(max(position.x + velocity.dx * h, walls.minX), walls.maxX)
+                spin *= exp(-12 * h)
+                continue
+            }
+            velocity.dy -= gravity * h
+            let was = position
+            position.x += velocity.dx * h
+            position.y += velocity.dy * h
+            spin = remainder(spin + velocity.dx * h * 0.004, 2 * .pi)
+            if position.x < walls.minX || position.x > walls.maxX {
+                position.x = min(max(position.x, walls.minX), walls.maxX)
+                velocity.dx *= -0.5
+                bounces += 1
+            }
+            if position.y > walls.maxY, velocity.dy > 0 {
+                position.y = walls.maxY
+                velocity.dy *= -0.5
+                bounces += 1
+            }
+            // Coming down onto the ledge from above, or onto the floor.
+            if let l = ledge, velocity.dy < 0, was.y >= l.y, position.y < l.y, onLedge(position.x), l.y > walls.minY {
+                hit(at: l.y, ledge: true)
+            } else if position.y <= walls.minY {
+                hit(at: walls.minY, ledge: false)
+            }
+        }
+    }
+
+    private mutating func hit(at y: CGFloat, ledge: Bool) {
+        position.y = y
+        landedOnLedge = ledge
+        impact = max(impact, abs(velocity.dy))
+        velocity.dx *= friction
+        velocity.dy = -velocity.dy * restitution
+        if velocity.dy < Self.rest { velocity.dy = 0 } else { bounces += 1 }
+    }
+}
+
+/// What a friend does when it is clicked: a pose (gait), a little move (`pose`) and a mark over its head.
+enum Reaction: String, CaseIterable {
+    case hearts, jump, spin, blush, surprised, giggle, sneeze, dizzy, pout
+
+    /// The everyday ones, picked at random; `dizzy` and `pout` come from clicking again and again (ClickCombo).
+    static let cute: [Reaction] = [.hearts, .jump, .spin, .blush, .surprised, .giggle, .sneeze]
+
+    var duration: TimeInterval {
+        switch self {
+        case .jump: 0.9
+        case .spin, .surprised: 1.0
+        case .hearts, .giggle, .sneeze: 1.2
+        case .blush: 1.4
+        case .dizzy, .pout: 2.2
+        }
+    }
+
+    /// Its pose; a friend without it shows its happy one (eat), then walk.
+    var gait: BuddyGait {
+        switch self {
+        case .hearts, .giggle, .blush: .special
+        case .jump, .spin, .surprised, .sneeze: .stand
+        case .dizzy: .dizzy
+        case .pout: .sulk
+        }
+    }
+
+    /// What pops over its head, if anything.
+    var mark: (text: String, color: NSColor)? {
+        switch self {
+        case .hearts: ("♥", .systemPink)
+        case .surprised: ("!", .systemOrange)
+        case .blush: ("///", .systemPink)
+        case .giggle: ("♪", .systemPurple)
+        case .sneeze: (L("에취!"), .systemTeal)
+        case .dizzy: ("@", .systemIndigo)
+        case .pout: (L("흥!"), .systemRed)
+        case .jump, .spin: nil
+        }
+    }
+
+    /// The move `t` seconds in: `lift` as a share of its height, a turn in radians, and a squash. Flat when still or done.
+    func pose(_ t: TimeInterval, still: Bool) -> (lift: CGFloat, angle: CGFloat, sx: CGFloat, sy: CGFloat) {
+        guard !still, t >= 0, t < duration else { return (0, 0, 1, 1) }
+        func arc(_ over: TimeInterval) -> CGFloat {   // one hop over the first `over` seconds, 0...1
+            guard t < over else { return 0 }
+            let u = CGFloat(t / over)
+            return 4 * u * (1 - u)
+        }
+        let deg = CGFloat.pi / 180
+        switch self {
+        case .hearts: return (arc(0.4) * 0.15, 0, 1, 1)
+        case .jump: return (arc(0.6) * 0.6, 0, 1, 1)
+        case .spin: return t < 0.6 ? (arc(0.6) * 0.15, 2 * .pi * CGFloat(t / 0.6), 1, 1) : (0, 0, 1, 1)
+        case .surprised: return (arc(0.3) * 0.25, 0, t < 0.3 ? 0.94 : 1, t < 0.3 ? 1.08 : 1)
+        case .giggle: return (0, 4 * deg * CGFloat(sin(t * 40)), 1, 1)
+        case .blush: return (0, 3 * deg * CGFloat(sin(t * 8)), 1, 0.97)
+        case .dizzy: return (0, 8 * deg * CGFloat(sin(t * 6)), 1, 1)
+        case .sneeze:
+            if t < 0.5 { let u = CGFloat(t / 0.5); return (0, 0, 1 + 0.05 * u, 1 - 0.15 * u) }   // 에... gathering
+            let v = max(0, 1 - CGFloat((t - 0.5) / 0.3))   // 취! a jolt that fades
+            return (0, 0, 1 + 0.1 * v, 1 - 0.1 * v)
+        case .pout: return (0, 0, 1, 1)
+        }
+    }
+}
+
+/// Clicks in a row: each within `gap` of the last counts up. The third makes it dizzy, the fifth makes it pout and
+/// starts over; the rest are a random cute reaction.
+struct ClickCombo {
+    static let gap: TimeInterval = 0.7
+    private(set) var count = 0
+    private var last: TimeInterval = -10
+
+    mutating func click(at t: TimeInterval, pick: ([Reaction]) -> Reaction = { LinePick.pick("buddy.react", $0) }) -> Reaction {
+        count = t - last <= Self.gap ? count + 1 : 1
+        last = t
+        if count == 3 { return .dizzy }
+        if count >= 5 { count = 0; return .pout }
+        return pick(Reaction.cute)
+    }
+}
+
+/// A little mark (♥, !, 에취!) rising over a friend's head and fading out.
+enum FriendMark {
+    /// QA renders only: the mark stays put, fully shown (offscreen renders skip animations).
+    static var qa = false
+    /// Layers named so: QA clears the last one before the next render.
+    static let name = "friendMark"
+
+    /// Over `rect` (the drawing, in `layer`'s coordinates), fading in and out within 0.9 s; no rise when `still`.
+    static func pop(_ text: String, color: NSColor, over rect: CGRect, in layer: CALayer, still: Bool, scale: CGFloat) {
+        let fs = max(10, rect.height * 0.35)
+        let m = CATextLayer()
+        m.name = name
+        m.string = text
+        m.fontSize = fs
+        m.foregroundColor = color.cgColor
+        m.alignmentMode = .center
+        m.contentsScale = scale
+        let w = fs * max(1, CGFloat(text.count) * 0.8)
+        m.frame = CGRect(x: rect.midX - w / 2, y: rect.maxY - fs, width: w, height: fs * 1.2)
+        layer.addSublayer(m)
+        if qa { return }
+        m.opacity = 0
+        let fade = CAKeyframeAnimation(keyPath: "opacity")
+        fade.values = [0, 1, 1, 0]
+        let group = CAAnimationGroup()
+        group.duration = 0.9
+        if still {
+            group.animations = [fade]
+        } else {
+            let rise = CABasicAnimation(keyPath: "position.y")
+            rise.byValue = min((layer.bounds.height - rect.maxY) * 0.9, rect.height * 0.8)   // a whole-screen panel: just over the head
+            group.animations = [fade, rise]
+        }
+        m.add(group, forKey: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { m.removeFromSuperlayer() }
+    }
+}
+
 /// The cursor's speed and how often it shakes: fast left-right reversals within `window`.
 struct CursorMotion {
     static let window: TimeInterval = 0.8

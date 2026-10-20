@@ -73,7 +73,7 @@ final class StatusItemController: NSObject, NSPopoverDelegate, NSMenuDelegate {
         startTimer()
         PermissionFlow.reopen = { [weak self] in self?.permissionFlowEnded() }
         PermissionFlow.started = { [weak self] in self?.shownAtBegin = self?.popover?.isShown ?? false }
-        // A friend's right click menu ends in 설정 열기; the 커서 친구's double click opens the AI 비서.
+        // A friend's right click menu ends in 설정 열기; its AI 비서랑 이야기하기 opens the AI 비서.
         FriendMenu.openSettings = { [weak self] in MainActor.assumeIsolated { self?.showPopover(page: .settings) } }
         CursorBuddy.shared.openAssistant = { [weak self] in MainActor.assumeIsolated { self?.showPopover(page: .assistant) } }
     }

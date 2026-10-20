@@ -2,7 +2,7 @@ import AppKit
 import Combine
 import SwiftUI
 
-/// 퀵물어보기: a click on a desktop friend opens a bubble over it with a few questions answered on this Mac, no AI
+/// 퀵물어보기: a click on a 풀밭 친구 (⌥ click or the menu on the 커서 친구, ⌥ click on a 복제 친구) opens a bubble over it with a few questions answered on this Mac, no AI
 /// (today's to-dos, what to do now, the next event, a cheer, a dance), and a button to the AI 비서. An answer shows in
 /// the same bubble with the chips still under it, so the next question is one tap. A click elsewhere closes it; no Esc,
 /// since neither the bubble nor the friends ever take the keyboard (the key press goes to the app in front).
@@ -55,13 +55,21 @@ final class FriendQuickAsk: ObservableObject {
     private var anchor: (() -> CGPoint?)?
     /// The friend's own window: its click is its own toggle (close on a second click), not a click elsewhere.
     private weak var owner: NSWindow?
+    /// Which friend in `owner` it is over, for friends sharing one window.
+    private var key: AnyHashable?
 
     var isOpen: Bool { panel?.isVisible == true }
 
-    func show(from owner: NSWindow?, anchor: @escaping () -> CGPoint?) {
+    /// Opens it over a friend; again over the same one closes it, over another friend it moves there.
+    func toggle(from owner: NSWindow?, key: AnyHashable? = nil, anchor: @escaping () -> CGPoint?) {
+        if isOpen, owner === self.owner, key == self.key { close() } else { show(from: owner, key: key, anchor: anchor) }
+    }
+
+    func show(from owner: NSWindow?, key: AnyHashable? = nil, anchor: @escaping () -> CGPoint?) {
         seed()
         self.anchor = anchor
         self.owner = owner
+        self.key = key
         let p = panel ?? makePanel()
         panel = p
         p.contentView = FirstClickHost(rootView: FriendQuickAskView(model: self))
@@ -95,6 +103,7 @@ final class FriendQuickAsk: ObservableObject {
         panel?.orderOut(nil)
         anchor = nil
         owner = nil
+        key = nil
     }
 
     private func resize() {

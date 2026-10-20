@@ -53,6 +53,7 @@ final class MeadowStore: ObservableObject {
 struct MeadowWalk: Equatable {
     enum State: Equatable { case idle, walk, sit, hop }
 
+    /// The usual stroll; `speed` can be raised for a run (복제 친구 chasing).
     static let speed: CGFloat = 45
     static let gravity: CGFloat = 1800
     static let hopSpeed: CGFloat = 360
@@ -62,6 +63,7 @@ struct MeadowWalk: Equatable {
     var state = State.idle
     var y: CGFloat = 0
     var vy: CGFloat = 0
+    var speed = MeadowWalk.speed
     /// Points per second across, + right (for facing and the walk frames).
     private(set) var vx: CGFloat = 0
 
@@ -84,7 +86,7 @@ struct MeadowWalk: Equatable {
         }
         guard state == .walk else { vx = 0; return }
         let d = target - x
-        if abs(d) <= Self.speed * h { x = target; vx = 0; state = .idle } else { vx = d > 0 ? Self.speed : -Self.speed; x += vx * h }
+        if abs(d) <= speed * h { x = target; vx = 0; state = .idle } else { vx = d > 0 ? speed : -speed; x += vx * h }
     }
 
     /// Neighbours at least `gap` apart (each `widths[i]` wide), all within `lo...hi`: an overlapping pair is pushed apart
@@ -283,6 +285,14 @@ final class MeadowFriends {
         return p
     }
 
+    /// Sprites for `character` (an original's id; nil = the character chosen now) at `pixelSize`.
+    static func cache(character: String?, pixelSize px: CGFloat) -> DogSpriteCache {
+        let id = character.map { RenderStyle.paired($0, RenderStyle.current, has: RenderStyle.hasOriginal) }
+        return id.flatMap(OriginalCatalog.character)
+            .map { DogSpriteCache(CharacterColors.apply(character.flatMap { AppSettings.shared.characterColors[$0] }, to: $0), pixelSize: px) }
+            ?? DogSpriteCache(SpriteLook(AppSettings.shared), pixelSize: px)
+    }
+
     private func makeFriend(_ i: Int, _ slot: HangSlot, width: CGFloat, target: CGFloat, scale: CGFloat) -> Friend {
         let f = Friend(slot: i, x: width * CGFloat(slot.x))
         var smooth = false
@@ -291,12 +301,7 @@ final class MeadowFriends {
             f.standing = f.walking; f.sitting = f.walking
             smooth = true
         } else {
-            let id = slot.character.map { RenderStyle.paired($0, RenderStyle.current, has: RenderStyle.hasOriginal) }
-            let pick = id.flatMap(OriginalCatalog.character)
-            func cache(_ px: CGFloat) -> DogSpriteCache {
-                pick.map { DogSpriteCache(CharacterColors.apply(slot.character.flatMap { AppSettings.shared.characterColors[$0] }, to: $0), pixelSize: px) }
-                    ?? DogSpriteCache(SpriteLook(AppSettings.shared), pixelSize: px)
-            }
+            func cache(_ px: CGFloat) -> DogSpriteCache { Self.cache(character: slot.character, pixelSize: px) }
             let base = cache(1).imageSize.height
             let c = cache(max(1, (target / max(1, base)).rounded()))
             f.walking = c.frames(for: .walk)
@@ -491,7 +496,7 @@ final class MeadowFriends {
                 guard let i = friends.firstIndex(where: { $0 === f }) else { break }
                 MainActor.assumeIsolated {
                     let ask = FriendQuickAsk.shared
-                    if ask.isOpen { ask.close() } else { ask.show(from: panel) { [weak self] in self?.head(i) } }
+                    ask.toggle(from: panel, key: i) { [weak self] in self?.head(i) }
                 }
             }
         }
