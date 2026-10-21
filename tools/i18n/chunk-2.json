@@ -1,5 +1,225 @@
 [
  {
+  "key": "이 맥은 Apple Intelligence를 지원하지 않아서 기본 답변으로 대화해요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 77
+ },
+ {
+  "key": "시스템 설정 > Apple Intelligence와 Siri에서 Apple Intelligence를 켜면 더 똑똑하게 답할 수 있어요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 79
+ },
+ {
+  "key": "Apple Intelligence 모델을 받는 중이에요. 다 받으면 더 똑똑하게 답해요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 80
+ },
+ {
+  "key": "지금은 Apple Intelligence를 쓸 수 없어서 기본 답변으로 대화해요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 81
+ },
+ {
+  "key": "macOS 26 이상에서는 이 맥 안의 AI와 대화할 수 있어요. 지금은 기본 답변으로 대화해요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 85
+ },
+ {
+  "key": "기본 답변이에요. 숫자로 지금 상태를 알려 드려요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 204
+ },
+ {
+  "key": "일정은 내가 직접 못 만들어. 캘린더 앱에서 추가해 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 218
+ },
+ {
+  "key": "일정은 제가 직접 만들 수 없어요. 캘린더 앱에서 추가해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 218
+ },
+ {
+  "key": "알람은 내가 못 맞춰. 시계 앱이나 Siri에게 부탁해 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 219
+ },
+ {
+  "key": "알람은 제가 맞출 수 없어요. 시계 앱이나 Siri에게 부탁해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 219
+ },
+ {
+  "key": "메시지는 내가 직접 못 보내. 메일이나 메시지 앱에서 보내 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 220
+ },
+ {
+  "key": "메시지는 제가 직접 보낼 수 없어요. 메일이나 메시지 앱에서 보내 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 220
+ },
+ {
+  "key": "파일은 내가 직접 못 지워. Finder에서 정리해 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 223
+ },
+ {
+  "key": "파일은 제가 직접 지울 수 없어요. Finder에서 정리해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 223
+ },
+ {
+  "key": "파일은 내가 직접 못 지워. 클리너에서 확인하고 정리할 수 있어.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 225
+ },
+ {
+  "key": "파일은 제가 직접 지울 수 없어요. 클리너에서 확인하고 정리할 수 있어요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 225
+ },
+ {
+  "key": "앱을 열거나 끄는 건 내가 직접 못 해. 활성 상태 보기에서 확인할 수 있어.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 227
+ },
+ {
+  "key": "앱을 열거나 끄는 건 제가 직접 못 해요. 활성 상태 보기에서 확인할 수 있어요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 227
+ },
+ {
+  "key": "그건 내가 직접 할 수 없어. 하는 방법이 궁금하면 물어봐 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 228
+ },
+ {
+  "key": "그건 제가 직접 할 수 없어요. 하는 방법이 궁금하면 물어봐 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 228
+ },
+ {
+  "key": "지금은 %@이야.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 237
+ },
+ {
+  "key": "지금은 %@이에요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 237
+ },
+ {
+  "key": "그저께는",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 244
+ },
+ {
+  "key": "글피는",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 244
+ },
+ {
+  "key": "내일은",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 244
+ },
+ {
+  "key": "모레는",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 244
+ },
+ {
+  "key": "어제는",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 244
+ },
+ {
+  "key": "오늘은",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 244
+ },
+ {
+  "key": "%@ %@이야.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 245
+ },
+ {
+  "key": "%@ %@이었어.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 245
+ },
+ {
+  "key": "%@ %@이었어요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 245
+ },
+ {
+  "key": "%@ %@이에요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 245
+ },
+ {
+  "key": "환율이나 시세는 실시간 정보라 지금 알 수 없어. 은행이나 증권 앱에서 확인해 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 246
+ },
+ {
+  "key": "환율이나 시세는 실시간 정보라 지금 알 수 없어요. 은행이나 증권 앱에서 확인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 246
+ },
+ {
+  "key": "날씨는 실시간 정보라 지금 알 수 없어. 날씨 앱에서 확인해 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 249
+ },
+ {
+  "key": "날씨는 실시간 정보라 지금 알 수 없어요. 날씨 앱에서 확인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 249
+ },
+ {
+  "key": "뉴스는 실시간 정보라 지금 알 수 없어. 뉴스 앱이나 검색으로 확인해 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 250
+ },
+ {
+  "key": "뉴스는 실시간 정보라 지금 알 수 없어요. 뉴스 앱이나 검색으로 확인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 250
+ },
+ {
+  "key": "경기 결과는 실시간 정보라 지금 알 수 없어. 스포츠 앱에서 확인해 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 251
+ },
+ {
+  "key": "경기 결과는 실시간 정보라 지금 알 수 없어요. 스포츠 앱에서 확인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 251
+ },
+ {
+  "key": "문제 하나 낼게. %@ 정답은 %@.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 255
+ },
+ {
+  "key": "문제 하나 낼게요. %@ 정답은 %@.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 255
+ },
+ {
+  "key": "어떤 걸 말씀하시는 건지 조금만 더 알려 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 260
+ },
+ {
+  "key": "어떤 걸 말하는 건지 조금만 더 알려 줘.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 260
+ },
+ {
   "key": "캘린더 연동이 꺼져 있어서 일정을 볼 수 없어. 비서 설정에서 켜 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
   "line": 266
@@ -1800,11 +2020,6 @@
   "line": 178
  },
  {
-  "key": "설정 열기",
-  "file": "Sources/DogMonitor/Metrics/SecurityRules.swift",
-  "line": 179
- },
- {
   "key": "상태를 읽지 못했어요",
   "file": "Sources/DogMonitor/Metrics/SecurityRules.swift",
   "line": 180
@@ -2280,289 +2495,369 @@
   "line": 34
  },
  {
-  "key": "맑아",
+  "key": "오늘 산책 각이에요",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
   "line": 41
+ },
+ {
+  "key": "햇살 냠냠, 기분 좋아요!",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 41
+ },
+ {
+  "key": "구름이 풍선 같아요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 42
+ },
+ {
+  "key": "해님이랑 숨바꼭질 중이에요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 42
+ },
+ {
+  "key": "구름 뒤에 해님 숨었어요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 43
+ },
+ {
+  "key": "포근한 회색 하늘이에요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 43
+ },
+ {
+  "key": "뿌연 게 솜사탕 같아요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 44
+ },
+ {
+  "key": "어디 있어요? 손전등 켰어요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 44
+ },
+ {
+  "key": "우산 챙겼어요?",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 45
+ },
+ {
+  "key": "찰박찰박 재밌어요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 45
+ },
+ {
+  "key": "눈사람 만들고 싶어요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 46
+ },
+ {
+  "key": "발 시려요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 46
+ },
+ {
+  "key": "꼭 안아 주세요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 47
+ },
+ {
+  "key": "쾅! 무서워요…",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 47
+ },
+ {
+  "key": "좋은 꿈 꿀게요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 52
+ },
+ {
+  "key": "쿨쿨… 깨우지 마요",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 52
+ },
+ {
+  "key": "맑아",
+  "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
+  "line": 57
  },
  {
   "key": "맑아요",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 41
+  "line": 57
  },
  {
   "key": "구름이 조금 있어",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 42
+  "line": 58
  },
  {
   "key": "구름이 조금 있어요",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 42
+  "line": 58
  },
  {
   "key": "흐려",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 43
+  "line": 59
  },
  {
   "key": "흐려요",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 43
+  "line": 59
  },
  {
   "key": "안개가 꼈어",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 44
+  "line": 60
  },
  {
   "key": "안개가 꼈어요",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 44
+  "line": 60
  },
  {
   "key": "비가 와",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 45
+  "line": 61
  },
  {
   "key": "비가 와요",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 45
+  "line": 61
  },
  {
   "key": "눈이 와",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 46
+  "line": 62
  },
  {
   "key": "눈이 와요",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 46
+  "line": 62
  },
  {
   "key": "천둥 번개가 쳐",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 47
+  "line": 63
  },
  {
   "key": "천둥 번개가 쳐요",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 47
+  "line": 63
  },
  {
   "key": "서울",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 63
+  "line": 79
  },
  {
   "key": "인천",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 63
+  "line": 79
  },
  {
   "key": "수원",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 64
+  "line": 80
  },
  {
   "key": "춘천",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 64
+  "line": 80
  },
  {
   "key": "강릉",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 65
+  "line": 81
  },
  {
   "key": "대전",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 65
+  "line": 81
  },
  {
   "key": "전주",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 66
+  "line": 82
  },
  {
   "key": "청주",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 66
+  "line": 82
  },
  {
   "key": "광주",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 67
+  "line": 83
  },
  {
   "key": "대구",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 67
+  "line": 83
  },
  {
   "key": "부산",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 68
+  "line": 84
  },
  {
   "key": "울산",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 68
+  "line": 84
  },
  {
   "key": "제주",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 69
+  "line": 85
  },
  {
   "key": "지금 %@ 날씨는 %lld도이고 %@. 오늘 최고 %lld도, 최저 %lld도야.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 157
+  "line": 173
  },
  {
   "key": "지금 %@ 날씨는 %lld도이고 %@. 오늘 최고 %lld도, 최저 %lld도예요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 158
+  "line": 174
  },
  {
   "key": "이따 비 소식이 있으니 우산 챙겨.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 160
+  "line": 176
  },
  {
   "key": "이따 비 소식이 있으니 우산 챙기세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 160
+  "line": 176
  },
  {
   "key": "내일 %@ 날씨는 최고 %lld도, 최저 %lld도야.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 163
+  "line": 179
  },
  {
   "key": "내일 %@ 날씨는 최고 %lld도, 최저 %lld도예요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 163
+  "line": 179
  },
  {
   "key": "눈 소식이 있어.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 164
+  "line": 180
  },
  {
   "key": "눈 소식이 있어요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 164
+  "line": 180
  },
  {
   "key": "비 소식이 있어.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 164
+  "line": 180
  },
  {
   "key": "비 소식이 있어요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 164
+  "line": 180
  },
  {
   "key": "비 소식은 없어.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 165
+  "line": 181
  },
  {
   "key": "비 소식은 없어요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 165
+  "line": 181
  },
  {
   "key": "오늘 %@에 비 소식이 있어. 나갈 때 우산 챙겨.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 176
+  "line": 192
  },
  {
   "key": "오늘 %@에 비 소식이 있어요. 나갈 때 우산 챙기세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 176
+  "line": 192
  },
  {
   "key": "이따 비가 올 것 같아. 가방에 우산 하나 넣어 두자.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 177
+  "line": 193
  },
  {
   "key": "이따 비가 올 것 같아요. 가방에 우산 하나 넣어 두세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 177
+  "line": 193
  },
  {
   "key": "오늘 %@에 눈 소식이 있어. 길이 미끄러우니 천천히 걷자.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 182
+  "line": 198
  },
  {
   "key": "오늘 %@에 눈 소식이 있어요. 길이 미끄러우니 천천히 걸으세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 182
+  "line": 198
  },
  {
   "key": "눈이 올 것 같아. 따뜻한 신발 신고 나가.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 183
+  "line": 199
  },
  {
   "key": "눈이 올 것 같아요. 따뜻한 신발 신고 나가세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 183
+  "line": 199
  },
  {
   "key": "오늘 최저 %lld도, 영하야. 두꺼운 겉옷 꼭 입어.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 188
+  "line": 204
  },
  {
   "key": "오늘 최저 %lld도로 영하예요. 두꺼운 겉옷 꼭 입으세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 188
+  "line": 204
  },
  {
   "key": "밖은 영하래. 장갑이랑 겉옷 챙겨.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 189
+  "line": 205
  },
  {
   "key": "밖은 영하래요. 장갑이랑 겉옷 챙기세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 189
+  "line": 205
  },
  {
   "key": "오늘 낮 최고 %lld도까지 올라. 물 자주 마셔.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 194
+  "line": 210
  },
  {
   "key": "오늘 낮 최고 %lld도까지 올라요. 물 자주 드세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 194
+  "line": 210
  },
  {
   "key": "많이 더운 날이야. 물병 하나 곁에 두자.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 195
+  "line": 211
  },
  {
   "key": "많이 더운 날이에요. 물병 하나 곁에 두세요.",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 195
+  "line": 211
  },
  {
   "key": "%@ · 불러오는 중",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 370
+  "line": 389
  },
  {
   "key": "%@ · 연결 안 됨",
   "file": "Sources/DogMonitor/Metrics/WeatherService.swift",
-  "line": 370
+  "line": 389
  },
  {
   "key": "쿨쿨 자는 중",
@@ -2602,7 +2897,7 @@
  {
   "key": "내 캐릭터",
   "file": "Sources/DogMonitor/Models.swift",
-  "line": 195
+  "line": 215
  },
  {
   "key": "밥 먹을 시간 지난 것 같아요. 밥 주세요!",
@@ -3248,5 +3543,55 @@
   "key": "딸기 체크",
   "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
   "line": 199
+ },
+ {
+  "key": "밤하늘 별",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 200
+ },
+ {
+  "key": "원목 마루",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 201
+ },
+ {
+  "key": "체크 타일",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 202
+ },
+ {
+  "key": "하늘 카펫",
+  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "line": 203
+ },
+ {
+  "key": "도트",
+  "file": "Sources/DogMonitor/Sprite/RealSprite.swift",
+  "line": 11
+ },
+ {
+  "key": "실사",
+  "file": "Sources/DogMonitor/Sprite/RealSprite.swift",
+  "line": 11
+ },
+ {
+  "key": "얇게",
+  "file": "Sources/DogMonitor/Sprite/RealSprite.swift",
+  "line": 38
+ },
+ {
+  "key": "진하게",
+  "file": "Sources/DogMonitor/Sprite/RealSprite.swift",
+  "line": 39
+ },
+ {
+  "key": "일러스트",
+  "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
+  "line": 14
+ },
+ {
+  "key": "캐릭터마다 그려진 그대로 보여 줘요",
+  "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
+  "line": 20
  }
 ]

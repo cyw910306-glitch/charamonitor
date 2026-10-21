@@ -56,59 +56,607 @@
 "API 키는 쓰지 않아요. claude setup-token 이 만든 토큰(sk-ant-oat…)을 넣어 주세요." = "API keys aren't used. Paste the token from claude setup-token (sk-ant-oat…).";
 /* Sources/DogMonitor/AIDraw/ClaudeToken.swift:21 */
 "claude setup-token 이 만든 토큰(sk-ant-oat…)을 그대로 붙여 넣어 주세요." = "Paste the token from claude setup-token (sk-ant-oat…) exactly as is.";
+/* Sources/DogMonitor/Agent/ActionReviewer.swift:103 */
+"2차 검토를 못 했어요. 내용을 직접 확인해 주세요." = "I couldn't double-check this. Please review it yourself.";
+/* Sources/DogMonitor/Agent/AgentAction.swift:207 */
+"바로 하기" = "Do it now";
+/* Sources/DogMonitor/Agent/AgentAction.swift:208 */
+"규칙에 맞으면 바로" = "Do it if a rule allows";
+/* Sources/DogMonitor/Agent/AgentAction.swift:209 */
+"매번 확인" = "Ask every time";
+/* Sources/DogMonitor/Agent/AgentAction.swift:210 */
+"준비만, 실행은 내가" = "Prepare only, I'll do it";
+/* Sources/DogMonitor/Agent/AgentAction.swift:211 */
+"하지 않기" = "Never";
+/* Sources/DogMonitor/Agent/AgentBridge.swift:298 */
+"이 Claude Code 버전은 비서가 행동하기에 필요한 기능이 없어요. 업데이트해 주세요." = "This Claude Code version lacks what the assistant needs to take actions. Please update it.";
+/* Sources/DogMonitor/Agent/AgentBridge.swift:363 */
+"이 맥에서 claude 프로그램을 찾지 못했어요." = "Couldn't find the claude program on this Mac.";
+/* Sources/DogMonitor/Agent/AgentBridge.swift:391 */
+"비서 연결 통로를 열지 못했어요." = "Couldn't open the connection to the assistant.";
 /* Sources/DogMonitor/Agent/AgentBridge.swift:417 */
 "Claude가 답하지 못했어요." = "Claude couldn't answer.";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:42 */
+"http·https 주소만 열 수 있어요" = "Only http and https addresses can be opened";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:93 */
+"'%@' 보기가 없어요" = "There's no '%@' option";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:94 */
+"'%@'에 맞는 보기가 여러 개예요. 보기 글자 그대로 골라 주세요" = "Several options match '%@'. Pick the exact option text";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:109 */
+"뒤로 갈 페이지가 없어요" = "There's no page to go back to";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:118 */
+"'%@' 글자를 찾지 못했어요" = "Couldn't find the text '%@'";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:154 */
+"이제 직접 하세요" = "It's all yours now";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:226 */
+"%@ 요소는 입력할 수 없는 칸이에요" = "Element %@ isn't a field you can type in";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:227 */
+"%@ 칸에 커서를 둘 수 없어서 입력하지 않았어요" = "Couldn't put the cursor in field %@, so nothing was typed";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:255 */
+"열 수 없는 주소예요 (%@:)" = "Can't open this address (%@:)";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:300 */
+"%@ 쓰는 중" = "%@ is using it";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:300 */
+"캐릭터가 쓰는 중" = "Your character is using it";
+/* Sources/DogMonitor/Agent/AgentBrowser.swift:306 */
+"내가 할게" = "I'll take over";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:69 */
+"열린 페이지가 없어요" = "No page is open";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:70 */
+"페이지에서 %@ 요소를 찾지 못했어요. web_snapshot으로 다시 보세요" = "Couldn't find element %@ on the page. Look again with web_snapshot";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:71 */
+"비밀번호·카드·인증번호 칸은 비서가 건드리지 않아요" = "The assistant never touches password, card or verification code fields";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:73 */
+"사용자가 브라우저를 넘겨받았어요" = "The user took over the browser";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:74 */
+"페이지가 너무 오래 걸려요" = "The page is taking too long";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:75 */
+"페이지를 열지 못했어요: %@" = "Couldn't open the page: %@";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:126 */
+"결제창(%@)이에요" = "This is a payment window (%@)";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:127 */
+"주소가 결제·주문 화면이에요 (%@)" = "The address is a payment or order page (%@)";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:128 */
+"제목이 결제·주문 화면이에요 (%@)" = "The title is a payment or order page (%@)";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:129 */
+"결제창(%@)이 들어 있어요" = "It contains a payment window (%@)";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:135 */
+"'%@' 버튼은 결제·주문이에요 (%@)" = "The '%1$@' button is a payment or order (%2$@)";
+/* Sources/DogMonitor/Agent/AgentBrowsing.swift:139 */
+"결제·주문 주소로 보내는 버튼이에요" = "This button sends to a payment or order address";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:114 */
+"이렇게 할게요. 확인해 주세요." = "Here's what I'll do. Please check it.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:142 */
+"다시 부탁해 주세요." = "Please ask again.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:170 */
+"보낼 수 있는 메일 계정 (account에 이 값을 써): " = "보낼 수 있는 메일 계정 (account에 이 값을 써): ";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:195 */
+"내용이 부탁과 맞아요" = "It matches what you asked";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:262 */
+"되돌렸어요" = "Undone";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:263 */
+"되돌렸어요." = "Undone.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:265 */
+"되돌리지 못했어요: %@" = "Couldn't undo: %@";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:354 */
+"아래 버튼으로 바로 찾아볼 수 있어요" = "You can search right away with the buttons below";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:357 */
+"맡긴 일은 10개까지예요. 끝난 일을 지우고 다시 부탁해 주세요." = "You can hand off up to 10 tasks. Clear finished ones and ask again.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:358 */
+"맡겼어요. '맡긴 일'에서 볼 수 있어요" = "On it. You can find it under 'Tasks'";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:361 */
+"기억했어요. 비서 설정에서 고치거나 지울 수 있어요" = "Got it, I'll remember. You can edit or delete it in Assistant Settings";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:364 */
+"되돌릴 일을 찾지 못했어요" = "Couldn't find anything to undo";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:379 */
+"메일 쓰기 창을 열었어요. 보내기는 직접 눌러 주세요" = "I opened a new mail window. Hit Send when you're ready";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:382 */
+"카드에 적힌 보내는 계정이 꺼져 있거나 없어요. 다시 부탁해 주세요." = "The sending account on the card is off or missing. Please ask again.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:389 */
+"%@에게 Mail 앱으로 보냈어요" = "Sent to %@ with the Mail app";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:392 */
+"Mail 자동 보내기가 꺼져 있어서 쓰기 창을 열었어요. 보내기는 직접 눌러 주세요" = "Mail auto-send is off, so I opened a new mail window. Hit Send when you're ready";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:394 */
+"Mail 앱이 보내지 못했어요: %@" = "The Mail app couldn't send it: %@";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:404 */
+"이 메일 계정의 앱 비밀번호가 없어요. 비서 설정 > 메일에서 다시 넣어 주세요." = "There's no app password for this mail account. Add it again in Assistant Settings > Mail.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:410 */
+"%@에게 보냈어요" = "Sent to %@";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:414 */
+"보내지 못해서 메일 쓰기 창으로 넘겼어요: %@" = "Couldn't send, so I opened it in a new mail window: %@";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:422 */
+"네이버쇼핑과 쿠팡에서 바로 볼 수 있어요" = "You can see it right away on Naver Shopping and Coupang";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:425 */
+"찾은 상품이 없어요" = "No products found";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:428 */
+"가격을 불러오지 못했어요. 아래 링크로 볼 수 있어요" = "Couldn't load prices. You can check the links below";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:443 */
+"생각하는 중" = "Thinking";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:461 */
+"멈추는 중" = "Stopping";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:478 */
+"%@ 여는 중" = "Opening %@";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:479 */
+"페이지 보는 중" = "Reading the page";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:480 */
+"누르는 중" = "Clicking";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:481 */
+"입력하는 중" = "Typing";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:482 */
+"일정 보는 중" = "Checking your calendar";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:483 */
+"메일·메시지 보는 중" = "Checking mail and messages";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:484 */
+"연락처 찾는 중" = "Looking up contacts";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:485 */
+"카드 만드는 중" = "Making a card";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:486 */
+"일하는 중" = "Working";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:496 */
+"이건 확인받을게요." = "I'll ask you about this one.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:496 */
+"자리를 비운 사이라 카드로 남겨요." = "You were away, so I left a card.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:500 */
+"바로 했어요." = "Done right away.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:531 */
+"다 했어요." = "All done.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:535 */
+"여기부터는 직접 해 주세요. %@" = "Please take it from here. %@";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:536 */
+"멈췄어요." = "Stopped.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:538 */
+"일이 길어져서 여기서 멈췄어요. 이어서 하려면 다시 부탁해 주세요." = "This was taking a while, so I stopped here. Ask again to keep going.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:565 */
+"내 AI 연결이 꺼져 있어요" = "My AI connection is off";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:578 */
+"자리를 비운 사이 '%@' 하다가 확인할 일이 생겼어요." = "While you were away, something came up during '%@' that needs your OK.";
+/* Sources/DogMonitor/Agent/AgentCenter.swift:589 */
+"확인할 일 1건이 있어요. 맥에서 열어 주세요." = "There's 1 thing to check. Please open it on your Mac.";
 /* Sources/DogMonitor/Agent/AgentCenter.swift:590 */
 "캐릭모니터" = "CharaMonitor";
+/* Sources/DogMonitor/Agent/AgentEngine.swift:36 */
+"%@가 제안 형식으로 답하지 않았어요." = "%@ didn't answer in the suggestion format.";
 /* Sources/DogMonitor/Agent/AgentEngine.swift:54 */
 "이 맥에서 %@ 프로그램을 찾지 못했어요." = "Couldn't find the %@ program on this Mac.";
+/* Sources/DogMonitor/Agent/AgentEngine.swift:76 */
+"Claude가 제안을 만들지 못했어요." = "Claude couldn't make a suggestion.";
+/* Sources/DogMonitor/Agent/AgentEngine.swift:88 */
+"ChatGPT가 제안을 만들지 못했어요." = "ChatGPT couldn't make a suggestion.";
+/* Sources/DogMonitor/Agent/AgentEngine.swift:93 */
+"Gemini가 제안을 만들지 못했어요." = "Gemini couldn't make a suggestion.";
 /* Sources/DogMonitor/Agent/AgentEngine.swift:109 */
 "%@ API 키가 없어요. 비서 설정에서 넣어 주세요." = "No %@ API key. Add one in Assistant Settings.";
 /* Sources/DogMonitor/Agent/AgentEngine.swift:114 */
 "앱 스토어 버전은 이 맥의 AI 프로그램을 쓸 수 없어요. API 키로 연결해 주세요." = "The App Store version can't use AI programs on this Mac. Connect with an API key.";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:43 */
+"제안한 지 오래돼서 만료됐어요. 다시 부탁해 주세요" = "This suggestion is too old and has expired. Please ask again";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:54 */
+"오늘 할 수 있는 만큼 다 했어요. 내일 다시 할게요" = "I've done all I can for today. I'll pick it up tomorrow";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:63 */
+"이미 지난 날짜예요" = "That date has already passed";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:64 */
+"400일보다 먼 날짜예요" = "That date is more than 400 days away";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:69 */
+"끝나는 시간이 시작보다 앞이에요" = "The end time is before the start";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:73 */
+"받는 사람이 없어요" = "There's no recipient";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:74 */
+"메일 주소 모양이 아니에요: %@" = "That doesn't look like an email address: %@";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:78 */
+"메일 주소나 전화번호가 아니에요: %@" = "That's not an email address or phone number: %@";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:82 */
+"모르는 공항 코드예요: %@" = "Unknown airport code: %@";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:84 */
+"출발지와 도착지가 같아요" = "Departure and arrival are the same";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:89 */
+"돌아오는 날이 가는 날보다 앞이에요" = "The return date is before the departure date";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:91 */
+"인원은 1명에서 9명까지예요" = "Travelers must be between 1 and 9";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:93 */
+"맡긴 일은 60분보다 자주 확인할 수 없어요" = "Tasks can't be checked more often than every 60 minutes";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:127 */
+"어디서 온 주소인지 확인할 수 없어요. 직접 다시 입력해 주세요: %@" = "Can't tell where this address came from. Please type it again yourself: %@";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:131 */
+"이 주소는 받은 메일에서 나왔어요. 직접 다시 입력해 주세요: %@" = "This address came from a received email. Please type it again yourself: %@";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:181 */
+"인증번호처럼 보이는 숫자가 있어서 보낼 수 없어요" = "Can't send this: it has a number that looks like a verification code";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:182 */
+"카드번호처럼 보이는 숫자가 있어서 보낼 수 없어요" = "Can't send this: it has a number that looks like a card number";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:183 */
+"주민등록번호처럼 보이는 숫자가 있어서 보낼 수 없어요" = "Can't send this: it has a number that looks like a national ID number";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:184 */
+"비밀번호가 들어 있어서 보낼 수 없어요" = "Can't send this: it contains a password";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:185 */
+"API 키처럼 보이는 값이 있어서 보낼 수 없어요" = "Can't send this: it has something that looks like an API key";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:187 */
+"계좌번호와 송금 이야기가 있어요. 계좌가 맞는지 꼭 확인해 주세요" = "This mentions an account number and a transfer. Please double-check the account";
+/* Sources/DogMonitor/Agent/AgentGuard.swift:236 */
+"받은 문자 내용을 그대로 보낼 수는 없어요" = "Can't send a received message word for word";
+/* Sources/DogMonitor/Agent/AgentLoop.swift:63 */
+"이번 일에서 쓸 수 없는 도구예요: %@" = "This tool isn't available for this task: %@";
+/* Sources/DogMonitor/Agent/AgentNativeV2.swift:105 */
+"스크립트를 만들지 못했어요" = "Couldn't build the script";
+/* Sources/DogMonitor/Agent/AgentNativeV2.swift:115 */
+"보내지 못했어요 (오류 %lld)" = "Couldn't send it (error %lld)";
+/* Sources/DogMonitor/Agent/AgentNativeV2.swift:170 */
+"거절" = "Decline";
+/* Sources/DogMonitor/Agent/AgentNativeV2.swift:170 */
+"나중에" = "Later";
+/* Sources/DogMonitor/Agent/AgentPlanner.swift:107 */
+"%@의 메일 주소를 알려 줘" = "What's %@'s email address?";
+/* Sources/DogMonitor/Agent/AgentPlanner.swift:107 */
+"%@의 전화번호를 알려 줘" = "What's %@'s phone number?";
+/* Sources/DogMonitor/Agent/AgentPlanner.swift:165 */
+"다시 한번 자세히 말해 줄래?" = "Could you tell me again in more detail?";
+/* Sources/DogMonitor/Agent/AgentPlanner.swift:188 */
+"받는 사람" = "Recipient";
 /* Sources/DogMonitor/Agent/AgentPolicy.swift:89 */
 "AI 비서 목록 밖의 미리알림이라 확인받을게요" = "This reminder is outside the AI Assistant list, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentPolicy.swift:101 */
+"자리를 비운 사이 찾은 일이라 카드로만 남겨요" = "Found while you were away, so I'll just leave a card";
+/* Sources/DogMonitor/Agent/AgentPolicy.swift:112 */
+"이 일은 규칙으로 바로 할 수 없어요" = "A rule can't do this right away";
+/* Sources/DogMonitor/Agent/AgentPolicy.swift:113 */
+"메일 등에서 가져온 내용이라 확인받을게요" = "This came from an email or similar, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentPolicy.swift:117 */
+"맞는 규칙이 없어서 확인받을게요" = "No rule matches, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentPolicy.swift:119 */
+"규칙 기한이 지나서 확인받을게요" = "The rule has expired, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentPolicy.swift:121 */
+"오늘 규칙으로 할 수 있는 만큼 다 해서 확인받을게요" = "Today's rule limit is used up, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:62 */
+"%@ API 키가 없어요" = "No %@ API key";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:69 */
+"앱 스토어 버전은 이 맥의 AI 프로그램을 쓸 수 없어요" = "The App Store version can't use AI programs on this Mac";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:81 */
+"앱이 닫혔어요" = "The app was closed";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:143 */
+"API 키가 없어요" = "No API key";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:181 */
+"에이전트 브라우저가 꺼져 있어요" = "The agent browser is off";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:184 */
+"열 수 없는 주소예요" = "Can't open this address";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:186 */
+"%@ 열었어요" = "Opened %@";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:188 */
+"누를 곳을 찾지 못했어요" = "Couldn't find what to click";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:189 */
+"페이지가 바뀌어서 하지 않았어요. 다시 부탁해 주세요" = "The page changed, so I didn't do it. Please ask again";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:193 */
+"'%@' 눌렀어요" = "Clicked '%@'";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:197 */
+"카드번호·인증번호 같은 값은 입력하지 않아요" = "I don't type things like card numbers or verification codes";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:199 */
+"'%@'에 입력했어요" = "Typed into '%@'";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:202 */
+"카드번호·인증번호 같은 값은 고르지 않아요" = "I don't pick things like card numbers or verification codes";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:204 */
+"'%@'에서 골랐어요" = "Picked from '%@'";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:226 */
+"메시지 자동 보내기가 꺼져 있어서 쓰기 창을 열었어요. 시스템 설정 > 개인정보 보호 및 보안 > 자동화에서 켤 수 있어요" = "Auto-send for Messages is off, so I opened a new message. You can turn it on in System Settings > Privacy & Security > Automation";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:230 */
+"보내지 못했어요: %@" = "Couldn't send it: %@";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:230 */
+"일부만 보냈을 수 있어요: %@" = "It may have only partly sent: %@";
+/* Sources/DogMonitor/Agent/AgentRuns.swift:253 */
+"브라우저에서 직접 할 차례예요. 맥에서 이어서 해 주세요." = "Your turn in the browser. Please continue on your Mac.";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:73 */
+"그런 도구는 없어요: %@" = "No such tool: %@";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:81 */
+"이 버전에서는 브라우저를 쓸 수 없어요" = "The browser isn't available in this version";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:85 */
+"브라우저를 직접 쓰고 있어요" = "You're using the browser yourself";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:109 */
+"어떻게 할까요?" = "What should I do?";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:111 */
+"직접 해 주세요" = "Please do it yourself";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:120 */
+"이 연결에서는 개인 정보를 읽을 수 없어요" = "Personal info can't be read over this connection";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:148 */
+"자리를 비운 사이엔 새 사이트를 열지 않아요" = "I don't open new sites while you're away";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:164 */
+"ref가 필요해요" = "A ref is required";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:171 */
+"결제·주문 단계예요 (%@). 여기부터는 직접 해 주세요." = "This is the payment or order step (%@). Please take it from here.";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:177 */
+"허락하지 않은 사이트라 확인받을게요" = "This site wasn't allowed, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:184 */
+"인증번호·카드번호 같은 값은 입력하지 않아요" = "I don't type things like verification codes or card numbers";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:191 */
+"선택 상자에는 자리표시를 쓸 수 없어요" = "Placeholders can't be used in a dropdown";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:193 */
+"선택을 바꾸면 주문 내용이 바뀔 수 있어요" = "Changing this choice may change the order";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:201 */
+"자리를 비운 사이엔 누르거나 입력하지 않아요. finish로 상황을 남겨 줘" = "I don't click or type while the user is away. Leave a status note with finish";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:220 */
+"사이트가 사람인지 확인하고 있어요. 창에서 확인을 마치고 다시 부탁해 주세요." = "The site is checking that you're human. Finish the check in the window, then ask again.";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:221 */
+"%@가 자동 접속을 막았어요 (%@). 브라우저 창에서 확인을 마치고 다시 부탁해 주세요." = "%1$@ blocked automated access (%2$@). Finish the check in the browser window, then ask again.";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:224 */
+"결제 화면이에요. 여기부터는 직접 해 주세요." = "This is the payment screen. Please take it from here.";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:225 */
+"결제·주문 화면이 나와서 넘겼어요 (%@)" = "Handed over at the payment or order screen (%@)";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:229 */
+"\n[앱 안내] 사용자가 허락하지 않은 사이트(%@)로 넘어왔어요. 여기서 누르기·입력은 사용자 확인을 받아요." = "\n[App note] This moved to a site the user didn't allow (%@). Clicks and typing here need the user's OK.";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:253 */
+"처음 가는 사이트라 확인받을게요" = "This is a new site, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:254 */
+"주소에 개인 정보가 실려 나갈 수 있어서 확인받을게요" = "The address could carry personal info, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:290 */
+"상태를 바꾸는 버튼이라 확인받을게요" = "This button changes something, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:299 */
+"이름 없는 버튼이라 확인받을게요" = "This button has no name, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:306 */
+"내 정보를 입력해요" = "Types in your info";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:307 */
+"읽은 개인 정보가 실려 나갈 수 있어서 확인받을게요" = "Personal info I read could be sent out, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:309 */
+"다른 사이트로 보내는 칸이라 확인받을게요" = "This field sends to another site, so I'll ask first";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:313 */
+"검색창이 아닌 칸에 입력해요" = "Types into a field that isn't a search box";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:343 */
+"같은 이름이 여러 명이라 고를 수 없어요. finish로 상황을 남겨 줘" = "Several people share this name, so I can't pick one. Leave a status note with finish";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:345 */
+"같은 이름이 여러 명이에요. 아래에서 골라 주세요." = "Several people share this name. Please pick one below.";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:348 */
+"빠진 칸을 채워 줘" = "Fill in the missing fields";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:348 */
+"행동을 만들 수 없어요. 필요한 것: " = "Can't build the action. Needed: ";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:352 */
+"기억하기는 사용자가 직접 말한 내용만 해요" = "Remember only saves what the user said directly";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:354 */
+"되돌리기는 사용자가 직접 부탁할 때만 해요" = "Undo only runs when the user asks for it directly";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:358 */
+"이번에는 제안을 하나만 남겨요. finish로 끝내 줘" = "Only one suggestion this time. End with finish";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:360 */
+"카드로 남길게요. finish로 사용자에게 알릴 말을 남겨 줘" = "I'll leave it as a card. Use finish to leave a message for the user";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:369 */
+"실행했어요: %@" = "Done: %@";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:370 */
+"사용자가 취소했어요. 같은 일을 다시 제안하지 마" = "The user canceled. Don't suggest the same thing again";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:371 */
+"하지 못했어요: %@" = "Couldn't do it: %@";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:372 */
+"결과를 알 수 없어요 (다시 보내지 마): %@" = "Result unknown (don't send again): %@";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:373 */
+"사용자가 확인하지 않아 시간이 지났어요" = "Timed out without the user's OK";
+/* Sources/DogMonitor/Agent/AgentToolHost.swift:375 */
+"카드를 남겼어요. 사용자가 확인하면 앱이 실행해요. 이번 실행은 finish로 끝내 줘" = "Left a card. The app will run it once the user approves. End this run with finish";
+/* Sources/DogMonitor/Agent/Goals.swift:294 */
+"목표가 이하예요" = "At or below your target price";
+/* Sources/DogMonitor/Agent/Goals.swift:294 */
+"지난 최저가보다 %lld%% 넘게 내렸어요" = "Dropped more than %lld%% below the last lowest price";
+/* Sources/DogMonitor/Agent/Goals.swift:294 */
+"지난 최저가보다 내렸어요" = "Dropped below the last lowest price";
+/* Sources/DogMonitor/Agent/Goals.swift:295 */
+"%@ %@원 (%@), %@" = "%1$@ %2$@ won (%3$@), %4$@";
+/* Sources/DogMonitor/Agent/Goals.swift:320 */
+"AI 사용 한도에 걸려서 쉬어요" = "Paused: AI usage limit reached";
+/* Sources/DogMonitor/Agent/Goals.swift:324 */
+"'%@' 확인은 AI 사용 한도가 풀리면 다시 할게요." = "I'll check '%@' again once the AI usage limit resets.";
+/* Sources/DogMonitor/Agent/KoreanLinks.swift:366 */
+"네이버 쇼핑 가격을 보려면 developers.naver.com에서 검색 API 키를 받아 비서 설정에 넣어 주세요." = "To see Naver Shopping prices, get a Search API key at developers.naver.com and add it in Assistant Settings.";
+/* Sources/DogMonitor/Agent/KoreanLinks.swift:367 */
+"네이버 검색 API 키가 맞지 않아요. Client ID와 Secret을 다시 확인해 주세요." = "The Naver Search API key is wrong. Please check the Client ID and Secret.";
+/* Sources/DogMonitor/Agent/KoreanLinks.swift:368 */
+"네이버 개발자센터 애플리케이션에서 '검색' API 사용이 꺼져 있어요." = "The 'Search' API is turned off for your app in Naver Developers.";
+/* Sources/DogMonitor/Agent/KoreanLinks.swift:369 */
+"네이버 검색 API 하루 사용 한도를 다 썼어요. 내일 다시 확인할게요." = "The Naver Search API daily limit is used up. I'll check again tomorrow.";
+/* Sources/DogMonitor/Agent/KoreanLinks.swift:370 */
+"네이버 쇼핑에 연결하지 못했어요. 인터넷 연결을 확인해 주세요." = "Couldn't connect to Naver Shopping. Please check your internet connection.";
+/* Sources/DogMonitor/Agent/KoreanLinks.swift:371 */
+"네이버 쇼핑이 답하지 못했어요 (%lld)." = "Naver Shopping didn't respond (%lld).";
+/* Sources/DogMonitor/Agent/MailSender.swift:58 */
+"이 메일 계정은 앱에서 바로 보낼 수 없어요. 메일 앱에서 보내 주세요." = "This mail account can't send from the app. Please send it from the Mail app.";
+/* Sources/DogMonitor/Agent/MailSender.swift:62 */
+"보내는 주소를 확인해 주세요." = "Please check the sender address.";
+/* Sources/DogMonitor/Agent/MailSender.swift:63 */
+"받는 주소를 확인해 주세요." = "Please check the recipient address.";
+/* Sources/DogMonitor/Agent/MailSender.swift:65 */
+"받는 주소를 확인해 주세요: %@" = "Please check the recipient address: %@";
+/* Sources/DogMonitor/Agent/MailSender.swift:82 */
+"메일 서버에 연결하지 못했어요. 인터넷 연결을 확인하고 다시 보내 주세요." = "Couldn't reach the mail server. Check your internet connection and send again.";
+/* Sources/DogMonitor/Agent/MailSender.swift:160 */
+"메일 서버가 앱 비밀번호 로그인을 받지 않아요." = "The mail server doesn't accept app password sign-in.";
+/* Sources/DogMonitor/Agent/MailSender.swift:181 */
+"보냈는지 확실하지 않아요. 보낸메일함을 확인해 주세요." = "Not sure it was sent. Please check your Sent folder.";
+/* Sources/DogMonitor/Agent/MailSender.swift:199 */
+"로그인에 실패했어요. 앱 비밀번호를 확인해 주세요." = "Sign-in failed. Please check your app password.";
 /* Sources/DogMonitor/Agent/MailSender.swift:207 */
 "메일 서버가 거절했어요: %@" = "The mail server refused: %@";
+/* Sources/DogMonitor/Agent/NativeActions.swift:42 */
+"이 일은 여기서 할 수 없어요." = "I can't do that here.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:75 */
+"일정을 추가했어요: %@, %@. 초대는 캘린더 앱에서 해 주세요." = "Added the event: %1$@, %2$@. Send invites from the Calendar app.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:79 */
+"미리알림을 추가했어요: %@" = "Added the reminder: %@";
+/* Sources/DogMonitor/Agent/NativeActions.swift:80 */
+"미리알림을 추가했어요: %@, %@" = "Added the reminder: %1$@, %2$@";
+/* Sources/DogMonitor/Agent/NativeActions.swift:84 */
+"미리알림을 완료했어요." = "Reminder completed.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:84 */
+"미리알림을 완료했어요: %@" = "Reminder completed: %@";
+/* Sources/DogMonitor/Agent/NativeActions.swift:87 */
+"메시지 앱에 받는 사람과 내용을 채워 두었어요. 확인하고 직접 보내 주세요." = "I filled in the recipient and message in Messages. Check it and send it yourself.";
 /* Sources/DogMonitor/Agent/NativeActions.swift:117 */
 "AI 비서" = "AI Assistant";
 /* Sources/DogMonitor/Agent/NativeActions.swift:164 */
 "'AI 비서' 캘린더를 만들지 못해서 규칙으로는 넣지 않았어요." = "Couldn't create the 'AI Assistant' calendar, so the rule didn't add it.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:165 */
+"일정을 넣을 캘린더가 없어요. 캘린더 앱에서 캘린더를 하나 만들어 주세요." = "There's no calendar to add events to. Please create one in the Calendar app.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:174 */
+"캘린더에 저장하지 못했어요." = "Couldn't save to Calendar.";
 /* Sources/DogMonitor/Agent/NativeActions.swift:181 */
 "'AI 비서' 목록을 만들지 못해서 규칙으로는 넣지 않았어요." = "Couldn't create the 'AI Assistant' list, so the rule didn't add it.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:182 */
+"미리알림을 넣을 목록이 없어요. 미리알림 앱에서 목록을 하나 만들어 주세요." = "There's no list to add reminders to. Please create one in the Reminders app.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:192 */
+"미리알림에 저장하지 못했어요." = "Couldn't save to Reminders.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:198 */
+"그 미리알림을 찾지 못했어요." = "Couldn't find that reminder.";
 /* Sources/DogMonitor/Agent/NativeActions.swift:199 */
 "'AI 비서' 목록 밖의 미리알림은 규칙으로 완료하지 않아요." = "A rule doesn't complete reminders outside the 'AI Assistant' list.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:202 */
+"미리알림을 완료하지 못했어요." = "Couldn't complete the reminder.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:212 */
+"일정을 지우지 못했어요." = "Couldn't delete the event.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:216 */
+"미리알림을 지우지 못했어요." = "Couldn't delete the reminder.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:221 */
+"미리알림을 되돌리지 못했어요." = "Couldn't undo the reminder.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:223 */
+"되돌릴 수 없는 일이에요." = "This can't be undone.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:331 */
+"메일 쓰기 창을 열지 못했어요." = "Couldn't open the mail compose window.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:353 */
+"메시지 앱을 열지 못했어요." = "Couldn't open Messages.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:364 */
+"메시지를 복사했어요. 이 맥에 카카오톡이 없어서 열지는 못했어요. 카카오톡에 붙여넣고 보내 주세요." = "Message copied. KakaoTalk isn't on this Mac, so I couldn't open it. Paste it into KakaoTalk and send.";
+/* Sources/DogMonitor/Agent/NativeActions.swift:367 */
+"메시지를 복사하고 카카오톡을 열었어요. 받는 사람을 골라 붙여넣고 보내 주세요." = "Message copied and KakaoTalk opened. Pick the recipient, paste and send.";
+/* Sources/DogMonitor/Agent/PendingActions.swift:249 */
+"카드 내용이 바뀌었어요. 다시 계획할게요" = "The card changed. I'll plan it again";
+/* Sources/DogMonitor/Agent/PendingActions.swift:286 */
+"실행 중에 앱이 꺼졌어요. 결과를 확인해 주세요" = "The app quit while running this. Please check the result";
+/* Sources/DogMonitor/Agent/PendingActions.swift:329 */
+"카드를 찾지 못했어요" = "Couldn't find the card";
+/* Sources/DogMonitor/Agent/PendingActions.swift:331 */
+"확인 버튼으로만 실행할 수 있어요" = "This runs only from the Confirm button";
+/* Sources/DogMonitor/Agent/PendingActions.swift:367 */
+"이 일은 하지 않아요" = "I won't do this";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:70 */
+"캘린더 접근이 꺼져 있어요. 설정에서 캘린더를 허용하면 읽을 수 있어요." = "Calendar access is off. Allow Calendar in Settings and I can read it.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:71 */
+"이 기간에는 일정이 없어요." = "No events in this period.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:73 */
+"종일" = "all day";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:82 */
+"미리알림 접근이 꺼져 있어요. 설정에서 미리알림을 허용하면 읽을 수 있어요." = "Reminders access is off. Allow Reminders in Settings and I can read them.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:83 */
+"끝나지 않은 미리알림이 없어요." = "No open reminders.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:86 */
+"마감" = "due";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:93 */
+"앱이 켜진 뒤로 받은 문자·메일·알림이 없어요." = "No texts, mail or notifications since the app started.";
 /* Sources/DogMonitor/Agent/PersonalReads.swift:95 */
 "메일" = "Mail";
 /* Sources/DogMonitor/Agent/PersonalReads.swift:95 */
 "문자" = "Text";
 /* Sources/DogMonitor/Agent/PersonalReads.swift:95 */
 "알림" = "Notification";
-/* Sources/DogMonitor/App/AppDelegate.swift:101 */
+/* Sources/DogMonitor/Agent/PersonalReads.swift:102 */
+"연락처 접근이 꺼져 있어요. 설정에서 연락처를 허용하면 찾을 수 있어요." = "Contacts access is off. Allow Contacts in Settings and I can search them.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:104 */
+"연락처에서 '%@'을(를) 찾지 못했어요." = "Couldn't find '%@' in Contacts.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:109 */
+"주소 없음" = "No address";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:115 */
+"기억해 둔 게 없어요." = "Nothing remembered yet.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:125 */
+"찾을 말을 넣어 주세요." = "Please enter something to search for.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:127 */
+"연결된 메일 계정이 없어요. 비서 설정 > 메일 계정에서 추가할 수 있어요." = "No mail accounts connected. You can add one in Assistant Settings > Mail Accounts.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:134 */
+"%@: 메일함을 읽지 못했어요" = "%@: couldn't read the mailbox";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:141 */
+"'%@'에 맞는 메일이 없어요." = "No mail matches '%@'.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:149 */
+"그 id의 메일을 찾지 못했어요. mail_search로 다시 찾아 주세요." = "Couldn't find mail with that id. Search again with mail_search.";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:155 */
+"보낸 사람" = "From";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:155 */
+"제목" = "Subject";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:156 */
+"날짜" = "Date";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:158 */
+"%@: 메일을 읽지 못했어요" = "%@: couldn't read the mail";
+/* Sources/DogMonitor/Agent/PersonalReads.swift:198 */
+"…외 %lld개" = "…and %lld more";
+/* Sources/DogMonitor/App/AppDelegate.swift:109 */
 "기타 소녀는 오픈 소스판에서 은퇴했어요. 그동안 함께해 줘서 고마워요! 이제 강아지가 메뉴바를 지킬게요." = "The guitar girl retired in the open-source version. Thanks for all the time together! The dog will look after your menu bar now.";
-/* Sources/DogMonitor/App/CursorBuddy.swift:748 */
+/* Sources/DogMonitor/App/CursorBuddy.swift:809 */
+"퀵물어보기" = "Quick Ask";
+/* Sources/DogMonitor/App/CursorBuddy.swift:810 */
+"AI 비서랑 이야기하기" = "Talk to the AI Assistant";
+/* Sources/DogMonitor/App/CursorBuddy.swift:811 */
+"복제해서 바탕화면에 두기" = "Make a Copy on the Desktop";
+/* Sources/DogMonitor/App/CursorBuddy.swift:812 */
+"커서 친구 쉬게 하기" = "Let Cursor Buddy Rest";
+/* Sources/DogMonitor/App/CursorBuddy.swift:891 */
 "눈앞이 핑핑 돌아요" = "Everything is spinning";
-/* Sources/DogMonitor/App/CursorBuddy.swift:748 */
+/* Sources/DogMonitor/App/CursorBuddy.swift:891 */
 "세상이 빙글빙글 돌아요" = "The world is going round and round";
-/* Sources/DogMonitor/App/CursorBuddy.swift:748 */
+/* Sources/DogMonitor/App/CursorBuddy.swift:891 */
 "어질어질…" = "So dizzy…";
+/* Sources/DogMonitor/App/CursorBuddy.swift:907 */
+"그만 눌러요, 흥!" = "Stop poking me, hmph!";
+/* Sources/DogMonitor/App/CursorBuddy.swift:914 */
+"똑같은 친구가 바탕화면에 생겼어요" = "A copy friend appeared on your desktop";
+/* Sources/DogMonitor/App/DesktopClones.swift:222 */
+"바탕화면이 꽉 찼어요. 8명까지예요" = "The desktop is full. Up to 8 friends";
+/* Sources/DogMonitor/App/DesktopClones.swift:713 */
+"이 친구 치우기" = "Put This Friend Away";
+/* Sources/DogMonitor/App/DesktopClones.swift:715 */
+"모두 치우기" = "Put All Away";
+/* Sources/DogMonitor/App/DesktopClones.swift:716 */
+"움직이기" = "Move Around";
+/* Sources/DogMonitor/App/DesktopKit.swift:35 */
+"자동" = "Auto";
+/* Sources/DogMonitor/App/DesktopKit.swift:36 */
+"잔잔하게" = "Calm";
+/* Sources/DogMonitor/App/DesktopKit.swift:37 */
+"통통" = "Bouncy";
+/* Sources/DogMonitor/App/DesktopKit.swift:182 */
+"집중 그만하기" = "Stop Focus";
+/* Sources/DogMonitor/App/DesktopKit.swift:182 */
+"집중 시작" = "Start focus";
+/* Sources/DogMonitor/App/DesktopKit.swift:190 */
+"데스크톱 친구" = "Desktop Friends";
+/* Sources/DogMonitor/App/DesktopKit.swift:191 */
+"설정 열기" = "Open Settings";
+/* Sources/DogMonitor/App/DesktopKit.swift:428 */
+"에취!" = "Achoo!";
+/* Sources/DogMonitor/App/DesktopKit.swift:430 */
+"흥!" = "Hmph!";
 /* Sources/DogMonitor/App/DesktopRug.swift:13 */
 "빳빳" = "Stiff";
 /* Sources/DogMonitor/App/DesktopRug.swift:14 */
 "보통" = "Normal";
 /* Sources/DogMonitor/App/DesktopRug.swift:15 */
 "흐물" = "Floppy";
-/* Sources/DogMonitor/App/DesktopRug.swift:268 */
-"주름 쫙 펴는 중이야" = "Smoothing out the wrinkles";
-/* Sources/DogMonitor/App/DesktopRug.swift:268 */
-"주름을 쫙 펴고 있어요" = "Smoothing out the wrinkles";
-/* Sources/DogMonitor/App/DesktopRug.swift:357 */
-"빳빳하게 펼치기" = "Smooth It Out";
-/* Sources/DogMonitor/App/DesktopRug.swift:358 */
-"러그를 화면 가운데로" = "Move Rug to Center";
+/* Sources/DogMonitor/App/DesktopRug.swift:35 */
+"캐릭터" = "Characters";
+/* Sources/DogMonitor/App/DesktopRug.swift:36 */
+"마름모" = "Diamonds";
+/* Sources/DogMonitor/App/DesktopRug.swift:37 */
+"줄무늬" = "Stripes";
+/* Sources/DogMonitor/App/DesktopRug.swift:38 */
+"체크" = "Checks";
+/* Sources/DogMonitor/App/DesktopRug.swift:39 */
+"물방울" = "Raindrop";
+/* Sources/DogMonitor/App/DesktopRug.swift:50 */
+"작게" = "Small";
+/* Sources/DogMonitor/App/DesktopRug.swift:52 */
+"크게" = "Large";
+/* Sources/DogMonitor/App/DesktopRug.swift:53 */
+"아주 크게" = "Extra large";
 /* Sources/DogMonitor/App/DesktopRug.swift:359 */
+"주름 쫙 펴는 중이야" = "Smoothing out the wrinkles";
+/* Sources/DogMonitor/App/DesktopRug.swift:359 */
+"주름을 쫙 펴고 있어요" = "Smoothing out the wrinkles";
+/* Sources/DogMonitor/App/DesktopRug.swift:442 */
+"빳빳하게 펼치기" = "Smooth It Out";
+/* Sources/DogMonitor/App/DesktopRug.swift:443 */
+"러그를 화면 가운데로" = "Move Rug to Center";
+/* Sources/DogMonitor/App/DesktopRug.swift:444 */
+"러그 그림" = "Rug Pattern";
+/* Sources/DogMonitor/App/DesktopRug.swift:447 */
+"러그 색" = "Rug Color";
+/* Sources/DogMonitor/App/DesktopRug.swift:450 */
+"러그 크기" = "Rug Size";
+/* Sources/DogMonitor/App/DesktopRug.swift:453 */
 "부드러움" = "Softness";
-/* Sources/DogMonitor/App/DesktopRug.swift:366 */
+/* Sources/DogMonitor/App/DesktopRug.swift:457 */
 "러그 치우기" = "Put the Rug Away";
 /* Sources/DogMonitor/App/Diagnostics.swift:53 */
 "캐릭모니터 문제 보내기" = "CharaMonitor problem report";
@@ -128,44 +676,84 @@
 "붙여넣기" = "Paste";
 /* Sources/DogMonitor/App/External.swift:48 */
 "전체 선택" = "Select All";
-/* Sources/DogMonitor/App/FocusBubble.swift:99 */
-"잠깐 쉬는 중" = "On a break";
-/* Sources/DogMonitor/App/FocusBubble.swift:99 */
-"집중 중" = "Focusing";
-/* Sources/DogMonitor/App/FocusBubble.swift:105 */
+/* Sources/DogMonitor/App/FocusBubble.swift:108 */
 "다시 시작" = "Resume";
-/* Sources/DogMonitor/App/FocusBubble.swift:105 */
+/* Sources/DogMonitor/App/FocusBubble.swift:108 */
 "일시정지" = "Pause";
-/* Sources/DogMonitor/App/FocusBubble.swift:107 */
+/* Sources/DogMonitor/App/FocusBubble.swift:110 */
 "그만하기" = "Stop";
-/* Sources/DogMonitor/App/FocusBubble.swift:132 */
+/* Sources/DogMonitor/App/FocusBubble.swift:151 */
+"목표 달성! 🎉" = "Goal reached! 🎉";
+/* Sources/DogMonitor/App/FocusBubble.swift:151 */
+"목표까지 %lld분" = "%lld min to goal";
+/* Sources/DogMonitor/App/FocusBubble.swift:156 */
+"잠깐 쉬는 중, %lld분" = "On a break, %lld min";
+/* Sources/DogMonitor/App/FocusBubble.swift:156 */
+"집중 %lld분째" = "Focusing for %lld min";
+/* Sources/DogMonitor/App/FocusBubble.swift:172 */
 "진행 중" = "In progress";
-/* Sources/DogMonitor/App/FocusBubble.swift:136 */
+/* Sources/DogMonitor/App/FocusBubble.swift:177 */
 "다 했어요" = "Done";
-/* Sources/DogMonitor/App/FocusTimer.swift:93 */
+/* Sources/DogMonitor/App/FocusTimer.swift:36 */
+"잠깐 쉬는 중 ☕" = "On a break ☕";
+/* Sources/DogMonitor/App/FocusTimer.swift:37 */
+"늦은 밤 집중 🌙" = "Late-night focus 🌙";
+/* Sources/DogMonitor/App/FocusTimer.swift:39 */
+"시작이 반!" = "Well begun is half done!";
+/* Sources/DogMonitor/App/FocusTimer.swift:39 */
+"아침 집중 ☀️" = "Morning focus ☀️";
+/* Sources/DogMonitor/App/FocusTimer.swift:40 */
+"집중 시작!" = "Focus started!";
+/* Sources/DogMonitor/App/FocusTimer.swift:41 */
+"몰입 중이야 ✨" = "In the zone ✨";
+/* Sources/DogMonitor/App/FocusTimer.swift:41 */
+"몰입 중이에요 ✨" = "In the zone ✨";
+/* Sources/DogMonitor/App/FocusTimer.swift:42 */
+"대단해, 오래 버텼어!" = "Amazing, you kept going!";
+/* Sources/DogMonitor/App/FocusTimer.swift:42 */
+"대단해요, 오래 버텼어요!" = "Amazing, you kept going!";
+/* Sources/DogMonitor/App/FocusTimer.swift:52 */
+"라벤더" = "Lavender";
+/* Sources/DogMonitor/App/FocusTimer.swift:53 */
+"딸기우유" = "Strawberry Milk";
+/* Sources/DogMonitor/App/FocusTimer.swift:54 */
+"민트" = "Mint";
+/* Sources/DogMonitor/App/FocusTimer.swift:55 */
+"레몬" = "Lemon";
+/* Sources/DogMonitor/App/FocusTimer.swift:56 */
+"하늘" = "Sky";
+/* Sources/DogMonitor/App/FocusTimer.swift:196 */
+"목표까지 해냈다! %lld분 집중 완료 🎉" = "Goal reached! %lld min of focus done 🎉";
+/* Sources/DogMonitor/App/FocusTimer.swift:196 */
+"목표까지 해냈어요! %lld분 집중 완료 🎉" = "You reached your goal! %lld min of focus done 🎉";
+/* Sources/DogMonitor/App/FocusTimer.swift:200 */
 "%lld분 집중했어. 수고했어!" = "You focused for %lld min. Nice work!";
-/* Sources/DogMonitor/App/FocusTimer.swift:93 */
+/* Sources/DogMonitor/App/FocusTimer.swift:200 */
 "%lld분 집중했어요. 수고 많으셨어요!" = "You focused for %lld min. Great work!";
-/* Sources/DogMonitor/App/FocusTimer.swift:96 */
+/* Sources/DogMonitor/App/FocusTimer.swift:203 */
 "잠깐 집중했네. 다음엔 조금 더 해 보자." = "A short focus. Let's go a bit longer next time.";
-/* Sources/DogMonitor/App/FocusTimer.swift:96 */
+/* Sources/DogMonitor/App/FocusTimer.swift:203 */
 "잠깐 집중했어요. 다음엔 조금 더 해 봐요." = "A short focus. Try a bit longer next time.";
-/* Sources/DogMonitor/App/FocusTimer.swift:108 */
+/* Sources/DogMonitor/App/FocusTimer.swift:216 */
 "지금은 집중하고 있지 않아." = "You're not focusing right now.";
-/* Sources/DogMonitor/App/FocusTimer.swift:108 */
+/* Sources/DogMonitor/App/FocusTimer.swift:216 */
 "지금은 집중하고 있지 않아요." = "You're not focusing right now.";
-/* Sources/DogMonitor/App/FocusTimer.swift:111 */
+/* Sources/DogMonitor/App/FocusTimer.swift:219 */
 "%lld분 집중하고 마쳤어." = "Done after %lld min of focus.";
-/* Sources/DogMonitor/App/FocusTimer.swift:111 */
+/* Sources/DogMonitor/App/FocusTimer.swift:219 */
 "%lld분 집중하고 마쳤어요." = "Done after %lld min of focus.";
-/* Sources/DogMonitor/App/FocusTimer.swift:115 */
+/* Sources/DogMonitor/App/FocusTimer.swift:223 */
 "이미 집중 중이야. 지금 %@째야." = "Already focusing. %@ so far.";
-/* Sources/DogMonitor/App/FocusTimer.swift:115 */
+/* Sources/DogMonitor/App/FocusTimer.swift:223 */
 "이미 집중 중이에요. 지금 %@째예요." = "Already focusing. %@ so far.";
-/* Sources/DogMonitor/App/FocusTimer.swift:118 */
+/* Sources/DogMonitor/App/FocusTimer.swift:226 */
 "집중 시작! 다 하면 친구 위의 그만하기를 눌러 주세요." = "Focus started! When you're done, press Stop over your friend.";
-/* Sources/DogMonitor/App/FocusTimer.swift:118 */
+/* Sources/DogMonitor/App/FocusTimer.swift:226 */
 "집중 시작! 다 하면 친구 위의 그만하기를 눌러 줘." = "Focus started! When you're done, press Stop over your friend.";
+/* Sources/DogMonitor/App/FocusTimer.swift:262 */
+"%lld분 채웠다! 잠깐 쉬어도 돼." = "%lld min done! You can take a short break.";
+/* Sources/DogMonitor/App/FocusTimer.swift:262 */
+"%lld분 채웠어요! 쉬어 가도 좋아요." = "%lld min done! Feel free to take a break.";
 /* Sources/DogMonitor/App/FriendQuickAsk.swift:18 */
 "오늘 할 일 얼마나 했어요?" = "How much of today's to-dos is done?";
 /* Sources/DogMonitor/App/FriendQuickAsk.swift:19 */
@@ -176,26 +764,64 @@
 "응원해 줘" = "Cheer me on";
 /* Sources/DogMonitor/App/FriendQuickAsk.swift:22 */
 "춤춰 줘" = "Dance for me";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:124 */
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:29 */
+"✅ 오늘 진도" = "✅ Progress";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:30 */
+"👉 지금 할 일" = "👉 To do now";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:31 */
+"📅 다음 일정" = "📅 Up next";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:32 */
+"📣 응원해 줘" = "📣 Cheer me on";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:33 */
+"💃 춤춰 줘" = "💃 Dance for me";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:182 */
 "일정" = "Events";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:138 */
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:207 */
+"좋은 아침! 뭐 궁금해?" = "Good morning! Ask me anything.";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:207 */
+"좋은 아침이에요! 뭐 궁금해요?" = "Good morning! What's on your mind?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:208 */
+"점심 먹었어? 뭐 궁금해?" = "Had lunch yet? What's on your mind?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:208 */
+"점심 먹었어요? 뭐 궁금해요?" = "Had lunch yet? What's on your mind?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:209 */
+"오후도 힘내! 뭐 궁금해?" = "Keep it up this afternoon! What's on your mind?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:209 */
+"오후도 힘내요! 뭐 궁금해요?" = "Keep it up this afternoon! What's on your mind?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:210 */
+"오늘 하루 어땠어? 뭐 궁금해?" = "How was your day? What's on your mind?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:210 */
+"오늘 하루 어땠어요? 뭐 궁금해요?" = "How was your day? What's on your mind?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:211 */
+"밤이 깊었네. 뭐 도와줄까?" = "It's getting late. How can I help?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:211 */
+"밤이 깊었네요. 뭐 도와줄까요?" = "It's getting late. How can I help?";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:229 */
 "캘린더가 연결돼 있지 않아서 알 수 없어요. 비서 설정에서 캘린더를 켜 주세요." = "Calendar isn't connected, so I can't tell. Turn on Calendar in Assistant Settings.";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:139 */
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:230 */
 "캘린더가 연결돼 있지 않아서 몰라. 비서 설정에서 캘린더를 켜 줘." = "Calendar isn't connected, so I can't tell. Turn on Calendar in Assistant Settings.";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:141 */
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:232 */
 "오늘 남은 일정은 없어." = "Nothing left on your calendar today.";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:141 */
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:232 */
 "오늘 남은 일정은 없어요." = "Nothing left on your calendar today.";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:146 */
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:237 */
 "다음 일정은 %@ '%@'%@." = "Next up: %1$@ '%2$@'%3$@.";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:172 */
-"할 일 보기" = "Open Reminders";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:183 */
-"무엇이 궁금하세요?" = "What would you like to know?";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:185 */
-"AI 없이도 이건 바로 알려 드려요" = "These I can answer right away, no AI needed";
-/* Sources/DogMonitor/App/FriendQuickAsk.swift:191 */
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:259 */
+"복숭아" = "Peach";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:320 */
+"잔잔" = "Gentle";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:321 */
+"멈춤" = "Still";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:365 */
 "더 물어보기" = "Ask More";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:401 */
+"AI 없이도 이건 바로 알려 드려요" = "These I can answer right away, no AI needed";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:401 */
+"AI 없이도 이건 바로 알려 줄게" = "I can answer these right away, no AI needed";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:423 */
+"오늘 할 일" = "Today's to-dos";
+/* Sources/DogMonitor/App/FriendQuickAsk.swift:427 */
+"할 일 보기" = "Open Reminders";
 /* Sources/DogMonitor/App/HangingFriends.swift:13 */
 "고요" = "Still";
 /* Sources/DogMonitor/App/HangingFriends.swift:14 */
@@ -216,8 +842,6 @@
 "달" = "Moon";
 /* Sources/DogMonitor/App/HangingFriends.swift:50 */
 "하트" = "Heart";
-/* Sources/DogMonitor/App/HangingFriends.swift:51 */
-"물방울" = "Raindrop";
 /* Sources/DogMonitor/App/HangingFriends.swift:52 */
 "네잎클로버" = "Four-leaf clover";
 /* Sources/DogMonitor/App/HangingFriends.swift:150 */
@@ -230,10 +854,18 @@
 "덩굴줄기" = "Vine";
 /* Sources/DogMonitor/App/HangingFriends.swift:154 */
 "뜨개 목도리" = "Knit scarf";
-/* Sources/DogMonitor/App/HangingFriends.swift:275 */
+/* Sources/DogMonitor/App/HangingFriends.swift:283 */
 "통통 튀는 줄" = "Bouncy";
-/* Sources/DogMonitor/App/HangingFriends.swift:276 */
+/* Sources/DogMonitor/App/HangingFriends.swift:284 */
 "팽팽한 줄" = "Taut";
+/* Sources/DogMonitor/App/HangingFriends.swift:858 */
+"바람" = "Wind";
+/* Sources/DogMonitor/App/HangingFriends.swift:861 */
+"풍경 소리" = "Chime";
+/* Sources/DogMonitor/App/HangingFriends.swift:862 */
+"다른 창보다 위에 두기" = "Keep above other windows";
+/* Sources/DogMonitor/App/HangingFriends.swift:863 */
+"대롱대롱 친구 치우기" = "Put Hanging Friends Away";
 /* Sources/DogMonitor/App/LoginItem.swift:10 */
 "켜짐" = "On";
 /* Sources/DogMonitor/App/LoginItem.swift:11 */
@@ -244,43 +876,121 @@
 "찾지 못함 (앱 번들에서 실행해 주세요)" = "Not found (run it from the app bundle)";
 /* Sources/DogMonitor/App/LoginItem.swift:14 */
 "알 수 없음" = "Unknown";
-/* Sources/DogMonitor/App/SpeechBubble.swift:385 */
+/* Sources/DogMonitor/App/MeadowFriends.swift:142 */
+"더 쓰다듬어 주세요" = "Pet me some more";
+/* Sources/DogMonitor/App/MeadowFriends.swift:142 */
+"쓰담쓰담 좋아요" = "I love being petted";
+/* Sources/DogMonitor/App/MeadowFriends.swift:142 */
+"헤헤, 기분 좋아요" = "Hehe, that feels nice";
+/* Sources/DogMonitor/App/MeadowFriends.swift:172 */
+"이제 안 놀아 줄 거예요" = "I'm not playing with you anymore";
+/* Sources/DogMonitor/App/MeadowFriends.swift:173 */
+"간식 먹는 중이에요" = "I'm having a snack";
+/* Sources/DogMonitor/App/MeadowFriends.swift:173 */
+"냠냠, 맛있어요" = "Nom nom, yummy";
+/* Sources/DogMonitor/App/MeadowFriends.swift:174 */
+"잠깐 앉아서 쉴래요" = "I'll sit and rest a bit";
+/* Sources/DogMonitor/App/MeadowFriends.swift:174 */
+"풀밭이 폭신해요" = "The grass is so soft";
+/* Sources/DogMonitor/App/MeadowFriends.swift:175 */
+"간지러워요" = "That tickles";
+/* Sources/DogMonitor/App/MeadowFriends.swift:175 */
+"뭐 하고 있어요?" = "What are you up to?";
+/* Sources/DogMonitor/App/MeadowFriends.swift:175 */
+"안녕! 오늘도 같이 놀아요" = "Hi! Let's play today too";
+/* Sources/DogMonitor/App/MeadowFriends.swift:175 */
+"저 여기 있어요!" = "I'm right here!";
+/* Sources/DogMonitor/App/MeadowFriends.swift:175 */
+"헤헤, 불렀어요?" = "Hehe, you called?";
+/* Sources/DogMonitor/App/MeadowFriends.swift:700 */
+"다 같이 뛰기" = "Everyone hop";
+/* Sources/DogMonitor/App/MeadowFriends.swift:702 */
+"풀밭 친구들 치우기" = "Put Meadow Friends Away";
+/* Sources/DogMonitor/App/SetupFile.swift:100 */
+"캐릭모니터 설정 파일이 아니거나 망가진 파일이에요." = "This isn't a CharaMonitor setup file, or it's damaged.";
+/* Sources/DogMonitor/App/SetupFile.swift:101 */
+"파일 안에 들어 있으면 안 되는 항목이 있어서 가져오지 않았어요." = "The file has something in it that shouldn't be there, so nothing was imported.";
+/* Sources/DogMonitor/App/SetupFile.swift:102 */
+"너무 커요. 설정 파일에는 300MB까지만 담을 수 있어요." = "Too big. A setup file can hold up to 300MB.";
+/* Sources/DogMonitor/App/SetupFile.swift:216 */
+"더 새 캐릭모니터에서 만든 파일이에요. 앱을 업데이트한 뒤 다시 가져와 주세요." = "This file was made by a newer CharaMonitor. Update the app, then import it again.";
+/* Sources/DogMonitor/App/SetupFile.swift:260 */
+"파일을 처리하지 못했어요." = "Couldn't process the file.";
+/* Sources/DogMonitor/App/SetupFile.swift:310 */
+"지금 상태를 백업하지 못해서 가져오지 않았어요." = "Couldn't back up your current setup, so nothing was imported.";
+/* Sources/DogMonitor/App/SetupFile.swift:332 */
+"중간에 멈춰서 원래대로 돌려 놨어요. 이 맥의 설정은 그대로예요." = "It stopped partway, so everything was put back. This Mac's settings are unchanged.";
+/* Sources/DogMonitor/App/SetupFile.swift:333 */
+"중간에 멈췄어요. 설정 > 가져오기 전 백업 보기에서 가장 최근 백업을 열면 되돌아가요." = "It stopped partway. Open the latest backup in Settings > Show Pre-Import Backups to go back.";
+/* Sources/DogMonitor/App/SetupFile.swift:476 */
+"내 캐릭모니터" = "My CharaMonitor";
+/* Sources/DogMonitor/App/SetupFile.swift:477 */
+"다른 맥으로 옮길 내 설정 파일을 저장해요" = "Save a setup file to take to another Mac";
+/* Sources/DogMonitor/App/SetupFile.swift:482 */
+"내 설정을 꼭꼭 담았어요!" = "All your settings are packed up!";
+/* Sources/DogMonitor/App/SetupFile.swift:482 */
+"내 설정을 꼭꼭 담았어요! 캐릭터 %lld개도 같이 챙겼어요." = "All your settings are packed up! %lld characters came along too.";
+/* Sources/DogMonitor/App/SetupFile.swift:485 */
+"내보내지 못했어요" = "Couldn't export";
+/* Sources/DogMonitor/App/SetupFile.swift:493 */
+"가져올 내 설정 파일(.charamonitor)을 골라 주세요" = "Choose the setup file (.charamonitor) to import";
+/* Sources/DogMonitor/App/SetupFile.swift:502 */
+"가져올 수 없는 파일이에요" = "This file can't be imported";
+/* Sources/DogMonitor/App/SetupFile.swift:506 */
+"이 맥의 캐릭모니터를 이 파일대로 바꿀까요?" = "Replace this Mac's CharaMonitor setup with this file?";
+/* Sources/DogMonitor/App/SetupFile.swift:507 */
+"캐릭터 팩 %lld개, 내 캐릭터 %lld개, 설정 %lld가지로 바뀌어요. 지금 상태는 백업해 두고, 끝나면 앱을 다시 시작해요." = "This brings in %lld character packs, %lld of your own characters and %lld settings. Your current setup is backed up first, and the app restarts when it's done.";
+/* Sources/DogMonitor/App/SetupFile.swift:508 */
+"가져오기" = "Import";
+/* Sources/DogMonitor/App/SetupFile.swift:509 */
+"취소" = "Cancel";
+/* Sources/DogMonitor/App/SetupFile.swift:514 */
+"가져오지 못했어요" = "Couldn't import";
+/* Sources/DogMonitor/App/SetupFile.swift:519 */
+"다 가져왔어요!" = "All imported!";
+/* Sources/DogMonitor/App/SetupFile.swift:520 */
+"다시 시작하면 그 맥의 캐릭모니터 그대로예요." = "After a restart, it'll be just like CharaMonitor on your other Mac.";
+/* Sources/DogMonitor/App/SetupFile.swift:532 */
+"가져온 설정은 저장됐어요. 캐릭모니터를 직접 다시 열어 주세요." = "The imported settings are saved. Please reopen CharaMonitor yourself.";
+/* Sources/DogMonitor/App/SetupFile.swift:532 */
+"다시 시작하지 못했어요" = "Couldn't restart";
+/* Sources/DogMonitor/App/SetupFile.swift:541 */
+"설정을 가져올 때마다 그 전 상태가 백업으로 남아요." = "Each time you import settings, your previous setup is kept as a backup.";
+/* Sources/DogMonitor/App/SetupFile.swift:541 */
+"아직 백업이 없어요" = "No backups yet";
+/* Sources/DogMonitor/App/SetupFile.swift:551 */
+"짠! 내 설정 그대로 이사 왔어요. 여기서도 잘 부탁해요!" = "Ta-da! Moved in with all your settings. Happy to be here!";
+/* Sources/DogMonitor/App/SpeechBubble.swift:388 */
 "닫기" = "Close";
-/* Sources/DogMonitor/App/StatusItemController.swift:233 */
+/* Sources/DogMonitor/App/StatusItemController.swift:227 */
 " · 메모리 %lld%%" = " · Memory %lld%%";
-/* Sources/DogMonitor/App/StatusItemController.swift:234 */
+/* Sources/DogMonitor/App/StatusItemController.swift:228 */
 " (압력 %lld%%)" = " (pressure %lld%%)";
-/* Sources/DogMonitor/App/StatusItemController.swift:451 */
+/* Sources/DogMonitor/App/StatusItemController.swift:445 */
 "대시보드 열기" = "Open dashboard";
-/* Sources/DogMonitor/App/StatusItemController.swift:452 */
+/* Sources/DogMonitor/App/StatusItemController.swift:446 */
 "활성 상태 보기" = "Activity Monitor";
-/* Sources/DogMonitor/App/StatusItemController.swift:453 */
+/* Sources/DogMonitor/App/StatusItemController.swift:447 */
 "종료" = "Quit";
-/* Sources/DogMonitor/App/StatusItemController.swift:457 */
-"데스크톱 친구" = "Desktop Friends";
-/* Sources/DogMonitor/App/StatusItemController.swift:483 */
-"집중 그만하기" = "Stop Focus";
-/* Sources/DogMonitor/App/StatusItemController.swift:483 */
-"집중 시작" = "Start focus";
-/* Sources/DogMonitor/App/Tour.swift:18 */
+/* Sources/DogMonitor/App/Tour.swift:20 */
 "(1/4) 맥이 바쁘면 내가 뛰고, 한가하면 쉬어. 말풍선을 누르면 다음 이야기야." = "(1/4) When your Mac is busy I run, and when it's quiet I rest. Click this bubble for more.";
-/* Sources/DogMonitor/App/Tour.swift:19 */
+/* Sources/DogMonitor/App/Tour.swift:21 */
 "(1/4) 맥이 바쁘면 제가 뛰고, 한가하면 쉬어요. 말풍선을 누르면 다음 이야기예요." = "(1/4) When your Mac is busy I run, and when it's quiet I rest. Click this bubble for more.";
-/* Sources/DogMonitor/App/Tour.swift:20 */
+/* Sources/DogMonitor/App/Tour.swift:22 */
 "(2/4) 메뉴바의 나를 누르면 대시보드가 열려." = "(2/4) Click me in the menu bar to open the dashboard.";
-/* Sources/DogMonitor/App/Tour.swift:20 */
+/* Sources/DogMonitor/App/Tour.swift:22 */
 "(2/4) 메뉴바의 저를 누르면 대시보드가 열려요." = "(2/4) Click me in the menu bar to open the dashboard.";
-/* Sources/DogMonitor/App/Tour.swift:21 */
+/* Sources/DogMonitor/App/Tour.swift:23 */
 "(3/4) 캐릭터는 대시보드의 캐릭터 선택에서 바꿀 수 있어." = "(3/4) You can switch characters in Choose character on the dashboard.";
-/* Sources/DogMonitor/App/Tour.swift:21 */
+/* Sources/DogMonitor/App/Tour.swift:23 */
 "(3/4) 캐릭터는 대시보드의 캐릭터 선택에서 바꿀 수 있어요." = "(3/4) You can switch characters in Choose character on the dashboard.";
-/* Sources/DogMonitor/App/Tour.swift:22 */
+/* Sources/DogMonitor/App/Tour.swift:24 */
 "(4/4) 대시보드의 AI 비서에서 나한테 말 걸어 봐." = "(4/4) Talk to me in AI Assistant on the dashboard.";
-/* Sources/DogMonitor/App/Tour.swift:22 */
+/* Sources/DogMonitor/App/Tour.swift:24 */
 "(4/4) 대시보드의 AI 비서에서 저한테 말 걸어 보세요." = "(4/4) Talk to me in AI Assistant on the dashboard.";
-/* Sources/DogMonitor/App/Tour.swift:62 */
+/* Sources/DogMonitor/App/Tour.swift:67 */
 "날씨 창문이 수정구슬이 됐고, 풀밭 친구들이 누르면 반응해요. 설정 > 사용법에서 전부 볼 수 있어요." = "New: the weather window is a crystal ball, and the meadow friends react when you click them. See it all in Settings > How to use.";
-/* Sources/DogMonitor/App/Tour.swift:88 */
+/* Sources/DogMonitor/App/Tour.swift:93 */
 "업데이트됐어요! " = "Updated! ";
 /* Sources/DogMonitor/App/Updater.swift:22 */
 "업데이트 주소가 캐릭모니터 사이트가 아니에요." = "The update address isn't the CharaMonitor site.";
@@ -322,39 +1032,43 @@
 "새 버전으로 다시 켜는 중…" = "Restarting with the new version…";
 /* Sources/DogMonitor/App/Updater.swift:349 */
 "%@ 사이트에서 새 버전을 받아 주세요." = "Please download the new version from the %@ site.";
-/* Sources/DogMonitor/App/WeatherWindow.swift:249 */
-"다른 도시 검색…" = "Search another city…";
-/* Sources/DogMonitor/App/WeatherWindow.swift:250 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:19 */
+"꼬마" = "Tiny";
+/* Sources/DogMonitor/App/WeatherWindow.swift:279 */
 "도시 바꾸기 (%@)" = "Change city (%@)";
-/* Sources/DogMonitor/App/WeatherWindow.swift:253 */
-"실제 날씨" = "Real weather";
-/* Sources/DogMonitor/App/WeatherWindow.swift:257 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:281 */
+"다른 도시 검색…" = "Search another city…";
+/* Sources/DogMonitor/App/WeatherWindow.swift:282 */
 "날씨 미리보기" = "Weather preview";
-/* Sources/DogMonitor/App/WeatherWindow.swift:258 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:283 */
+"실제 날씨" = "Real weather";
+/* Sources/DogMonitor/App/WeatherWindow.swift:285 */
 "밤으로 보기" = "Show as night";
-/* Sources/DogMonitor/App/WeatherWindow.swift:264 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:287 */
+"받침 색" = "Base color";
+/* Sources/DogMonitor/App/WeatherWindow.swift:288 */
+"온도 보이기" = "Show temperature";
+/* Sources/DogMonitor/App/WeatherWindow.swift:289 */
 "창 크기" = "Window size";
-/* Sources/DogMonitor/App/WeatherWindow.swift:265 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:290 */
 "항상 위에 두기" = "Always on top";
-/* Sources/DogMonitor/App/WeatherWindow.swift:266 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:291 */
 "위치 초기화" = "Reset position";
-/* Sources/DogMonitor/App/WeatherWindow.swift:268 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:293 */
 "날씨 창문 닫기" = "Close weather window";
-/* Sources/DogMonitor/App/WeatherWindow.swift:299 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:301 */
 "어느 도시의 날씨를 볼까요?" = "Which city's weather should we show?";
-/* Sources/DogMonitor/App/WeatherWindow.swift:300 */
-"도시 이름을 한글이나 영어로 적어 주세요." = "Type a city name in Korean or English.";
 /* Sources/DogMonitor/App/WeatherWindow.swift:302 */
-"예: 춘천, Tokyo, Paris" = "e.g. Chuncheon, Tokyo, Paris";
+"도시 이름을 한글이나 영어로 적어 주세요." = "Type a city name in Korean or English.";
 /* Sources/DogMonitor/App/WeatherWindow.swift:304 */
+"예: 춘천, Tokyo, Paris" = "e.g. Chuncheon, Tokyo, Paris";
+/* Sources/DogMonitor/App/WeatherWindow.swift:306 */
 "찾기" = "Find";
-/* Sources/DogMonitor/App/WeatherWindow.swift:305 */
-"취소" = "Cancel";
-/* Sources/DogMonitor/App/WeatherWindow.swift:315 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:317 */
 "'%@' 도시를 찾지 못했어요." = "Couldn't find the city '%@'.";
-/* Sources/DogMonitor/App/WeatherWindow.swift:316 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:318 */
 "시나 군 이름, 또는 영어 이름으로 다시 찾아보세요." = "Try again with a city or county name, or its English name.";
-/* Sources/DogMonitor/App/WeatherWindow.swift:348 */
+/* Sources/DogMonitor/App/WeatherWindow.swift:351 */
 "날씨 창문: %@" = "Weather window: %@";
 /* Sources/DogMonitor/Assistant/AssistantCenter.swift:65 */
 "캘린더 접근이 꺼져 있어서 일정 알림을 껐어요. 비서 설정에서 다시 켜 주세요." = "Calendar access is off, so calendar alerts are turned off. Turn them back on in Assistant Settings.";
@@ -392,8 +1106,16 @@
 "한국어 음성이 없어요. 시스템 설정 > 손쉬운 사용 > 읽기 및 말하기 > 시스템 음성에서 한국어 음성(유나 등)을 받아 주세요." = "No Korean voice found. Download a Korean voice (like Yuna) in System Settings > Accessibility > Read & Speak > System voice.";
 /* Sources/DogMonitor/Assistant/AssistantModel.swift:59 */
 "이 맥" = "This Mac";
+/* Sources/DogMonitor/Assistant/AssistantModel.swift:90 */
+"자리를 비운 사이 맡긴 일이 남긴 카드예요." = "Cards left by tasks that ran while you were away.";
+/* Sources/DogMonitor/Assistant/AssistantModel.swift:90 */
+"확인 기다리는 일이에요." = "Waiting for your OK.";
+/* Sources/DogMonitor/Assistant/AssistantModel.swift:106 */
+"(연락처에서 한 명을 고름)" = "(연락처에서 한 명을 고름)";
 /* Sources/DogMonitor/Assistant/AssistantModel.swift:130 */
 "(이 맥 안에서만 답한 내용이라 기록하지 않음)" = "(answered on this Mac only, not kept)";
+/* Sources/DogMonitor/Assistant/AssistantModel.swift:174 */
+"비서 설정에서 '비서가 행동하기'를 켜면 메일·일정·쇼핑·항공권을 대신 준비해 줄 수 있어요." = "Turn on 'Let the assistant take action' in Assistant Settings and I can get mail, events, shopping and flights ready for you.";
 /* Sources/DogMonitor/Assistant/AssistantPrompt.swift:13 */
 "캐릭터 기본" = "Character default";
 /* Sources/DogMonitor/Assistant/AssistantPrompt.swift:14 */
@@ -760,6 +1482,26 @@
 "지금은 %@이야." = "It's %@.";
 /* Sources/DogMonitor/Assistant/ChatEngine.swift:237 */
 "지금은 %@이에요." = "It's %@.";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:244 */
+"그저께는" = "The day before yesterday was";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:244 */
+"글피는" = "Three days from now is";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:244 */
+"내일은" = "Tomorrow is";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:244 */
+"모레는" = "The day after tomorrow is";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:244 */
+"어제는" = "Yesterday was";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:244 */
+"오늘은" = "Today is";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:245 */
+"%@ %@이야." = "%1$@ %2$@.";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:245 */
+"%@ %@이었어." = "%1$@ %2$@.";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:245 */
+"%@ %@이었어요." = "%1$@ %2$@.";
+/* Sources/DogMonitor/Assistant/ChatEngine.swift:245 */
+"%@ %@이에요." = "%1$@ %2$@.";
 /* Sources/DogMonitor/Assistant/ChatEngine.swift:246 */
 "환율이나 시세는 실시간 정보라 지금 알 수 없어. 은행이나 증권 앱에서 확인해 줘." = "Exchange rates and prices are live data, so I can't know them now. Check your bank or stocks app.";
 /* Sources/DogMonitor/Assistant/ChatEngine.swift:246 */
@@ -1504,8 +2246,6 @@
 "버전을 읽지 못했어요. 소프트웨어 업데이트에서 확인해 주세요" = "Couldn't read the version. Check in Software Update";
 /* Sources/DogMonitor/Metrics/SecurityRules.swift:178 */
 "꺼져 있어 확인 안 된 앱도 그냥 열려요" = "It's off, so unverified apps open too";
-/* Sources/DogMonitor/Metrics/SecurityRules.swift:179 */
-"설정 열기" = "Open Settings";
 /* Sources/DogMonitor/Metrics/SecurityRules.swift:180 */
 "상태를 읽지 못했어요" = "Couldn't read the status";
 /* Sources/DogMonitor/Metrics/SecurityRules.swift:180 */
@@ -1697,118 +2437,150 @@
 /* Sources/DogMonitor/Metrics/WeatherService.swift:34 */
 "천둥 번개" = "Thunderstorm";
 /* Sources/DogMonitor/Metrics/WeatherService.swift:41 */
-"맑아" = "clear";
+"오늘 산책 각이에요" = "Perfect day for a walk";
 /* Sources/DogMonitor/Metrics/WeatherService.swift:41 */
+"햇살 냠냠, 기분 좋아요!" = "Soaking up the sun, feels great!";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:42 */
+"구름이 풍선 같아요" = "The clouds look like balloons";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:42 */
+"해님이랑 숨바꼭질 중이에요" = "Playing hide-and-seek with the sun";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:43 */
+"구름 뒤에 해님 숨었어요" = "The sun is hiding behind the clouds";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:43 */
+"포근한 회색 하늘이에요" = "A cozy gray sky";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:44 */
+"뿌연 게 솜사탕 같아요" = "So hazy, like cotton candy";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:44 */
+"어디 있어요? 손전등 켰어요" = "Where are you? I turned on my flashlight";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:45 */
+"우산 챙겼어요?" = "Got your umbrella?";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:45 */
+"찰박찰박 재밌어요" = "Splish splash, so fun";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:46 */
+"눈사람 만들고 싶어요" = "I want to build a snowman";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:46 */
+"발 시려요" = "My feet are cold";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:47 */
+"꼭 안아 주세요" = "Hold me tight, please";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:47 */
+"쾅! 무서워요…" = "Boom! I'm scared…";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:52 */
+"좋은 꿈 꿀게요" = "Off to sweet dreams";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:52 */
+"쿨쿨… 깨우지 마요" = "Zzz… don't wake me";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:57 */
+"맑아" = "clear";
+/* Sources/DogMonitor/Metrics/WeatherService.swift:57 */
 "맑아요" = "clear";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:42 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:58 */
 "구름이 조금 있어" = "partly cloudy";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:42 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:58 */
 "구름이 조금 있어요" = "partly cloudy";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:43 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:59 */
 "흐려" = "cloudy";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:43 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:59 */
 "흐려요" = "cloudy";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:44 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:60 */
 "안개가 꼈어" = "foggy";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:44 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:60 */
 "안개가 꼈어요" = "foggy";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:45 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:61 */
 "비가 와" = "raining";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:45 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:61 */
 "비가 와요" = "raining";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:46 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:62 */
 "눈이 와" = "snowing";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:46 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:62 */
 "눈이 와요" = "snowing";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:47 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:63 */
 "천둥 번개가 쳐" = "stormy with thunder";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:47 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:63 */
 "천둥 번개가 쳐요" = "stormy with thunder";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:63 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:79 */
 "서울" = "Seoul";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:63 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:79 */
 "인천" = "Incheon";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:64 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:80 */
 "수원" = "Suwon";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:64 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:80 */
 "춘천" = "Chuncheon";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:65 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:81 */
 "강릉" = "Gangneung";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:65 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:81 */
 "대전" = "Daejeon";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:66 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:82 */
 "전주" = "Jeonju";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:66 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:82 */
 "청주" = "Cheongju";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:67 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:83 */
 "광주" = "Gwangju";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:67 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:83 */
 "대구" = "Daegu";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:68 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:84 */
 "부산" = "Busan";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:68 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:84 */
 "울산" = "Ulsan";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:69 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:85 */
 "제주" = "Jeju";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:157 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:173 */
 "지금 %@ 날씨는 %lld도이고 %@. 오늘 최고 %lld도, 최저 %lld도야." = "It's %2$lld° in %1$@ right now and %3$@. Today's high is %4$lld°, low %5$lld°.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:158 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:174 */
 "지금 %@ 날씨는 %lld도이고 %@. 오늘 최고 %lld도, 최저 %lld도예요." = "It's %2$lld° in %1$@ right now and %3$@. Today's high is %4$lld°, low %5$lld°.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:160 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:176 */
 "이따 비 소식이 있으니 우산 챙겨." = "Rain is on the way later, so take an umbrella.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:160 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:176 */
 "이따 비 소식이 있으니 우산 챙기세요." = "Rain is on the way later, so take an umbrella.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:163 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:179 */
 "내일 %@ 날씨는 최고 %lld도, 최저 %lld도야." = "Tomorrow in %1$@: high %2$lld°, low %3$lld°.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:163 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:179 */
 "내일 %@ 날씨는 최고 %lld도, 최저 %lld도예요." = "Tomorrow in %1$@: high %2$lld°, low %3$lld°.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:164 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:180 */
 "눈 소식이 있어." = "Snow is expected.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:164 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:180 */
 "눈 소식이 있어요." = "Snow is expected.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:164 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:180 */
 "비 소식이 있어." = "Rain is expected.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:164 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:180 */
 "비 소식이 있어요." = "Rain is expected.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:165 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:181 */
 "비 소식은 없어." = "No rain expected.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:165 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:181 */
 "비 소식은 없어요." = "No rain expected.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:176 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:192 */
 "오늘 %@에 비 소식이 있어. 나갈 때 우산 챙겨." = "Rain is expected in %@ today. Take an umbrella when you go out.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:176 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:192 */
 "오늘 %@에 비 소식이 있어요. 나갈 때 우산 챙기세요." = "Rain is expected in %@ today. Take an umbrella when you go out.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:177 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:193 */
 "이따 비가 올 것 같아. 가방에 우산 하나 넣어 두자." = "Looks like rain later. Pop an umbrella in your bag.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:177 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:193 */
 "이따 비가 올 것 같아요. 가방에 우산 하나 넣어 두세요." = "Looks like rain later. Pop an umbrella in your bag.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:182 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:198 */
 "오늘 %@에 눈 소식이 있어. 길이 미끄러우니 천천히 걷자." = "Snow is expected in %@ today. Roads get slippery, so walk slowly.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:182 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:198 */
 "오늘 %@에 눈 소식이 있어요. 길이 미끄러우니 천천히 걸으세요." = "Snow is expected in %@ today. Roads get slippery, so walk slowly.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:183 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:199 */
 "눈이 올 것 같아. 따뜻한 신발 신고 나가." = "Looks like snow. Wear warm shoes when you head out.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:183 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:199 */
 "눈이 올 것 같아요. 따뜻한 신발 신고 나가세요." = "Looks like snow. Wear warm shoes when you head out.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:188 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:204 */
 "오늘 최저 %lld도, 영하야. 두꺼운 겉옷 꼭 입어." = "Today's low is %lld°, below freezing. Wear a thick coat.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:188 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:204 */
 "오늘 최저 %lld도로 영하예요. 두꺼운 겉옷 꼭 입으세요." = "Today's low is %lld°, below freezing. Wear a thick coat.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:189 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:205 */
 "밖은 영하래. 장갑이랑 겉옷 챙겨." = "It's below freezing outside. Grab gloves and a coat.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:189 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:205 */
 "밖은 영하래요. 장갑이랑 겉옷 챙기세요." = "It's below freezing outside. Grab gloves and a coat.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:194 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:210 */
 "오늘 낮 최고 %lld도까지 올라. 물 자주 마셔." = "It climbs to %lld° today. Drink water often.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:194 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:210 */
 "오늘 낮 최고 %lld도까지 올라요. 물 자주 드세요." = "It climbs to %lld° today. Drink water often.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:195 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:211 */
 "많이 더운 날이야. 물병 하나 곁에 두자." = "It's a hot one today. Keep a water bottle nearby.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:195 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:211 */
 "많이 더운 날이에요. 물병 하나 곁에 두세요." = "It's a hot one today. Keep a water bottle nearby.";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:370 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:389 */
 "%@ · 불러오는 중" = "%@ · Loading";
-/* Sources/DogMonitor/Metrics/WeatherService.swift:370 */
+/* Sources/DogMonitor/Metrics/WeatherService.swift:389 */
 "%@ · 연결 안 됨" = "%@ · Offline";
 /* Sources/DogMonitor/Models.swift:100 */
 "쿨쿨 자는 중" = "Fast asleep";
@@ -1824,7 +2596,7 @@
 "전속력 질주!" = "Full speed ahead!";
 /* Sources/DogMonitor/Models.swift:106 */
 "헉헉 땀 뻘뻘" = "Panting hard";
-/* Sources/DogMonitor/Models.swift:195 */
+/* Sources/DogMonitor/Models.swift:215 */
 "내 캐릭터" = "My character";
 /* Sources/DogMonitor/Pet/PetModel.swift:162 */
 "밥 먹을 시간 지난 것 같아요. 밥 주세요!" = "I think it's past mealtime. Feed me, please!";
@@ -2096,16 +2868,10 @@
 "도트" = "Pixel";
 /* Sources/DogMonitor/Sprite/RealSprite.swift:11 */
 "실사" = "Realistic";
-/* Sources/DogMonitor/Sprite/RealSprite.swift:18 */
-"작게" = "Small";
-/* Sources/DogMonitor/Sprite/RealSprite.swift:20 */
-"크게" = "Large";
 /* Sources/DogMonitor/Sprite/RealSprite.swift:38 */
 "얇게" = "Thin";
 /* Sources/DogMonitor/Sprite/RealSprite.swift:39 */
 "진하게" = "Bold";
-/* Sources/DogMonitor/Sprite/RenderStyle.swift:12 */
-"자동" = "Auto";
 /* Sources/DogMonitor/Sprite/RenderStyle.swift:14 */
 "일러스트" = "Illustration";
 /* Sources/DogMonitor/Sprite/RenderStyle.swift:20 */
@@ -2114,6 +2880,22 @@
 "모든 캐릭터를 또렷한 도트로 보여 줘요" = "Shows every character as crisp pixel art";
 /* Sources/DogMonitor/Sprite/RenderStyle.swift:22 */
 "도트 그림은 매끈하게, 사진 캐릭터는 실사로 보여 줘요" = "Smooths pixel art and shows photo characters as photos";
+/* Sources/DogMonitor/UI/AgentCardView.swift:38 */
+"2차 검토: %@" = "Second check: %@";
+/* Sources/DogMonitor/UI/AgentCardView.swift:58 */
+"보내는 계정" = "From account";
+/* Sources/DogMonitor/UI/AgentCardView.swift:59 */
+"(제목 없음)" = "(No subject)";
+/* Sources/DogMonitor/UI/AgentCardView.swift:65 */
+"언제" = "When";
+/* Sources/DogMonitor/UI/AgentCardView.swift:66 */
+"어디" = "Where";
+/* Sources/DogMonitor/UI/AgentCardView.swift:67 */
+"초대는 캘린더 앱에서 보낼 수 있어요" = "You can send invites from the Calendar app";
+/* Sources/DogMonitor/UI/AgentCardView.swift:75 */
+"내용" = "Message";
+/* Sources/DogMonitor/UI/AgentCardView.swift:80 */
+"메시지 앱으로 바로 보내요" = "Sends right away with Messages";
 /* Sources/DogMonitor/UI/AgentCardView.swift:84 */
 "사이트" = "Site";
 /* Sources/DogMonitor/UI/AgentCardView.swift:86 */
@@ -2124,14 +2906,132 @@
 "값" = "Value";
 /* Sources/DogMonitor/UI/AgentCardView.swift:91 */
 "이동할 곳" = "Goes to";
+/* Sources/DogMonitor/UI/AgentCardView.swift:93 */
+"Enter로 제출해요" = "Submits with Enter";
+/* Sources/DogMonitor/UI/AgentCardView.swift:93 */
+"그다음" = "Then";
+/* Sources/DogMonitor/UI/AgentCardView.swift:97 */
+"카카오톡은 직접 보낼 수 없어서, 복사해 두고 카카오톡을 열어 줄게요" = "I can't send KakaoTalk messages myself, so I'll copy it and open KakaoTalk for you";
+/* Sources/DogMonitor/UI/AgentCardView.swift:99 */
+"찾을 것" = "Looking for";
+/* Sources/DogMonitor/UI/AgentCardView.swift:101 */
+"네이버쇼핑" = "Naver Shopping";
+/* Sources/DogMonitor/UI/AgentCardView.swift:102 */
+"쿠팡" = "Coupang";
+/* Sources/DogMonitor/UI/AgentCardView.swift:104 */
+"주문과 결제는 직접 해 주세요" = "Please place the order and pay yourself";
+/* Sources/DogMonitor/UI/AgentCardView.swift:106 */
+"구간" = "Route";
+/* Sources/DogMonitor/UI/AgentCardView.swift:107 */
+" (편도)" = " (one way)";
+/* Sources/DogMonitor/UI/AgentCardView.swift:108 */
+"어른 %lld명" = "Adults: %lld";
+/* Sources/DogMonitor/UI/AgentCardView.swift:108 */
+"인원" = "Travelers";
+/* Sources/DogMonitor/UI/AgentCardView.swift:110 */
+"네이버 항공권" = "Naver Flights";
+/* Sources/DogMonitor/UI/AgentCardView.swift:111 */
+"스카이스캐너" = "Skyscanner";
+/* Sources/DogMonitor/UI/AgentCardView.swift:112 */
+"구글" = "Google";
+/* Sources/DogMonitor/UI/AgentCardView.swift:115 */
+"탑승객 정보와 결제는 직접 해 주세요" = "Passenger details and payment are up to you";
+/* Sources/DogMonitor/UI/AgentCardView.swift:117 */
+"맡길 일" = "Task";
+/* Sources/DogMonitor/UI/AgentCardView.swift:120 */
+"상품" = "Product";
+/* Sources/DogMonitor/UI/AgentCardView.swift:121 */
+"%@ 이하가 되면" = "When it drops to %@ or less";
+/* Sources/DogMonitor/UI/AgentCardView.swift:121 */
+"%lld%% 넘게 내리면" = "When it drops more than %lld%%";
+/* Sources/DogMonitor/UI/AgentCardView.swift:121 */
+"가격이 내리면" = "When the price drops";
+/* Sources/DogMonitor/UI/AgentCardView.swift:122 */
+"AI를 쓰지 않고 네이버쇼핑 가격만 봐요. 맥이 켜져 있을 때 확인해요" = "Checks Naver Shopping prices only, no AI. Checks while your Mac is on";
+/* Sources/DogMonitor/UI/AgentCardView.swift:125 */
+"%lld시간마다 (하루 약 %lld번 내 AI 사용)" = "Every %lld hr (uses your AI about %lld times a day)";
+/* Sources/DogMonitor/UI/AgentCardView.swift:125 */
+"확인 주기" = "How often";
+/* Sources/DogMonitor/UI/AgentCardView.swift:126 */
+"자리를 비운 동안엔 찾아보기만 하고, 할 일은 카드로 남겨요" = "While you're away, I only look things up and leave to-dos as cards";
+/* Sources/DogMonitor/UI/AgentCardView.swift:129 */
+"기억할 것" = "To remember";
+/* Sources/DogMonitor/UI/AgentCardView.swift:131 */
+"방금 한 일을 되돌릴게요" = "I'll undo what I just did";
+/* Sources/DogMonitor/UI/AgentCardView.swift:141 */
+"주소를 직접 입력" = "Enter address yourself";
+/* Sources/DogMonitor/UI/AgentCardView.swift:144 */
+"받은 메일에서 나온 주소예요: %@" = "This address came from a received email: %@";
 /* Sources/DogMonitor/UI/AgentCardView.swift:173 */
 "전체 주소 보기" = "Show the full address";
 /* Sources/DogMonitor/UI/AgentCardView.swift:173 */
 "주소 접기" = "Collapse the address";
+/* Sources/DogMonitor/UI/AgentCardView.swift:192 */
+"10초 뒤에 보내요" = "Sending in 10 seconds";
+/* Sources/DogMonitor/UI/AgentCardView.swift:192 */
+"하는 중이에요" = "Working on it";
+/* Sources/DogMonitor/UI/AgentCardView.swift:193 */
+"보내지 않기" = "Don't send";
+/* Sources/DogMonitor/UI/AgentCardView.swift:197 */
+"이 일은 안전을 위해 하지 않아요" = "For your safety, I won't do this";
 /* Sources/DogMonitor/UI/AgentCardView.swift:220 */
 "되돌리기" = "Undo";
+/* Sources/DogMonitor/UI/AgentCardView.swift:229 */
+"시간이 지나서 취소됐어요. 다시 부탁해 주세요" = "Timed out and canceled. Please ask again";
+/* Sources/DogMonitor/UI/AgentCardView.swift:234 */
+"그래도 진행" = "Go ahead anyway";
+/* Sources/DogMonitor/UI/AgentCardView.swift:237 */
+"쓰기 창 열기" = "Open draft";
 /* Sources/DogMonitor/UI/AgentCardView.swift:239 */
 "보내기" = "Send";
+/* Sources/DogMonitor/UI/AgentCardView.swift:240 */
+"만들기" = "Create";
+/* Sources/DogMonitor/UI/AgentCardView.swift:241 */
+"완료로 표시" = "Mark as done";
+/* Sources/DogMonitor/UI/AgentCardView.swift:242 */
+"준비하기" = "Prepare";
+/* Sources/DogMonitor/UI/AgentCardView.swift:243 */
+"찾아보기" = "Look up";
+/* Sources/DogMonitor/UI/AgentCardView.swift:244 */
+"기억하기" = "Remember";
+/* Sources/DogMonitor/UI/AgentCardView.swift:249 */
+"하기" = "Do it";
+/* Sources/DogMonitor/UI/AgentCardView.swift:255 */
+"열기" = "Open";
+/* Sources/DogMonitor/UI/AgentCardView.swift:256 */
+"누르기" = "Click";
+/* Sources/DogMonitor/UI/AgentCardView.swift:257 */
+"입력하기" = "Type";
+/* Sources/DogMonitor/UI/AgentCardView.swift:258 */
+"고르기" = "Select";
+/* Sources/DogMonitor/UI/AgentCardView.swift:264 */
+"메일 앱 쓰기 창 (보내기는 직접)" = "Mail app draft (you send it)";
+/* Sources/DogMonitor/UI/AgentCardView.swift:265 */
+"(찾을 수 없는 계정)" = "(Account not found)";
+/* Sources/DogMonitor/UI/AgentCardView.swift:270 */
+"일정 추가" = "Add event";
+/* Sources/DogMonitor/UI/AgentCardView.swift:271 */
+"미리알림 추가" = "Add reminder";
+/* Sources/DogMonitor/UI/AgentCardView.swift:272 */
+"미리알림 완료" = "Complete reminder";
+/* Sources/DogMonitor/UI/AgentCardView.swift:273 */
+"메일 보내기" = "Send email";
+/* Sources/DogMonitor/UI/AgentCardView.swift:274 */
+"메일 답장" = "Reply to email";
+/* Sources/DogMonitor/UI/AgentCardView.swift:275 */
+"문자 준비" = "Prepare text";
+/* Sources/DogMonitor/UI/AgentCardView.swift:276 */
+"카카오톡 준비" = "Prepare KakaoTalk";
+/* Sources/DogMonitor/UI/AgentCardView.swift:277 */
+"상품 찾기" = "Find products";
+/* Sources/DogMonitor/UI/AgentCardView.swift:278 */
+"항공권 찾기" = "Find flights";
+/* Sources/DogMonitor/UI/AgentCardView.swift:279 */
+"맡긴 일" = "Tasks";
+/* Sources/DogMonitor/UI/AgentCardView.swift:282 */
+"문자 보내기" = "Send text";
+/* Sources/DogMonitor/UI/AgentCardView.swift:283 */
+"웹에서 하기" = "Do on the web";
 /* Sources/DogMonitor/UI/AgentCardView.swift:324 */
 "주소에 보이지 않는 제어 문자(글자 방향 바꾸기 등)가 있어서 하지 않아요" = "The address has invisible control characters (such as text direction changes), so I won't do this";
 /* Sources/DogMonitor/UI/AgentCardView.swift:325 */
@@ -2146,8 +3046,100 @@
 "주소에 역슬래시가 있어 실제로 가는 곳이 다를 수 있어서 하지 않아요" = "The address has a backslash and may not go where it seems, so I won't do this.";
 /* Sources/DogMonitor/UI/AgentCardView.swift:412 */
 "사이트 이름 앞에 @가 있어 실제로 가는 곳이 다를 수 있어서 하지 않아요" = "The address has an @ before the site name and may not go where it seems, so I won't do this.";
+/* Sources/DogMonitor/UI/AgentCardView.swift:473 */
+"직접 쓴 주소" = "Address you typed";
+/* Sources/DogMonitor/UI/AgentCardView.swift:474 */
+"연락처" = "Contacts";
+/* Sources/DogMonitor/UI/AgentCardView.swift:475 */
+"가리킨 메일의 보낸 사람" = "Sender of the email you pointed to";
+/* Sources/DogMonitor/UI/AgentCardView.swift:476 */
+"기억한 정보" = "Remembered info";
+/* Sources/DogMonitor/UI/AgentCardView.swift:477 */
+"확인 필요" = "Needs checking";
+/* Sources/DogMonitor/UI/AgentCardView.swift:483 */
+"%lld분 안에 확인" = "Confirm within %lld min";
+/* Sources/DogMonitor/UI/AgentCardView.swift:483 */
+"%lld시간 안에 확인" = "Confirm within %lld hr";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:21 */
+"비서가 행동하기" = "Let the assistant take action";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:28 */
+"메일 보내기, 일정·미리알림 추가, 쇼핑·항공권 찾기, 가격 지켜보기를 대신 준비해요. 하기 전에 카드로 보여 주고, 확인해야 실행해요. 결제와 송금은 언제나 직접 해요." = "I prepare emails, events and reminders, shopping and flight searches, and price watches for you. I show a card first and only act once you confirm. Payments and transfers are always up to you.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:30 */
+"먼저 위의 '내 AI 연결'에서 Claude, ChatGPT 또는 Gemini를 연결해 주세요. 계획은 연결한 AI가 세워요." = "First connect Claude, ChatGPT or Gemini in 'Connect my AI' above. Your connected AI makes the plans.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:42 */
+"켜기 전에 확인해 주세요" = "Please read before turning on";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:43 */
+"내 AI" = "My AI";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:43 */
+"부탁한 말과 오늘 날짜는 연결한 AI(%@)로 보내져요." = "What you ask and today's date are sent to your connected AI (%@).";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:44 */
+"비서 설정에서 '일정도 내 AI로'를 켰다면 일정 제목도 보내져요." = "If 'Messages and schedule to my AI too' is on in Assistant Settings, event titles are sent too.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:45 */
+"비밀번호와 카드 번호는 AI로 보내지 않아요. 연락처 주소는 메일을 보낼 때 메일 서버로만 가요." = "Passwords and card numbers are never sent to AI. Contact addresses only go to the mail server when sending email.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:47 */
+"'받은 메시지·일정도 내 AI로'를 켜면 비서가 일을 하려고 일정, 메일 본문, 연락처의 메일·전화번호, 기억한 것을 연결한 AI로 읽을 수 있어요. 끄면 읽지 않아요." = "With 'Messages and schedule to my AI too' on, the assistant can read your events, email bodies, contact emails and phone numbers, and what it remembers through your connected AI to get things done. Turn it off and it won't.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:49 */
+"보내기·만들기는 카드에서 확인한 뒤에만 하고, 결제·송금·비밀번호 변경·본인인증은 하지 않아요." = "I only send or create after you confirm on a card, and I never handle payments, transfers, password changes or identity checks.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:50 */
+"자리를 비운 사이 맡긴 일은 찾아보기만 하고, 할 일은 카드로 남겨요." = "Tasks that run while you're away only look things up and leave to-dos as cards.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:52 */
+"에이전트 브라우저는 쇼핑·항공권 사이트를 열어 찾아보고, 장바구니 담기처럼 상태를 바꾸는 버튼은 확인받아 눌러요. 결제·로그인 화면이 나오면 멈추고 넘겨요." = "The agent browser opens shopping and flight sites to look around, and asks before clicking buttons that change things, like Add to cart. It stops and hands over at payment or sign-in screens.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:55 */
+"동의하고 켜기" = "Agree and turn on";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:67 */
+"행동 규칙" = "Action rules";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:85 */
+"메일은 언제나 확인해요(나에게 보내는 메일만 규칙으로 바로 보낼 수 있어요). 결제·송금·비밀번호는 설정과 상관없이 하지 않아요." = "Email always needs confirming (only emails to yourself can be sent right away by a rule). Payments, transfers and passwords are never handled, whatever the settings.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:89 */
+"에이전트 브라우저" = "Agent browser";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:90 */
+"사이트를 직접 열어 찾고 비교해요. 로그인은 이 창에서 한 번 해 두면 기억해요." = "Opens sites to search and compare. Sign in once in this window and it remembers.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:105 */
+"\"3만 원 아래로 내려가면 알려줘\"처럼 부탁하면 여기에 생겨요. 맥이 켜져 있을 때 확인해요." = "Ask something like \"Tell me when it drops below 30,000 won\" and it shows up here. Checks while your Mac is on.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:115 */
+"다시" = "Resume";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:117 */
+"직접 멈춤" = "Paused by you";
 /* Sources/DogMonitor/UI/AgentSettingsPanel.swift:119 */
 "지우기" = "Delete";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:128 */
+"%@ 이하" = "%@ or less";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:128 */
+"%lld%% 하락" = "%lld%% drop";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:128 */
+"새 최저가" = "New lowest price";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:135 */
+"다음 확인 %@" = "Next check %@";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:136 */
+"확인 기다리는 카드가 있어요" = "A card is waiting for you";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:137 */
+" (%@까지)" = " (until %@)";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:137 */
+"멈춤: %@" = "Paused: %@";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:138 */
+"끝났어요" = "Done";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:147 */
+"기억한 것" = "Remembered";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:148 */
+"\"내 배송지는 회사로 기억해\"처럼 말하면 기억해요. AI에 보여 줄지 고를 수 있어요." = "Say something like \"Remember my shipping address is my office\" and I'll remember. You choose whether AI can see it.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:153 */
+"AI에 보여주기" = "Show to AI";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:166 */
+"가격 확인 (선택)" = "Price check (optional)";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:167 */
+"네이버 쇼핑 키가 있어요. 상품 찾기와 가격 지켜보기에 최저가를 보여 줘요." = "Naver Shopping key added. Lowest prices show in product search and price watches.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:168 */
+"네이버 개발자센터(developers.naver.com)에서 검색 API 애플리케이션을 만들면 받는 Client ID와 Secret을 넣으면, AI를 쓰지 않고 최저가를 보여 주고 가격을 지켜봐요." = "Create a Search API app at Naver Developers (developers.naver.com) and enter its Client ID and Secret to see lowest prices and watch prices without AI.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:172 */
+"저장" = "Save";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:176 */
+"저장했어요." = "Saved.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:178 */
+"저장하지 못했어요." = "Couldn't save.";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:192 */
+"행동 기록" = "Action log";
+/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:203 */
+"아직 기록이 없어요." = "Nothing logged yet.";
 /* Sources/DogMonitor/UI/AnimatedDog.swift:183 */
 "캐릭터 사진" = "Character photo";
 /* Sources/DogMonitor/UI/AssistantMailAccountsView.swift:21 */
@@ -2398,10 +3390,18 @@
 "저장 공간 괜찮아?" = "Is my storage OK?";
 /* Sources/DogMonitor/UI/AssistantView.swift:54 */
 "뒤로" = "Back";
+/* Sources/DogMonitor/UI/AssistantView.swift:66 */
+"확인 기다리는 일 %lld개" = "%lld to confirm";
 /* Sources/DogMonitor/UI/AssistantView.swift:117 */
 "답할 AI 고르기" = "Choose who answers";
 /* Sources/DogMonitor/UI/AssistantView.swift:133 */
 "방금은 연결이 안 돼서 이 맥이 답했어요: %@" = "Couldn't connect just now, so this Mac answered: %@";
+/* Sources/DogMonitor/UI/AssistantView.swift:150 */
+"생각 중이에요" = "is thinking";
+/* Sources/DogMonitor/UI/AssistantView.swift:154 */
+"브라우저 보기" = "Show browser";
+/* Sources/DogMonitor/UI/AssistantView.swift:155 */
+"멈추기" = "Stop";
 /* Sources/DogMonitor/UI/AssistantView.swift:174 */
 "무엇이든 물어보세요. 지금 맥의 숫자를 보고 답해요." = "Ask anything. Answers use your Mac's live stats.";
 /* Sources/DogMonitor/UI/AssistantView.swift:216 */
@@ -2646,9 +3646,9 @@
 "%lld일" = "%lldd";
 /* Sources/DogMonitor/UI/Components.swift:51 */
 "%lld일 %lld시간" = "%lldd %lldh";
-/* Sources/DogMonitor/UI/Components.swift:189 */
+/* Sources/DogMonitor/UI/Components.swift:193 */
 "사용량" = "Usage";
-/* Sources/DogMonitor/UI/Components.swift:211 */
+/* Sources/DogMonitor/UI/Components.swift:215 */
 "최근 1분 기록" = "Last minute";
 /* Sources/DogMonitor/UI/DashboardView.swift:116 */
 "켜진 지 %@" = "Up %@";
@@ -2734,100 +3734,178 @@
 "풀밭 친구들" = "Meadow Friends";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:18 */
 "바탕화면 러그" = "Desktop Rug";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:64 */
-"커서를 움직이면 걸어서 따라오고, 커서가 멀리 가면 뛰어와요. 멈추면 곁에서 기다리다 가끔 혼자 놀고, 충전 중엔 밥을 먹어요. 한동안 손을 안 대면 낮잠을 자요. (macOS는 시스템 커서 자체를 바꾸지 못하게 해서 따라다니는 친구로 만들었어요)" = "It walks after your cursor and runs when the cursor gets far ahead. When you stop, it waits nearby and plays now and then, and eats while charging. Leave the Mac alone for a while and it naps. (macOS doesn't let apps change the system cursor itself, so it's a friend that follows it instead)";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:75 */
-"빠르게 움직이면" = "When you move fast";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:82 */
-"혼자 놀기" = "Play on its own";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:19 */
+"복제 친구" = "Clone Friends";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:83 */
+"다들 쉬는 중이에요. 하나 깨워 볼까요?" = "Everyone's resting. Wake one up?";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:83 */
+"친구 %lld명이 나와 있어요" = "Friends out: %lld";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:86 */
-"혼자 놀기를 켜 두면 가끔 맨 앞 창의 위쪽 끝에 올라가 앉고, 나비를 쫓거나 커서에 매달리기도 해요. 앉을 자리는 창의 위치만 보고 찾아요. 창 안의 내용은 보지 않아요." = "With Play on its own on, it sometimes sits on the top edge of the front window, chases a butterfly or clings to your cursor. It finds a seat from the window's position only and never looks at what's inside the window.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:88 */
-"마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 한 번 누르면 반가워하고, 두 번 누르면 AI 비서가 열려요. 잡아 끌 수도 있고, 오른쪽 클릭은 메뉴예요." = "Whip the mouse around and it grows and leans. Shake it hard and it gets dizzy. Click once to say hi, double-click to open the AI assistant. You can drag it around, and right-click shows the menu.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:102 */
-"메뉴바 바로 아래 줄에 매달려 흔들려요. 잡아서 던지면 줄이 늘었다 튕기고, 누르면 풍경 소리가 나요. 끌어다 놓고 잠깐 멈췄다 놓으면 그 자리, 그 줄 길이로 다시 매달아요. 다른 화면으로 끌어 옮길 수도 있어요." = "They hang on strings right below the menu bar and sway. Grab and throw one and the string stretches and springs back. Click one to ring its chime. Drag one, hold still for a moment and let go to hang it there with that string length. You can drag them to another display too.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:111 */
-"몇 명" = "How many";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:118 */
-"바람" = "Wind";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:127 */
-"날씨 창문을 켜 두면 그 도시 바람을 따라요. 지금은 산들바람이에요" = "With the Weather Window on, they follow that city's wind. For now it's a light breeze";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:132 */
-"풍경 소리" = "Chime";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:136 */
-"들어보기" = "Listen";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:141 */
-"항상 위" = "On top";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:142 */
-"다른 창보다 위에 두기" = "Keep above other windows";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:145 */
-"줄 느낌" = "String feel";
+"불러보기 👋" = "Call them 👋";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:93 */
+"나와 있는 친구들이 모두 반응해요" = "Every friend that's out will react";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:113 */
+"🎃 오늘은 살짝 으스스하게" = "🎃 A little spooky today";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:114 */
+"🎄 포근한 12월이에요" = "🎄 A cozy December";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:115 */
+"좋은 아침이에요" = "Good morning";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:116 */
+"오늘도 같이 놀아요" = "Let's play together today";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:117 */
+"늦었어요, 살살 놀아요" = "It's late, let's play gently";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:135 */
+"커서를 졸졸 따라다녀요" = "Follows your cursor around";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:144 */
+"빠르게 움직이면" = "When you move fast";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:150 */
+"혼자 놀기" = "Play on its own";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:152 */
-"매다는 곳" = "Hang from";
+"커서를 움직이면 걸어서 따라오고, 커서가 멀리 가면 뛰어와요. 멈추면 곁에서 기다리다 가끔 혼자 놀고, 충전 중엔 밥을 먹어요. 한동안 손을 안 대면 낮잠을 자요." = "Walks after your cursor when it moves, and runs when it goes far. When you stop, it waits nearby and sometimes plays alone, and it eats while charging. Leave it alone for a while and it naps.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:153 */
-"화면 맨 위에서 매달기 (메뉴바 너머로 줄이 보여요)" = "The very top of the screen (strings show through the menu bar)";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:156 */
-"스치면" = "On touch";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:157 */
+"혼자 놀기를 켜 두면 가끔 맨 앞 창의 위쪽 끝에 올라가 앉고, 나비를 쫓거나 커서에 매달리기도 해요. 앉을 자리는 창의 위치만 보고 찾아요. 창 안의 내용은 보지 않아요." = "With Play on its own on, it sometimes sits on the top edge of the front window, chases a butterfly or clings to your cursor. It finds a seat from the window's position only and never looks at what's inside the window.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:154 */
+"마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 누를 때마다 여러 가지로 반응하고, 연달아 누르면 어질어질하다 삐쳐요. 꾸욱 누르고 있다 놓으면 폴짝 뛰고, 잡아서 휙 던지면 날아갔다 다시 돌아와요. ⌥ 누른 채 클릭하면 퀵물어보기, AI 비서와 메뉴는 오른쪽 클릭이에요." = "Swing the mouse fast and it grows and tilts. Shake it hard and it gets dizzy. It reacts differently each time you click, and clicking in a row makes it dizzy, then grumpy. Press and hold, then let go, and it hops. Grab and toss it and it flies off, then comes back. ⌥-click for Quick Ask, right-click for the AI Assistant and menu.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:155 */
+"macOS는 시스템 커서 자체를 바꾸지 못하게 해서 따라다니는 친구로 만들었어요." = "macOS doesn't allow changing the system cursor itself, so we made a friend that follows it instead.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:166 */
+"커서 친구를 복사해 바탕화면을 꾸며요" = "Copy your Cursor Buddy to decorate the desktop";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:169 */
+"몇 명" = "How many";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:172 */
+"하나 더" = "One more";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:181 */
+"어울리기" = "Play together";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:183 */
+"커서 친구를 오른쪽 클릭해서 '복제해서 바탕화면에 두기'를 누르면 똑같은 친구가 바탕화면에 생겨요. 8명까지 두고, 다시 켜도 그 자리에 있어요." = "Right-click your Cursor Buddy and choose 'Make a Copy on the Desktop' to put an identical friend on the desktop. You can have up to 8, and they stay put after a restart.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:184 */
+"혼자 산책하고 앉고 낮잠도 자요. 어울리기를 켜 두면 서로 인사하거나 쫓아다니고, 커서를 쳐다보거나 달려오고, 러그가 있으면 올라가 앉아요." = "They stroll, sit and nap on their own. With Play together on, they greet and chase each other, look at or run to the cursor, and sit on the rug if there is one.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:185 */
+"누르면 반응하고, 잡아서 옮기거나 휙 던질 수 있어요. 움직이기를 끄면 놓은 자리 그대로 장식이 돼요. 오른쪽 클릭으로 한 명씩 치울 수 있어요." = "Click to get a reaction, drag to move or toss them. Turn off Move Around and they stay where you put them as decorations. Right-click to remove them one by one.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:195 */
+"메뉴바에 매달려 살랑살랑" = "Swaying from the menu bar";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:198 */
+"메뉴바 바로 아래 줄에 매달려 흔들려요. 잡아서 던지면 줄이 늘었다 튕기고, 누르면 풍경 소리가 나요. 끌어다 놓고 잠깐 멈췄다 놓으면 그 자리, 그 줄 길이로 다시 매달아요. 다른 화면으로 끌어 옮길 수도 있어요." = "They hang on strings right below the menu bar and sway. Grab and throw one and the string stretches and springs back. Click one to ring its chime. Drag one, hold still for a moment and let go to hang it there with that string length. You can drag them to another display too.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:218 */
+"날씨 창문을 켜 두면 그 도시 바람을 따라요. 지금은 산들바람이에요" = "With the Weather Window on, they follow that city's wind. For now it's a light breeze";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:226 */
+"들어보기" = "Listen";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:230 */
+"항상 위" = "On top";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:231 */
+"줄 느낌" = "String feel";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:237 */
+"맨 위에서" = "From the top";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:239 */
+"화면 맨 위에서 매달기" = "Hang from the top of the screen";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:240 */
+"메뉴바 너머로 줄이 보여요" = "The string shows past the menu bar";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:243 */
+"스치면 흔들기" = "Swing on touch";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:243 */
 "커서가 스치면 흔들기" = "Swing when the cursor brushes past";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:164 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:249 */
 "장식" = "Charm";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:168 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:253 */
 "줄" = "String";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:179 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:271 */
 "누구" = "Who";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:180 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:272 */
 "지금 캐릭터" = "Current character";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:182 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:274 */
 "사진·스크린샷…" = "Photo or screenshot…";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:209 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:301 */
 "매달 사진이나 스크린샷을 골라 주세요" = "Pick a photo or screenshot to hang";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:250 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:338 */
+"독 위에서 통통 뛰놀아요" = "Bouncing around on the Dock";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:355 */
 "화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 포즈를 바꾸며 말을 걸고 옆 친구도 돌아봐요. 여러 번 누르면 어지러워하다 삐지고, 커서로 문지르면 쓰다듬어져요. ⌥ 누른 채 클릭하면 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요." = "Friends live along the bottom of the screen, just above the Dock. They bob in place and now and then stroll, sit or rest. Click one and it strikes a pose and says something, and its neighbour turns to look. Click it again and again and it gets dizzy, then sulks; rub it with the cursor to pet it. Option-click one for Quick Ask; pick one up and let go and it drops. Windows cover them.";
-/* 풀밭 친구들 clicked and petted (MeadowFriends), 퀵물어보기 help (DesktopSettingsView) */
-"커서 친구·복제 친구·풀밭 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구와 풀밭 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요." = "Option-click the Cursor Buddy, a copy friend or a meadow friend and a bubble opens. The Cursor Buddy and the meadow friends have it in their right-click menu too. It answers right away, without AI.";
-"퀵물어보기" = "Quick Ask";
-"다 같이 뛰기" = "Everyone hop";
-"그만 눌러요, 흥!" = "Stop poking me, hmph!";
-"이제 안 놀아 줄 거예요" = "I'm not playing with you anymore";
-"냠냠, 맛있어요" = "Nom nom, yummy";
-"간식 먹는 중이에요" = "I'm having a snack";
-"잠깐 앉아서 쉴래요" = "I'll sit and rest a bit";
-"풀밭이 폭신해요" = "The grass is so soft";
-"헤헤, 불렀어요?" = "Hehe, you called?";
-"안녕! 오늘도 같이 놀아요" = "Hi! Let's play today too";
-"간지러워요" = "That tickles";
-"뭐 하고 있어요?" = "What are you up to?";
-"저 여기 있어요!" = "I'm right here!";
-"쓰담쓰담 좋아요" = "I love being petted";
-"헤헤, 기분 좋아요" = "Hehe, that feels nice";
-"더 쓰다듬어 주세요" = "Pet me some more";
-"흥!" = "Hmph!";
-"에취!" = "Achoo!";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:285 */
-"바탕화면에 작은 천 러그를 깔아요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요." = "A small cloth rug on your desktop. Drag an edge and it folds over to show its back; rub the middle around and wrinkles form and stay. Double-click, or choose Smooth It Out from the right-click menu, to flatten it again.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:294 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:365 */
+"접고 구기는 작은 천 러그" = "A little cloth rug to fold and crumple";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:367 */
+"그림" = "Pattern";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:393 */
 "펼치기" = "Smooth Out";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:305 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:396 */
+"바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요." = "Lays a little cloth rug on your desktop. Set Pattern to 'Characters' to put your current friend big in the middle, or pick diamonds, stripes, checks or polka dots. The rug color works with any pattern, and there are four sizes. Drag an edge to fold it over and show the back, and rub the middle to make wrinkles that stay. Double-click or right-click 'Smooth It Out' to flatten it again.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:406 */
 "집중 타이머" = "Focus Timer";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:312 */
-"집중하는 동안 친구 머리 위에 시간이 올라가고, 친구는 책상에 앉아 공부해요. 오늘 할 일이 있으면 첫 번째 일을 '진행 중'으로 보여 주고, 체크하면 미리알림에서도 끝낸 일로 바꿔요. 메뉴바 메뉴나 AI 비서에게 '집중 시작'이라고 해도 돼요." = "While you focus, the time shows over your friend's head and your friend studies at a desk. If you have to-dos today, the first one shows as In progress; tick it and it's marked done in Reminders too. You can also start from the menu bar menu or by telling the AI Assistant \"start focus\".";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:314 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:413 */
+"친구랑 같이 집중해요" = "Focus together with a friend";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:415 */
+"위젯 색" = "Widget color";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:421 */
+"목표 시간" = "Goal time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:428 */
+"위젯 크기" = "Widget size";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:434 */
+"달성 소리" = "Goal sound";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:434 */
+"목표 달성 소리" = "Goal reached sound";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:435 */
+"메뉴바 시간" = "Menu bar time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:435 */
 "메뉴바에 시간 보이기" = "Show time in the menu bar";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:330 */
-"고른 도시의 지금 날씨 속에서 캐릭터가 지내는 작은 창문이에요. 빈 곳을 끌면 옮겨지고, 오른쪽 클릭으로 미리보기와 위치 초기화를 할 수 있어요. 켜 두면 아침에 우산이나 겉옷 이야기를 하루 한 번 해 줘요." = "A little window where your character lives in the weather of the city you picked. Drag an empty spot to move it, and right-click for previews and resetting its position. While it's on, it mentions an umbrella or a coat once a morning.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:334 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:436 */
+"메뉴바 시간에 이모지 붙이기" = "Add an emoji to the menu bar time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:436 */
+"시간 옆 이모지" = "Emoji by the time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:438 */
+"집중하는 동안 친구 머리 위에 시간이 올라가고, 친구는 책상에 앉아 공부해요. 오늘 할 일이 있으면 첫 번째 일을 '진행 중'으로 보여 주고, 체크하면 미리알림에서도 끝낸 일로 바꿔요. 메뉴바 메뉴나 AI 비서에게 '집중 시작'이라고 해도 돼요." = "While you focus, the time shows over your friend's head and your friend studies at a desk. If you have to-dos today, the first one shows as In progress; tick it and it's marked done in Reminders too. You can also start from the menu bar menu or by telling the AI Assistant \"start focus\".";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:463 */
+"머리 위 말풍선이 바로 답해 줘요" = "A speech bubble overhead answers right away";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:469 */
+"색 테마" = "Color theme";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:475 */
+"글자 크기" = "Text size";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:481 */
+"움직임" = "Motion";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:487 */
+"친구 얼굴" = "Friend's face";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:487 */
+"친구 얼굴 보이기" = "Show friend's face";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:488 */
+"응원 효과음" = "Cheer sounds";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:488 */
+"응원·춤에 효과음" = "Sounds for cheers and dances";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:490 */
+"커서 친구·복제 친구·풀밭 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구와 풀밭 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요." = "Option-click the Cursor Buddy, a copy friend or a meadow friend and a bubble opens. The Cursor Buddy and the meadow friends have it in their right-click menu too. It answers right away, without AI.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:518 */
+"그 도시 날씨를 담은 작은 수정구슬" = "A little crystal ball holding that city's weather";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:521 */
 "도시" = "City";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:354 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:545 */
+"클릭하면 한마디" = "A word on click";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:546 */
+"계절 장식" = "Seasonal decor";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:549 */
+"고른 도시의 지금 날씨 속에서 캐릭터가 지내는 작은 수정구슬이에요. 클릭하면 깡총 뛰며 날씨에 맞게 반응하고, 구슬을 끌면 옮겨져요. 오른쪽 클릭으로 미리보기와 위치 초기화를 할 수 있어요. 켜 두면 아침에 우산이나 겉옷 이야기를 하루 한 번 해 줘요." = "A little crystal ball where your character lives in the current weather of the city you chose. Click and it hops and reacts to the weather, and drag the ball to move it. Right-click for preview and reset position. When on, it mentions an umbrella or jacket once each morning.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:550 */
 "날씨 정보: MET Norway (CC BY 4.0)" = "Weather data: MET Norway (CC BY 4.0)";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:362 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:603 */
+"효과음" = "Sound effects";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:610 */
+"설명 다 펼치기" = "Expand all details";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:611 */
 "그림 스타일" = "Art Style";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:364 */
-"메뉴바, 커서 친구, 대롱대롱 친구, 날씨 창문이 모두 같은 그림체로 바뀌어요" = "The menu bar, Cursor Buddy, Hanging Friends and the Weather Window all switch to the same art style";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:613 */
+"움직임 자동은 macOS의 동작 줄이기를 따라요. 잔잔하게는 늘 가만히, 통통은 늘 움직여요." = "Auto motion follows macOS Reduce Motion. Gentle always stays still, Bouncy always moves.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:614 */
+"효과음을 끄면 풍경 소리, 응원 소리, 집중 알림이 모두 조용해져요." = "Turning off sound effects silences the chime, cheers and focus alerts.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:615 */
+"그림 스타일은 메뉴바, 커서 친구, 대롱대롱 친구, 날씨 창문이 모두 같은 그림체로 바뀌어요." = "Art Style changes the menu bar, Cursor Buddy, Hanging Friends and Weather Window to the same look.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:668 */
+"안녕! 나왔어요" = "Hi! I'm here";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:734 */
+"자세히" = "Details";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:740 */
+"접힘" = "Collapsed";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:740 */
+"펼침" = "Expanded";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:768 */
+"기본" = "Default";
 /* Sources/DogMonitor/UI/DogPickerView.swift:7 */
 "동물" = "Animals";
-/* Sources/DogMonitor/UI/DogPickerView.swift:7 */
-"캐릭터" = "Characters";
 /* Sources/DogMonitor/UI/DogPickerView.swift:68 */
 "지운 캐릭터 %lld개 다시 보기" = "Show %lld deleted characters";
 /* Sources/DogMonitor/UI/DogPickerView.swift:79 */
@@ -2872,29 +3950,83 @@
 "CPU 85% 이상" = "CPU 85% or more";
 /* Sources/DogMonitor/UI/DogPickerView.swift:363 */
 "배터리 20% 이하" = "Battery 20% or less";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:44 */
-"아주 크게" = "Extra large";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:64 */
+/* Sources/DogMonitor/UI/GuideSheet.swift:10 */
+"메뉴바 캐릭터" = "Menu bar character";
+/* Sources/DogMonitor/UI/GuideSheet.swift:11 */
+"맥이 바쁠수록 빨리 달리고, 한가하면 걷거나 쉬고 잠들어요. 옆 숫자는 CPU 사용량이에요." = "The busier your Mac, the faster it runs. When idle, it walks, rests or sleeps. The number next to it is CPU usage.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:12 */
+"누르면 대시보드가 열려요. 말풍선이 뜨면 누를 때 닫히거나 다음 이야기로 넘어가요." = "Click to open the dashboard. When a speech bubble is up, clicking closes it or moves to the next line.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:14 */
+"대시보드" = "Dashboard";
+/* Sources/DogMonitor/UI/GuideSheet.swift:15 */
+"CPU·메모리·저장 공간·배터리·네트워크를 한눈에 봐요." = "See CPU, memory, storage, battery and network at a glance.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:16 */
+"오른쪽 버튼: 클리너(안 쓰는 앱·캐시 정리), 보안(맥 보호 상태 점검), 캐릭터 선택, 꾸미기, 펫 키우기, AI 비서, 활성 상태 보기, 설정, 더보기." = "Buttons on the right: Cleaner (clears unused apps and caches), Security (checks your Mac's protection), Choose character, Customize, Pet Room, AI Assistant, Activity Monitor, Settings, More.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:18 */
+"캐릭터 고르기와 꾸미기" = "Choosing and customizing characters";
+/* Sources/DogMonitor/UI/GuideSheet.swift:19 */
+"캐릭터 선택에서 강아지·고양이·캐릭터를 고르거나, 사진이나 그림 한 장으로 나만의 캐릭터를 만들어요." = "In Choose character, pick a dog, cat or character, or make your own from a single photo or drawing.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:20 */
+"꾸미기에서 캐릭터 색을 바꿔요. 내가 만든 캐릭터 칸을 오른쪽 클릭하면 꾸미기와 삭제가 있어요." = "Change character colors in Customize. Right-click a character you made to customize or delete it.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:23 */
+"커서를 따라 걷고, 멀리 가면 뛰어와요. 멈추면 곁에서 놀다가 낮잠을 자요." = "Walks after your cursor and runs when it goes far. When you stop, it plays nearby, then naps.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:24 */
+"누르면 반응하고, 3번 연달아 누르면 어지러워하고, 5번이면 삐쳐요." = "Click for a reaction. 3 clicks in a row makes it dizzy, 5 makes it grumpy.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:25 */
+"꾸욱 누르면 웅크렸다가, 잡고 휙 던지면 날아가 튕겨요. ⌥ 클릭하면 퀵물어보기가 열려요." = "Press and hold to make it crouch, grab and toss it to send it bouncing. ⌥-click opens Quick Ask.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:26 */
+"오른쪽 클릭 메뉴의 '복제해서 바탕화면에 두기'로 복제 친구를 만들어요(최대 8마리). 복제 친구는 혼자 돌아다니고 서로 인사해요." = "Use 'Make a Copy on the Desktop' in the right-click menu to make Clone Friends (up to 8). They wander on their own and greet each other.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:28 */
+"데스크톱 친구들" = "Desktop Friends";
+/* Sources/DogMonitor/UI/GuideSheet.swift:29 */
+"설정의 친구 카드마다 스위치로 켜고 꺼요. 메뉴바 메뉴의 데스크톱 친구에서도 바로 켤 수 있어요." = "Turn each one on or off with the switch on its card in Settings. You can also turn them on from Desktop Friends in the menu bar menu.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:30 */
+"대롱대롱 친구: 사진이나 캐릭터가 화면 위에서 매달려 흔들려요." = "Hanging Friends: a photo or character hangs and sways from the top of the screen.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:31 */
+"풀밭 친구들: 독 위에 모여 살아요. 누르면 포즈를 바꾸며 말을 걸고 옆 친구도 돌아봐요. 여러 번 누르면 어지러워하다 삐지고, 커서로 문지르면 쓰다듬어져요. ⌥ 클릭은 퀵물어보기예요." = "Meadow Friends: they live together on the Dock. Click to make one change pose and talk, and its neighbor looks over too. Click many times and they get dizzy, then grumpy. Rub with the cursor to pet them. ⌥-click for Quick Ask.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:32 */
+"바탕화면 러그: 가장자리를 끌면 접히고, 가운데를 문지르면 주름이 져요. 두 번 누르면 다시 펴요. 크기·무늬·색을 바꿀 수 있어요." = "Desktop Rug: drag an edge to fold it, rub the middle to wrinkle it. Double-click to flatten it again. You can change the size, pattern and color.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:33 */
+"날씨 창문: 받침 위 수정구슬 속에서 캐릭터가 고른 도시의 지금 날씨를 지내요. 끌어서 옮기고, 누르면 캐릭터가 폴짝 뛰어요. 켜 두면 아침에 우산이나 겉옷 이야기를 해 줘요." = "Weather Window: inside a crystal ball on a stand, your character lives in the current weather of the city you chose. Drag to move it, click and the character hops. When on, it mentions an umbrella or jacket in the morning.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:34 */
+"집중 타이머: 집중하는 동안 머리 위에 시간이 뜨고 캐릭터가 공부해요." = "Focus Timer: while you focus, the time shows overhead and the character studies.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:35 */
+"모든 친구는 오른쪽 클릭하면 그 친구의 메뉴가 나와요." = "Right-click any friend to open its menu.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:38 */
+"대시보드의 AI 비서에서 말을 걸어요. 맥 상태, 일정, 날씨 같은 걸 물어보거나 일을 부탁할 수 있어요." = "Talk to the AI Assistant in the dashboard. Ask about your Mac, schedule or weather, or ask it to do things.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:39 */
+"메일 보내기나 일정 넣기처럼 밖으로 나가는 일은 항상 카드로 보여 주고, 누를 때만 해요." = "Anything that goes out, like sending mail or adding events, is always shown as a card and only happens when you click.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:40 */
+"내 AI(Claude·ChatGPT·Gemini)를 연결하면 더 똑똑하게 답해요." = "Connect your own AI (Claude, ChatGPT, Gemini) for smarter answers.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:42 */
+"다른 맥으로 옮기기" = "Moving to another Mac";
+/* Sources/DogMonitor/UI/GuideSheet.swift:43 */
+"설정 > 내 설정 내보내기로 파일 하나를 만들고, 다른 맥에서 그 파일을 열면 지금 모습 그대로 옮겨져요." = "Make a file with Settings > Export My Settings, then open it on the other Mac to bring everything over as it is.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:44 */
+"AI 키와 권한은 담지 않아요. 가져오기 전 상태는 백업돼서 되돌릴 수 있어요." = "AI keys and permissions aren't included. Your setup before importing is backed up, so you can go back.";
+/* Sources/DogMonitor/UI/GuideSheet.swift:52 */
+"사용법" = "How to use";
+/* Sources/DogMonitor/UI/GuideSheet.swift:69 */
+"말풍선으로 따라 하기" = "Follow along in speech bubbles";
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:75 */
 "끔" = "Off";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:65 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:76 */
 "살짝" = "A little";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:80 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:91 */
 "상황별 모션" = "Situation motions";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:90 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:101 */
 "캐릭터에 없는 모션은 건너뛰고 평소 모습을 보여 줘요." = "Motions the character doesn't have are skipped and its usual look shows.";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:98 */
-"기본" = "Default";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:99 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:110 */
 "꺼짐" = "Off";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:102 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:113 */
 "%@ (이 캐릭터엔 없음)" = "%@ (not in this character)";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:109 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:120 */
 "%@ 빈도" = "%@ frequency";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:122 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:133 */
 "밥 찾기" = "Looking for food";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:123 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:134 */
 "냠냠 먹기" = "Munching";
-/* Sources/DogMonitor/UI/MotionSettingsView.swift:124 */
+/* Sources/DogMonitor/UI/MotionSettingsView.swift:135 */
 "특수 기술" = "Special move";
 /* Sources/DogMonitor/UI/PetHomeView.swift:10 */
 "미션" = "Missions";
@@ -3030,115 +4162,123 @@
 "모든 사용자 항목이라 지우거나 끄려면 관리자 암호가 필요해요" = "This is an all-users item, so deleting or turning it off needs an administrator password";
 /* Sources/DogMonitor/UI/SecurityView.swift:219 */
 "%@ 점검 · %@초" = "Checked %@ · %@s";
-/* Sources/DogMonitor/UI/SettingsView.swift:19 */
+/* Sources/DogMonitor/UI/SettingsView.swift:20 */
 "메뉴바에 CPU % 표시" = "Show CPU % in menu bar";
-/* Sources/DogMonitor/UI/SettingsView.swift:21 */
+/* Sources/DogMonitor/UI/SettingsView.swift:22 */
 "로그인 시 자동 실행" = "Open at login";
-/* Sources/DogMonitor/UI/SettingsView.swift:32 */
+/* Sources/DogMonitor/UI/SettingsView.swift:33 */
 "AI 자동 다듬기" = "AI auto-refine";
-/* Sources/DogMonitor/UI/SettingsView.swift:37 */
+/* Sources/DogMonitor/UI/SettingsView.swift:38 */
 "켜 두면 새 캐릭터에 사진을 넣을 때 비워 둔 모습(자는·뛰는 모습)을 AI가 그려요. 이때 사진이 %@로 보내져요. 처음에는 꺼져 있어요." = "When on, AI draws the poses you left empty (sleeping, running) when you add a photo to a new character. The photo is then sent to %@. It's off by default.";
-/* Sources/DogMonitor/UI/SettingsView.swift:42 */
-"사용법 다시 보기" = "Show the tour again";
+/* Sources/DogMonitor/UI/SettingsView.swift:43 */
+"내 설정 내보내기…" = "Export My Settings…";
+/* Sources/DogMonitor/UI/SettingsView.swift:45 */
+"내 설정 가져오기…" = "Import My Settings…";
 /* Sources/DogMonitor/UI/SettingsView.swift:47 */
+"가져오기 전 백업 보기…" = "Show Pre-import Backups…";
+/* Sources/DogMonitor/UI/SettingsView.swift:48 */
+"내 맥끼리 설정을 옮기는 파일이에요. 직접 넣은 캐릭터와 매단 사진도 담기니 다른 사람에게는 조심해서 건네 주세요. 가져오기 전 상태는 최근 3개까지 백업에 남고, 백업 파일을 열면 그때로 돌아가요." = "This file moves settings between your Macs. It includes characters you added and hanging photos, so be careful sharing it with others. The last 3 pre-import states are kept as backups, and opening a backup file takes you back to that point.";
+/* Sources/DogMonitor/UI/SettingsView.swift:52 */
+"사용법 다시 보기" = "How to use";
+/* Sources/DogMonitor/UI/SettingsView.swift:56 */
 "문제 보내기" = "Report a problem";
-/* Sources/DogMonitor/UI/SettingsView.swift:49 */
+/* Sources/DogMonitor/UI/SettingsView.swift:58 */
 "소스 코드 (GitHub)" = "Source code (GitHub)";
-/* Sources/DogMonitor/UI/SettingsView.swift:54 */
+/* Sources/DogMonitor/UI/SettingsView.swift:63 */
 "캐릭모니터 %@ · 무료 비영리 오픈 소스" = "CharaMonitor %@ · Free, non-commercial open source";
-/* Sources/DogMonitor/UI/SettingsView.swift:87 */
-"설정하지 못했어요: %@" = "Couldn't set it up: %@";
 /* Sources/DogMonitor/UI/SettingsView.swift:106 */
+"설정하지 못했어요: %@" = "Couldn't set it up: %@";
+/* Sources/DogMonitor/UI/SettingsView.swift:125 */
 "보내는 내용은 아래가 전부예요. 대화·메모·메일·일정 내용과 키는 넣지 않아요." = "This is everything that gets sent. No chats, memories, mail, calendar items or keys.";
-/* Sources/DogMonitor/UI/SettingsView.swift:115 */
+/* Sources/DogMonitor/UI/SettingsView.swift:134 */
 "복사" = "Copy";
-/* Sources/DogMonitor/UI/SettingsView.swift:115 */
+/* Sources/DogMonitor/UI/SettingsView.swift:134 */
 "복사했어요" = "Copied";
-/* Sources/DogMonitor/UI/SettingsView.swift:120 */
+/* Sources/DogMonitor/UI/SettingsView.swift:139 */
 "메일로 보내기" = "Send by mail";
-/* Sources/DogMonitor/UI/SettingsView.swift:166 */
+/* Sources/DogMonitor/UI/SettingsView.swift:185 */
 "%@ 캐릭터를 목록에서 지울까요?" = "Remove %@ from the list?";
-/* Sources/DogMonitor/UI/SettingsView.swift:170 */
+/* Sources/DogMonitor/UI/SettingsView.swift:189 */
 "메뉴바는 강아지 캐릭터로 돌아가요. 캐릭터 선택 맨 아래 '지운 캐릭터 다시 보기'로 언제든 되돌릴 수 있어요." = "The menu bar goes back to the dog character. You can bring it back anytime from \"Show deleted characters\" at the bottom of Choose Character.";
-/* Sources/DogMonitor/UI/SettingsView.swift:190 */
+/* Sources/DogMonitor/UI/SettingsView.swift:209 */
 "색" = "Color";
-/* Sources/DogMonitor/UI/SettingsView.swift:193 */
-"코색" = "Nose color";
-/* Sources/DogMonitor/UI/SettingsView.swift:197 */
-"귀" = "Ears";
-/* Sources/DogMonitor/UI/SettingsView.swift:198 */
-"꼬리" = "Tail";
-/* Sources/DogMonitor/UI/SettingsView.swift:199 */
-"주둥이" = "Muzzle";
-/* Sources/DogMonitor/UI/SettingsView.swift:207 */
-"체형" = "Build";
-/* Sources/DogMonitor/UI/SettingsView.swift:208 */
-"무늬" = "Markings";
 /* Sources/DogMonitor/UI/SettingsView.swift:212 */
+"코색" = "Nose color";
+/* Sources/DogMonitor/UI/SettingsView.swift:216 */
+"귀" = "Ears";
+/* Sources/DogMonitor/UI/SettingsView.swift:217 */
+"꼬리" = "Tail";
+/* Sources/DogMonitor/UI/SettingsView.swift:218 */
+"주둥이" = "Muzzle";
+/* Sources/DogMonitor/UI/SettingsView.swift:226 */
+"체형" = "Build";
+/* Sources/DogMonitor/UI/SettingsView.swift:227 */
+"무늬" = "Markings";
+/* Sources/DogMonitor/UI/SettingsView.swift:231 */
 "무늬색" = "Marking color";
-/* Sources/DogMonitor/UI/SettingsView.swift:217 */
+/* Sources/DogMonitor/UI/SettingsView.swift:236 */
 "복슬복슬한 털" = "Fluffy coat";
-/* Sources/DogMonitor/UI/SettingsView.swift:217 */
+/* Sources/DogMonitor/UI/SettingsView.swift:236 */
 "털 모양" = "Coat";
-/* Sources/DogMonitor/UI/SettingsView.swift:243 */
+/* Sources/DogMonitor/UI/SettingsView.swift:262 */
 "기본 색으로" = "Reset to default colors";
-/* Sources/DogMonitor/UI/SettingsView.swift:263 */
+/* Sources/DogMonitor/UI/SettingsView.swift:282 */
 "포인트색" = "Accent color";
-/* Sources/DogMonitor/UI/SettingsView.swift:269 */
+/* Sources/DogMonitor/UI/SettingsView.swift:288 */
 "눈색" = "Eye color";
-/* Sources/DogMonitor/UI/SettingsView.swift:290 */
+/* Sources/DogMonitor/UI/SettingsView.swift:309 */
 "기본 캐릭터라 완전히 지워지지는 않고, 캐릭터 목록에서만 빠져요." = "It's a built-in character, so it isn't fully deleted. It's just removed from the character list.";
-/* Sources/DogMonitor/UI/SettingsView.swift:293 */
+/* Sources/DogMonitor/UI/SettingsView.swift:312 */
 "목록에서 지우기…" = "Remove from list…";
-/* Sources/DogMonitor/UI/SettingsView.swift:327 */
+/* Sources/DogMonitor/UI/SettingsView.swift:346 */
 "사진 넣기…" = "Add photo…";
-/* Sources/DogMonitor/UI/SettingsView.swift:327 */
+/* Sources/DogMonitor/UI/SettingsView.swift:346 */
 "사진 바꾸기…" = "Change photo…";
-/* Sources/DogMonitor/UI/SettingsView.swift:329 */
+/* Sources/DogMonitor/UI/SettingsView.swift:348 */
 "사진 빼기" = "Remove photo";
-/* Sources/DogMonitor/UI/SettingsView.swift:331 */
+/* Sources/DogMonitor/UI/SettingsView.swift:350 */
 "기본 사진" = "Default photo";
-/* Sources/DogMonitor/UI/SettingsView.swift:366 */
+/* Sources/DogMonitor/UI/SettingsView.swift:385 */
 "캐릭터 사진을 골라 주세요" = "Pick a photo for your character";
-/* Sources/DogMonitor/UI/SettingsView.swift:400 */
+/* Sources/DogMonitor/UI/SettingsView.swift:419 */
 "쫑긋 귀" = "Pointy ears";
-/* Sources/DogMonitor/UI/SettingsView.swift:401 */
+/* Sources/DogMonitor/UI/SettingsView.swift:420 */
 "늘어진 귀" = "Floppy ears";
-/* Sources/DogMonitor/UI/SettingsView.swift:402 */
+/* Sources/DogMonitor/UI/SettingsView.swift:421 */
 "접힌 귀" = "Folded ears";
-/* Sources/DogMonitor/UI/SettingsView.swift:403 */
-"긴 귀" = "Long ears";
-/* Sources/DogMonitor/UI/SettingsView.swift:411 */
-"말린 꼬리" = "Curled tail";
-/* Sources/DogMonitor/UI/SettingsView.swift:412 */
-"곧은 꼬리" = "Straight tail";
-/* Sources/DogMonitor/UI/SettingsView.swift:413 */
-"짧은 꼬리" = "Short tail";
-/* Sources/DogMonitor/UI/SettingsView.swift:414 */
-"복슬 꼬리" = "Fluffy tail";
 /* Sources/DogMonitor/UI/SettingsView.swift:422 */
-"짧게" = "Short";
-/* Sources/DogMonitor/UI/SettingsView.swift:424 */
-"길게" = "Long";
+"긴 귀" = "Long ears";
+/* Sources/DogMonitor/UI/SettingsView.swift:430 */
+"말린 꼬리" = "Curled tail";
+/* Sources/DogMonitor/UI/SettingsView.swift:431 */
+"곧은 꼬리" = "Straight tail";
 /* Sources/DogMonitor/UI/SettingsView.swift:432 */
-"작은 체구" = "Small build";
+"짧은 꼬리" = "Short tail";
 /* Sources/DogMonitor/UI/SettingsView.swift:433 */
-"보통 체구" = "Medium build";
-/* Sources/DogMonitor/UI/SettingsView.swift:434 */
-"큰 체구" = "Large build";
-/* Sources/DogMonitor/UI/SettingsView.swift:435 */
-"허리 긴 체형" = "Long body";
+"복슬 꼬리" = "Fluffy tail";
+/* Sources/DogMonitor/UI/SettingsView.swift:441 */
+"짧게" = "Short";
 /* Sources/DogMonitor/UI/SettingsView.swift:443 */
+"길게" = "Long";
+/* Sources/DogMonitor/UI/SettingsView.swift:451 */
+"작은 체구" = "Small build";
+/* Sources/DogMonitor/UI/SettingsView.swift:452 */
+"보통 체구" = "Medium build";
+/* Sources/DogMonitor/UI/SettingsView.swift:453 */
+"큰 체구" = "Large build";
+/* Sources/DogMonitor/UI/SettingsView.swift:454 */
+"허리 긴 체형" = "Long body";
+/* Sources/DogMonitor/UI/SettingsView.swift:462 */
 "단색" = "Solid";
-/* Sources/DogMonitor/UI/SettingsView.swift:444 */
+/* Sources/DogMonitor/UI/SettingsView.swift:463 */
 "얼굴 마스크" = "Face mask";
-/* Sources/DogMonitor/UI/SettingsView.swift:445 */
+/* Sources/DogMonitor/UI/SettingsView.swift:464 */
 "등 안장 무늬" = "Saddle";
-/* Sources/DogMonitor/UI/SettingsView.swift:446 */
+/* Sources/DogMonitor/UI/SettingsView.swift:465 */
 "흰 가슴" = "White chest";
-/* Sources/DogMonitor/UI/SettingsView.swift:447 */
+/* Sources/DogMonitor/UI/SettingsView.swift:466 */
 "흰 양말" = "White socks";
-/* Sources/DogMonitor/UI/SettingsView.swift:448 */
+/* Sources/DogMonitor/UI/SettingsView.swift:467 */
 "점박이" = "Spotted";
 /* Sources/DogMonitor/UI/SpeedRow.swift:11 */
 "인터넷 속도 재는 중… (약 15초)" = "Measuring internet speed… (about 15 s)";
@@ -3168,3 +4308,5 @@
 "지금 버전 %@" = "Current version %@";
 /* Sources/DogMonitor/UI/UpdateCard.swift:28 */
 "업데이트 진행 중" = "Updating";
+/* Sources/DogMonitor/UI/WeatherSceneView.swift:233 */
+"크림" = "Cream";

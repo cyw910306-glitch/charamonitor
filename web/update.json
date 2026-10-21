@@ -1,1 +1,1 @@
-{"version":"2.7","build":31,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"af9c6c49639d339616e1f69dc596c52768b2a5dbf508380c0cb4fa02ee5f10be","minSystem":"13.0","notes":"날씨 창문이 수정구슬이 됐고, 풀밭 친구들이 누르면 반응해요. 설정 > 사용법에서 전부 볼 수 있어요."}
+{"version":"2.7.1","build":32,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"71da06251351ff4df3222fa4b5597768299daec752971cba1a74cead50883ff6","minSystem":"13.0","notes":"영어 화면의 모든 문구가 영어로 나와요. 날씨 수정구슬과 풀밭 친구들 반응도 그대로예요."}
