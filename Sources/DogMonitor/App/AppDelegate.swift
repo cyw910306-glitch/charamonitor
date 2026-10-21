@@ -33,6 +33,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         AssistantCenter.shared.start()   // speech bubble, 먼저 말 걸기, opt-in integrations
         WhatsNew.check()                 // a newer version says its one-liner once
         Tour.startIfNew()                // the first bubbles explain the character, 3 s in
+        SetupFlow.helloLater()           // once, after 내 설정 가져오기 restarted the app
         AutoRefine.shared.check()        // which AI, if any, can draw 자동 다듬기 on this Mac
         OpenSourceCleanup.run()          // 2.3: the paid era's settings and the guitar girl, once
         #if !MAS
@@ -50,6 +51,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 self?.statusItem?.showPopover()
             }
         }
+    }
+
+    /// A double-clicked .charamonitor: the same confirm as 설정 > 내 설정 가져오기.
+    func application(_ application: NSApplication, open urls: [URL]) {
+        guard let url = urls.first(where: { $0.isFileURL && $0.pathExtension.lowercased() == SetupFile.ext }) else { return }
+        DispatchQueue.main.async { SetupFlow.confirmAndImport(url) }
     }
 
     func applicationWillTerminate(_ notification: Notification) {

@@ -54,7 +54,7 @@ extension ClonePrefs {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         let d = ClonePrefs()
         on = try c.decodeIfPresent(Bool.self, forKey: .on) ?? d.on
-        clones = try c.decodeIfPresent([CloneSpot].self, forKey: .clones) ?? d.clones
+        clones = Array((try c.decodeIfPresent([CloneSpot].self, forKey: .clones) ?? d.clones).prefix(Self.maxCount))
         moves = try c.decodeIfPresent(Bool.self, forKey: .moves) ?? d.moves
         interacts = try c.decodeIfPresent(Bool.self, forKey: .interacts) ?? d.interacts
     }

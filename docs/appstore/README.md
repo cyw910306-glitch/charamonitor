@@ -38,7 +38,7 @@
 ## 코드에서 달라지는 점 (요약)
 
 - 빌드 플래그 `MAS`: `scripts/build_mas.sh` 가 `swift build -Xswiftc -DMAS` 로 빌드하고 `build.noindex/mas/CharaMonitor.app` 을 만들어요. 일반 `swift build` 는 그대로 직접판이에요.
-- 권한: `Resources/MAS/CharaMonitor.entitlements` (app-sandbox, network.client, files.user-selected.read-only, personal-information.calendars, personal-information.addressbook). 그 밖의 권한과 temporary exception 은 쓰지 않아요.
+- 권한: `Resources/MAS/CharaMonitor.entitlements` (app-sandbox, network.client, files.user-selected.read-write (내 설정 파일 저장), personal-information.calendars, personal-information.addressbook). 그 밖의 권한과 temporary exception 은 쓰지 않아요.
 - AI: 기본은 기기 안(Foundation Models) 또는 기본 답변. 내 AI 연결은 API 키만(CLI 연결 없음). 비서가 행동하기는 v1 한 번 제안 + 카드 확인, 에이전트 브라우저와 메시지 자동 보내기는 없어요.
 - 빠지는 기능 목록과 이유는 [review-notes.md](review-notes.md) 에 있어요.
 

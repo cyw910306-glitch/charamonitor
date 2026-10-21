@@ -25,7 +25,7 @@ extension MeadowPrefs {
         let d = MeadowPrefs()
         on = try c.decodeIfPresent(Bool.self, forKey: .on) ?? d.on
         count = try c.decodeIfPresent(Int.self, forKey: .count) ?? d.count
-        slots = try c.decodeIfPresent([HangSlot].self, forKey: .slots) ?? d.slots
+        slots = (try c.decodeIfPresent([HangSlot].self, forKey: .slots) ?? d.slots).map(\.clamped)
         onTop = try c.decodeIfPresent(Bool.self, forKey: .onTop) ?? d.onTop
     }
 }

@@ -368,17 +368,21 @@ struct DesktopSettingsView: View {
                     Picker("그림", selection: $rug.prefs.face) {
                         ForEach(RugFace.allCases, id: \.self) { Text($0.label).tag($0) }
                     }
-                    .labelsHidden().pickerStyle(.segmented).controlSize(.small)
+                    .labelsHidden().pickerStyle(.menu).controlSize(.small).fixedSize()
                 }
-                if rug.prefs.face == .character {
-                    row("러그 색") {
-                        HStack(spacing: 6) {
-                            ForEach(FocusTheme.allCases, id: \.self) { t in
-                                swatch(t, chosen: rug.prefs.color == t) { rug.prefs.color = t }
-                            }
-                            Text(rug.prefs.color.label).font(f(11)).foregroundStyle(.secondary).padding(.leading, 2)
+                row("러그 색") {
+                    HStack(spacing: 6) {
+                        ForEach(FocusTheme.allCases, id: \.self) { t in
+                            swatch(t, chosen: rug.prefs.color == t) { rug.prefs.color = t }
                         }
+                        Text(rug.prefs.color.label).font(f(11)).foregroundStyle(.secondary).padding(.leading, 2)
                     }
+                }
+                row("크기") {
+                    Picker("크기", selection: $rug.prefs.size) {
+                        ForEach(RugSize.allCases, id: \.self) { Text($0.label).tag($0) }
+                    }
+                    .labelsHidden().pickerStyle(.segmented).controlSize(.small)
                 }
                 row("부드러움") {
                     HStack(spacing: 8) {
@@ -389,7 +393,7 @@ struct DesktopSettingsView: View {
                         Button("펼치기") { DesktopRug.shared.smooth() }.controlSize(.small)
                     }
                 }
-                details("바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.")
+                details("바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.")
             }
         }
     }

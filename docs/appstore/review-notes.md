@@ -50,7 +50,7 @@ HOW TO TEST
 - Mail accounts (optional, IMAP): <DEMO_MAIL_ADDRESS> / app password <DEMO_APP_PASSWORD> in the same settings page > Mail Accounts.
 
 SANDBOX AND PERMISSIONS
-- App Sandbox with network client, user-selected files (read-only), calendars and contacts. No temporary exceptions.
+- App Sandbox with network client, user-selected files (read-write: photos picked, and the setup file the owner saves or opens), calendars and contacts. No temporary exceptions.
 - Calendars, reminders and contacts are asked for only when the user turns on a feature or asks for an action that needs them.
 - Network: optional speed test (Cloudflare's public endpoint, 10 MB down, 5 MB up, only on button press), the user's chosen AI provider, the user's own IMAP/SMTP mail server, ntfy or Pushover if the user turns on iPhone notifications, the Naver Shopping API with the user's own key (optional), MET Norway weather when the weather window is on.
 - Custom characters are made on device from a photo picked in an open panel. Photos never leave the Mac. Character packs are PNG files the user puts in the app's own container folder (Settings has no hidden paths: the character picker has an "Open pack folder" button).

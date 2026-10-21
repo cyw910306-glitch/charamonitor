@@ -42,8 +42,8 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>CFBundleDisplayName</key><string>DogMonitor</string>
     <key>CFBundleExecutable</key><string>DogMonitor</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>2.5</string>
-    <key>CFBundleVersion</key><string>29</string>
+    <key>CFBundleShortVersionString</key><string>2.6</string>
+    <key>CFBundleVersion</key><string>30</string>
     <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>CFBundleDevelopmentRegion</key><string>ko</string>
     <key>CFBundleLocalizations</key><array><string>ko</string><string>en</string></array>
@@ -57,6 +57,25 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
         <dict>
             <key>CFBundleURLName</key><string>com.jelly.dogmonitor.say</string>
             <key>CFBundleURLSchemes</key><array><string>charamonitor</string></array>
+        </dict>
+    </array>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeName</key><string>CharaMonitor Setup</string>
+            <key>CFBundleTypeRole</key><string>Viewer</string>
+            <key>LSHandlerRank</key><string>Owner</string>
+            <key>LSItemContentTypes</key><array><string>com.jelly.charamonitor.setup</string></array>
+        </dict>
+    </array>
+    <key>UTExportedTypeDeclarations</key>
+    <array>
+        <dict>
+            <key>UTTypeIdentifier</key><string>com.jelly.charamonitor.setup</string>
+            <key>UTTypeDescription</key><string>CharaMonitor Setup</string>
+            <key>UTTypeConformsTo</key><array><string>public.data</string></array>
+            <key>UTTypeTagSpecification</key>
+            <dict><key>public.filename-extension</key><array><string>charamonitor</string></array></dict>
         </dict>
     </array>
     <key>NSCalendarsUsageDescription</key><string>AI 비서가 곧 시작하는 일정을 말풍선으로 알려 드리고, 부탁하면 확인을 받은 뒤 'AI 비서' 캘린더에 일정을 추가해요. 설정에서 켠 경우에만 읽고 써요.</string>

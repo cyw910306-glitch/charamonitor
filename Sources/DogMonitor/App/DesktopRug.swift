@@ -25,11 +25,44 @@ enum RugSoftness: String, Codable, CaseIterable {
     }
 }
 
-/// 러그 그림: the chosen character printed big on a pastel rug, or the old woven pattern. Raw values are saved.
+/// 러그 그림: the chosen character printed big on a pastel rug, or one of the woven patterns, all in 러그 색.
+/// Raw values are saved (`pattern` is the diamond weave, from before there were others).
 enum RugFace: String, Codable, CaseIterable {
-    case character, pattern
+    case character, pattern, stripes, check, dots
 
-    var label: String { self == .character ? L("캐릭터") : L("무늬") }
+    var label: String {
+        switch self {
+        case .character: return L("캐릭터")
+        case .pattern: return L("마름모")
+        case .stripes: return L("줄무늬")
+        case .check: return L("체크")
+        case .dots: return L("물방울")
+        }
+    }
+}
+
+/// 러그 크기: how far apart the cloth's points lie (the grid stays 16 by 11, so the physics feels the same).
+enum RugSize: String, Codable, CaseIterable {
+    case small, normal, large, huge
+
+    var label: String {
+        switch self {
+        case .small: return L("작게")
+        case .normal: return L("보통")
+        case .large: return L("크게")
+        case .huge: return L("아주 크게")
+        }
+    }
+
+    /// ClothSheet's spacing: 보통 is the original 255 by 170 pt rug.
+    var spacing: Double {
+        switch self {
+        case .small: return 12
+        case .normal: return 17
+        case .large: return 25
+        case .huge: return 34
+        }
+    }
 }
 
 /// 러그 색 reuses the 위젯 색 pastels (the 꾸미기 colours).
@@ -40,6 +73,7 @@ struct RugPrefs: Codable, Equatable {
     var softness = RugSoftness.normal
     var face = RugFace.character
     var color = FocusTheme.strawberry
+    var size = RugSize.normal
     /// Where its middle rests across the main screen's visible frame, 0...1 each way.
     var home = CGPoint(x: 0.24, y: 0.3)
 }
@@ -53,6 +87,7 @@ extension RugPrefs {
         home = (try? c.decodeIfPresent(CGPoint.self, forKey: .home)) ?? d.home
         face = (try? c.decodeIfPresent(RugFace.self, forKey: .face)) ?? d.face
         color = (try? c.decodeIfPresent(FocusTheme.self, forKey: .color)) ?? d.color
+        size = (try? c.decodeIfPresent(RugSize.self, forKey: .size)) ?? d.size
     }
 }
 
@@ -101,7 +136,7 @@ final class DesktopRug {
     private var started = false
     private var asleep = false
     private var still = DesktopKit.reduceMotion
-    private var builtFor: CGRect?
+    private var builtFor: (frame: CGRect, size: RugSize)?
     /// What the faces were last drawn for, so a texture is redrawn only when the picture would change.
     private var painted: Paint?
     private struct Paint: Equatable { var face: RugFace, color: FocusTheme, look: SpriteLook? }
@@ -157,12 +192,15 @@ final class DesktopRug {
         let frame = screen.visibleFrame
         let p = panel ?? makePanel()
         panel = p
-        if builtFor != frame {
-            builtFor = frame
-            p.setFrame(frame, display: false)
-            view.frame = CGRect(origin: .zero, size: frame.size)
-            setUpScene(size: frame.size)
-            var c = ClothSheet(bend: store.prefs.softness.bend, walls: CGRect(origin: .zero, size: frame.size))
+        if builtFor?.frame != frame || builtFor?.size != store.prefs.size {
+            if builtFor?.frame != frame {
+                p.setFrame(frame, display: false)
+                view.frame = CGRect(origin: .zero, size: frame.size)
+                setUpScene(size: frame.size)
+            }
+            builtFor = (frame, store.prefs.size)
+            smoothing = nil; lift = nil
+            var c = ClothSheet(spacing: store.prefs.size.spacing, bend: store.prefs.softness.bend, walls: CGRect(origin: .zero, size: frame.size))
             c.place(ClothSheet.flatten(from: c.rest, rest: c.rest, to: homeOrigin(c, in: frame.size), progress: 1))
             cloth = c
             texcoords = SCNGeometrySource(textureCoordinates: c.rest.map {
@@ -315,7 +353,7 @@ final class DesktopRug {
 
     /// 빳빳하게 펼치기: eases every point back to the flat rug at its place in about a second, with a word from the character.
     func smooth() {
-        guard let c = cloth, let size = builtFor?.size else { return }
+        guard let c = cloth, let size = builtFor?.frame.size else { return }
         smoothing = (c.points, homeOrigin(c, in: size), ProcessInfo.processInfo.systemUptime)
         let polite = !AssistantModel.persona().style.banmal
         SpeechBubbleCenter.shared.say(text: polite ? L("주름을 쫙 펴고 있어요") : L("주름 쫙 펴는 중이야"), source: .system, aloud: false, repeats: true)
@@ -330,7 +368,7 @@ final class DesktopRug {
 
     /// 동작 줄이기: flat at its place at once.
     private func lieFlat() {
-        guard var c = cloth, let size = builtFor?.size else { return }
+        guard var c = cloth, let size = builtFor?.frame.size else { return }
         c.place(ClothSheet.flatten(from: c.points, rest: c.rest, to: homeOrigin(c, in: size), progress: 1))
         cloth = c
         render()
@@ -363,7 +401,7 @@ final class DesktopRug {
     }
 
     private func handle(_ g: ClickRecognizer.Gesture) {
-        guard var c = cloth, let size = builtFor?.size else { return }
+        guard var c = cloth, let size = builtFor?.frame.size else { return }
         switch g {
         case .dragBegan(let p):
             smoothing = nil
@@ -409,6 +447,9 @@ final class DesktopRug {
             FriendMenu.submenu(L("러그 색"), FocusTheme.allCases.map { t in
                 FriendMenu.item("\(t.emoji) \(t.label)", on: store.prefs.color == t) { RugStore.shared.prefs.color = t }
             }),
+            FriendMenu.submenu(L("러그 크기"), RugSize.allCases.map { s in
+                FriendMenu.item(s.label, on: store.prefs.size == s) { RugStore.shared.prefs.size = s }
+            }),
             FriendMenu.submenu(L("부드러움"), RugSoftness.allCases.map { s in
                 FriendMenu.item(s.label, on: store.prefs.softness == s) { RugStore.shared.prefs.softness = s }
             }),
@@ -436,17 +477,22 @@ private final class RugView: SCNView {
 
 /// The rug's two faces, drawn in code (our own art; the character is the user's own pick, never bundled here).
 /// 캐릭터: a pastel rug in 러그 색 with a rounded, stitched sticker border, small paws and hearts scattered about and
-/// the chosen character big on a white sticker in the middle; its back the same colour, stitched. 무늬: a cream weave
-/// with a terracotta border and a navy diamond; the back plain light grey with the border's stitching showing through.
+/// the chosen character big on a white sticker in the middle. The woven ones (마름모, 줄무늬, 체크, 물방울) use the
+/// same colours. Every back is the band colour, stitched.
 enum RugArt {
     static let size = CGSize(width: 512, height: 352)
 
     static func front(_ face: RugFace, color: FocusTheme, character: (image: NSImage, smooth: Bool)?) -> NSImage {
-        face == .pattern ? pattern : characterFace(color, character)
+        switch face {
+        case .character: return characterFace(color, character)
+        case .pattern: return diamonds(color)
+        case .stripes: return stripes(color)
+        case .check: return check(color)
+        case .dots: return dots(color)
+        }
     }
 
     static func back(_ face: RugFace, color: FocusTheme) -> NSImage {
-        guard face == .character else { return plainBack }
         let c = colors(color)
         return bitmap { r in
             c.band.setFill(); r.fill()
@@ -459,9 +505,9 @@ enum RugArt {
         cache.frames(for: .walk).first.map { ($0, cache.smooth) }
     }
 
-    private static func colors(_ t: FocusTheme) -> (base: NSColor, band: NSColor, accent: NSColor) {
+    private static func colors(_ t: FocusTheme) -> (base: NSColor, band: NSColor, accent: NSColor, ink: NSColor) {
         let h = t.hexes(dark: false), accent = RGBColor(hex: h.accent).nsColor
-        return (RGBColor(hex: h.fill).nsColor, accent.blended(withFraction: 0.55, of: .white) ?? accent, accent)
+        return (RGBColor(hex: h.fill).nsColor, accent.blended(withFraction: 0.55, of: .white) ?? accent, accent, RGBColor(hex: h.ink).nsColor)
     }
 
     private static func stitch(_ r: CGRect, _ color: NSColor) {
@@ -570,38 +616,90 @@ enum RugArt {
         return ctx.makeImage().map { NSImage(cgImage: $0, size: size) } ?? NSImage(size: size)
     }
 
-    static let pattern: NSImage = NSImage(size: size, flipped: false) { r in
-        NSColor(red: 0.96, green: 0.9, blue: 0.78, alpha: 1).setFill(); r.fill()
-        let terracotta = NSColor(red: 0.78, green: 0.4, blue: 0.3, alpha: 1), navy = NSColor(red: 0.2, green: 0.27, blue: 0.45, alpha: 1)
-        terracotta.setStroke()
-        let border = NSBezierPath(rect: r.insetBy(dx: 22, dy: 22)); border.lineWidth = 18; border.stroke()
-        navy.setStroke()
-        let line = NSBezierPath(rect: r.insetBy(dx: 40, dy: 40)); line.lineWidth = 3; line.stroke()
-        func diamond(_ c: CGPoint, _ w: CGFloat, _ h: CGFloat) -> NSBezierPath {
-            let p = NSBezierPath()
-            p.move(to: CGPoint(x: c.x, y: c.y + h)); p.line(to: CGPoint(x: c.x + w, y: c.y))
-            p.line(to: CGPoint(x: c.x, y: c.y - h)); p.line(to: CGPoint(x: c.x - w, y: c.y)); p.close()
-            return p
+    /// 마름모: a pale weave with a wide accent border, a thin ink line inside it, a big diamond and rows of small ones.
+    private static func diamonds(_ color: FocusTheme) -> NSImage {
+        let c = colors(color)
+        return bitmap { r in
+            c.base.setFill(); r.fill()
+            c.accent.setStroke()
+            let border = NSBezierPath(rect: r.insetBy(dx: 22, dy: 22)); border.lineWidth = 18; border.stroke()
+            c.ink.setStroke()
+            let line = NSBezierPath(rect: r.insetBy(dx: 40, dy: 40)); line.lineWidth = 3; line.stroke()
+            func diamond(_ m: CGPoint, _ w: CGFloat, _ h: CGFloat) -> NSBezierPath {
+                let p = NSBezierPath()
+                p.move(to: CGPoint(x: m.x, y: m.y + h)); p.line(to: CGPoint(x: m.x + w, y: m.y))
+                p.line(to: CGPoint(x: m.x, y: m.y - h)); p.line(to: CGPoint(x: m.x - w, y: m.y)); p.close()
+                return p
+            }
+            let mid = CGPoint(x: r.midX, y: r.midY)
+            c.ink.setFill(); diamond(mid, 110, 80).fill()
+            c.accent.setFill(); diamond(mid, 70, 50).fill()
+            c.base.setFill(); diamond(mid, 26, 18).fill()
+            c.ink.setFill()
+            for i in 0..<9 {   // a row of small diamonds inside the border, top and bottom
+                let x = r.minX + 70 + CGFloat(i) * (r.width - 140) / 8
+                diamond(CGPoint(x: x, y: r.minY + 62), 9, 9).fill()
+                diamond(CGPoint(x: x, y: r.maxY - 62), 9, 9).fill()
+            }
         }
-        navy.setFill(); diamond(CGPoint(x: r.midX, y: r.midY), 110, 80).fill()
-        terracotta.setFill(); diamond(CGPoint(x: r.midX, y: r.midY), 70, 50).fill()
-        NSColor(red: 0.96, green: 0.9, blue: 0.78, alpha: 1).setFill(); diamond(CGPoint(x: r.midX, y: r.midY), 26, 18).fill()
-        navy.setFill()
-        for i in 0..<9 {   // a row of small diamonds inside the border, top and bottom
-            let x = r.minX + 70 + CGFloat(i) * (r.width - 140) / 8
-            diamond(CGPoint(x: x, y: r.minY + 62), 9, 9).fill()
-            diamond(CGPoint(x: x, y: r.maxY - 62), 9, 9).fill()
-        }
-        return true
     }
 
-    static let plainBack: NSImage = NSImage(size: size, flipped: false) { r in
-        NSColor(white: 0.86, alpha: 1).setFill(); r.fill()
-        NSColor(white: 0.66, alpha: 1).setStroke()
-        let stitch = NSBezierPath(rect: r.insetBy(dx: 22, dy: 22))
-        stitch.lineWidth = 2.5
-        stitch.setLineDash([9, 6], count: 2, phase: 0)
-        stitch.stroke()
-        return true
+    /// A woven face: `weave` fills the field inside a solid accent border (clipped to it), then the stitching goes on top.
+    private static func woven(_ color: FocusTheme, stitches: NSColor = NSColor(white: 1, alpha: 0.9),
+                              _ weave: (CGRect, (base: NSColor, band: NSColor, accent: NSColor, ink: NSColor)) -> Void) -> NSImage {
+        let c = colors(color)
+        return bitmap { r in
+            c.accent.setFill(); r.fill()
+            let field = r.insetBy(dx: 12, dy: 12)
+            NSGraphicsContext.saveGraphicsState()
+            NSBezierPath(rect: field).addClip()
+            weave(field, c)
+            NSGraphicsContext.restoreGraphicsState()
+            stitch(r, stitches)
+        }
+    }
+
+    /// Evenly spaced positions across `span`, centred, `step` apart.
+    private static func centred(_ lo: CGFloat, _ hi: CGFloat, step: CGFloat) -> [CGFloat] {
+        let n = Int(((hi - lo) / step).rounded(.down)), start = (lo + hi) / 2 - CGFloat(n) * step / 2
+        return (0...n).map { start + CGFloat($0) * step }
+    }
+
+    /// 줄무늬: wide band stripes across a pale ground, a thin accent line in each gap.
+    private static func stripes(_ color: FocusTheme) -> NSImage {
+        woven(color) { f, c in
+            c.base.setFill(); f.fill()
+            let step: CGFloat = 64
+            for x in centred(f.minX, f.maxX, step: step) {
+                c.band.setFill(); NSRect(x: x - 16, y: f.minY, width: 32, height: f.height).fill()
+                c.accent.setFill(); NSRect(x: x + step / 2 - 2.5, y: f.minY, width: 5, height: f.height).fill()
+            }
+        }
+    }
+
+    /// 체크: gingham, see-through accent bands both ways so they deepen where they cross.
+    private static func check(_ color: FocusTheme) -> NSImage {
+        woven(color, stitches: NSColor(white: 1, alpha: 0.95)) { f, c in
+            NSColor.white.setFill(); f.fill()
+            c.accent.withAlphaComponent(0.32).setFill()
+            let step: CGFloat = 44, band: CGFloat = 22
+            for x in centred(f.minX, f.maxX, step: step) { NSRect(x: x - band / 2, y: f.minY, width: band, height: f.height).fill(using: .sourceOver) }
+            for y in centred(f.minY, f.maxY, step: step) { NSRect(x: f.minX, y: y - band / 2, width: f.width, height: band).fill(using: .sourceOver) }
+        }
+    }
+
+    /// 물방울: white polka dots on the band colour, every other row shifted half a step, clear of the stitching.
+    private static func dots(_ color: FocusTheme) -> NSImage {
+        woven(color) { f, c in
+            c.band.setFill(); f.fill()
+            NSColor.white.setFill()
+            let step: CGFloat = 40, d: CGFloat = 15, inner = f.insetBy(dx: 26, dy: 26)
+            for (j, y) in centred(inner.minY, inner.maxY, step: step).enumerated() {
+                for x in centred(inner.minX, inner.maxX, step: step) where j % 2 == 0 || x + step / 2 <= inner.maxX {
+                    let cx = j % 2 == 0 ? x : x + step / 2
+                    NSBezierPath(ovalIn: CGRect(x: cx - d / 2, y: y - d / 2, width: d, height: d)).fill()
+                }
+            }
+        }
     }
 }

@@ -99,6 +99,48 @@ final class RugFaceTests: XCTestCase {
         XCTAssertEqual(round.color, .sky)
     }
 
+    func testSizeIsSavedAndOldPrefsAreNormal() throws {
+        let old = #"{"on":true,"face":"pattern","size":"gigantic"}"#.data(using: .utf8)!
+        let p = try JSONDecoder().decode(RugPrefs.self, from: old)
+        XCTAssertEqual(p.size, .normal)        // an unknown size falls back, the rest still loads
+        XCTAssertEqual(p.face, .pattern)
+        let round = try JSONDecoder().decode(RugPrefs.self, from: JSONEncoder().encode(RugPrefs(face: .dots, size: .huge)))
+        XCTAssertEqual(round.size, .huge)
+        XCTAssertEqual(round.face, .dots)
+    }
+
+    /// Bigger sizes make a bigger cloth, 보통 keeps the original 255 by 170 pt rug, and every size still comes to rest.
+    func testEachSizeIsBiggerAndSettles() {
+        let walls = CGRect(x: 0, y: 0, width: 2000, height: 1400)
+        let widths = RugSize.allCases.map { ClothSheet(spacing: $0.spacing, walls: walls).size.width }
+        XCTAssertEqual(widths, widths.sorted())
+        XCTAssertEqual(Set(widths).count, widths.count)
+        XCTAssertEqual(ClothSheet(spacing: RugSize.normal.spacing, walls: walls).size, CGSize(width: 255, height: 170))
+        for s in RugSize.allCases {
+            var c = ClothSheet(spacing: s.spacing, origin: CGPoint(x: 600, y: 300), walls: walls)
+            _ = c.grab(at: CGPoint(x: 600, y: 300))
+            for k in 1...30 { c.drag(to: CGPoint(x: 600 + Double(k) * 6, y: 300)); c.step(dt: 1.0 / 60) }
+            c.release()
+            var n = 0
+            while !c.isSettled, n < 60 * 60 { c.step(dt: 1.0 / 60); n += 1 }
+            XCTAssertTrue(c.isSettled, "\(s) still moving after a minute")
+        }
+    }
+
+    /// Every pattern takes 러그 색: two colours never print the same picture.
+    func testPatternsTakeTheRugColour() throws {
+        func pixels(_ face: RugFace, _ t: FocusTheme) throws -> Data {
+            let cg = try XCTUnwrap(RugArt.front(face, color: t, character: nil).cgImage(forProposedRect: nil, context: nil, hints: nil))
+            return try XCTUnwrap(cg.dataProvider?.data as Data?)
+        }
+        for face in RugFace.allCases where face != .character {
+            XCTAssertNotEqual(try pixels(face, .mint), try pixels(face, .strawberry), "\(face) ignores the colour")
+            XCTAssertEqual(RugArt.front(face, color: .sky, character: nil).size, RugArt.size)
+        }
+        let faces = try RugFace.allCases.filter { $0 != .character }.map { try pixels($0, .sky) }
+        XCTAssertEqual(Set(faces).count, faces.count, "two patterns draw the same")
+    }
+
     func testCharacterFaceDrawsABuiltInCharacter() throws {
         let art = try XCTUnwrap(RugArt.art(DogSpriteCache(profile: .defaultDog, style: .pixel)))
         XCTAssertGreaterThan(RugArt.opaqueBounds(art.image).width, 0)

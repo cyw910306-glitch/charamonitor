@@ -39,6 +39,15 @@ struct SettingsView: View {
                     }
                 }
                 Panel {
+                    linkRow(L("내 설정 내보내기…"), "square.and.arrow.up") { SetupFlow.exportPicked() }
+                    Divider()
+                    linkRow(L("내 설정 가져오기…"), "square.and.arrow.down") { SetupFlow.importPicked() }
+                    Divider()
+                    linkRow(L("가져오기 전 백업 보기…"), "clock.arrow.circlepath") { SetupFlow.showBackups() }
+                    Text("내 맥끼리 설정을 옮기는 파일이에요. 직접 넣은 캐릭터와 매단 사진도 담기니 다른 사람에게는 조심해서 건네 주세요. 가져오기 전 상태는 최근 3개까지 백업에 남고, 백업 파일을 열면 그때로 돌아가요.")
+                        .font(.system(size: 11)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+                }
+                Panel {
                     linkRow(L("사용법 다시 보기"), "questionmark.bubble") {
                         NotificationCenter.default.post(name: .jellyClosePopover, object: nil)   // the bubble shows under the icon
                         Tour.start()
@@ -134,7 +143,7 @@ struct HelpSheet: View {
 
 enum AppInfo {
     /// A bare `swift build` binary has no Info.plist; it shows the version scripts/build_app.sh stamps instead.
-    static let unbundledVersion = "2.5"
+    static let unbundledVersion = "2.6"
     static var version: String { Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? unbundledVersion }
     /// Where the source lives (PolyForm Noncommercial 1.0.0).
     static let repoURL = URL(string: "https://github.com/cyw910306-glitch/charamonitor")!

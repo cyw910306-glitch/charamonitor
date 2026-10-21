@@ -303,7 +303,7 @@ final class InboxCenter: ObservableObject {
         guard wantM || wantN else { return }
         names = [:]   // 연락처 may have just been allowed
         // QA render (its own defaults suite): made-up state, never the developer's own chat.db or notification apps.
-        if AppDefaults.store !== UserDefaults.standard {
+        if AppDefaults.store !== AppDefaults.owner {
             messagesAccess = wantM ? .ok : nil
             notificationsAccess = wantN ? .ok : nil
             topApps = wantN ? ["com.kakao.KakaoTalkMac", "com.tinyspeck.slackmacgap"] : []

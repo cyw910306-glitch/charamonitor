@@ -112,6 +112,10 @@ enum DesktopQA {
             ("character-dog-strawberry", RugArt.front(.character, color: .strawberry, character: RugArt.art(DogSpriteCache(profile: shiba, style: .pixel)))),
             ("back-strawberry", RugArt.back(.character, color: .strawberry)),
             ("pattern", RugArt.front(.pattern, color: .strawberry, character: nil)),
+            ("stripes-mint", RugArt.front(.stripes, color: .mint, character: nil)),
+            ("check-sky", RugArt.front(.check, color: .sky, character: nil)),
+            ("dots-lavender", RugArt.front(.dots, color: .lavender, character: nil)),
+            ("back-lemon", RugArt.back(.dots, color: .lemon)),
         ]
         if let original = OriginalCatalog.all.first {
             shots.append(("character-original-mint", RugArt.front(.character, color: .mint, character: RugArt.art(DogSpriteCache(original, style: .illustration)))))

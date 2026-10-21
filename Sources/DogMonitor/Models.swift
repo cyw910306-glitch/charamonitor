@@ -157,7 +157,20 @@ struct DogProfile: Codable, Equatable {
 /// Where every setting lives. `--render-dashboard` points it at a throwaway suite before anything reads it
 /// (cfprefsd ignores HOME, so this is the only way a QA run cannot write the owner's preferences).
 enum AppDefaults {
-    static var store: UserDefaults = .standard
+    /// The owner's preferences. Once an import replaced the setup (`SetupFile.replaced`) they take no more writes from
+    /// this copy, so nothing it still holds in memory lands over the file's values before the restart.
+    static let owner: UserDefaults = Guarded(suiteName: nil)!
+    static var store: UserDefaults = owner
+
+    private final class Guarded: UserDefaults {
+        override func set(_ value: Any?, forKey key: String) { if !SetupFile.replaced { super.set(value, forKey: key) } }
+        override func set(_ value: Int, forKey key: String) { if !SetupFile.replaced { super.set(value, forKey: key) } }
+        override func set(_ value: Float, forKey key: String) { if !SetupFile.replaced { super.set(value, forKey: key) } }
+        override func set(_ value: Double, forKey key: String) { if !SetupFile.replaced { super.set(value, forKey: key) } }
+        override func set(_ value: Bool, forKey key: String) { if !SetupFile.replaced { super.set(value, forKey: key) } }
+        override func set(_ url: URL?, forKey key: String) { if !SetupFile.replaced { super.set(url, forKey: key) } }
+        override func removeObject(forKey key: String) { if !SetupFile.replaced { super.removeObject(forKey: key) } }
+    }
 }
 
 final class AppSettings: ObservableObject {

@@ -217,6 +217,14 @@ struct HangSlot: Codable, Equatable {
 
     static let lengths: ClosedRange<Double> = 30...170
 
+    /// Across its screen and within `lengths`: whatever was saved (or imported), the layers never get inf or NaN.
+    var clamped: HangSlot {
+        var s = self
+        s.x = x.isFinite ? min(1, max(0, x)) : 0.5
+        s.length = length.isFinite ? min(Self.lengths.upperBound, max(Self.lengths.lowerBound, length)) : 90
+        return s
+    }
+
     static let defaults: [HangSlot] = zip([0.2, 0.36, 0.52, 0.68, 0.84], [90.0, 120, 70, 110, 80]).enumerated().map { i, v in
         HangSlot(character: nil, imagePath: nil, charm: [.star, .cloud, .heart, .moon, .clover][i], rope: .thread, x: v.0, length: v.1, display: nil)
     }
@@ -255,10 +263,10 @@ extension HangPrefs {
         let d = HangPrefs()
         on = try c.decodeIfPresent(Bool.self, forKey: .on) ?? d.on
         count = try c.decodeIfPresent(Int.self, forKey: .count) ?? d.count
-        slots = try c.decodeIfPresent([HangSlot].self, forKey: .slots) ?? d.slots
+        slots = (try c.decodeIfPresent([HangSlot].self, forKey: .slots) ?? d.slots).map(\.clamped)
         wind = (try? c.decodeIfPresent(WindLevel.self, forKey: .wind)) ?? d.wind
         sound = try c.decodeIfPresent(Bool.self, forKey: .sound) ?? d.sound
-        volume = try c.decodeIfPresent(Double.self, forKey: .volume) ?? d.volume
+        volume = try min(1, max(0, c.decodeIfPresent(Double.self, forKey: .volume) ?? d.volume))
         onTop = try c.decodeIfPresent(Bool.self, forKey: .onTop) ?? d.onTop
         fromTop = try c.decodeIfPresent(Bool.self, forKey: .fromTop) ?? d.fromTop
         pokeOnHover = try c.decodeIfPresent(Bool.self, forKey: .pokeOnHover) ?? d.pokeOnHover
