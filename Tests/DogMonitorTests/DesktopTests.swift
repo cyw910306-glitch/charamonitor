@@ -357,6 +357,72 @@ final class DesktopFriendsMoreTests: XCTestCase {
         XCTAssertEqual(slow.state, .walk)
     }
 
+    func testMeadowClickCombosAndPosesItHas() {
+        var combo = ClickCombo()
+        let all: (BuddyGait) -> Bool = { _ in true }
+        let first = MeadowReaction.click(&combo, at: 0, has: all, key: "test.meadow") { $0[1] }
+        XCTAssertEqual(first, MeadowReaction.plays[1])   // an everyday one, from the pick
+        _ = MeadowReaction.click(&combo, at: 0.3, has: all, key: "test.meadow") { $0[0] }
+        XCTAssertEqual(MeadowReaction.click(&combo, at: 0.6, has: all, key: "test.meadow").reaction, .dizzy)
+        _ = MeadowReaction.click(&combo, at: 0.9, has: all, key: "test.meadow")
+        let pout = MeadowReaction.click(&combo, at: 1.2, has: all, key: "test.meadow")
+        XCTAssertEqual(pout, MeadowReaction(reaction: .pout, gait: .stand))   // its back turned, not its hungry frames
+        // No 특기 or 냠냠 frames: never asks for them; standing ones always remain.
+        let plain = MeadowReaction.plays(has: { $0 != .special && $0 != .eat })
+        XCTAssertFalse(plain.contains { $0.gait == .special || $0.gait == .eat })
+        XCTAssertFalse(MeadowReaction.plays(has: { _ in false }).isEmpty)
+        // Varied: several poses and moves, and each says something.
+        XCTAssertGreaterThanOrEqual(Set(MeadowReaction.plays.map { "\($0.gait)" }).count, 4)
+        for r in MeadowReaction.plays + [MeadowReaction(reaction: .dizzy, gait: .dizzy), MeadowReaction(reaction: .pout, gait: .stand), .pet] {
+            XCTAssertFalse(r.lines.isEmpty)
+            XCTAssertGreaterThan(r.duration, 0.5)
+            XCTAssertFalse(r.lines.joined().contains("\u{2014}"))
+        }
+        XCTAssertEqual(MeadowReaction.plays.filter(\.sits), [MeadowReaction(reaction: .hearts, gait: .sleep)])   // the flop down sits
+    }
+
+    func testMeadowClicksNeverRepeatTheSamePlay() {
+        var combo = ClickCombo()
+        var last: MeadowReaction?
+        for k in 0..<20 {   // far apart: never a combo
+            let r = MeadowReaction.click(&combo, at: Double(k) * 2, has: { _ in true }, key: "test.meadow.repeat")
+            XCTAssertNotEqual(r, last)
+            XCTAssertTrue(MeadowReaction.plays.contains(r))
+            last = r
+        }
+    }
+
+    func testMeadowNeighbourIsTheNearestWithinReach() {
+        let xs: [CGFloat] = [100, 160, 300, 90]
+        XCTAssertEqual(MeadowWalk.neighbour(of: 0, in: xs, reach: 100), 3)
+        XCTAssertEqual(MeadowWalk.neighbour(of: 1, in: xs, reach: 100), 0)
+        XCTAssertNil(MeadowWalk.neighbour(of: 2, in: xs, reach: 100))
+        XCTAssertNil(MeadowWalk.neighbour(of: 7, in: xs, reach: 100))
+    }
+
+    func testPetRubNeedsARubOnOneFriend() {
+        var rub = PetRub()
+        var t: TimeInterval = 0
+        func stroke(_ who: Int?, _ n: Int, dx: CGFloat = 40, dt: TimeInterval = 0.05) -> Bool {
+            var pet = false
+            for k in 0..<n { t += dt; pet = rub.feed(CGPoint(x: k % 2 == 0 ? 0 : dx, y: 10), over: who, at: t) || pet }
+            return pet
+        }
+        XCTAssertTrue(stroke(0, 8))   // back and forth over friend 0: 280 pt
+        XCTAssertFalse(stroke(0, 3))  // starts over after a pet
+        XCTAssertFalse(stroke(1, 5))  // moved onto another: starts over (160 pt)
+        t += 1                        // a pause
+        XCTAssertFalse(stroke(1, 3))
+        XCTAssertFalse(rub.feed(CGPoint(x: 0, y: 10), over: nil, at: t + 0.05))   // off them
+        XCTAssertEqual(rub.rubbed, 0)
+        // Lingering without moving (a tick looking again) adds nothing and keeps nothing alive.
+        XCTAssertFalse(rub.feed(CGPoint(x: 5, y: 5), over: 2, at: 10))
+        XCTAssertFalse(rub.feed(CGPoint(x: 5, y: 5), over: 2, at: 10.4))
+        XCTAssertFalse(rub.feed(CGPoint(x: 5, y: 5), over: 2, at: 10.8))
+        XCTAssertFalse(rub.feed(CGPoint(x: 205, y: 5), over: 2, at: 11.2))   // 1.2 s since it last moved: starts over
+        XCTAssertEqual(rub.rubbed, 0)
+    }
+
     // MARK: 복제 친구
 
     func testClonePrefsDecodeOldAndCapAtEight() throws {

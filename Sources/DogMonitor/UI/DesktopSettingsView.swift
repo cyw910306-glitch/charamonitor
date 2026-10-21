@@ -352,7 +352,7 @@ struct DesktopSettingsView: View {
                         whoPicker(who($meadow.prefs.slots, i, copy: "meadow"))
                     }
                 }
-                details("화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 그 친구 위에 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요.")
+                details("화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 포즈를 바꾸며 말을 걸고 옆 친구도 돌아봐요. 여러 번 누르면 어지러워하다 삐지고, 커서로 문지르면 쓰다듬어져요. ⌥ 누른 채 클릭하면 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요.")
             }
         }
     }
@@ -487,7 +487,7 @@ struct DesktopSettingsView: View {
                 row("친구 얼굴") { onOff("친구 얼굴 보이기", $store.quickAskShowAvatar, .quickAsk) }
                 row("응원 효과음") { onOff("응원·춤에 효과음", $store.quickAskSound, .quickAsk) }
             }
-            details("풀밭 친구는 한 번 누르면, 커서 친구·복제 친구는 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.")
+            details("커서 친구·복제 친구·풀밭 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구와 풀밭 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.")
         }
     }
 
@@ -515,7 +515,7 @@ struct DesktopSettingsView: View {
     private var weatherSection: some View {
         Panel(tint: tint(.weather, on: weather.on)) {
             header("⛅", "날씨 창문", .weather, isOn: $weather.on)
-            tagline("그 도시 날씨 속 작은 창문")
+            tagline("그 도시 날씨를 담은 작은 수정구슬")
             if weather.on {
                 VStack(alignment: .leading, spacing: 7) {
                     row("도시") {
@@ -535,7 +535,7 @@ struct DesktopSettingsView: View {
                         }
                         .labelsHidden().fixedSize()
                     }
-                    row("창틀 색") {
+                    row("받침 색") {
                         HStack(spacing: 6) {
                             ForEach(WeatherTheme.allCases, id: \.self) { t in themeSwatch(t) }
                             Text(weather.theme.label).font(f(11)).foregroundStyle(.secondary).padding(.leading, 2)
@@ -546,13 +546,13 @@ struct DesktopSettingsView: View {
                     row("계절 장식") { onOff("계절 장식", $weather.seasonal, .weather) }
                     row("항상 위") { onOff("항상 위에 두기", $weather.onTop, .weather) }
                 }
-                details("고른 도시의 지금 날씨 속에서 캐릭터가 지내는 작은 창문이에요. 클릭하면 깡총 뛰며 날씨에 맞게 반응하고, 빈 곳을 끌면 옮겨져요. 오른쪽 클릭으로 미리보기와 위치 초기화를 할 수 있어요. 켜 두면 아침에 우산이나 겉옷 이야기를 하루 한 번 해 줘요.")
+                details("고른 도시의 지금 날씨 속에서 캐릭터가 지내는 작은 수정구슬이에요. 클릭하면 깡총 뛰며 날씨에 맞게 반응하고, 구슬을 끌면 옮겨져요. 오른쪽 클릭으로 미리보기와 위치 초기화를 할 수 있어요. 켜 두면 아침에 우산이나 겉옷 이야기를 하루 한 번 해 줘요.")
                 Text("날씨 정보: MET Norway (CC BY 4.0)").font(f(10)).foregroundStyle(.tertiary)
             }
         }
     }
 
-    /// One 창틀 색: the frame's colour with its outline, ringed when chosen.
+    /// One 받침 색: the stand's colour with its outline, ringed when chosen.
     private func themeSwatch(_ t: WeatherTheme) -> some View {
         let chosen = weather.theme == t
         return Button { weather.theme = t } label: {

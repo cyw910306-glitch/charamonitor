@@ -280,7 +280,7 @@ enum DashboardSnapshot {
     }
     #endif
 
-    /// 날씨 창문 (QA_ONLY=weather): every scene by day and by night through 날씨 미리보기, offline (the fetch always fails),
+    /// 날씨 창문 (QA_ONLY=weather): the crystal ball in every scene by day and by night through 날씨 미리보기, offline (the fetch always fails),
     /// and the 데스크톱 친구 settings with its 날씨 창문 panel.
     private static func renderWeather(settings: AppSettings, to dir: URL) throws {
         let service = WeatherService(defaults: AppDefaults.store) { _ in throw URLError(.notConnectedToInternet) }
@@ -297,7 +297,29 @@ enum DashboardSnapshot {
                 }
             }
         }
-        // 창틀 색: each theme at 200% on a real (made-up) clear day, a temperature apiece so the sill tag and the
+        // 한눈에: all fourteen balls at 100%, day over night, on a light and a dark desktop, to judge the glass, the
+        // see-through corners and the contact shadow side by side.
+        let sheet = WeatherWindow()
+        sheet.cache = DogSpriteCache(SpriteLook(settings), pixelSize: 2 * sheet.scale)
+        let skies = [false, true].map { night in
+            WeatherKind.allCases.map { kind -> WeatherService in
+                let one = WeatherService(defaults: AppDefaults.store) { _ in throw URLError(.notConnectedToInternet) }
+                one.preview = kind
+                one.previewNight = night
+                return one
+            }
+        }
+        for (name, top, bottom) in [("light", "#C9D6E6", "#9FB3CC"), ("dark", "#2A3142", "#151922")] {
+            let view = VStack(spacing: 12) {
+                ForEach(skies.indices, id: \.self) { row in
+                    HStack(spacing: 12) { ForEach(skies[row].indices, id: \.self) { WeatherSceneView(window: sheet, service: skies[row][$0]) } }
+                }
+            }
+            .padding(20)
+            .background(LinearGradient(colors: [WeatherArt.color(top), WeatherArt.color(bottom)], startPoint: .top, endPoint: .bottom))
+            try snapshot(view, appearance: .aqua, to: dir.appendingPathComponent("weather-orb-sheet-\(name).png"))
+        }
+        // 받침 색: each theme at 200% on a real (made-up) clear day, a temperature apiece so the name plate and the
         // sunglasses (31°) and knit hat (-2°) show too; then 50% for the small tag.
         service.preview = nil
         service.previewNight = false

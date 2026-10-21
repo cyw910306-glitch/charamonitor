@@ -2,7 +2,7 @@ import AppKit
 import Combine
 import SwiftUI
 
-/// 퀵물어보기: a click on a 풀밭 친구 (⌥ click or the menu on the 커서 친구, ⌥ click on a 복제 친구) opens a bubble over it with a few questions answered on this Mac, no AI
+/// 퀵물어보기: a ⌥ click or the menu on the 커서 친구 or a 풀밭 친구 (⌥ click on a 복제 친구) opens a bubble over it with a few questions answered on this Mac, no AI
 /// (today's to-dos, what to do now, the next event, a cheer, a dance), and a button to the AI 비서. An answer shows in
 /// the same bubble with the chips still under it, so the next question is one tap. A click elsewhere closes it; no Esc,
 /// since neither the bubble nor the friends ever take the keyboard (the key press goes to the app in front).

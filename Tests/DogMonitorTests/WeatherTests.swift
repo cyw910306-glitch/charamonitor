@@ -2,7 +2,7 @@ import XCTest
 @testable import DogMonitor
 
 /// 날씨 창문: MET symbol mapping, forecast parsing, the lines it says, fetch pacing (with a fake fetch, never the network)
-/// and the window's click-through shape.
+/// and the crystal ball's click-through shape and lens.
 final class WeatherTests: XCTestCase {
     private let seoul = WeatherCity.presets[0]
     private let iso = ISO8601DateFormatter()
@@ -199,13 +199,42 @@ final class WeatherTests: XCTestCase {
     func testWindowShapeAndSizes() {
         let size = WeatherFrame.size(WeatherFrame.defaultStep)
         XCTAssertEqual(size.width, 160)
-        XCTAssertTrue(WeatherFrame.hits(CGPoint(x: 80, y: size.height - 80), size: size), "the middle of the glass")
+        XCTAssertTrue(WeatherFrame.hits(CGPoint(x: 80, y: size.height - 77), size: size), "the middle of the ball")
         XCTAssertFalse(WeatherFrame.hits(CGPoint(x: 2, y: size.height - 2), size: size), "the empty top-left corner passes clicks")
-        XCTAssertTrue(WeatherFrame.hits(CGPoint(x: 80, y: 10), size: size), "the sill")
+        XCTAssertTrue(WeatherFrame.hits(CGPoint(x: 80, y: 12), size: size), "the stand")
         XCTAssertFalse(WeatherFrame.hits(CGPoint(x: 4, y: 10), size: size))
+        XCTAssertFalse(WeatherFrame.hits(CGPoint(x: 80, y: 1), size: size), "the shadow under the stand passes clicks")
+        let (c0, r0) = WeatherFrame.orb(size)
+        XCTAssertFalse(WeatherFrame.hits(CGPoint(x: c0.x + 0.8 * r0, y: size.height - (c0.y + 0.75 * r0)), size: size),
+                       "the empty corner beside the neck passes clicks")
+        XCTAssertTrue(WeatherFrame.hits(CGPoint(x: c0.x + 0.75 * r0, y: size.height - (c0.y + 1.12 * r0)), size: size), "the foot's side")
         XCTAssertEqual(WeatherFrame.size(-5), WeatherFrame.size(0))
         XCTAssertEqual(WeatherFrame.size(99).width, 320)
         for s in WeatherFrame.scales { XCTAssertEqual((2 * s * 2).truncatingRemainder(dividingBy: 1), 0, "whole Retina pixels at \(s)") }
+        for step in WeatherFrame.scales.indices {
+            let size = WeatherFrame.size(step), (c, r) = WeatherFrame.orb(size), collar = WeatherArt.standRings(c: c, r: r).collar
+            XCTAssertGreaterThanOrEqual(c.y - r, 0, "the ball fits under the top")
+            XCTAssertLessThan(collar.minY, c.y + r, "the ball sits in the stand")
+            XCTAssertLessThanOrEqual(c.y + r * 1.53, size.height + 0.5, "the shadow fits in the window")
+        }
+    }
+
+    func testOrbLensKeepsCentreAndRimAndMagnifiesTheMiddle() {
+        XCTAssertEqual(OrbLens.bend(0), 0)
+        XCTAssertEqual(OrbLens.bend(1), 1, accuracy: 1e-9)
+        var last: CGFloat = -1
+        for i in 0...150 {
+            let b = OrbLens.bend(CGFloat(i) / 100)
+            XCTAssertGreaterThan(b, last, "never folds back, past the rim too")
+            last = b
+        }
+        let lens = OrbLens(s: 100)
+        XCTAssertEqual(lens(CGPoint(x: 50, y: 50)), CGPoint(x: 50, y: 50))
+        XCTAssertGreaterThan(lens(CGPoint(x: 50, y: 70)).y, 70, "the middle is pushed out")
+        XCTAssertEqual(lens(CGPoint(x: 100, y: 50)).x, 100, accuracy: 1e-9, "the rim stays")
+        XCTAssertLessThan(lens.scale(CGPoint(x: 95, y: 50)), lens.scale(CGPoint(x: 55, y: 50)), "things shrink toward the glass")
+        // A flat horizon bows: its ends sit higher than its middle.
+        XCTAssertLessThan(lens(CGPoint(x: 10, y: 74)).y, lens(CGPoint(x: 50, y: 74)).y)
     }
 
     func testTemperatureDressesASunnyDayAndEverySkyHasLines() {

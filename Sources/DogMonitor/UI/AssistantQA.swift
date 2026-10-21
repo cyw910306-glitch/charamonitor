@@ -109,6 +109,7 @@ extension DashboardSnapshot {
             try shot(width(DashboardView(monitor: monitor, settings: settings, onQuit: {}, startPage: .settings)), "settings")
             let report = MainActor.assumeIsolated { Diagnostics.report() }
             try shot(HelpSheet(report: report, onClose: {}).frame(width: 400, height: 420), "help-sheet")
+            try shot(GuideSheet(onTour: {}, onClose: {}).frame(width: 400, height: 480), "guide-sheet")
             try shot(width(AssistantView(monitor: monitor, settings: settings, onBack: {})), "chat-chips")
             try shot(width(AssistantView(monitor: monitor, settings: settings, onBack: {}, startOnSettings: true)), "assistant-settings")
             PetModel.shared.state = furnished(now: Date(), focus: false)

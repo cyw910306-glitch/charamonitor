@@ -2,10 +2,11 @@ import AppKit
 import Combine
 import SwiftUI
 
-/// The 날씨 창문's shape, y up like window frames: a round window and its sill below.
+/// The 날씨 창문's shape: a crystal ball on a little stand, over its soft shadow. `orb` and `stand` are y down like
+/// the drawing (WeatherSceneView); `hits` takes window points, y up.
 enum WeatherFrame {
-    /// The window is this much taller than the circle, for the sill.
-    static let heightRatio: CGFloat = 1.08
+    /// The window is this much taller than wide, for the stand and its shadow.
+    static let heightRatio: CGFloat = 1.16
     static let baseDiameter: CGFloat = 160
     /// 창 크기 steps. Each keeps the character at a whole number of pixels on a Retina screen (2 pt per art px at 100%).
     static let scales: [CGFloat] = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
@@ -27,23 +28,24 @@ enum WeatherFrame {
         return CGSize(width: d, height: (d * heightRatio).rounded())
     }
 
-    /// Whether `p` (in a window of `size`) is on the drawing: the circle or the sill. Elsewhere clicks pass through.
-    static func hits(_ p: CGPoint, size: CGSize) -> Bool {
-        let d = size.width, r = d / 2
-        let dx = p.x - r, dy = p.y - (size.height - r)
-        if dx * dx + dy * dy <= r * r { return true }
-        return sill(size).contains(p)
+    /// The glass ball in a window of `size`: its centre and radius, y down. The stand and its shadow take the
+    /// 0.52 r below the ball and a little more (WeatherArt.standBack).
+    static func orb(_ size: CGSize) -> (center: CGPoint, r: CGFloat) {
+        (CGPoint(x: size.width / 2, y: size.width * 0.48), size.width * 0.44)
     }
 
-    /// The sill, y up.
-    static func sill(_ size: CGSize) -> CGRect {
-        let d = size.width
-        return CGRect(x: d * 0.18, y: size.height - d * 1.06, width: d * 0.64, height: d * 0.11)
+    /// Whether `p` (in a window of `size`, y up) is on the object: the ball or the stand's neck and foot as drawn.
+    /// Elsewhere, the shadow and the corners beside the neck included, clicks pass through.
+    static func hits(_ p: CGPoint, size: CGSize) -> Bool {
+        let q = CGPoint(x: p.x, y: size.height - p.y), (c, r) = orb(size)
+        let dx = q.x - c.x, dy = q.y - c.y, g = WeatherArt.standRings(c: c, r: r)
+        return dx * dx + dy * dy <= r * r || WeatherArt.turned(g.collar, g.neck).contains(q)
+            || WeatherArt.turned(g.footTop, g.footBottom).contains(q)
     }
 }
 
-/// "날씨 창문" (데스크톱 친구): a small round window on the desktop where the current character lives in the city's
-/// weather. Never takes focus, passes clicks through outside the drawing, on every Space. Drag empty glass to move it,
+/// "날씨 창문" (데스크톱 친구): a little crystal ball on a stand on the desktop, the current character living inside in
+/// the city's weather. Never takes focus, passes clicks through outside the ball and stand, on every Space. Drag it to move it,
 /// click for a hop and a reaction (now and then a line), right-click for city, preview, look, size and on-top. Draws only while it is on screen.
 final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
     static let shared = WeatherWindow()
@@ -51,7 +53,7 @@ final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
     @Published var on: Bool { didSet { defaults.set(on, forKey: "weatherWindow") } }
     @Published var sizeStep: Int { didSet { defaults.set(sizeStep, forKey: "weatherSize") } }
     @Published var onTop: Bool { didSet { defaults.set(onTop, forKey: "weatherOnTop") } }
-    /// 꾸미기: 창틀 색, the sill's temperature, a line now and then on clicks, petals and leaves by the month.
+    /// 꾸미기: 받침 색, the name plate's temperature, a line now and then on clicks, petals and leaves by the month.
     @Published var theme: WeatherTheme { didSet { defaults.set(theme.rawValue, forKey: "weatherTheme") } }
     @Published var showTemp: Bool { didSet { defaults.set(showTemp, forKey: "weatherShowTemp") } }
     @Published var chatter: Bool { didSet { defaults.set(chatter, forKey: "weatherChatter") } }
@@ -142,7 +144,7 @@ final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
         let size = WeatherFrame.size(sizeStep)
         if panel.frame.size != size {
             let old = panel.frame
-            // Grows and shrinks about the bottom centre, where the sill sits.
+            // Grows and shrinks about the bottom centre, where the stand sits.
             panel.setFrame(CGRect(x: old.midX - size.width / 2, y: old.minY, width: size.width, height: size.height), display: true)
             savePosition()
         }
@@ -282,7 +284,7 @@ final class WeatherWindow: NSObject, ObservableObject, NSWindowDelegate {
                     + WeatherKind.allCases.map { k in item(k.title, service.preview == k) { service.preview = k } }),
             item(L("밤으로 보기"), service.previewNight) { service.previewNight.toggle() },
             .separator(),
-            submenu(L("창틀 색"), WeatherTheme.allCases.map { t in item(t.label, t == self.theme) { self.theme = t } }),
+            submenu(L("받침 색"), WeatherTheme.allCases.map { t in item(t.label, t == self.theme) { self.theme = t } }),
             item(L("온도 보이기"), showTemp) { self.showTemp.toggle() },
             submenu(L("창 크기"), WeatherFrame.scales.indices.map { i in item(WeatherFrame.label(i), i == self.sizeStep) { self.sizeStep = i } }),
             item(L("항상 위에 두기"), onTop) { self.onTop.toggle() },

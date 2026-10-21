@@ -279,7 +279,7 @@
 /* Sources/DogMonitor/App/Tour.swift:22 */
 "(4/4) 대시보드의 AI 비서에서 저한테 말 걸어 보세요." = "(4/4) Talk to me in AI Assistant on the dashboard.";
 /* Sources/DogMonitor/App/Tour.swift:62 */
-"내 설정 파일로 다른 맥에 지금 모습 그대로 옮기고, 러그는 크기·무늬·색을 바꿀 수 있어요." = "New: move this exact setup to your other Macs with a setup file, and change the rug's size, pattern and color.";
+"날씨 창문이 수정구슬이 됐고, 풀밭 친구들이 누르면 반응해요. 설정 > 사용법에서 전부 볼 수 있어요." = "New: the weather window is a crystal ball, and the meadow friends react when you click them. See it all in Settings > How to use.";
 /* Sources/DogMonitor/App/Tour.swift:88 */
 "업데이트됐어요! " = "Updated! ";
 /* Sources/DogMonitor/App/Updater.swift:22 */
@@ -2783,7 +2783,27 @@
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:209 */
 "매달 사진이나 스크린샷을 골라 주세요" = "Pick a photo or screenshot to hang";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:250 */
-"화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 그 친구 위에 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요." = "Friends live along the bottom of the screen, just above the Dock. They bob in place and now and then stroll, sit or rest. Click one for Quick Ask over it; pick one up and let go and it drops. Windows cover them.";
+"화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 포즈를 바꾸며 말을 걸고 옆 친구도 돌아봐요. 여러 번 누르면 어지러워하다 삐지고, 커서로 문지르면 쓰다듬어져요. ⌥ 누른 채 클릭하면 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요." = "Friends live along the bottom of the screen, just above the Dock. They bob in place and now and then stroll, sit or rest. Click one and it strikes a pose and says something, and its neighbour turns to look. Click it again and again and it gets dizzy, then sulks; rub it with the cursor to pet it. Option-click one for Quick Ask; pick one up and let go and it drops. Windows cover them.";
+/* 풀밭 친구들 clicked and petted (MeadowFriends), 퀵물어보기 help (DesktopSettingsView) */
+"커서 친구·복제 친구·풀밭 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구와 풀밭 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요." = "Option-click the Cursor Buddy, a copy friend or a meadow friend and a bubble opens. The Cursor Buddy and the meadow friends have it in their right-click menu too. It answers right away, without AI.";
+"퀵물어보기" = "Quick Ask";
+"다 같이 뛰기" = "Everyone hop";
+"그만 눌러요, 흥!" = "Stop poking me, hmph!";
+"이제 안 놀아 줄 거예요" = "I'm not playing with you anymore";
+"냠냠, 맛있어요" = "Nom nom, yummy";
+"간식 먹는 중이에요" = "I'm having a snack";
+"잠깐 앉아서 쉴래요" = "I'll sit and rest a bit";
+"풀밭이 폭신해요" = "The grass is so soft";
+"헤헤, 불렀어요?" = "Hehe, you called?";
+"안녕! 오늘도 같이 놀아요" = "Hi! Let's play today too";
+"간지러워요" = "That tickles";
+"뭐 하고 있어요?" = "What are you up to?";
+"저 여기 있어요!" = "I'm right here!";
+"쓰담쓰담 좋아요" = "I love being petted";
+"헤헤, 기분 좋아요" = "Hehe, that feels nice";
+"더 쓰다듬어 주세요" = "Pet me some more";
+"흥!" = "Hmph!";
+"에취!" = "Achoo!";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:285 */
 "바탕화면에 작은 천 러그를 깔아요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요." = "A small cloth rug on your desktop. Drag an edge and it folds over to show its back; rub the middle around and wrinkles form and stay. Double-click, or choose Smooth It Out from the right-click menu, to flatten it again.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:294 */

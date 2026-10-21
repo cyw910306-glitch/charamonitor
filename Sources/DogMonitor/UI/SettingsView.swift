@@ -11,6 +11,7 @@ struct SettingsView: View {
     @State private var loginOn = LoginItem.isEnabled
     @State private var loginError: String?
     @State private var helpReport: String?
+    @State private var guide = false
 
     var body: some View {
         PageScaffold(title: L("설정"), onBack: onBack) {
@@ -49,8 +50,7 @@ struct SettingsView: View {
                 }
                 Panel {
                     linkRow(L("사용법 다시 보기"), "questionmark.bubble") {
-                        NotificationCenter.default.post(name: .jellyClosePopover, object: nil)   // the bubble shows under the icon
-                        Tour.start()
+                        guide = true
                     }
                     Divider()
                     linkRow(L("문제 보내기"), "ladybug") { helpReport = Diagnostics.report() }
@@ -65,6 +65,16 @@ struct SettingsView: View {
             }
         }
         .overlay { if let helpReport { HelpSheet(report: helpReport) { self.helpReport = nil } } }
+        .overlay {
+            if guide {
+                GuideSheet(onTour: {
+                    guide = false
+                    NotificationCenter.default.post(name: .jellyClosePopover, object: nil)   // the bubble shows under the icon
+                    // Once the popover is gone: a bubble under the icon would sit behind it.
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { Tour.start(asked: true) }
+                }, onClose: { guide = false })
+            }
+        }
     }
 
     private func linkRow(_ title: String, _ symbol: String, action: @escaping () -> Void) -> some View {
@@ -143,7 +153,7 @@ struct HelpSheet: View {
 
 enum AppInfo {
     /// A bare `swift build` binary has no Info.plist; it shows the version scripts/build_app.sh stamps instead.
-    static let unbundledVersion = "2.6"
+    static let unbundledVersion = "2.7"
     static var version: String { Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? unbundledVersion }
     /// Where the source lives (PolyForm Noncommercial 1.0.0).
     static let repoURL = URL(string: "https://github.com/cyw910306-glitch/charamonitor")!

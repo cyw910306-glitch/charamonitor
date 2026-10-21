@@ -49,6 +49,8 @@ struct SpeechLine: Equatable, Identifiable {
     /// Where it points: the top middle of a desktop friend (screen points), followed while it shows; nil when that
     /// friend is gone. No anchor: the menu bar icon (or the cursor friend).
     var anchor: (() -> CGPoint?)?
+    /// Under the menu bar icon even while the 커서 친구 is on (the tour).
+    var atIcon = false
 
     static func == (a: SpeechLine, b: SpeechLine) -> Bool { a.id == b.id }
 
@@ -140,16 +142,17 @@ final class SpeechBubbleCenter: ObservableObject {
     /// `closable`: news, drawn with a close mark (SpeechLine.closable).
     @discardableResult
     func say(text: String, source: SpeechSource, aloud: Bool = true, repeats: Bool = false, hold: Bool = false,
-             seconds: TimeInterval? = nil, closable: Bool = false, card: PoseCard? = nil, anchor: (() -> CGPoint?)? = nil) -> Bool {
+             seconds: TimeInterval? = nil, closable: Bool = false, card: PoseCard? = nil, anchor: (() -> CGPoint?)? = nil,
+             atIcon: Bool = false, asked: Bool = false) -> Bool {
         // Long dashes out of every line, the agent's and goals' model text included (AssistantPrompt.undash).
         let line = String(AssistantPrompt.undash(text).trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxLength))
         guard !line.isEmpty else { return false }
         let post = { () -> Bool in
             let now = Date()
             guard self.current?.yields(hold: hold, now: now) ?? true,
-                  self.gate.allow(line, source: source, muted: self.isMuted(), now: now, repeats: repeats) else { return false }
+                  self.gate.allow(line, source: source, muted: !asked && self.isMuted(), now: now, repeats: repeats) else { return false }
             self.current = SpeechLine(text: line, source: source, date: now, hold: hold, seconds: seconds, closable: closable,
-                                      card: card, anchor: anchor)
+                                      card: card, anchor: anchor, atIcon: atIcon)
             if aloud && AssistantSettings.shared.voice { AssistantVoice.shared.speak(line) }
             return true
         }
@@ -198,7 +201,7 @@ final class SpeechBubbleWindow {
         followTimer?.invalidate(); followTimer = nil
         deadline = nil
         guard let line else { hide(); return }
-        let byCursor = MotionStore.shared.cursorBuddy
+        let byCursor = MotionStore.shared.cursorBuddy && !line.atIcon
         let anchor = line.anchor.flatMap { $0() }
         let art = line.card?.art
         let host = NSHostingView(rootView: SpeechBubbleView(text: line.text, tailUp: anchor == nil && !byCursor, closable: line.closable,

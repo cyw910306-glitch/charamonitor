@@ -198,5 +198,14 @@ final class SupportTests: XCTestCase {
         XCTAssertNil(bubble.current)
         XCTAssertNil(Tour.step)
         for polite in [false, true] { XCTAssertEqual(Tour.lines(polite: polite).count, 4) }
+        // 사용법 다시 보기 shows even while muted, every step, under the menu bar icon.
+        bubble.isMuted = { true }
+        Tour.start(d, on: bubble, asked: true)
+        XCTAssertTrue(bubble.current?.text.hasPrefix("(1/4)") ?? false)
+        XCTAssertTrue(bubble.current?.atIcon ?? false)
+        XCTAssertTrue(Tour.advance(bubble.current!.text, on: bubble))
+        XCTAssertTrue(bubble.current?.text.hasPrefix("(2/4)") ?? false)
+        Tour.start(d, on: bubble)   // the launch tour still keeps quiet while muted
+        XCTAssertTrue(bubble.current?.text.hasPrefix("(2/4)") ?? false)
     }
 }

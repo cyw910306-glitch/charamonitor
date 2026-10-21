@@ -11,6 +11,8 @@ enum Tour {
     /// The step showing and its exact words; a click on any other bubble just closes it.
     private(set) static var step: Int?
     private static var shown: String?
+    /// 사용법 다시 보기: the user asked, so it shows even while muted (잠시 조용히, a call app in front).
+    private static var asked = false
 
     /// The four lines, banmal or 존댓말; the last invites a first question.
     static func lines(polite: Bool) -> [String] {
@@ -30,9 +32,11 @@ enum Tour {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { start(d) }
     }
 
-    /// From the first step. Main thread.
-    static func start(_ d: UserDefaults = AppDefaults.store, on center: SpeechBubbleCenter = .shared) {
-        if show(0, on: center) { d.set(true, forKey: seenKey) }
+    /// From the first step. Main thread. `asked`: 사용법 다시 보기, shown even while muted.
+    static func start(_ d: UserDefaults = AppDefaults.store, on center: SpeechBubbleCenter = .shared, asked: Bool = false) {
+        let before = self.asked
+        self.asked = asked
+        if show(0, on: center) { d.set(true, forKey: seenKey) } else { self.asked = before }
     }
 
     /// A click on the bubble showing `text`: the next step, true when the tour took the click. Main thread.
@@ -48,7 +52,8 @@ enum Tour {
         let line = lines(polite: !persona.style.banmal)[i]
         // The step mark stays first; the character's flair goes on the words after it.
         let mark = String(line.prefix(6)), text = mark + persona.flavor(String(line.dropFirst(6)))
-        guard center.say(text: text, source: .system, repeats: true, hold: true, seconds: stay) else { return false }
+        // Under the menu bar icon even while the 커서 친구 is on: the steps talk about that icon.
+        guard center.say(text: text, source: .system, repeats: true, hold: true, seconds: stay, atIcon: true, asked: asked) else { return false }
         step = i
         shown = text
         return true
@@ -59,7 +64,7 @@ enum Tour {
 enum WhatsNew {
     static let key = "lastSeenVersion"
     /// This release's one-liner; empty = say nothing. Change it per release.
-    static let line = L("내 설정 파일로 다른 맥에 지금 모습 그대로 옮기고, 러그는 크기·무늬·색을 바꿀 수 있어요.")
+    static let line = L("날씨 창문이 수정구슬이 됐고, 풀밭 친구들이 누르면 반응해요. 설정 > 사용법에서 전부 볼 수 있어요.")
 
     /// Whether `current` is newer than the version seen last. Pure.
     static func announces(last: String?, current: String) -> Bool {

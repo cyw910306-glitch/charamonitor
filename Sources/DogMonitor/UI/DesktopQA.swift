@@ -98,6 +98,34 @@ enum DesktopQA {
         CloneStore.shared.prefs = ClonePrefs()
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.3))
 
+        // 풀밭 친구들 clicked: six side by side, each 40 % into a reaction (every everyday one, then dizzy and a pout, then
+        // a pet), first as the menu bar character, then as the first original (its 특기 frames); "still" as under 동작 줄이기.
+        MeadowFriends.qaHidden = true
+        FriendMark.qa = true
+        let combos = [MeadowReaction(reaction: .dizzy, gait: .dizzy), MeadowReaction(reaction: .pout, gait: .stand)]
+        let rows: [(String, [MeadowReaction], Bool)] = [
+            ("a", Array(MeadowReaction.plays.prefix(4)) + combos, false),
+            ("b", Array(MeadowReaction.plays.dropFirst(4)) + [.pet] + combos.prefix(1), false),
+            ("still", [MeadowReaction.plays[0], .pet, MeadowReaction.plays[5], MeadowReaction.plays[6]] + combos, true),
+        ]
+        for (who, ids) in [("menubar", [String?](repeating: nil, count: 6)), ("original", [String?](repeating: OriginalCatalog.all.first?.id, count: 6))] {
+            var prefs = MeadowPrefs(on: true, count: MeadowPrefs.maxCount)
+            for (i, id) in ids.enumerated() where prefs.slots.indices.contains(i) { prefs.slots[i].character = id }
+            MeadowStore.shared.prefs = prefs
+            MeadowFriends.shared.start()
+            RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.5))
+            for (row, shown, still) in rows {
+                MeadowFriends.shared.qaLayer?.sublayers?.filter { $0.name == FriendMark.name }.forEach { $0.removeFromSuperlayer() }
+                let box = MeadowFriends.shared.qaStage(shown, still: still)
+                guard let layer = MeadowFriends.shared.qaLayer, !box.isEmpty else { continue }
+                try png(layer, background: NSColor(red: 0.80, green: 0.86, blue: 0.93, alpha: 1), crop: box,
+                        to: dir.appendingPathComponent("desktop-meadow-react-\(who)-\(row).png"))
+            }
+        }
+        FriendMark.qa = false
+        MeadowStore.shared.prefs = MeadowPrefs()
+        RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.3))
+
         try focusWidgets(to: dir, looks: looks)
         try quickAsk(to: dir, looks: looks)
         try rugFaces(to: dir)

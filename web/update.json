@@ -1,1 +1,1 @@
-{"version":"2.6","build":30,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"659c3d198ad71e3b0a9e8a38014ac9807a58da38ebf61c8a4651334921eb943c","minSystem":"13.0","notes":"내 설정 파일로 다른 맥에 지금 모습 그대로 옮기고, 러그는 크기·무늬·색을 바꿀 수 있어요."}
+{"version":"2.7","build":31,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"af9c6c49639d339616e1f69dc596c52768b2a5dbf508380c0cb4fa02ee5f10be","minSystem":"13.0","notes":"날씨 창문이 수정구슬이 됐고, 풀밭 친구들이 누르면 반응해요. 설정 > 사용법에서 전부 볼 수 있어요."}
