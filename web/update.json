@@ -1,1 +1,1 @@
-{"version":"2.7.1","build":32,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"71da06251351ff4df3222fa4b5597768299daec752971cba1a74cead50883ff6","minSystem":"13.0","notes":"영어 화면의 모든 문구가 영어로 나와요. 날씨 수정구슬과 풀밭 친구들 반응도 그대로예요."}
+{"version":"2.8","build":33,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"d7ea0faf2d1efd66b3b48d70f91a35887b6499a3c51e4d0d493b0f49915be19d","minSystem":"13.0","notes":"폴더 친구가 생겼어요. 켜 두면 열린 Finder 창 위에 캐릭터가 올라앉아 창을 따라다녀요."}

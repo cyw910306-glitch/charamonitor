@@ -1432,7 +1432,7 @@
  {
   "key": "기타 소녀는 오픈 소스판에서 은퇴했어요. 그동안 함께해 줘서 고마워요! 이제 강아지가 메뉴바를 지킬게요.",
   "file": "Sources/DogMonitor/App/AppDelegate.swift",
-  "line": 109
+  "line": 110
  },
  {
   "key": "퀵물어보기",
@@ -1885,6 +1885,41 @@
   "line": 262
  },
  {
+  "key": "여기서 정리하는 거 구경할래요",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "이 폴더 안엔 뭐가 있어요?",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "창 옮기면 꽉 붙잡을게요",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "폴더 위가 제일 명당이에요",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "헤헤, 불렀어요?",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "창마다 한 명씩",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 698
+ },
+ {
+  "key": "폴더 친구 치우기",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 699
+ },
+ {
   "key": "오늘 할 일 얼마나 했어요?",
   "file": "Sources/DogMonitor/App/FriendQuickAsk.swift",
   "line": 18
@@ -2250,11 +2285,6 @@
   "line": 175
  },
  {
-  "key": "헤헤, 불렀어요?",
-  "file": "Sources/DogMonitor/App/MeadowFriends.swift",
-  "line": 175
- },
- {
   "key": "다 같이 뛰기",
   "file": "Sources/DogMonitor/App/MeadowFriends.swift",
   "line": 700
@@ -2470,7 +2500,7 @@
   "line": 24
  },
  {
-  "key": "날씨 창문이 수정구슬이 됐고, 풀밭 친구들이 누르면 반응해요. 설정 > 사용법에서 전부 볼 수 있어요.",
+  "key": "폴더 친구가 생겼어요. 켜 두면 열린 Finder 창 위에 캐릭터가 올라앉아 창을 따라다녀요.",
   "file": "Sources/DogMonitor/App/Tour.swift",
   "line": 67
  },
@@ -3583,15 +3613,5 @@
   "key": "인터넷에 연결하지 못했어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
   "line": 45
- },
- {
-  "key": "답을 만들지 못했어요.",
-  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 47
- },
- {
-  "key": "이 맥 안의 Apple Intelligence로 답해요. 대화는 맥 밖으로 나가지 않아요.",
-  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 65
  }
 ]

@@ -1432,7 +1432,7 @@
  {
   "key": "기타 소녀는 오픈 소스판에서 은퇴했어요. 그동안 함께해 줘서 고마워요! 이제 강아지가 메뉴바를 지킬게요.",
   "file": "Sources/DogMonitor/App/AppDelegate.swift",
-  "line": 109
+  "line": 110
  },
  {
   "key": "퀵물어보기",
@@ -1885,6 +1885,41 @@
   "line": 262
  },
  {
+  "key": "여기서 정리하는 거 구경할래요",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "이 폴더 안엔 뭐가 있어요?",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "창 옮기면 꽉 붙잡을게요",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "폴더 위가 제일 명당이에요",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "헤헤, 불렀어요?",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 609
+ },
+ {
+  "key": "창마다 한 명씩",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 698
+ },
+ {
+  "key": "폴더 친구 치우기",
+  "file": "Sources/DogMonitor/App/FolderFriends.swift",
+  "line": 699
+ },
+ {
   "key": "오늘 할 일 얼마나 했어요?",
   "file": "Sources/DogMonitor/App/FriendQuickAsk.swift",
   "line": 18
@@ -2250,11 +2285,6 @@
   "line": 175
  },
  {
-  "key": "헤헤, 불렀어요?",
-  "file": "Sources/DogMonitor/App/MeadowFriends.swift",
-  "line": 175
- },
- {
   "key": "다 같이 뛰기",
   "file": "Sources/DogMonitor/App/MeadowFriends.swift",
   "line": 700
@@ -2470,7 +2500,7 @@
   "line": 24
  },
  {
-  "key": "날씨 창문이 수정구슬이 됐고, 풀밭 친구들이 누르면 반응해요. 설정 > 사용법에서 전부 볼 수 있어요.",
+  "key": "폴더 친구가 생겼어요. 켜 두면 열린 Finder 창 위에 캐릭터가 올라앉아 창을 따라다녀요.",
   "file": "Sources/DogMonitor/App/Tour.swift",
   "line": 67
  },
@@ -9330,434 +9360,464 @@
   "line": 17
  },
  {
-  "key": "바탕화면 러그",
+  "key": "폴더 친구",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
   "line": 18
  },
  {
-  "key": "복제 친구",
+  "key": "바탕화면 러그",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
   "line": 19
  },
  {
+  "key": "복제 친구",
+  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
+  "line": 20
+ },
+ {
   "key": "다들 쉬는 중이에요. 하나 깨워 볼까요?",
-  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 83
- },
- {
-  "key": "친구 %lld명이 나와 있어요",
-  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 83
- },
- {
-  "key": "불러보기 👋",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
   "line": 86
  },
  {
+  "key": "친구 %lld명이 나와 있어요",
+  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
+  "line": 86
+ },
+ {
+  "key": "불러보기 👋",
+  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
+  "line": 89
+ },
+ {
   "key": "나와 있는 친구들이 모두 반응해요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 93
+  "line": 96
  },
  {
   "key": "🎃 오늘은 살짝 으스스하게",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 113
+  "line": 116
  },
  {
   "key": "🎄 포근한 12월이에요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 114
+  "line": 117
  },
  {
   "key": "좋은 아침이에요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 115
+  "line": 118
  },
  {
   "key": "오늘도 같이 놀아요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 116
+  "line": 119
  },
  {
   "key": "늦었어요, 살살 놀아요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 117
+  "line": 120
  },
  {
   "key": "커서를 졸졸 따라다녀요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 135
+  "line": 138
  },
  {
   "key": "빠르게 움직이면",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 144
+  "line": 147
  },
  {
   "key": "혼자 놀기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 150
+  "line": 153
  },
  {
   "key": "커서를 움직이면 걸어서 따라오고, 커서가 멀리 가면 뛰어와요. 멈추면 곁에서 기다리다 가끔 혼자 놀고, 충전 중엔 밥을 먹어요. 한동안 손을 안 대면 낮잠을 자요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 152
+  "line": 155
  },
  {
   "key": "혼자 놀기를 켜 두면 가끔 맨 앞 창의 위쪽 끝에 올라가 앉고, 나비를 쫓거나 커서에 매달리기도 해요. 앉을 자리는 창의 위치만 보고 찾아요. 창 안의 내용은 보지 않아요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 153
+  "line": 156
  },
  {
   "key": "마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 누를 때마다 여러 가지로 반응하고, 연달아 누르면 어질어질하다 삐쳐요. 꾸욱 누르고 있다 놓으면 폴짝 뛰고, 잡아서 휙 던지면 날아갔다 다시 돌아와요. ⌥ 누른 채 클릭하면 퀵물어보기, AI 비서와 메뉴는 오른쪽 클릭이에요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 154
+  "line": 157
  },
  {
   "key": "macOS는 시스템 커서 자체를 바꾸지 못하게 해서 따라다니는 친구로 만들었어요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 155
+  "line": 158
  },
  {
   "key": "커서 친구를 복사해 바탕화면을 꾸며요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 166
+  "line": 169
  },
  {
   "key": "몇 명",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 169
+  "line": 172
  },
  {
   "key": "하나 더",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 172
+  "line": 175
  },
  {
   "key": "어울리기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 181
+  "line": 184
  },
  {
   "key": "커서 친구를 오른쪽 클릭해서 '복제해서 바탕화면에 두기'를 누르면 똑같은 친구가 바탕화면에 생겨요. 8명까지 두고, 다시 켜도 그 자리에 있어요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 183
+  "line": 186
  },
  {
   "key": "혼자 산책하고 앉고 낮잠도 자요. 어울리기를 켜 두면 서로 인사하거나 쫓아다니고, 커서를 쳐다보거나 달려오고, 러그가 있으면 올라가 앉아요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 184
+  "line": 187
  },
  {
   "key": "누르면 반응하고, 잡아서 옮기거나 휙 던질 수 있어요. 움직이기를 끄면 놓은 자리 그대로 장식이 돼요. 오른쪽 클릭으로 한 명씩 치울 수 있어요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 185
+  "line": 188
  },
  {
   "key": "메뉴바에 매달려 살랑살랑",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 195
+  "line": 198
  },
  {
   "key": "메뉴바 바로 아래 줄에 매달려 흔들려요. 잡아서 던지면 줄이 늘었다 튕기고, 누르면 풍경 소리가 나요. 끌어다 놓고 잠깐 멈췄다 놓으면 그 자리, 그 줄 길이로 다시 매달아요. 다른 화면으로 끌어 옮길 수도 있어요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 198
+  "line": 201
  },
  {
   "key": "날씨 창문을 켜 두면 그 도시 바람을 따라요. 지금은 산들바람이에요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 218
+  "line": 221
  },
  {
   "key": "들어보기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 226
+  "line": 229
  },
  {
   "key": "항상 위",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 230
+  "line": 233
  },
  {
   "key": "줄 느낌",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 231
+  "line": 234
  },
  {
   "key": "맨 위에서",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 237
+  "line": 240
  },
  {
   "key": "화면 맨 위에서 매달기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 239
+  "line": 242
  },
  {
   "key": "메뉴바 너머로 줄이 보여요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 240
+  "line": 243
  },
  {
   "key": "스치면 흔들기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 243
+  "line": 246
  },
  {
   "key": "커서가 스치면 흔들기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 243
+  "line": 246
  },
  {
   "key": "장식",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 249
+  "line": 252
  },
  {
   "key": "줄",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 253
+  "line": 256
  },
  {
   "key": "누구",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 271
+  "line": 274
  },
  {
   "key": "지금 캐릭터",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 272
+  "line": 275
  },
  {
   "key": "사진·스크린샷…",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 274
+  "line": 277
  },
  {
   "key": "매달 사진이나 스크린샷을 골라 주세요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 301
+  "line": 304
  },
  {
   "key": "독 위에서 통통 뛰놀아요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 338
+  "line": 341
  },
  {
   "key": "화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 포즈를 바꾸며 말을 걸고 옆 친구도 돌아봐요. 여러 번 누르면 어지러워하다 삐지고, 커서로 문지르면 쓰다듬어져요. ⌥ 누른 채 클릭하면 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 355
+  "line": 358
+ },
+ {
+  "key": "Finder 창 위에 올라앉아 놀아요",
+  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
+  "line": 368
+ },
+ {
+  "key": "창마다",
+  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
+  "line": 377
+ },
+ {
+  "key": "지금 고른 캐릭터가 맨 앞 Finder 창의 위쪽 끝에 올라앉아요. 창 끝에 서서 콩콩 들썩이다가, 낮잠도 자고, 두리번거리고, 가끔 창 끝을 따라 걸어요. 창을 끌어 옮기면 꼭 붙어서 같이 가고, 창을 닫거나 내리면 폴짝 뛰어내려요.",
+  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
+  "line": 379
+ },
+ {
+  "key": "창마다를 켜면 열린 Finder 창마다 한 명씩, 세 개 창까지 올라가요. 다른 창이 가리거나 창이 메뉴바에 붙어 자리가 없으면 잠깐 숨어요.",
+  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
+  "line": 380
+ },
+ {
+  "key": "누르면 반응하고 말을 걸어요. ⌥ 누른 채 클릭하면 퀵물어보기, 오른쪽 클릭은 메뉴예요. 창의 위치와 크기만 보고, 창 이름이나 안의 내용은 보지 않아서 권한이 필요 없어요.",
+  "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
+  "line": 381
  },
  {
   "key": "접고 구기는 작은 천 러그",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 365
+  "line": 391
  },
  {
   "key": "그림",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 367
+  "line": 393
  },
  {
   "key": "펼치기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 393
+  "line": 419
  },
  {
   "key": "바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 396
+  "line": 422
  },
  {
   "key": "집중 타이머",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 406
+  "line": 432
  },
  {
   "key": "친구랑 같이 집중해요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 413
+  "line": 439
  },
  {
   "key": "위젯 색",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 415
+  "line": 441
  },
  {
   "key": "목표 시간",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 421
+  "line": 447
  },
  {
   "key": "위젯 크기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 428
+  "line": 454
  },
  {
   "key": "달성 소리",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 434
+  "line": 460
  },
  {
   "key": "목표 달성 소리",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 434
+  "line": 460
  },
  {
   "key": "메뉴바 시간",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 435
+  "line": 461
  },
  {
   "key": "메뉴바에 시간 보이기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 435
+  "line": 461
  },
  {
   "key": "메뉴바 시간에 이모지 붙이기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 436
+  "line": 462
  },
  {
   "key": "시간 옆 이모지",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 436
+  "line": 462
  },
  {
   "key": "집중하는 동안 친구 머리 위에 시간이 올라가고, 친구는 책상에 앉아 공부해요. 오늘 할 일이 있으면 첫 번째 일을 '진행 중'으로 보여 주고, 체크하면 미리알림에서도 끝낸 일로 바꿔요. 메뉴바 메뉴나 AI 비서에게 '집중 시작'이라고 해도 돼요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 438
+  "line": 464
  },
  {
   "key": "머리 위 말풍선이 바로 답해 줘요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 463
+  "line": 489
  },
  {
   "key": "색 테마",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 469
+  "line": 495
  },
  {
   "key": "글자 크기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 475
+  "line": 501
  },
  {
   "key": "움직임",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 481
+  "line": 507
  },
  {
   "key": "친구 얼굴",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 487
+  "line": 513
  },
  {
   "key": "친구 얼굴 보이기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 487
+  "line": 513
  },
  {
   "key": "응원 효과음",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 488
+  "line": 514
  },
  {
   "key": "응원·춤에 효과음",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 488
+  "line": 514
  },
  {
-  "key": "커서 친구·복제 친구·풀밭 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구와 풀밭 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.",
+  "key": "커서 친구·복제 친구·풀밭 친구·폴더 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구, 풀밭 친구, 폴더 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 490
+  "line": 516
  },
  {
   "key": "그 도시 날씨를 담은 작은 수정구슬",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 518
+  "line": 544
  },
  {
   "key": "도시",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 521
+  "line": 547
  },
  {
   "key": "클릭하면 한마디",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 545
+  "line": 571
  },
  {
   "key": "계절 장식",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 546
+  "line": 572
  },
  {
   "key": "고른 도시의 지금 날씨 속에서 캐릭터가 지내는 작은 수정구슬이에요. 클릭하면 깡총 뛰며 날씨에 맞게 반응하고, 구슬을 끌면 옮겨져요. 오른쪽 클릭으로 미리보기와 위치 초기화를 할 수 있어요. 켜 두면 아침에 우산이나 겉옷 이야기를 하루 한 번 해 줘요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 549
+  "line": 575
  },
  {
   "key": "날씨 정보: MET Norway (CC BY 4.0)",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 550
+  "line": 576
  },
  {
   "key": "효과음",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 603
+  "line": 629
  },
  {
   "key": "설명 다 펼치기",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 610
+  "line": 636
  },
  {
   "key": "그림 스타일",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 611
+  "line": 637
  },
  {
   "key": "움직임 자동은 macOS의 동작 줄이기를 따라요. 잔잔하게는 늘 가만히, 통통은 늘 움직여요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 613
+  "line": 639
  },
  {
   "key": "효과음을 끄면 풍경 소리, 응원 소리, 집중 알림이 모두 조용해져요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 614
+  "line": 640
  },
  {
   "key": "그림 스타일은 메뉴바, 커서 친구, 대롱대롱 친구, 날씨 창문이 모두 같은 그림체로 바뀌어요.",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 615
+  "line": 641
  },
  {
   "key": "안녕! 나왔어요",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 668
+  "line": 694
  },
  {
   "key": "자세히",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 734
+  "line": 760
  },
  {
   "key": "접힘",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 740
+  "line": 766
  },
  {
   "key": "펼침",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 740
+  "line": 766
  },
  {
   "key": "기본",
   "file": "Sources/DogMonitor/UI/DesktopSettingsView.swift",
-  "line": 768
+  "line": 794
  },
  {
   "key": "동물",
@@ -9960,64 +10020,69 @@
   "line": 31
  },
  {
-  "key": "바탕화면 러그: 가장자리를 끌면 접히고, 가운데를 문지르면 주름이 져요. 두 번 누르면 다시 펴요. 크기·무늬·색을 바꿀 수 있어요.",
+  "key": "폴더 친구: 열린 Finder 창 위쪽 끝에 올라앉아 놀고, 창을 옮기면 같이 가요. 창을 닫으면 폴짝 내려와요. 창마다 한 명씩 둘 수도 있어요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
   "line": 32
  },
  {
-  "key": "날씨 창문: 받침 위 수정구슬 속에서 캐릭터가 고른 도시의 지금 날씨를 지내요. 끌어서 옮기고, 누르면 캐릭터가 폴짝 뛰어요. 켜 두면 아침에 우산이나 겉옷 이야기를 해 줘요.",
+  "key": "바탕화면 러그: 가장자리를 끌면 접히고, 가운데를 문지르면 주름이 져요. 두 번 누르면 다시 펴요. 크기·무늬·색을 바꿀 수 있어요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
   "line": 33
  },
  {
-  "key": "집중 타이머: 집중하는 동안 머리 위에 시간이 뜨고 캐릭터가 공부해요.",
+  "key": "날씨 창문: 받침 위 수정구슬 속에서 캐릭터가 고른 도시의 지금 날씨를 지내요. 끌어서 옮기고, 누르면 캐릭터가 폴짝 뛰어요. 켜 두면 아침에 우산이나 겉옷 이야기를 해 줘요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
   "line": 34
  },
  {
-  "key": "모든 친구는 오른쪽 클릭하면 그 친구의 메뉴가 나와요.",
+  "key": "집중 타이머: 집중하는 동안 머리 위에 시간이 뜨고 캐릭터가 공부해요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
   "line": 35
  },
  {
-  "key": "대시보드의 AI 비서에서 말을 걸어요. 맥 상태, 일정, 날씨 같은 걸 물어보거나 일을 부탁할 수 있어요.",
+  "key": "모든 친구는 오른쪽 클릭하면 그 친구의 메뉴가 나와요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
-  "line": 38
+  "line": 36
  },
  {
-  "key": "메일 보내기나 일정 넣기처럼 밖으로 나가는 일은 항상 카드로 보여 주고, 누를 때만 해요.",
+  "key": "대시보드의 AI 비서에서 말을 걸어요. 맥 상태, 일정, 날씨 같은 걸 물어보거나 일을 부탁할 수 있어요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
   "line": 39
  },
  {
-  "key": "내 AI(Claude·ChatGPT·Gemini)를 연결하면 더 똑똑하게 답해요.",
+  "key": "메일 보내기나 일정 넣기처럼 밖으로 나가는 일은 항상 카드로 보여 주고, 누를 때만 해요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
   "line": 40
  },
  {
-  "key": "다른 맥으로 옮기기",
+  "key": "내 AI(Claude·ChatGPT·Gemini)를 연결하면 더 똑똑하게 답해요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
-  "line": 42
+  "line": 41
  },
  {
-  "key": "설정 > 내 설정 내보내기로 파일 하나를 만들고, 다른 맥에서 그 파일을 열면 지금 모습 그대로 옮겨져요.",
+  "key": "다른 맥으로 옮기기",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
   "line": 43
  },
  {
-  "key": "AI 키와 권한은 담지 않아요. 가져오기 전 상태는 백업돼서 되돌릴 수 있어요.",
+  "key": "설정 > 내 설정 내보내기로 파일 하나를 만들고, 다른 맥에서 그 파일을 열면 지금 모습 그대로 옮겨져요.",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
   "line": 44
  },
  {
+  "key": "AI 키와 권한은 담지 않아요. 가져오기 전 상태는 백업돼서 되돌릴 수 있어요.",
+  "file": "Sources/DogMonitor/UI/GuideSheet.swift",
+  "line": 45
+ },
+ {
   "key": "사용법",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
-  "line": 52
+  "line": 53
  },
  {
   "key": "말풍선으로 따라 하기",
   "file": "Sources/DogMonitor/UI/GuideSheet.swift",
-  "line": 69
+  "line": 70
  },
  {
   "key": "끔",

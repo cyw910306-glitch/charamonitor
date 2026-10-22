@@ -1,5 +1,15 @@
 [
  {
+  "key": "답을 만들지 못했어요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 47
+ },
+ {
+  "key": "이 맥 안의 Apple Intelligence로 답해요. 대화는 맥 밖으로 나가지 않아요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 65
+ },
+ {
   "key": "이 맥은 Apple Intelligence를 지원하지 않아서 기본 답변으로 대화해요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
   "line": 77
@@ -3593,5 +3603,15 @@
   "key": "캐릭터마다 그려진 그대로 보여 줘요",
   "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
   "line": 20
+ },
+ {
+  "key": "모든 캐릭터를 또렷한 도트로 보여 줘요",
+  "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
+  "line": 21
+ },
+ {
+  "key": "도트 그림은 매끈하게, 사진 캐릭터는 실사로 보여 줘요",
+  "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
+  "line": 22
  }
 ]

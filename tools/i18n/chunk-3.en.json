@@ -1984,8 +1984,8 @@
   "en": "Sounds for cheers and dances"
  },
  {
-  "key": "커서 친구·복제 친구·풀밭 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구와 풀밭 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.",
-  "en": "Option-click the Cursor Buddy, a copy friend or a meadow friend and a bubble opens. The Cursor Buddy and the meadow friends have it in their right-click menu too. It answers right away, without AI."
+  "key": "커서 친구·복제 친구·풀밭 친구·폴더 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구, 풀밭 친구, 폴더 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.",
+  "en": "Option-click the Cursor Buddy, a copy friend, a meadow friend or the folder friend and a bubble opens. The Cursor Buddy, the meadow friends and the folder friend have it in their right-click menu too. It answers right away, without AI."
  },
  {
   "key": "그 도시 날씨를 담은 작은 수정구슬",
@@ -2866,5 +2866,57 @@
  {
   "key": "크림",
   "en": "Cream"
+ },
+ {
+  "key": "폴더 친구",
+  "en": "Folder Friend"
+ },
+ {
+  "key": "Finder 창 위에 올라앉아 놀아요",
+  "en": "Sits and plays on top of Finder windows"
+ },
+ {
+  "key": "창마다",
+  "en": "Every window"
+ },
+ {
+  "key": "창마다 한 명씩",
+  "en": "One on every window"
+ },
+ {
+  "key": "폴더 친구 치우기",
+  "en": "Put Folder Friend Away"
+ },
+ {
+  "key": "지금 고른 캐릭터가 맨 앞 Finder 창의 위쪽 끝에 올라앉아요. 창 끝에 서서 콩콩 들썩이다가, 낮잠도 자고, 두리번거리고, 가끔 창 끝을 따라 걸어요. 창을 끌어 옮기면 꼭 붙어서 같이 가고, 창을 닫거나 내리면 폴짝 뛰어내려요.",
+  "en": "Your current character sits on the top edge of the front Finder window. It bobs on the edge, naps, looks around, and now and then walks along the edge. Drag the window and it holds on and comes along; close or minimize the window and it hops off."
+ },
+ {
+  "key": "창마다를 켜면 열린 Finder 창마다 한 명씩, 세 개 창까지 올라가요. 다른 창이 가리거나 창이 메뉴바에 붙어 자리가 없으면 잠깐 숨어요.",
+  "en": "Turn on Every window and one sits on each open Finder window, up to three. When another window covers it, or the window touches the menu bar and there is no room, it hides for a while."
+ },
+ {
+  "key": "누르면 반응하고 말을 걸어요. ⌥ 누른 채 클릭하면 퀵물어보기, 오른쪽 클릭은 메뉴예요. 창의 위치와 크기만 보고, 창 이름이나 안의 내용은 보지 않아서 권한이 필요 없어요.",
+  "en": "Click it and it reacts and talks. Option-click for Quick Ask; right-click for its menu. It only looks at where windows are and how big, never their names or what is inside, so it needs no permission."
+ },
+ {
+  "key": "폴더 친구: 열린 Finder 창 위쪽 끝에 올라앉아 놀고, 창을 옮기면 같이 가요. 창을 닫으면 폴짝 내려와요. 창마다 한 명씩 둘 수도 있어요.",
+  "en": "Folder Friend: it sits and plays on the top edge of an open Finder window and comes along when you move the window. Close the window and it hops down. You can have one on every window too."
+ },
+ {
+  "key": "폴더 위가 제일 명당이에요",
+  "en": "The top of a folder is the best seat"
+ },
+ {
+  "key": "여기서 정리하는 거 구경할래요",
+  "en": "I'll watch you tidy up from here"
+ },
+ {
+  "key": "창 옮기면 꽉 붙잡을게요",
+  "en": "If you move the window, I'll hold on tight"
+ },
+ {
+  "key": "이 폴더 안엔 뭐가 있어요?",
+  "en": "What's inside this folder?"
  }
 ]

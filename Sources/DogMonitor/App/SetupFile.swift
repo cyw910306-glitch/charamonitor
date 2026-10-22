@@ -55,7 +55,7 @@ enum SetupFile {
         "cursorBuddyPlay": .bool, "quickAskTheme": .string, "quickAskTextSize": .string, "quickAskMotion": .string,
         "quickAskSound": .bool, "quickAskShowAvatar": .bool,
         // 데스크톱 친구들
-        "hangingFriends": .data, "meadowFriends": .data, "desktopRug": .data, "desktopClones": .data,
+        "hangingFriends": .data, "meadowFriends": .data, "desktopRug": .data, "desktopClones": .data, "folderFriends": .data,
         // 날씨 창문 (weatherX/Y are screen points: clamped on import)
         "weatherSize": .number, "weatherOnTop": .bool, "weatherTheme": .string,
         "weatherShowTemp": .bool, "weatherChatter": .bool, "weatherSeasonal": .bool, "weatherCity": .string,

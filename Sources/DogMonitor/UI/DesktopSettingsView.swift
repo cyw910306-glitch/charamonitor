@@ -15,6 +15,7 @@ enum DesktopFriends {
             DesktopToggle(title: L("대롱대롱 친구"), isOn: { HangingStore.shared.prefs.on }, set: { HangingStore.shared.prefs.on = $0 }),
             DesktopToggle(title: L("날씨 창문"), isOn: { WeatherWindow.shared.on }, set: { WeatherWindow.shared.on = $0 }),
             DesktopToggle(title: L("풀밭 친구들"), isOn: { MeadowStore.shared.prefs.on }, set: { MeadowStore.shared.prefs.on = $0 }),
+            DesktopToggle(title: L("폴더 친구"), isOn: { FolderStore.shared.prefs.on }, set: { FolderStore.shared.prefs.on = $0 }),
             DesktopToggle(title: L("바탕화면 러그"), isOn: { RugStore.shared.prefs.on }, set: { RugStore.shared.prefs.on = $0 }),
             DesktopToggle(title: L("복제 친구"), isOn: { CloneStore.shared.prefs.on }, set: { CloneStore.shared.prefs.on = $0 }),
         ]
@@ -30,11 +31,12 @@ enum DesktopFriends {
 }
 
 /// "데스크톱 친구" in 설정: the friend saying hi, 꾸미기, then one sticker card per friend; changes show at once.
-/// Sections in order: 꾸미기 / 커서 친구 / 복제 친구 / 대롱대롱 친구 / 풀밭 친구들 / 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기.
+/// Sections in order: 꾸미기 / 커서 친구 / 복제 친구 / 대롱대롱 친구 / 풀밭 친구들 / 폴더 친구 / 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기.
 struct DesktopSettingsView: View {
     @ObservedObject var store: MotionStore = .shared
     @ObservedObject var hanging: HangingStore = .shared
     @ObservedObject var meadow: MeadowStore = .shared
+    @ObservedObject var folder: FolderStore = .shared
     @ObservedObject var rug: RugStore = .shared
     @ObservedObject var clones: CloneStore = .shared
     @ObservedObject var focus: FocusCenter = .shared
@@ -53,6 +55,7 @@ struct DesktopSettingsView: View {
             clonesSection
             hangingSection
             meadowSection
+            folderSection
             rugSection
             weatherSection
             focusSection
@@ -357,6 +360,29 @@ struct DesktopSettingsView: View {
         }
     }
 
+    // MARK: 폴더 친구
+
+    private var folderSection: some View {
+        Panel(tint: tint(.folder, on: folder.prefs.on)) {
+            header("📁", "폴더 친구", .folder, isOn: $folder.prefs.on)
+            tagline("Finder 창 위에 올라앉아 놀아요")
+            if folder.prefs.on {
+                VStack(alignment: .leading, spacing: 7) {
+                    row("크기") {
+                        Picker("크기", selection: $folder.prefs.size) {
+                            ForEach(BuddySize.allCases, id: \.self) { Text($0.label).tag($0) }
+                        }
+                        .labelsHidden().pickerStyle(.segmented).controlSize(.small)
+                    }
+                    row("창마다") { onOff("창마다 한 명씩", $folder.prefs.everyWindow, .folder) }
+                }
+                details("지금 고른 캐릭터가 맨 앞 Finder 창의 위쪽 끝에 올라앉아요. 창 끝에 서서 콩콩 들썩이다가, 낮잠도 자고, 두리번거리고, 가끔 창 끝을 따라 걸어요. 창을 끌어 옮기면 꼭 붙어서 같이 가고, 창을 닫거나 내리면 폴짝 뛰어내려요.",
+                        "창마다를 켜면 열린 Finder 창마다 한 명씩, 세 개 창까지 올라가요. 다른 창이 가리거나 창이 메뉴바에 붙어 자리가 없으면 잠깐 숨어요.",
+                        "누르면 반응하고 말을 걸어요. ⌥ 누른 채 클릭하면 퀵물어보기, 오른쪽 클릭은 메뉴예요. 창의 위치와 크기만 보고, 창 이름이나 안의 내용은 보지 않아서 권한이 필요 없어요.")
+            }
+        }
+    }
+
     // MARK: 바탕화면 러그
 
     private var rugSection: some View {
@@ -487,7 +513,7 @@ struct DesktopSettingsView: View {
                 row("친구 얼굴") { onOff("친구 얼굴 보이기", $store.quickAskShowAvatar, .quickAsk) }
                 row("응원 효과음") { onOff("응원·춤에 효과음", $store.quickAskSound, .quickAsk) }
             }
-            details("커서 친구·복제 친구·풀밭 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구와 풀밭 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.")
+            details("커서 친구·복제 친구·풀밭 친구·폴더 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구, 풀밭 친구, 폴더 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요.")
         }
     }
 
@@ -750,7 +776,7 @@ private struct Details: View {
 
 /// One 데스크톱 친구 card, for its colour (AppPalette.tint) and its hello.
 enum DesktopTool: Int, CaseIterable {
-    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones
+    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones, folder
 }
 
 /// 꾸미기 > 색 테마 (AppSettings.palette). Raw values are saved; never rename one. 딸기우유 is the sticker book (a
@@ -788,8 +814,8 @@ enum AppPalette: String, CaseIterable {
         }
     }
 
-    /// 딸기우유's card colours in DesktopTool order: peach, lavender, mint, pink, sky, lemon, coral, aqua.
-    static let stickers = ["#FF9F6B", "#A88BF0", "#4FC98E", "#FF7EB3", "#5AAEF5", "#F2C230", "#FF8577", "#5EC4DE"]
+    /// 딸기우유's card colours in DesktopTool order: peach, lavender, mint, pink, sky, lemon, coral, aqua, folder blue.
+    static let stickers = ["#FF9F6B", "#A88BF0", "#4FC98E", "#FF7EB3", "#5AAEF5", "#F2C230", "#FF8577", "#5EC4DE", "#6FA8F0"]
 }
 
 

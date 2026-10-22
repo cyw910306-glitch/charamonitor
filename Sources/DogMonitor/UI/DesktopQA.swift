@@ -21,6 +21,7 @@ enum DesktopQA {
         HangingStore.shared.prefs.sound = false
         WeatherWindow.shared.on = true   // the switch only: WeatherWindow.start() never runs here, so nothing is fetched
         RugStore.shared.prefs.on = true   // the switch only: DesktopRug.start() never runs here
+        FolderStore.shared.prefs.on = true   // the switch only: FolderFriends.start() never runs here (no window list read)
         // 복제 친구: three out (the card says 3/8); DesktopClones.start() runs only for its own render below.
         CloneStore.shared.prefs = ClonePrefs(on: true, clones: (0..<3).map { CloneSpot(character: nil, x: 0.2 + 0.1 * Double($0), y: 0.05) })
         try settings("on")
@@ -30,6 +31,7 @@ enum DesktopQA {
         try settings("custom")
         (look.palette, look.settingsTextLarge, look.expandDetails) = (.strawberry, false, false)
         RugStore.shared.prefs.on = false
+        FolderStore.shared.prefs.on = false
 
         // 대롱대롱 친구: five on the main screen, one of them a framed photo when my-dog/jelly-avatar.jpg is there.
         HangingFriends.qaHidden = true
@@ -125,6 +127,35 @@ enum DesktopQA {
         FriendMark.qa = false
         MeadowStore.shared.prefs = MeadowPrefs()
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 0.3))
+
+        // 폴더 친구 on stand-in Finder windows (no real window is read): standing on the edge, walking, napping, clicked,
+        // holding on while dragged; at each size, still as under 동작 줄이기, light and dark windows. Then as an original
+        // (QA_FOLDER_CHARACTER, an original or a pack id such as pack-ck-chiikawa-hd, else the first original) at 크게.
+        FolderFriends.qaHidden = true
+        FriendMark.qa = true
+        let folderLooks: [(NSColor, Bool, String)] = [(NSColor(red: 0.80, green: 0.86, blue: 0.93, alpha: 1), false, "light"),
+                                                (NSColor(red: 0.13, green: 0.15, blue: 0.20, alpha: 1), true, "dark")]
+        for size in [BuddySize.medium, .large] {
+            FolderStore.shared.prefs.size = size
+            for still in [false, true] {
+                for (bg, dark, suffix) in folderLooks {
+                    try png(FolderFriends.shared.qaScene(still: still, dark: dark), background: bg,
+                            to: dir.appendingPathComponent("desktop-folder-\(size.rawValue)\(still ? "-still" : "")-\(suffix).png"))
+                }
+            }
+        }
+        let wanted = ProcessInfo.processInfo.environment["QA_FOLDER_CHARACTER"]
+        // A pack (only read): the app loads them at launch, which a render skips.
+        if let wanted, !OriginalCatalog.all.contains(where: { $0.id == wanted }) { OriginalCatalog.all += CharacterPack.loadAll() }
+        if let original = OriginalCatalog.all.first(where: { $0.id == wanted }) ?? OriginalCatalog.all.first {
+            FolderStore.shared.prefs.size = .large
+            for (bg, dark, suffix) in folderLooks {
+                try png(FolderFriends.shared.qaScene(still: false, dark: dark, character: original.id), background: bg,
+                        to: dir.appendingPathComponent("desktop-folder-original-\(suffix).png"))
+            }
+        }
+        FriendMark.qa = false
+        FolderStore.shared.prefs = FolderPrefs()
 
         try focusWidgets(to: dir, looks: looks)
         try quickAsk(to: dir, looks: looks)
