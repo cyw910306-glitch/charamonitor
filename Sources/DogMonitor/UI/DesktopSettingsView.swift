@@ -366,7 +366,7 @@ struct DesktopSettingsView: View {
     private var folderSection: some View {
         Panel(tint: tint(.folder, on: folder.prefs.on)) {
             header("📁", "폴더 친구", .folder, isOn: $folder.prefs.on)
-            tagline("Finder 창 위에 올라앉아 놀아요")
+            tagline("바탕화면 폴더와 Finder 창 위에 올라앉아요")
             #if !MAS
             folderIconRow
             #endif
@@ -406,7 +406,7 @@ struct DesktopSettingsView: View {
                 .controlSize(.small)
             }
             if folderIcons.dressed.isEmpty {
-                details("폴더 아이콘 위에 지금 고른 캐릭터를 올려 둬요. 바탕화면, Finder 창, 독 어디서 봐도 보여요. 캐릭터를 바꾸면 폴더 위 캐릭터도 같이 바뀌어요.",
+                details("폴더 친구를 켜면 바탕화면 폴더 아이콘 위에 지금 고른 캐릭터가 올라가요. 새로 만든 폴더에도 올라가고, 끄면 원래대로 돌아가요. 다른 폴더는 폴더 고르기로 입혀요.",
                         "직접 바꿔 둔 폴더 아이콘은 건드리지 않아요.")
             } else {
                 details("폴더 \(folderIcons.dressed.count)개에 캐릭터가 올라가 있어요. 원래대로를 누르면 원래 폴더 아이콘으로 돌아가요.",

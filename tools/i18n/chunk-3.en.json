@@ -2872,8 +2872,8 @@
   "en": "Folder Friend"
  },
  {
-  "key": "Finder 창 위에 올라앉아 놀아요",
-  "en": "Sits and plays on top of Finder windows"
+  "key": "바탕화면 폴더와 Finder 창 위에 올라앉아요",
+  "en": "Sits on your desktop folders and Finder windows"
  },
  {
   "key": "창마다",
@@ -2940,8 +2940,8 @@
   "en": "Restore"
  },
  {
-  "key": "폴더 아이콘 위에 지금 고른 캐릭터를 올려 둬요. 바탕화면, Finder 창, 독 어디서 봐도 보여요. 캐릭터를 바꾸면 폴더 위 캐릭터도 같이 바뀌어요.",
-  "en": "Puts the character you chose on top of folder icons. It shows on the desktop, in Finder windows and in the Dock. Change the character and the one on your folders changes too."
+  "key": "폴더 친구를 켜면 바탕화면 폴더 아이콘 위에 지금 고른 캐릭터가 올라가요. 새로 만든 폴더에도 올라가고, 끄면 원래대로 돌아가요. 다른 폴더는 폴더 고르기로 입혀요.",
+  "en": "With Folder Friend on, the character you chose sits on your desktop folders' icons, new folders too. Turn it off and they go back. Use Choose folders… for other folders."
  },
  {
   "key": "직접 바꿔 둔 폴더 아이콘은 건드리지 않아요.",

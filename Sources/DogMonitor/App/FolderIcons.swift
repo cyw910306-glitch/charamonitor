@@ -2,7 +2,7 @@ import AppKit
 import Combine
 
 /// 폴더 아이콘 입히기 (폴더 친구 card): the chosen character sits on top of a folder's icon, everywhere Finder shows it
-/// (desktop, windows, Dock). It is the folder's own custom icon (NSWorkspace.setIcon), so nothing runs to keep it there.
+/// (desktop, windows, Dock), on the desktop's folders while 폴더 친구 is on. It is the folder's own custom icon (NSWorkspace.setIcon), so nothing runs to keep it there.
 /// Only folders this app dressed are remembered and ever touched again: a folder that already has its own custom icon is
 /// left alone, 원래대로 takes ours off. A new character dresses the remembered folders again.
 final class FolderIcons: ObservableObject {
@@ -20,8 +20,15 @@ final class FolderIcons: ObservableObject {
         dressed = defaults.stringArray(forKey: Self.key) ?? []
     }
 
-    /// Dresses the remembered folders again when the character or its colors change.
+    private var watch: DispatchSourceFileSystemObject?
+
+    /// With 폴더 친구 on, the desktop's folders wear the character (new ones too, by watching the desktop); off, ours come
+    /// off. The remembered folders are dressed again when the character or its colors change.
     func start() {
+        FolderStore.shared.$prefs.map(\.on).removeDuplicates()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] on in self?.desktop(on) }
+            .store(in: &bag)
         look = (SpriteLook(AppSettings.shared), AppSettings.shared.characterColors)
         AppSettings.shared.objectWillChange
             .merge(with: CustomCharacterStore.shared.objectWillChange)
@@ -34,9 +41,30 @@ final class FolderIcons: ObservableObject {
             .store(in: &bag)
     }
 
+    private func desktop(_ on: Bool) {
+        watch?.cancel(); watch = nil
+        guard on else { if !dressed.isEmpty { undress() }; return }
+        dress(Self.desktopFolders())
+        let fd = open(Self.desk.path, O_EVTONLY)
+        guard fd >= 0 else { return }
+        let src = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fd, eventMask: .write, queue: .main)
+        // A folder dropped or made on the desktop: dressed a moment later (a new folder is still being named).
+        src.setEventHandler { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                guard let self, FolderStore.shared.prefs.on else { return }
+                let new = Self.desktopFolders().filter { !self.dressed.contains($0.path) }
+                if !new.isEmpty { self.dress(new) }
+            }
+        }
+        src.setCancelHandler { close(fd) }
+        src.resume()
+        watch = src
+    }
+
+    static var desk: URL { FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Desktop") }
+
     /// The folders right on the desktop (not packages, not hidden).
     static func desktopFolders() -> [URL] {
-        let desk = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Desktop")
         let keys: [URLResourceKey] = [.isDirectoryKey, .isPackageKey, .isSymbolicLinkKey]
         let items = (try? FileManager.default.contentsOfDirectory(at: desk, includingPropertiesForKeys: keys, options: .skipsHiddenFiles)) ?? []
         return items.filter {

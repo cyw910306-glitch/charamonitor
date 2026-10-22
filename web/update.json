@@ -1,1 +1,1 @@
-{"version":"2.8.1","build":34,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"c6f2e7936f49c9a21168e1be4cfc3d30356344613d75d1301f02230e91566843","minSystem":"13.0","notes":"폴더 아이콘에도 캐릭터를 올릴 수 있어요. 설정의 폴더 친구 카드에서 바탕화면 폴더에 입히기를 눌러 보세요."}
+{"version":"2.8.2","build":35,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"7591529bd8531f5b719968a6aa445c756224235f149415c2462d7ad0a2f8d43f","minSystem":"13.0","notes":"폴더 친구를 켜 두면 바탕화면 폴더 아이콘 위에도 캐릭터가 올라가요."}
