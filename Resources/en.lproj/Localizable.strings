@@ -1062,27 +1062,27 @@
 "짠! 내 설정 그대로 이사 왔어요. 여기서도 잘 부탁해요!" = "Ta-da! Moved in with all your settings. Happy to be here!";
 /* Sources/DogMonitor/App/SpeechBubble.swift:388 */
 "닫기" = "Close";
-/* Sources/DogMonitor/App/Sponsor.swift:194 */
+/* Sources/DogMonitor/App/Sponsor.swift:196 */
 "가끔" = "Sometimes";
-/* Sources/DogMonitor/App/Sponsor.swift:527 */
+/* Sources/DogMonitor/App/Sponsor.swift:529 */
 "지금은 소개할 서비스가 없어요" = "There is nothing to show right now";
-/* Sources/DogMonitor/App/Sponsor.swift:637 */
+/* Sources/DogMonitor/App/Sponsor.swift:639 */
 "저는 후원 친구예요. 가끔 제작자가 만든 서비스를 천에 덮어 데려와요. 열어 보면 꾸미기 선물이 하나씩 열리고, 설정에서 언제든 끌 수 있어요." = "I'm Sponsor Friend. Now and then I bring one of the maker's services under a cloth. Open it to unlock a decoration gift, one at a time. You can turn me off in Settings anytime.";
-/* Sources/DogMonitor/App/Sponsor.swift:697 */
+/* Sources/DogMonitor/App/Sponsor.swift:699 */
 "선물이 열렸어요: %@ %@" = "Gift unlocked: %1$@ %2$@";
-/* Sources/DogMonitor/App/Sponsor.swift:699 */
+/* Sources/DogMonitor/App/Sponsor.swift:701 */
 "내일 또 열려요. 끝까지 봐 줘서 고마워요" = "More open tomorrow. Thanks for watching to the end";
-/* Sources/DogMonitor/App/Sponsor.swift:699 */
+/* Sources/DogMonitor/App/Sponsor.swift:701 */
 "오늘 선물은 다 받았어요" = "You got today's gifts";
-/* Sources/DogMonitor/App/Sponsor.swift:701 */
+/* Sources/DogMonitor/App/Sponsor.swift:703 */
 "새 선물은 다음 버전에서 또 와요" = "New gifts come with later versions";
-/* Sources/DogMonitor/App/Sponsor.swift:701 */
+/* Sources/DogMonitor/App/Sponsor.swift:703 */
 "선물을 다 모았어요. 고마워요!" = "You collected every gift. Thank you!";
-/* Sources/DogMonitor/App/Sponsor.swift:708 */
-"열어 보기" = "Open it";
-/* Sources/DogMonitor/App/Sponsor.swift:709 */
-"오늘은 그만" = "Not today";
 /* Sources/DogMonitor/App/Sponsor.swift:710 */
+"열어 보기" = "Open it";
+/* Sources/DogMonitor/App/Sponsor.swift:711 */
+"오늘은 그만" = "Not today";
+/* Sources/DogMonitor/App/Sponsor.swift:712 */
 "후원 친구 끄기" = "Turn off Sponsor Friend";
 /* Sources/DogMonitor/App/SponsorGifts.swift:24 */
 "하트 러그" = "Heart rug";
@@ -1120,6 +1120,8 @@
 "폴더 친구의 모양에서 골라요" = "Pick it under Folder friend > Style";
 /* Sources/DogMonitor/App/SponsorStage.swift:344 */
 "눌러서 열어 보기" = "Click to open";
+/* Sources/DogMonitor/App/SponsorStage.swift:469 */
+"광고 · 후원 친구" = "Ad · Sponsor Friend";
 /* Sources/DogMonitor/App/SponsorStage.swift:469 */
 "잠깐 멈췄어요. 다시 보면 이어져요" = "Paused. It goes on when you look again";
 /* Sources/DogMonitor/App/SponsorStage.swift:469 */

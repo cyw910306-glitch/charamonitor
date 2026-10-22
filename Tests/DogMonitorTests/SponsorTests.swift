@@ -504,4 +504,10 @@ final class SponsorTests: XCTestCase {
         let carried = try XCTUnwrap(snap["sponsor.gifts"] as? Data)
         XCTAssertEqual(SponsorGifts.decode(carried), [.rugHearts])
     }
+
+    func testAPaidCardIsMarkedAndOldCardsAreNot() throws {
+        var paid = card("acme"); paid["paid"] = true
+        let m = try SponsorCheck.parse(json(cards: [card(), paid])).manifest
+        XCTAssertEqual(m.cards.map(\.paid), [nil, true])
+    }
 }

@@ -466,7 +466,7 @@ struct SponsorCardView: View {
                     .buttonStyle(.plain)
                     .accessibilityHint(card.title.shown)
                     Spacer(minLength: 0)
-                    Text(verbatim: paused ? L("잠깐 멈췄어요. 다시 보면 이어져요") : L("후원 친구 · 제작자 서비스 소개"))
+                    Text(verbatim: paused ? L("잠깐 멈췄어요. 다시 보면 이어져요") : card.paid == true ? L("광고 · 후원 친구") : L("후원 친구 · 제작자 서비스 소개"))
                         .font(.system(size: 10)).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.75)
                 }
             }

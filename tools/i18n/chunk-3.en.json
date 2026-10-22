@@ -3586,5 +3586,9 @@
  {
   "key": "전체 화면, 집중 중, 놀이 중, 화면이 잠겼을 때, 2분 넘게 자리를 비웠을 때, 회의나 화면 공유·녹화 중에는 오지 않아요. 세 번 그냥 보내면 더 드물게 와요.",
   "en": "It never comes in full screen, during focus or play, while the screen is locked, after 2 minutes away, or during a meeting, screen share or recording. Let it go by three times and it comes more rarely."
+ },
+ {
+  "key": "광고 · 후원 친구",
+  "en": "Ad · Sponsor Friend"
  }
 ]

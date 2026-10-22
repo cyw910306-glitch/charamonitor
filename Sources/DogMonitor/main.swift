@@ -100,6 +100,12 @@ MainActor.assumeIsolated {
         }
     }
     if args.contains("--render-sprites") { runCLI("--render-sprites") { try SpritePreview.renderAll(to: $0) } }
+    if args.contains("--export-setup") {   // 내 설정 내보내기 without the save panel: <folder>/내 설정.charamonitor
+        runCLI("--export-setup") { dir in
+            let r = try SetupFile.export(to: dir.appendingPathComponent("내 설정.charamonitor"))
+            print("팩 \(r.packs) · 캐릭터 \(r.characters) · 설정 \(r.settings) · 못 담은 것 \(r.skipped)")
+        }
+    }
     if let i = args.firstIndex(of: "--make-character") {
         let images = Array(args.dropFirst(i + 2).prefix(3))
         if images.isEmpty { fputs("사용법: DogMonitor --make-character <폴더> <쉴 때> [평소] [바쁠 때] (하나면 평소)\n", stderr); exit(2) }

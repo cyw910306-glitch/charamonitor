@@ -42,8 +42,8 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>CFBundleDisplayName</key><string>DogMonitor</string>
     <key>CFBundleExecutable</key><string>DogMonitor</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>3.0</string>
-    <key>CFBundleVersion</key><string>41</string>
+    <key>CFBundleShortVersionString</key><string>3.0.1</string>
+    <key>CFBundleVersion</key><string>42</string>
     <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>CFBundleDevelopmentRegion</key><string>ko</string>
     <key>CFBundleLocalizations</key><array><string>ko</string><string>en</string></array>

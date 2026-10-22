@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>내 설정 받기 · 캐릭모니터</title>
+<meta name="description" content="시크릿코드가 있는 사람만 받을 수 있는 캐릭모니터 내 설정 파일이에요.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F5EDE6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#211915" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{
+  --bg:#F5EDE6; --card:#FFFBF7; --ink:#3B2C26; --muted:#7A665B; --line:#E8DACD; --accent:#B98A62; --soft:#EFE1D3;
+  --bad:#B4413A; --good:#3E7D52;
+  --shadow:0 1px 2px rgba(59,44,38,.06),0 8px 24px rgba(59,44,38,.07); color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#211915; --card:#2C221D; --ink:#F5EDE6; --muted:#BFAE9F; --line:#40322B; --accent:#D8B290; --soft:#3A2D26;
+    --bad:#E58A80; --good:#8FCB9F; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --bg:#211915; --card:#2C221D; --ink:#F5EDE6; --muted:#BFAE9F; --line:#40322B; --accent:#D8B290; --soft:#3A2D26;
+  --bad:#E58A80; --good:#8FCB9F; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark; }
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Segoe UI","Noto Sans KR",sans-serif;
+  word-break:keep-all; overflow-wrap:break-word}
+.wrap{max-width:560px; margin:0 auto; padding:0 16px}
+a{color:inherit; text-underline-offset:3px; text-decoration-color:var(--accent)}
+nav{padding:22px 0 0; font-size:15px}
+nav a{display:inline-flex; align-items:center; gap:8px; font-weight:700; text-decoration:none}
+nav img{width:28px; height:28px; image-rendering:pixelated}
+h1{font-size:30px; line-height:1.3; margin:34px 0 8px; letter-spacing:-.02em}
+.lead{color:var(--muted); margin:0 0 18px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:22px; padding:24px; box-shadow:var(--shadow)}
+label{display:block; font-weight:700; margin-bottom:8px}
+.row{display:flex; gap:8px; flex-wrap:wrap}
+input{flex:1 1 200px; min-width:0; font:inherit; padding:12px 14px; border-radius:12px; border:1px solid var(--line);
+  background:var(--bg); color:var(--ink)}
+input:focus-visible,button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+button{font:inherit; font-weight:700; padding:12px 18px; border-radius:12px; border:0; background:var(--accent); color:#fff; cursor:pointer}
+button:disabled{opacity:.6; cursor:default}
+#msg{min-height:1.7em; margin:12px 0 0; font-size:15px}
+#msg.bad{color:var(--bad)} #msg.good{color:var(--good)}
+ol{padding-left:20px; margin:18px 0 0; color:var(--muted); font-size:15px}
+footer{color:var(--muted); font-size:14px; padding:28px 0 40px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="./"><img src="favicon.png" alt="">캐릭모니터</a></nav>
+  <h1>내 설정 받기</h1>
+  <p class="lead">시크릿코드를 아는 사람만 열 수 있는 설정 파일이에요. 받은 파일을 다른 맥에서 열면 캐릭터와 꾸미기가 그대로 옮겨져요.</p>
+  <form class="card" id="f" autocomplete="off">
+    <label for="code">시크릿코드</label>
+    <div class="row">
+      <input id="code" type="password" required spellcheck="false" autocapitalize="off" placeholder="코드를 넣어 주세요">
+      <button id="go" type="submit">받기</button>
+    </div>
+    <p id="msg" role="status" aria-live="polite"></p>
+    <ol>
+      <li>먼저 이 맥에 캐릭모니터를 설치해 주세요. <a href="./">설치하러 가기</a></li>
+      <li>받은 <b>내 설정.charamonitor</b> 파일을 두 번 눌러 열어요.</li>
+      <li>가져오기를 누르면 앱이 다시 켜지면서 같은 모습이 돼요. 원래 설정은 백업돼요.</li>
+    </ol>
+  </form>
+  <footer>파일은 잠긴 채로 올라가 있고, 코드는 이 브라우저 안에서만 쓰여요. 어디에도 보내지 않아요.</footer>
+</div>
+<script>
+const f = document.getElementById('f'), go = document.getElementById('go'), msg = document.getElementById('msg')
+function say(t, kind) { msg.textContent = t; msg.className = kind || '' }
+let file = null
+f.addEventListener('submit', async e => {
+  e.preventDefault()
+  const code = document.getElementById('code').value.trim().normalize('NFC')
+  if (!code) return
+  go.disabled = true
+  try {
+    say('파일을 받는 중이에요…')
+    if (!file) {
+      const r = await fetch('my-setup.bin', { cache: 'no-store' })
+      if (!r.ok) throw new Error('fetch')
+      file = new Uint8Array(await r.arrayBuffer())
+    }
+    if (new TextDecoder().decode(file.subarray(0, 6)) !== 'CMSET1') throw new Error('format')
+    say('코드를 확인하는 중이에요…')
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(code), 'PBKDF2', false, ['deriveKey'])
+    const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: file.subarray(6, 22), iterations: 600000, hash: 'SHA-256' },
+      base, { name: 'AES-GCM', length: 256 }, false, ['decrypt'])
+    let plain
+    try { plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: file.subarray(22, 34) }, key, file.subarray(34)) }
+    catch { say('코드가 맞지 않아요. 다시 확인해 주세요.', 'bad'); return }
+    const url = URL.createObjectURL(new Blob([plain], { type: 'application/octet-stream' }))
+    const a = Object.assign(document.createElement('a'), { href: url, download: '내 설정.charamonitor' })
+    document.body.append(a); a.click(); a.remove()
+    setTimeout(() => URL.revokeObjectURL(url), 60000)
+    say('받았어요. 다운로드 폴더의 내 설정.charamonitor 를 열어 주세요.', 'good')
+  } catch {
+    say('파일을 받지 못했어요. 잠시 뒤 다시 해 주세요.', 'bad')
+  } finally { go.disabled = false }
+})
+</script>
+</body>
+</html>

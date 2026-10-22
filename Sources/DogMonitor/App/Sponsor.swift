@@ -20,6 +20,8 @@ struct SponsorCard: Codable, Equatable {
     var title: SponsorText
     var pitch: SponsorText
     var cta: SponsorText
+    /// A paid card (a company's, not the maker's own service): the card says 광고, as Korean ad rules ask.
+    var paid: Bool? = nil
 }
 
 /// web/sponsors.json, signed like update.json (sponsors.json.sig, scripts/package.sh). `serial` only goes up; `enabled`
