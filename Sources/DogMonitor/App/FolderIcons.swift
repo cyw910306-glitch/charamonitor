@@ -41,9 +41,9 @@ final class FolderIcons: ObservableObject {
             .store(in: &bag)
         FolderStore.shared.$prefs.map(\.iconStyle).removeDuplicates().dropFirst()
             .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] style in
                 guard let self else { return }
-                DispatchQueue.main.async { self.dress(self.dressed.map(URL.init(fileURLWithPath:))) }
+                dress(dressed.map(URL.init(fileURLWithPath:)), style: style)
             }
             .store(in: &bag)
     }
@@ -87,11 +87,16 @@ final class FolderIcons: ObservableObject {
 
     /// Puts the character on `urls`; returns how many now wear it.
     @discardableResult
-    func dress(_ urls: [URL]) -> Int {
-        guard let art = Self.art() else { return 0 }
+    func dress(_ urls: [URL], style: FolderIconStyle = FolderStore.shared.prefs.iconStyle) -> Int {
+        guard let art = Self.art(style: style) else { return 0 }
         var done = Set(dressed)
         for u in urls where !ownIcon(u) {
+            // Finder keeps showing a replaced custom icon until the folder loses it: take ours off first, then tell
+            // Finder the folder and the folder it is in changed.
+            if done.contains(u.path) { NSWorkspace.shared.setIcon(nil, forFile: u.path, options: []) }
             if NSWorkspace.shared.setIcon(art, forFile: u.path, options: []) { done.insert(u.path) }
+            NSWorkspace.shared.noteFileSystemChanged(u.path)
+            NSWorkspace.shared.noteFileSystemChanged(u.deletingLastPathComponent().path)
         }
         save(done.filter { FileManager.default.fileExists(atPath: $0) }.sorted())
         return urls.filter { done.contains($0.path) }.count
