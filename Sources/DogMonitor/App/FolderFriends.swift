@@ -11,6 +11,8 @@ struct FolderPrefs: Codable, Equatable {
     var size = BuddySize.medium
     /// One friend on each open Finder window (up to `maxWindows`); off = only on the frontmost one.
     var everyWindow = false
+    /// How the character is on the desktop folders' icons.
+    var iconStyle = FolderIconStyle.stand
 
     static let maxWindows = 3
 }
@@ -23,6 +25,7 @@ extension FolderPrefs {
         on = (try? c.decodeIfPresent(Bool.self, forKey: .on)) ?? d.on
         size = (try? c.decodeIfPresent(String.self, forKey: .size)).flatMap { $0.flatMap(BuddySize.init(rawValue:)) } ?? d.size
         everyWindow = (try? c.decodeIfPresent(Bool.self, forKey: .everyWindow)) ?? d.everyWindow
+        iconStyle = (try? c.decodeIfPresent(String.self, forKey: .iconStyle)).flatMap { $0.flatMap(FolderIconStyle.init(rawValue:)) } ?? d.iconStyle
     }
 }
 

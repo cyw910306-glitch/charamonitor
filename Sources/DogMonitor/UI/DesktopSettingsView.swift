@@ -391,6 +391,12 @@ struct DesktopSettingsView: View {
     /// 폴더 아이콘: the character on the folders' own icons; works with the 폴더 친구 switch off too.
     private var folderIconRow: some View {
         VStack(alignment: .leading, spacing: 7) {
+            row("모양") {
+                Picker("모양", selection: $folder.prefs.iconStyle) {
+                    ForEach(FolderIconStyle.allCases, id: \.self) { Text($0.label).tag($0) }
+                }
+                .labelsHidden().pickerStyle(.menu).controlSize(.small).fixedSize()
+            }
             row("폴더 아이콘") {
                 HStack(spacing: 6) {
                     Button("바탕화면 폴더에 입히기") { FolderIcons.shared.dress(FolderIcons.desktopFolders()) }

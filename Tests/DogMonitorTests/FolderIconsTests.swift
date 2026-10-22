@@ -56,3 +56,18 @@ final class FolderIconsTests: XCTestCase {
         XCTAssertEqual(icons.dressed, [a.path])
     }
 }
+
+extension FolderIconsTests {
+    func testEveryStyleDrawsAndOldPrefsKeepStanding() throws {
+        let png = ProcessInfo.processInfo.environment["FOLDER_ICON_DIR"]
+        for style in FolderIconStyle.allCases {
+            let art = try XCTUnwrap(FolderIcons.art(style: style))
+            XCTAssertEqual(art.size, NSSize(width: 512, height: 512))
+            if let png, let rep = NSBitmapImageRep(data: try XCTUnwrap(art.tiffRepresentation)) {
+                try rep.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: "\(png)/\(style.rawValue).png"))
+            }
+        }
+        let old = try JSONDecoder().decode(FolderPrefs.self, from: Data(#"{"on":true,"iconStyle":"spin"}"#.utf8))
+        XCTAssertEqual(old.iconStyle, .stand)
+    }
+}

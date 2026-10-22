@@ -2950,5 +2950,25 @@
  {
   "key": "폴더 %lld개에 캐릭터가 올라가 있어요. 원래대로를 누르면 원래 폴더 아이콘으로 돌아가요.",
   "en": "The character is on %lld folders. Restore brings back the usual folder icons."
+ },
+ {
+  "key": "모양",
+  "en": "Style"
+ },
+ {
+  "key": "서 있기",
+  "en": "Standing"
+ },
+ {
+  "key": "얼굴만 빼꼼",
+  "en": "Peeking out"
+ },
+ {
+  "key": "누워서 낮잠",
+  "en": "Napping"
+ },
+ {
+  "key": "스티커",
+  "en": "Sticker"
  }
 ]

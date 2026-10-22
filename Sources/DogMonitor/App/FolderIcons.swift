@@ -39,6 +39,13 @@ final class FolderIcons: ObservableObject {
                 if look.map({ $0 != now }) ?? true { look = now; dress(dressed.map(URL.init(fileURLWithPath:))) }
             }
             .store(in: &bag)
+        FolderStore.shared.$prefs.map(\.iconStyle).removeDuplicates().dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                DispatchQueue.main.async { self.dress(self.dressed.map(URL.init(fileURLWithPath:))) }
+            }
+            .store(in: &bag)
     }
 
     private func desktop(_ on: Bool) {
@@ -103,11 +110,12 @@ final class FolderIcons: ObservableObject {
         defaults.set(paths, forKey: Self.key)
     }
 
-    /// The folder icon with the menu bar character standing on its top edge, 512 pt square.
-    static func art(character: String? = nil) -> NSImage? {
+    /// The folder icon with the menu bar character on it in `style`, 512 pt square.
+    static func art(character: String? = nil, style: FolderIconStyle = FolderStore.shared.prefs.iconStyle) -> NSImage? {
         let c = MeadowFriends.cache(character: character, pixelSize: 8)
-        guard let who = BuddyGait.frames(c)[.stand]?.first else { return nil }
-        return art(folder: NSWorkspace.shared.icon(for: .folder), character: trimmed(who), smooth: c.smooth)
+        let frames = BuddyGait.frames(c)
+        guard let who = (style == .nap ? frames[.sleep]?.first : nil) ?? frames[.stand]?.first else { return nil }
+        return art(folder: NSWorkspace.shared.icon(for: .folder), character: trimmed(who), smooth: c.smooth, style: style)
     }
 
     /// `image` cut to its drawn part: wide frames (HD packs) are mostly see-through and would leave a tiny figure.
@@ -122,20 +130,51 @@ final class FolderIcons: ObservableObject {
         return NSImage(cgImage: cut, size: NSSize(width: cut.width, height: cut.height))
     }
 
-    static func art(folder: NSImage, character who: NSImage, smooth: Bool) -> NSImage {
+    static func art(folder: NSImage, character who: NSImage, smooth: Bool, style: FolderIconStyle = .stand) -> NSImage {
         let side: CGFloat = 512
         return NSImage(size: NSSize(width: side, height: side), flipped: false) { _ in
-            // The folder a little smaller, at the bottom: its body's top is about 82% up its square.
+            // The folder a little smaller, at the bottom. Its front panel's top is about 74% up its square.
             let box = CGRect(x: side * 0.11, y: 0, width: side * 0.78, height: side * 0.78)
+            let front = box.minY + box.height * 0.737
             folder.draw(in: box)
-            // Feet just under the folder's top edge, the figure as big as the room above allows.
-            let feet = box.minY + box.height * 0.74
-            let h = side - 4 - feet, w = h * who.size.width / max(1, who.size.height)
-            let fit = min(1, side * 0.8 / max(1, w))
-            let r = CGRect(x: side * 0.56 - w * fit / 2, y: feet, width: w * fit, height: h * fit)
+            let aspect = who.size.width / max(1, who.size.height)
+            /// The figure `h` tall (no wider than `maxW`), its bottom middle at (x, y).
+            func place(h: CGFloat, maxW: CGFloat, x: CGFloat, y: CGFloat) -> CGRect {
+                let fit = min(1, maxW / max(1, h * aspect))
+                return CGRect(x: x - h * aspect * fit / 2, y: y, width: h * aspect * fit, height: h * fit)
+            }
             NSGraphicsContext.current?.imageInterpolation = smooth ? .high : .none
-            who.draw(in: r)
+            switch style {
+            case .stand, .nap:
+                // Feet just on the folder's top edge, as big as the room above allows.
+                who.draw(in: place(h: side - 4 - front, maxW: side * 0.8, x: side * 0.56, y: front))
+            case .peek:
+                // Most of it inside the folder: the front panel is drawn again over everything below its top edge.
+                let r = place(h: (side - 8 - front) / 0.5, maxW: box.width * 0.9, x: side * 0.53, y: 0)
+                who.draw(in: r.offsetBy(dx: 0, dy: front - r.minY - r.height * 0.5))
+                NSGraphicsContext.saveGraphicsState()
+                NSBezierPath(rect: CGRect(x: 0, y: 0, width: side, height: front)).addClip()
+                folder.draw(in: box)
+                NSGraphicsContext.restoreGraphicsState()
+            case .sticker:
+                // On the front panel, like a sticker.
+                who.draw(in: place(h: box.height * 0.6, maxW: box.width * 0.62, x: box.midX, y: box.minY + box.height * 0.1))
+            }
             return true
+        }
+    }
+}
+
+/// How the character is on a folder's icon.
+enum FolderIconStyle: String, CaseIterable, Codable {
+    case stand, peek, nap, sticker
+
+    var label: String {
+        switch self {
+        case .stand: return L("서 있기")
+        case .peek: return L("얼굴만 빼꼼")
+        case .nap: return L("누워서 낮잠")
+        case .sticker: return L("스티커")
         }
     }
 }
