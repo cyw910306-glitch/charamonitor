@@ -161,10 +161,19 @@ struct DesktopSettingsView: View {
                         .labelsHidden().pickerStyle(.segmented).controlSize(.small)
                     }
                     row("혼자 놀기") { onOff("혼자 놀기", $store.buddyPlay, .cursor) }
+                    row("누르면 소리") {
+                        HStack(spacing: 6) {
+                            onOff("누르면 소리", $store.buddyCry, .cursor)
+                            Slider(value: $store.buddyCryVolume, in: 0...1).frame(width: 90).controlSize(.small).disabled(!store.buddyCry)
+                            Button("들어 보기") { FriendCry.play(.normal, friend: "preview", preview: true) }
+                                .controlSize(.small).disabled(!settings.friendSounds)
+                        }
+                    }
                 }
                 details("커서를 움직이면 걸어서 따라오고, 커서가 멀리 가면 뛰어와요. 멈추면 곁에서 기다리다 가끔 혼자 놀고, 충전 중엔 밥을 먹어요. 한동안 손을 안 대면 낮잠을 자요.",
                         "혼자 놀기를 켜 두면 가끔 맨 앞 창의 위쪽 끝에 올라가 앉고, 나비를 쫓거나 커서에 매달리기도 해요. 앉을 자리는 창의 위치만 보고 찾아요. 창 안의 내용은 보지 않아요.",
                         "마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 누를 때마다 여러 가지로 반응하고, 연달아 누르면 어질어질하다 삐쳐요. 꾸욱 누르고 있다 놓으면 폴짝 뛰고, 잡아서 휙 던지면 날아갔다 다시 돌아와요. ⌥ 누른 채 클릭하면 퀵물어보기, AI 비서와 메뉴는 오른쪽 클릭이에요.",
+                        "누르면 소리를 켜면 누를 때마다 강아지는 멍, 고양이는 야옹, 다른 캐릭터는 저마다 다른 목소리로 울어요. 복제 친구, 풀밭 친구, 폴더 친구도 같이 울어요. 캐릭터 팩의 sounds 폴더나 내 캐릭터 꾸미기에서 넣은 소리 파일이 있으면 그 소리를 내요. 꾸미기의 효과음을 끄거나 말풍선을 잠시 끄면 조용해요.",
                         "macOS는 시스템 커서 자체를 바꾸지 못하게 해서 따라다니는 친구로 만들었어요.")
             }
         }

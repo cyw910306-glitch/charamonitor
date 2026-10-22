@@ -879,6 +879,7 @@ final class MeadowFriends {
                 // the line's bubble lands on top of it.
                 MainActor.assumeIsolated { if FriendQuickAsk.shared.isOpen { FriendQuickAsk.shared.close() } }
                 let r = MeadowReaction.click(&f.combo, at: now, has: f.has, key: "meadow.react.\(f.slot)")
+                FriendCry.play(r.reaction, friend: "meadow-\(f.slot)", character: f.character)
                 react(f, r, now: now)
                 neighbourLooks(at: f, worried: r.reaction == .dizzy || r.reaction == .pout)
             }

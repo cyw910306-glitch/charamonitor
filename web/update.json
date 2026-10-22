@@ -1,1 +1,1 @@
-{"version":"2.9","build":39,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"1297d9d03c88c7e70d509493a5e3ca4700861148e0eedb6b98d8357d2bfd1b87","minSystem":"13.0","notes":"놀이 모드가 생겼어요. 방향키와 스페이스로 캐릭터를 조종해 창 위를 뛰어다니고, 별 줍기·숨바꼭질·공놀이·두더지잡기도 해 보세요."}
+{"version":"2.9.1","build":40,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"66fbeaf84bf1bcd3ca5f402e05a84a12ee599db6307a204bd1ca1f5b0132a5ca","minSystem":"13.0","notes":"커서 친구를 누르면 캐릭터 소리가 나요. 설정의 커서 친구 카드에서 누르면 소리를 켜 보세요. 없는 메시지가 왔다고 말하던 오류도 고쳤어요."}

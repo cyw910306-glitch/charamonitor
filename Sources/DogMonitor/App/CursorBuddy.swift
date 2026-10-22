@@ -1028,7 +1028,7 @@ final class CursorBuddy {
             break
         case .dragEnded(_, let v):
             guard case .hang(_, true, _) = mode else { break }
-            if !still, hypot(v.dx, v.dy) >= BuddyMath.throwMin { fling(v) }
+            if !still, hypot(v.dx, v.dy) >= BuddyMath.throwMin { fling(v); FriendCry.play(.hop, friend: "buddy") }
             else { mode = .drop(vy: 0, landY: position.y - size.height * scale * 0.6) }
         }
     }
@@ -1056,6 +1056,7 @@ final class CursorBuddy {
     /// The payoff of a long press: a hop straight up in place (a happy face in place under 동작 줄이기).
     private func hop() {
         endStory()
+        FriendCry.play(.hop, friend: "buddy")
         if still { cheer(until: ProcessInfo.processInfo.systemUptime + 1.2); return }
         fling(CGVector(dx: 0, dy: BuddyMath.hopSpeed), hop: true)
         mark("✦", .systemYellow)
@@ -1100,6 +1101,7 @@ final class CursorBuddy {
     private func react(_ r: Reaction, now: TimeInterval) {
         switch mode { case .hang, .drop, .fly, .deliver, .kick: return; default: break }   // a click mid-air or mid-errand changes nothing
         endStory()
+        FriendCry.play(r, friend: "buddy")
         if r == .pout { facingLeft.toggle() }   // turns its back on you
         mode = .react(r, start: now)
         parked = true

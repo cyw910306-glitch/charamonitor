@@ -12,6 +12,9 @@ final class MotionStore: ObservableObject {
     @Published var buddyBoost: BuddyBoost { didSet { defaults.set(buddyBoost.rawValue, forKey: "cursorBuddyBoost") } }
     /// 혼자 놀기: idle play, sitting on the front window, the butterfly and clinging on. On by default.
     @Published var buddyPlay: Bool { didSet { defaults.set(buddyPlay, forKey: "cursorBuddyPlay") } }
+    /// 누르면 소리 (FriendCry): off by default, and how loud (0...1).
+    @Published var buddyCry: Bool { didSet { defaults.set(buddyCry, forKey: "cursorBuddyCry") } }
+    @Published var buddyCryVolume: Double { didSet { defaults.set(buddyCryVolume, forKey: "cursorBuddyCryVolume") } }
     /// 퀵물어보기: the bubble's colours, type size, motion, chime and the friend's face in it.
     @Published var quickAskTheme: QuickAskTheme { didSet { defaults.set(quickAskTheme.rawValue, forKey: "quickAskTheme") } }
     @Published var quickAskTextSize: QuickAskTextSize { didSet { defaults.set(quickAskTextSize.rawValue, forKey: "quickAskTextSize") } }
@@ -30,6 +33,8 @@ final class MotionStore: ObservableObject {
         buddySize = defaults.string(forKey: "cursorBuddySize").flatMap(BuddySize.init) ?? .medium
         buddyBoost = defaults.string(forKey: "cursorBuddyBoost").flatMap(BuddyBoost.init) ?? .normal
         buddyPlay = defaults.object(forKey: "cursorBuddyPlay") as? Bool ?? true
+        buddyCry = defaults.bool(forKey: "cursorBuddyCry")
+        buddyCryVolume = min(1, max(0, defaults.object(forKey: "cursorBuddyCryVolume") as? Double ?? 0.5))
         quickAskTheme = defaults.string(forKey: "quickAskTheme").flatMap(QuickAskTheme.init) ?? .peach
         quickAskTextSize = defaults.string(forKey: "quickAskTextSize").flatMap(QuickAskTextSize.init) ?? .regular
         quickAskMotion = defaults.string(forKey: "quickAskMotion").flatMap(QuickAskMotion.init) ?? .bouncy

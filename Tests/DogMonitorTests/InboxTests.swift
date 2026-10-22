@@ -177,6 +177,11 @@ final class InboxTests: XCTestCase {
         XCTAssertTrue(AssistantCenter.invents("카톡 왔어! 배터리도 20%야", from: "맥 배터리가 20% 남았고 충전기가 꽂혀 있지 않다."))
         XCTAssertFalse(AssistantCenter.invents("배터리 20%야, 충전기 꽂아 줘", from: "맥 배터리가 20% 남았고 충전기가 꽂혀 있지 않다."))
         XCTAssertFalse(AssistantCenter.invents("새 메일 왔어", from: "새 메일이 왔다."))
+        // Other spellings and spacing of the same made-up news.
+        let battery = "맥 배터리가 20% 남았고 충전기가 꽂혀 있지 않다."
+        for made in ["메세지 왔어!", "톡이 왔어요", "알림이 와 있어", "연락이 왔어", "답장 왔어", "새 Message!"] {
+            XCTAssertTrue(AssistantCenter.invents(made, from: battery), made)
+        }
     }
 
     func testEmptyAndRepostedNotificationsAreNotNews() {

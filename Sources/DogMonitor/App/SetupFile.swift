@@ -52,7 +52,7 @@ enum SetupFile {
         "friendSounds": .bool, "settingsTextLarge": .bool, "expandDetails": .bool,
         // 상황별 모션, 커서 친구, 퀵물어보기
         "motionPrefs": .data, "cursorBuddy": .bool, "cursorBuddySize": .string, "cursorBuddyBoost": .string,
-        "cursorBuddyPlay": .bool, "quickAskTheme": .string, "quickAskTextSize": .string, "quickAskMotion": .string,
+        "cursorBuddyPlay": .bool, "cursorBuddyCry": .bool, "cursorBuddyCryVolume": .number, "quickAskTheme": .string, "quickAskTextSize": .string, "quickAskMotion": .string,
         "quickAskSound": .bool, "quickAskShowAvatar": .bool,
         // 데스크톱 친구들
         "hangingFriends": .data, "meadowFriends": .data, "desktopRug": .data, "desktopClones": .data, "folderFriends": .data,

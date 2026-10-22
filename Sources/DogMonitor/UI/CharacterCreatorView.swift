@@ -280,6 +280,8 @@ struct CharacterCreatorView: View {
     @State private var showMore = false
     /// The picture open in 배경 다듬기.
     @State private var trimming: CustomSlot?
+    /// 누르면 소리: how many of its own sound files a saved character has.
+    @State private var sounds = 0
     @ObservedObject private var refine = AutoRefine.shared
 
     /// `initialLook`: QA renders only.
@@ -313,6 +315,7 @@ struct CharacterCreatorView: View {
                         }
                         Text("쉼표로 나눠 6개까지, 하나에 8자까지 써요").font(.system(size: 10)).foregroundStyle(.secondary)
                     }
+                    if let id = model.editingID { soundRow(FriendCry.customFolder(id, store: store)) }
                 }
                 slotView(.normal, height: 128)
                 DisclosureGroup("다른 모습도 넣기 (선택)", isExpanded: moreSlots) {
@@ -442,6 +445,27 @@ struct CharacterCreatorView: View {
                 .font(.system(size: 10)).foregroundStyle(.secondary).lineLimit(1)
         }
         .frame(maxWidth: .infinity)
+    }
+
+    /// 누르면 소리 files of a saved character: up to 10 short ones, played instead of the made-up cry.
+    private func soundRow(_ folder: URL) -> some View {
+        HStack(spacing: 8) {
+            Text("누르면 소리").font(.system(size: 11)).foregroundStyle(.secondary)
+            Button("소리 파일 넣기…") {
+                let panel = NSOpenPanel()
+                panel.allowedContentTypes = [.audio]
+                panel.allowsMultipleSelection = true
+                panel.message = L("3초 안의 짧은 소리 파일을 10개까지 골라 주세요")
+                NSApp.activate(ignoringOtherApps: true)
+                if PopoverLayer.runModal({ panel.runModal() }) == .OK { sounds = FriendCry.add(panel.urls, to: folder) }
+            }
+            .controlSize(.small).disabled(sounds >= FriendCry.maxFiles)
+            if sounds > 0 {
+                Button("소리 지우기") { FriendCry.clear(folder); sounds = 0 }.controlSize(.small)
+            }
+            Text(sounds > 0 ? L("\(sounds)개") : L("없으면 만든 목소리로 울어요")).font(.system(size: 10)).foregroundStyle(.secondary)
+        }
+        .onAppear { sounds = FriendCry.files(in: folder).count }
     }
 
     private func choose(_ slot: CustomSlot) {
@@ -608,6 +632,7 @@ struct CharacterCreatorView: View {
         guard let id = model.editingID else { return }
         do {
             try store.delete(id)
+            FriendCry.forget()   // its sound files are gone
             if settings.character == .custom && settings.customCharacterID == id.uuidString { settings.character = .dog }
             onDone()
         } catch {

@@ -186,8 +186,14 @@ final class AssistantCenter: NSObject {
     /// The on-device line names something that did not happen: a 카톡, 문자 or 메일 the situation never mentioned
     /// (a battery nudge came out as "카톡 왔어"). Then the template says it instead.
     nonisolated static func invents(_ line: String, from situation: String) -> Bool {
-        ["카톡", "카카오", "톡 왔", "문자", "메시지", "메일", "알림 왔", "연락 왔", "전화 왔"].contains { line.contains($0) && !situation.contains($0) }
+        let l = line.lowercased(), s = situation.lowercased()
+        return inboxWords.contains { l.contains($0) && !s.contains($0) }
     }
+
+    /// Words that make a line sound like something came in. Spacing and spelling vary ("톡이 왔어", "메세지", "알림이 와"),
+    /// so stems, not phrases.
+    nonisolated static let inboxWords = ["카톡", "카카오", "톡이", "톡 왔", "톡왔", "문자", "메시지", "메세지", "메일", "알림",
+                                         "연락", "전화", "답장", "디엠", "message", "kakao", "slack", "슬랙", "텔레그램"]
 
     private func toPhone(_ e: PhoneEvent, _ text: String) {
         guard settings.phone, settings.phoneEvents.contains(e) else { return }

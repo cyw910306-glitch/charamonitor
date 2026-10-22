@@ -1044,11 +1044,14 @@ final class DesktopClones {
                     let s = panel.frame.size
                     let walls = CGRect(x: c.size.width / 2, y: 0, width: max(0, s.width - c.size.width), height: max(0, s.height - c.size.height))
                     c.fling = Fling(at: CGPoint(x: c.walk.x, y: c.ground), velocity: v, walls: walls)
+                    FriendCry.play(.hop, friend: "clone-\(c.id)", character: store.prefs.clones.first { $0.id == c.id }?.character)
                 } else {
                     save([c])   // put down right where it is
                 }
             case .single, .double:
-                react(c, c.combo.click(at: now), now: now)
+                let r = c.combo.click(at: now)
+                FriendCry.play(r, friend: "clone-\(c.id)", character: store.prefs.clones.first { $0.id == c.id }?.character)
+                react(c, r, now: now)
             }
         }
     }

@@ -3350,5 +3350,37 @@
  {
   "key": "친구들끼리: 복제 친구 카드에서 술래잡기·기차놀이를, 풀밭 친구들 카드에서 줄넘기를 켜면 가끔 친구들끼리 놀아요. 단체 춤을 켜 두면 축하할 일이 생길 때 다 같이 10초 동안 춤춰요.",
   "en": "Playing together: turn on Tag and Train on the copied friend card, or Jump rope on the meadow friends card, and now and then they play with each other. With Group dance on, everyone dances together for 10 seconds when there is something to celebrate."
+ },
+ {
+  "key": "누르면 소리",
+  "en": "Sound on click"
+ },
+ {
+  "key": "소리 파일 넣기…",
+  "en": "Add sound files…"
+ },
+ {
+  "key": "3초 안의 짧은 소리 파일을 10개까지 골라 주세요",
+  "en": "Choose up to 10 short sound files, 3 seconds or less"
+ },
+ {
+  "key": "소리 지우기",
+  "en": "Remove sounds"
+ },
+ {
+  "key": "없으면 만든 목소리로 울어요",
+  "en": "Without files it uses a made-up voice"
+ },
+ {
+  "key": "들어 보기",
+  "en": "Listen"
+ },
+ {
+  "key": "누르면 소리를 켜면 누를 때마다 강아지는 멍, 고양이는 야옹, 다른 캐릭터는 저마다 다른 목소리로 울어요. 복제 친구, 풀밭 친구, 폴더 친구도 같이 울어요. 캐릭터 팩의 sounds 폴더나 내 캐릭터 꾸미기에서 넣은 소리 파일이 있으면 그 소리를 내요. 꾸미기의 효과음을 끄거나 말풍선을 잠시 끄면 조용해요.",
+  "en": "With Sound on click on, each click makes a dog woof, a cat meow, and every other character cry in a voice of its own. Copied, meadow and folder friends cry too. A character pack's sounds folder, or sound files added in a custom character's Customize page, play instead. Turning off Sound effects in Decorate, or muting the bubble for a while, keeps them quiet."
+ },
+ {
+  "key": "설정의 커서 친구 카드에서 누르면 소리를 켜면 누를 때마다 멍, 야옹, 뾱 하고 울어요. 내 캐릭터는 꾸미기에서 소리 파일을 넣을 수 있어요.",
+  "en": "Turn on Sound on click in the cursor friend card in Settings and each click gets a woof, a meow or a squeak. Custom characters can take your own sound files in Customize."
  }
 ]

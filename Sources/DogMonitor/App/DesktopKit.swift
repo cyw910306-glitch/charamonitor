@@ -584,6 +584,11 @@ enum ChimeSound {
             let s = Int16(max(-1, min(1, v / max(total, 1) * min(1, t / 0.002))) * 30_000)
             withUnsafeBytes(of: s.littleEndian) { pcm.append(contentsOf: $0) }
         }
+        return wav(pcm, sampleRate: sampleRate)
+    }
+
+    /// `pcm` (mono 16-bit little-endian samples) with its WAV header.
+    static func wav(_ pcm: Data, sampleRate: Int) -> Data {
         var wav = Data()
         func u32(_ v: UInt32) { withUnsafeBytes(of: v.littleEndian) { wav.append(contentsOf: $0) } }
         func u16(_ v: UInt16) { withUnsafeBytes(of: v.littleEndian) { wav.append(contentsOf: $0) } }

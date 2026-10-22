@@ -676,7 +676,9 @@ final class FolderFriends {
             // ponytail: no picking it up; a drag off it does nothing (the window under it is Finder's to drag).
             if let f = pressed, g.contains(where: { if case .single = $0 { true } else { false } }) {
                 MainActor.assumeIsolated { if FriendQuickAsk.shared.isOpen { FriendQuickAsk.shared.close() } }
-                react(f, MeadowReaction.click(&f.combo, at: t, has: f.has, key: "folder.react"), now: t)
+                let r = MeadowReaction.click(&f.combo, at: t, has: f.has, key: "folder.react")
+                FriendCry.play(r.reaction, friend: "folder-\(ObjectIdentifier(f).hashValue)")
+                react(f, r, now: t)
             }
             pressed = nil
         default: break
