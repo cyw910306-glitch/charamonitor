@@ -5,7 +5,7 @@ import QuartzCore
 // MARK: Physics (pure)
 
 /// Something to stand on: a top edge from `minX` to `maxX` at height `y` (screen points, y up). One-way unless
-/// `solid`: jumped up through from below, landed on from above, dropped through with ↓ + 스페이스.
+/// `solid`: jumped up through from below, landed on from above, dropped through with ↓ + ↑.
 struct PlayPlatform: Equatable {
     var minX: CGFloat, maxX: CGFloat, y: CGFloat
     var solid = false
@@ -123,7 +123,7 @@ enum PlayPhysics {
 /// the screen's bottom, the top edges of real windows and the 러그. Keys come only from our own key panel during a
 /// session (no global key monitor, no permission); Esc, a click elsewhere, an app or Space switch, sleep or a display
 /// change, or 2 minutes with no key, ends it, and the friend goes back to what it was doing from where the player stopped.
-/// P1: ← → 걷기, Shift 달리기, 스페이스 점프 (공중에서 한 번 더: 2단 점프), ↓ 웅크리기, ↓ + 스페이스 내려가기.
+/// P1: ← → 걷기, Shift 달리기, ↑ 점프 (공중에서 한 번 더: 2단 점프), ↓ 웅크리기, ↓ + ↑ 내려가기.
 /// P2 (`twoPlayer`, for games): A D 걷기, W 점프, S 웅크리기, the same character tinted.
 /// For games built on it: `onTick`, `onEvent`, `onEnd`, `onStep`, `under`, `player(_:)`, `body(_:)`, `update(_:_:)`,
 /// `platforms()`, `overlay(on:)`, and `didStart` to add hooks from outside; every hook is cleared when the session ends. Nothing exists or ticks outside a session; in one, 60 fps while anything moves or a
@@ -411,7 +411,7 @@ final class PlayMode {
         case 123: players.first?.input.left = down
         case 124: players.first?.input.right = down
         case 125: players.first?.input.down = down
-        case 49: if fresh { players.first?.input.jump = true }
+        case 126: if fresh { players.first?.input.jump = true }   // ↑
         case 0: players.dropFirst().first?.input.left = down
         case 2: players.dropFirst().first?.input.right = down
         case 1: players.dropFirst().first?.input.down = down

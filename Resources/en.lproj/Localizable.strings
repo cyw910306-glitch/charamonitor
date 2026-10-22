@@ -4063,7 +4063,7 @@
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:449 */
 "최고 기록 %lld개" = "Best: %lld";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:451 */
-"← →로 걷고, Shift를 같이 누르면 뛰어요. 스페이스로 점프하고, 공중에서 한 번 더 누르면 2단 점프예요. ↓로 웅크리고, ↓ 누른 채 스페이스를 누르면 창 아래로 내려가요. Esc를 누르면 끝나요." = "← → walk, hold Shift to run. Space jumps, and once more in the air is a double jump. ↓ crouches, and ↓ with Space drops down through a window edge. Esc ends it.";
+"← →로 걷고, Shift를 같이 누르면 뛰어요. ↑로 점프하고, 공중에서 한 번 더 누르면 2단 점프예요. ↓로 웅크리고, ↓ 누른 채 ↑를 누르면 창 아래로 내려가요. Esc를 누르면 끝나요." = "← → walk, hold Shift to run. ↑ jumps, and once more in the air is a double jump. ↓ crouches, and ↓ with ↑ drops down through a window edge. Esc ends it.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:452 */
 "화면 아래(독 위), 열린 창의 위쪽 끝, 바탕화면 러그 위에 올라설 수 있어요. 아래에서 뛰어오르면 창 끝을 지나 올라가요. 다른 곳을 클릭하거나 다른 앱으로 넘어가도 끝나요." = "It can stand on the bottom of the screen (above the Dock), on the top edges of open windows and on the desktop rug. Jumping from below goes up through a window edge. Clicking elsewhere or switching apps ends it too.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:453 */
@@ -4337,7 +4337,7 @@
 /* Sources/DogMonitor/UI/GuideSheet.swift:45 */
 "집중 타이머: 집중하는 동안 머리 위에 시간이 뜨고 캐릭터가 공부해요." = "Focus Timer: while you focus, the time shows overhead and the character studies.";
 /* Sources/DogMonitor/UI/GuideSheet.swift:46 */
-"놀이 모드: 커서 친구나 복제 친구를 오른쪽 클릭해서 고르면 키보드로 움직여요. ← →로 걷고 Shift로 뛰고, 스페이스로 점프(공중에서 한 번 더 누르면 2단 점프), ↓로 웅크려요. 창 위쪽 끝에 올라서고 ↓+스페이스로 내려가요. Esc로 끝내요." = "Play mode: right-click the cursor friend or a copied friend and choose it to move it with the keyboard. ← → walk, Shift runs, Space jumps (once more in the air for a double jump), ↓ crouches. It stands on window edges, and ↓ + Space drops down. Esc ends it.";
+"놀이 모드: 커서 친구나 복제 친구를 오른쪽 클릭해서 고르면 키보드로 움직여요. ← →로 걷고 Shift로 뛰고, ↑로 점프(공중에서 한 번 더 누르면 2단 점프), ↓로 웅크려요. 창 위쪽 끝에 올라서고 ↓+↑로 내려가요. Esc로 끝내요." = "Play mode: right-click the cursor friend or a copied friend and choose it to move it with the keyboard. ← → walk, Shift runs, ↑ jumps (once more in the air for a double jump), ↓ crouches. It stands on window edges, and ↓ + ↑ drops down. Esc ends it.";
 /* Sources/DogMonitor/UI/GuideSheet.swift:47 */
 "별 줍기·2인 대결: 놀이 메뉴에서 골라요. 60초 동안 별을 모으고, 2인 대결은 W·A·S·D로 한 명 더 같이 해요." = "Star catch and two-player match: pick them from the Play menu. Collect stars for 60 seconds; in a match a second player joins on W, A, S, D.";
 /* Sources/DogMonitor/UI/GuideSheet.swift:48 */

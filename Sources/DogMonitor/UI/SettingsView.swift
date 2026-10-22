@@ -153,7 +153,7 @@ struct HelpSheet: View {
 
 enum AppInfo {
     /// A bare `swift build` binary has no Info.plist; it shows the version scripts/build_app.sh stamps instead.
-    static let unbundledVersion = "3.0.1"
+    static let unbundledVersion = "3.0.2"
     static var version: String { Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? unbundledVersion }
     /// Where the source lives (PolyForm Noncommercial 1.0.0).
     static let repoURL = URL(string: "https://github.com/cyw910306-glitch/charamonitor")!
