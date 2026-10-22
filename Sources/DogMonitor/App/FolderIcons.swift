@@ -107,19 +107,32 @@ final class FolderIcons: ObservableObject {
     static func art(character: String? = nil) -> NSImage? {
         let c = MeadowFriends.cache(character: character, pixelSize: 8)
         guard let who = BuddyGait.frames(c)[.stand]?.first else { return nil }
-        return art(folder: NSWorkspace.shared.icon(for: .folder), character: who, smooth: c.smooth)
+        return art(folder: NSWorkspace.shared.icon(for: .folder), character: trimmed(who), smooth: c.smooth)
+    }
+
+    /// `image` cut to its drawn part: wide frames (HD packs) are mostly see-through and would leave a tiny figure.
+    static func trimmed(_ image: NSImage) -> NSImage {
+        guard let cg = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
+              let rep = Optional(NSBitmapImageRep(cgImage: cg)) else { return image }
+        var lo = (x: rep.pixelsWide, y: rep.pixelsHigh), hi = (x: -1, y: -1)
+        for y in 0..<rep.pixelsHigh { for x in 0..<rep.pixelsWide where (rep.colorAt(x: x, y: y)?.alphaComponent ?? 0) > 0.05 {
+            lo = (min(lo.x, x), min(lo.y, y)); hi = (max(hi.x, x), max(hi.y, y))
+        } }
+        guard hi.x >= lo.x, let cut = cg.cropping(to: CGRect(x: lo.x, y: lo.y, width: hi.x - lo.x + 1, height: hi.y - lo.y + 1)) else { return image }
+        return NSImage(cgImage: cut, size: NSSize(width: cut.width, height: cut.height))
     }
 
     static func art(folder: NSImage, character who: NSImage, smooth: Bool) -> NSImage {
         let side: CGFloat = 512
         return NSImage(size: NSSize(width: side, height: side), flipped: false) { _ in
             // The folder a little smaller, at the bottom: its body's top is about 82% up its square.
-            let box = CGRect(x: 40, y: 0, width: side * 0.84, height: side * 0.84)
+            let box = CGRect(x: side * 0.11, y: 0, width: side * 0.78, height: side * 0.78)
             folder.draw(in: box)
-            let top = box.minY + box.height * 0.80
-            let h = side * 0.5, w = h * who.size.width / max(1, who.size.height)
-            let fit = min(1, side * 0.62 / max(1, w))
-            let r = CGRect(x: side * 0.6 - w * fit / 2, y: top - side * 0.03, width: w * fit, height: h * fit)
+            // Feet just under the folder's top edge, the figure as big as the room above allows.
+            let feet = box.minY + box.height * 0.74
+            let h = side - 4 - feet, w = h * who.size.width / max(1, who.size.height)
+            let fit = min(1, side * 0.8 / max(1, w))
+            let r = CGRect(x: side * 0.56 - w * fit / 2, y: feet, width: w * fit, height: h * fit)
             NSGraphicsContext.current?.imageInterpolation = smooth ? .high : .none
             who.draw(in: r)
             return true
