@@ -303,7 +303,9 @@ final class SetupFileTests: XCTestCase {
         let chars = s.temp.appendingPathComponent("Characters")
         try FileManager.default.setAttributes([.posixPermissions: 0o555], ofItemAtPath: chars.path)   // a directory that cannot move
         defer { try? FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: chars.path) }
-        XCTAssertThrowsError(try SetupFile.install(s, defaults: db, dirs: b, screens: []))
+        XCTAssertThrowsError(try SetupFile.install(s, defaults: db, dirs: b, screens: [])) {
+            XCTAssertEqual($0.localizedDescription, "중간에 멈춰서 원래대로 돌려 놨어요. 이 맥의 설정은 그대로예요.")
+        }
         let fm = FileManager.default
         XCTAssertTrue(fm.fileExists(atPath: b.packs.appendingPathComponent("pack-old/pack.json").path))
         XCTAssertFalse(fm.fileExists(atPath: b.packs.appendingPathComponent("pack-new").path))
@@ -550,5 +552,45 @@ final class SetupFileTests: XCTestCase {
         d.set(Float(1), forKey: key)
         d.set(URL(fileURLWithPath: "/"), forKey: key)
         XCTAssertNil(d.object(forKey: key))
+    }
+
+    /// CharaCore keeps its own count of the 날씨 창문 sizes a file may pick.
+    func testWeatherSizesMatchTheWindow() {
+        XCTAssertEqual(SetupFile.weatherScaleCount, WeatherFrame.scales.count)
+    }
+
+    /// The iPhone's import: the file's packs and pictures replace the folder's, nothing else is written there.
+    func testImportFilesReplacesTheFoldersOnly() throws {
+        let root = temp.appendingPathComponent("phone", isDirectory: true)
+        try write("old", "Packs/pack-old/pack.json", in: root)
+        try write("mine", "notes.txt", in: root)
+        let url = try file(self.root(files: ["Packs/pack-new/pack.json": Data("{}".utf8), "Pictures/1.png": png],
+                                     settings: ["showCPUPercent": false, "claudeUseCLILogin": true]))
+        let done = try SetupFile.importFiles(url, into: root)
+        XCTAssertEqual(done.packs, 1)
+        XCTAssertEqual(done.settings.keys.sorted(), ["showCPUPercent"])
+        let fm = FileManager.default
+        XCTAssertTrue(fm.fileExists(atPath: root.appendingPathComponent("Packs/pack-new/pack.json").path))
+        XCTAssertFalse(fm.fileExists(atPath: root.appendingPathComponent("Packs/pack-old").path))
+        XCTAssertTrue(fm.fileExists(atPath: root.appendingPathComponent("Pictures/1.png").path))
+        XCTAssertTrue(fm.fileExists(atPath: root.appendingPathComponent("notes.txt").path))
+        XCTAssertEqual(try fm.contentsOfDirectory(atPath: root.path).sorted(), ["Backups", "Packs", "Pictures", "notes.txt"])
+        // What it replaced is kept, not deleted (the last import's only).
+        XCTAssertTrue(fm.fileExists(atPath: root.appendingPathComponent("Backups/before-import/Packs/pack-old/pack.json").path))
+    }
+
+    /// swapIn says only whether it put things back: the Mac and the iPhone each word that for their own setup.
+    func testSwapInFailureIsPlain() throws {
+        let b = SetupFile.Dirs(root: temp.appendingPathComponent("S"))
+        try write("old", "Packs/pack-old/pack.json", in: b.root)
+        let s = try stage(["Packs/pack-new/pack.json": Data("new".utf8), "Characters/n/character.json": Data("new".utf8)])
+        defer { s.discard() }
+        let chars = s.temp.appendingPathComponent("Characters")
+        try FileManager.default.setAttributes([.posixPermissions: 0o555], ofItemAtPath: chars.path)   // a directory that cannot move
+        defer { try? FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: chars.path) }
+        XCTAssertThrowsError(try SetupFile.swapIn(s, dirs: b)) {
+            XCTAssertEqual(($0 as? SetupFile.SwapFailed)?.restored, true)
+        }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: b.packs.appendingPathComponent("pack-old/pack.json").path))
     }
 }

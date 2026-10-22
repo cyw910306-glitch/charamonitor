@@ -76,80 +76,8 @@ struct SystemSnapshot: Equatable {
     var thermalState: ProcessInfo.ThermalState
 }
 
-// MARK: - Dog
-
-enum DogPose: Int, CaseIterable, Codable {
-    case lying, slowWalk, walk, fastWalk, run, sprint, exhausted
-
-    /// CPU usage (0...1) to pose. Lower bounds: 0, 5, 15, 30, 45, 65, 85 %.
-    static func forCPU(_ usage: Double) -> DogPose {
-        let p = usage * 100
-        switch p {
-        case ..<5: return .lying
-        case ..<15: return .slowWalk
-        case ..<30: return .walk
-        case ..<45: return .fastWalk
-        case ..<65: return .run
-        case ..<85: return .sprint
-        default: return .exhausted
-        }
-    }
-
-    var label: String {
-        switch self {
-        case .lying: return L("쿨쿨 자는 중")
-        case .slowWalk: return L("어슬렁어슬렁")
-        case .walk: return L("산책 중")
-        case .fastWalk: return L("총총총")
-        case .run: return L("달리는 중")
-        case .sprint: return L("전속력 질주!")
-        case .exhausted: return L("헉헉 땀 뻘뻘")
-        }
-    }
-}
-
-/// Who lives in the menu bar: the customizable dog, a character made from the user's own pictures (which one:
-/// AppSettings.customCharacterID), a cat breed (AppSettings.catID) or an original character or local pack
-/// (AppSettings.originalID). Raw values are saved; never rename one. A value this build no longer has (a
-/// removed character) reads as nil and loads as the dog.
-/// Not named `Character`, which would shadow Swift.Character in this module.
-enum SpriteCharacter: String, Codable, CaseIterable {
-    case dog, custom, cat, original
-}
-
-enum EarStyle: String, Codable, CaseIterable { case pointy, floppy, folded, long }
-enum TailStyle: String, Codable, CaseIterable { case curly, straight, short, fluffy }
-enum SnoutStyle: String, Codable, CaseIterable { case short, medium, long }
-enum BodyBuild: String, Codable, CaseIterable { case small, medium, large, long }  // long = dachshund-like
-enum CoatPattern: String, Codable, CaseIterable { case solid, mask, saddle, whiteChest, socks, spots }
-
-struct RGBColor: Codable, Equatable, Hashable {
-    var r: UInt8, g: UInt8, b: UInt8
-
-    init(r: UInt8, g: UInt8, b: UInt8) { self.r = r; self.g = g; self.b = b }
-
-    /// "#C8913A" or "C8913A". Invalid input gives mid gray.
-    init(hex: String) {
-        let s = hex.trimmingCharacters(in: CharacterSet(charactersIn: "# "))
-        guard s.count == 6, let v = UInt32(s, radix: 16) else { self.init(r: 128, g: 128, b: 128); return }
-        self.init(r: UInt8(v >> 16 & 0xFF), g: UInt8(v >> 8 & 0xFF), b: UInt8(v & 0xFF))
-    }
-
-    var hex: String { String(format: "#%02X%02X%02X", r, g, b) }
+extension RGBColor {
     var nsColor: NSColor { NSColor(srgbRed: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: 1) }
-}
-
-struct DogProfile: Codable, Equatable {
-    var name: String
-    var ears: EarStyle
-    var tail: TailStyle
-    var snout: SnoutStyle
-    var build: BodyBuild
-    var fluffy: Bool
-    var pattern: CoatPattern
-    var baseColor: RGBColor       // main coat
-    var secondaryColor: RGBColor  // pattern color (mask/saddle/chest/socks/spots)
-    var noseColor: RGBColor
 }
 
 // MARK: - App settings (persisted in UserDefaults, owned by App/)

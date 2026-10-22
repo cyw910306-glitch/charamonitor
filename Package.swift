@@ -3,10 +3,16 @@ import PackageDescription
 
 let package = Package(
     name: "DogMonitor",
-    platforms: [.macOS(.v13)],
+    platforms: [.macOS(.v13), .iOS(.v17)],
+    products: [
+        // The characters' art, packs, voice and setup file checks, shared by the Mac app and the iPhone app (ios/).
+        .library(name: "CharaCore", targets: ["CharaCore"]),
+    ],
     targets: [
+        .target(name: "CharaCore", path: "Sources/CharaCore"),
         .executableTarget(
             name: "DogMonitor",
+            dependencies: ["CharaCore"],
             path: "Sources/DogMonitor",
             linkerSettings: [
                 .linkedFramework("AppKit"),
@@ -16,6 +22,6 @@ let package = Package(
                 .linkedFramework("Security"),
             ]
         ),
-        .testTarget(name: "DogMonitorTests", dependencies: ["DogMonitor"], path: "Tests/DogMonitorTests"),
+        .testTarget(name: "DogMonitorTests", dependencies: ["DogMonitor", "CharaCore"], path: "Tests/DogMonitorTests"),
     ]
 )

@@ -4,8 +4,8 @@ import AppKit
 /// AnimatedCharacter), rendered once. Swapping `frames(for:)[i]` is the only per-frame work.
 /// StatusItemController and the dashboard only ever talk to this type.
 final class DogSpriteCache {
-    static let canvasWidth = 34
-    static let canvasHeight = 20
+    static let canvasWidth = SpriteCanvas.width
+    static let canvasHeight = SpriteCanvas.height
 
     let imageSize: NSSize
     private let framesByPose: [[NSImage]]   // indexed by DogPose.rawValue
@@ -112,14 +112,8 @@ final class DogSpriteCache {
         return all.indices.contains(variant) ? all[variant] : []
     }
 
-    /// Seconds per frame of an extra moment: searching is slow, eating brisk, special moves quick.
-    static func extraFrameDuration(_ motion: ExtraMotion?) -> TimeInterval {
-        switch motion {
-        case .hungry: return 0.38
-        case .eat: return 0.22
-        case .special, nil: return 0.12
-        }
-    }
+    /// Seconds per frame of an extra moment (FrameTiming, CharaCore).
+    static func extraFrameDuration(_ motion: ExtraMotion?) -> TimeInterval { FrameTiming.extra(motion) }
 
     /// Seconds per frame of what plays now: the character's own timing when it sets one, else the app's.
     func frameDuration(for pose: DogPose, cpu: Double, extra: ExtraMotion?) -> TimeInterval {
@@ -142,22 +136,8 @@ final class DogSpriteCache {
         }
     }
 
-    /// Seconds per frame. Speeds up smoothly inside each pose's CPU band (DogPose.forCPU thresholds).
-    static func frameDuration(for pose: DogPose, cpu: Double) -> TimeInterval {
-        let band: (lo: Double, hi: Double, slow: Double, fast: Double)
-        switch pose {
-        case .lying: return 0.6
-        case .slowWalk: band = (0.05, 0.15, 0.22, 0.18)
-        case .walk: band = (0.15, 0.30, 0.16, 0.12)
-        case .fastWalk: band = (0.30, 0.45, 0.12, 0.095)
-        case .run: band = (0.45, 0.65, 0.09, 0.07)
-        case .sprint: band = (0.65, 0.85, 0.07, 0.055)
-        case .exhausted: band = (0.85, 1.0, 0.055, 0.045)
-        }
-        let c = cpu.isFinite ? cpu : 0
-        let t = min(1, max(0, (c - band.lo) / (band.hi - band.lo)))
-        return max(0.04, band.slow + (band.fast - band.slow) * t)
-    }
+    /// Seconds per frame of a pose (FrameTiming, CharaCore).
+    static func frameDuration(for pose: DogPose, cpu: Double) -> TimeInterval { FrameTiming.pose(pose, cpu: cpu) }
 
     /// Nearest-neighbour copies for each backing scale, so the dog is crisp everywhere.
     /// `oneX`, when it matches a scale's pixel size exactly, is used there instead of scaling `cg` down.
@@ -180,50 +160,8 @@ final class DogSpriteCache {
     }
 }
 
-/// Paints every pose of a profile and centres the dog on the shared canvas.
-enum DogRenderer {
-    private static let margin = 12
-
-    /// RGBA bytes per frame, grouped by pose in DogPose order.
-    static func frames(_ profile: DogProfile) -> [[[UInt8]]] {
-        let w = DogSpriteCache.canvasWidth
-        let grids = grids(profile)
-        let span = union(grids)
-        // One offset per profile, so switching poses never shifts the dog sideways.
-        let x0 = span.map { $0.minX - (w - ($0.maxX - $0.minX + 1)) / 2 } ?? margin
-        let palette = DogPalette(profile)
-        return grids.map { $0.map { $0.rgba(palette, x0: x0, outWidth: w) } }
-    }
-
-    /// Every frame painted on a scratch canvas wide enough for any dog, grouped by pose in DogPose order.
-    static func grids(_ profile: DogProfile) -> [[ArtGrid]] {
-        let painter = DogPainter(profile)
-        return DogPose.allCases.map { pose in
-            pose.rigs.map { rig in
-                var g = ArtGrid(width: DogSpriteCache.canvasWidth + margin * 2, height: DogSpriteCache.canvasHeight)
-                painter.paint(rig, into: &g, originX: margin + 8)
-                return g
-            }
-        }
-    }
-
-    /// Horizontal extent of the dog over all frames, or nil when nothing was painted.
-    static func union(_ grids: [[ArtGrid]]) -> (minX: Int, maxX: Int)? {
-        let boxes = grids.joined().compactMap(\.bounds)
-        guard let lo = boxes.map(\.minX).min(), let hi = boxes.map(\.maxX).max() else { return nil }
-        return (lo, hi)
-    }
-
-    /// `interpolate` off keeps pixel art blocky wherever it is drawn; illustrations (HD packs) turn it on.
-    static func cgImage(_ rgba: [UInt8], width: Int = DogSpriteCache.canvasWidth, height: Int = DogSpriteCache.canvasHeight,
-                        interpolate: Bool = false) -> CGImage {
-        let provider = CGDataProvider(data: Data(rgba) as CFData)!
-        return CGImage(width: width, height: height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: width * 4,
-                       space: CGColorSpace(name: CGColorSpace.sRGB)!,
-                       bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue),
-                       provider: provider, decode: nil, shouldInterpolate: interpolate, intent: .defaultIntent)!
-    }
-
+/// The Mac's frame images on top of CharaCore's DogRenderer.
+extension DogRenderer {
     /// Any character's frame as an image: the shared canvas, or a custom character's denser one.
     static func art(_ rgba: [UInt8]) -> CGImage {
         rgba.count == CustomSprite.w * CustomSprite.h * 4 ? cgImage(rgba, width: CustomSprite.w, height: CustomSprite.h) : cgImage(rgba)
@@ -232,12 +170,6 @@ enum DogRenderer {
     /// Any character's frame at 1 art px per point.
     static func art1x(_ rgba: [UInt8]) -> CGImage {
         rgba.count == CustomSprite.w * CustomSprite.h * 4 ? cgImage(CustomSprite.halved(rgba)) : cgImage(rgba)
-    }
-
-    static func context(width: Int, height: Int) -> CGContext? {
-        CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0,
-                  space: CGColorSpace(name: CGColorSpace.sRGB)!,
-                  bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
     }
 }
 
@@ -273,5 +205,33 @@ struct SpriteLook: Equatable {
             return OriginalCatalog.character(id).map { CharacterColors.apply(colors, to: $0) }
         default: return nil
         }
+    }
+}
+
+/// DogExtras (CharaCore) as menu bar images.
+extension DogExtras {
+    /// NSImages at `pixelSize` points per art pixel, crisp at 1x, 2x (and 3x for small sizes). `special` is empty.
+    static func frames(profile: DogProfile, pixelSize: CGFloat = 1, motion: ExtraMotion) -> [NSImage] {
+        rgba(profile, motion).map { ExtraImages.image($0, pixelSize: pixelSize) }
+    }
+}
+
+extension ExtraImages {
+    /// Nearest-neighbour copies per backing scale, like DogSpriteCache does for the normal poses.
+    static func image(_ rgba: [UInt8], pixelSize: CGFloat) -> NSImage {
+        let size = NSSize(width: CGFloat(SpriteCanvas.width) * pixelSize, height: CGFloat(SpriteCanvas.height) * pixelSize)
+        let cg = DogRenderer.cgImage(rgba)
+        let image = NSImage(size: size)
+        for scale in (pixelSize <= 2 ? [1, 2, 3] : [1, 2]) as [CGFloat] {
+            let w = Int((size.width * scale).rounded()), h = Int((size.height * scale).rounded())
+            guard let ctx = DogRenderer.context(width: w, height: h) else { continue }
+            ctx.interpolationQuality = .none
+            ctx.draw(cg, in: CGRect(x: 0, y: 0, width: w, height: h))
+            guard let scaled = ctx.makeImage() else { continue }
+            let rep = NSBitmapImageRep(cgImage: scaled)
+            rep.size = size
+            image.addRepresentation(rep)
+        }
+        return image
     }
 }

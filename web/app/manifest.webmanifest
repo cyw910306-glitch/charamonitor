@@ -1,0 +1,16 @@
+{
+  "name": "캐릭모니터",
+  "short_name": "캐릭모니터",
+  "description": "메뉴바 친구와 아이폰에서도 놀아요. 무료, 오프라인.",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5EDE6",
+  "theme_color": "#F5EDE6",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

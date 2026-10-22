@@ -1097,3 +1097,23 @@ struct UndoStack<T> {
     mutating func pop() -> T? { items.popLast() }
     var isEmpty: Bool { items.isEmpty }
 }
+
+/// FrameArt (CharaCore) on the custom characters' canvas.
+extension FrameArt {
+    /// The same frames on the custom characters' 2x canvas (each art pixel a 2x2 block), so they save, show and
+    /// preview like every other custom character at the same menu bar size.
+    func frames(flipped: Bool = false) -> [[[UInt8]]] { nativeFrames(flipped: flipped).map { $0.map(Self.doubled) } }
+
+    static func doubled(_ rgba: [UInt8]) -> [UInt8] {
+        let w = width, d = CustomSprite.density, W = w * d
+        var out = [UInt8](repeating: 0, count: rgba.count * d * d)
+        for i in 0..<(w * height) {
+            let x = i % w, y = i / w
+            for dy in 0..<d { for dx in 0..<d {
+                let o = ((y * d + dy) * W + x * d + dx) * 4
+                out.replaceSubrange(o..<(o + 4), with: rgba[(i * 4)..<(i * 4 + 4)])
+            } }
+        }
+        return out
+    }
+}

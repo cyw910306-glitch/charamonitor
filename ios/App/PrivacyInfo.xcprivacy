@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Nothing leaves the iPhone: no tracking, no collected data. -->
+    <key>NSPrivacyTracking</key><false/>
+    <key>NSPrivacyTrackingDomains</key><array/>
+    <key>NSPrivacyCollectedDataTypes</key><array/>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <!-- Settings in the app's own UserDefaults, and the app group's, shared with its widgets. -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key><array><string>CA92.1</string><string>1C8F.1</string></array>
+        </dict>
+        <!-- CharaCore checks the imported packs' files (lstat, fstat, attributesOfItem: type and size) in the app group. -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key><array><string>C617.1</string></array>
+        </dict>
+        <!-- 저장 공간 free and total on the home screen (volume capacity keys). -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key><array><string>85F4.1</string></array>
+        </dict>
+        <!-- The time between taps (systemUptime), for 3 taps = dizzy. -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key><string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key><array><string>35F9.1</string></array>
+        </dict>
+    </array>
+</dict>
+</plist>

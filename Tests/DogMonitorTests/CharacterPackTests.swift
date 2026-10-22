@@ -173,4 +173,49 @@ final class CharacterPackTests: XCTestCase {
         XCTAssertThrowsError(try CharacterPack(folder: try makePack("pack-orphan", frames: orphan)))
         XCTAssertThrowsError(try CharacterPack(folder: try makePack("pack-say", extra: ["say": ["eat": ["냠"]]])))
     }
+
+    /// CharaArt (what the iPhone app draws) reads a pack with its own size, voice and frames.
+    func testCharaArtReadsPacks() throws {
+        try makePack("pack-chara", extra: ["persona": "shy", "cries": ["뿅"], "say": ["special": ["얍!"]]])
+        let art = try XCTUnwrap(CharaArt.packs(in: root).first)
+        XCTAssertEqual(art.id, "pack-chara")
+        XCTAssertEqual(art.width, 68)
+        XCTAssertEqual(art.frames(.walk).count, 4)
+        XCTAssertEqual(art.frames(.walk, extra: .special).count, 6)
+        XCTAssertEqual(art.frames(.walk, extra: .eat).count, 4)   // no eat frames: the pose plays
+        XCTAssertEqual(art.lines(.special), ["얍!"])
+        XCTAssertEqual(art.persona().style, .shy)
+        XCTAssertEqual(art.persona().cries, ["뿅"])
+        let image = try XCTUnwrap(art.images(.walk, scale: 4).first)
+        XCTAssertEqual(image.width, 136)
+        XCTAssertEqual(image.height, 80)
+    }
+
+    /// A widget reads only what it shows: those frames and the walk; the rest stay empty and fall back to the walk.
+    func testKeysReadOnlyThoseFrames() throws {
+        try makePack("pack-few")
+        let some = try PackArt(folder: root.appendingPathComponent("pack-few"), keys: CharaArt.keys(.run, extra: .special))
+        XCTAssertEqual(some.poseRGBA.map(\.count), [0, 0, 4, 0, 2, 0, 0])
+        XCTAssertEqual(some.extraRGBA[.special]?.count, 6)
+        let art = try XCTUnwrap(CharaArt.packs(in: root, keys: []).first)
+        XCTAssertEqual(art.frames(.run).count, 4)   // the walk
+        XCTAssertEqual(art.frames(.walk, extra: .special).count, 4)
+        XCTAssertEqual(art.cachedImages(.walk, scale: 2).count, 4)
+        XCTAssertTrue(art.cachedImages(.walk, scale: 2)[0] === art.cachedImages(.walk, scale: 2)[0])   // made once
+        XCTAssertEqual(CharaArt.packs(in: root).first?.frames(.run).count, 2)
+    }
+
+    /// Every built-in character has every pose, and 젤리 is among them.
+    func testCharaArtBuiltIns() throws {
+        let all = CharaArt.builtIn
+        XCTAssertEqual(Set(all.map(\.id)).count, all.count)
+        XCTAssertNotNil(CharaArt.builtIn(CharaArt.defaultID))
+        XCTAssertNotNil(CharaArt.builtIn("original-tan-cat"))
+        XCTAssertEqual(all.filter { $0.kind == .cat }.count, CatCatalog.all.count)
+        for art in all {
+            for pose in DogPose.allCases { XCTAssertFalse(art.frames(pose).isEmpty, "\(art.id) \(pose)") }
+            XCTAssertEqual(art.frames(.walk)[0].count, 34 * 20 * 4, art.id)
+        }
+        XCTAssertEqual(CharaArt.builtIn(CharaArt.defaultID)?.frames(.walk), DogRenderer.frames(.defaultDog)[DogPose.walk.rawValue])
+    }
 }

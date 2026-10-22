@@ -5,10 +5,8 @@ import UniformTypeIdentifiers
 
 /// What the AI drawing clients share (ChatGPTCharacterClient, ClaudeCharacterClient): their error and the photo they send.
 enum AICharacterClient {
-    struct Failure: Error, Equatable, CustomStringConvertible {
-        var message: String
-        var description: String { message }
-    }
+    /// The error FrameArt throws too (CharaCore).
+    typealias Failure = ArtFailure
 
     static let photoPixels = 512
 
@@ -61,12 +59,10 @@ final class AutoRefine: ObservableObject {
 import Foundation
 
 /// Mac App Store build: no photo leaves the Mac and nothing draws with AI. `route` stays nil, which already hides
-/// every AI line in the creator and 설정. Only the error type FrameArt shares is kept.
+/// every AI line in the creator and 설정. Only the error type FrameArt shares (ArtFailure) is named here.
 enum AICharacterClient {
-    struct Failure: Error, Equatable, CustomStringConvertible {
-        var message: String
-        var description: String { message }
-    }
+    /// The error FrameArt throws too (CharaCore).
+    typealias Failure = ArtFailure
 }
 
 final class AutoRefine: ObservableObject {

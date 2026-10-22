@@ -42,6 +42,7 @@ button{font:inherit; font-weight:700; padding:12px 18px; border-radius:12px; bor
 button:disabled{opacity:.6; cursor:default}
 #msg{min-height:1.7em; margin:12px 0 0; font-size:15px}
 #msg.bad{color:var(--bad)} #msg.good{color:var(--good)}
+#toApp{width:100%; margin-top:4px}
 ol{padding-left:20px; margin:18px 0 0; color:var(--muted); font-size:15px}
 footer{color:var(--muted); font-size:14px; padding:28px 0 40px}
 </style>
@@ -58,6 +59,7 @@ footer{color:var(--muted); font-size:14px; padding:28px 0 40px}
       <button id="go" type="submit">받기</button>
     </div>
     <p id="msg" role="status" aria-live="polite"></p>
+    <button id="toApp" type="button" hidden>웹 앱에 바로 넣기</button>
     <ol>
       <li>먼저 이 맥에 캐릭모니터를 설치해 주세요. <a href="./">설치하러 가기</a></li>
       <li>받은 <b>내 설정.charamonitor</b> 파일을 두 번 눌러 열어요.</li>
@@ -69,7 +71,21 @@ footer{color:var(--muted); font-size:14px; padding:28px 0 40px}
 <script>
 const f = document.getElementById('f'), go = document.getElementById('go'), msg = document.getElementById('msg')
 function say(t, kind) { msg.textContent = t; msg.className = kind || '' }
-let file = null
+let file = null, opened = null
+const toApp = document.getElementById('toApp')
+// 웹 앱에 바로 넣기: the opened file goes into this browser's storage for app/ (same site), never anywhere else.
+toApp.addEventListener('click', () => {
+  if (!opened) return
+  const r = indexedDB.open('charamonitor-web', 1)
+  r.onupgradeneeded = () => r.result.createObjectStore('kv')
+  r.onerror = () => say('이 브라우저에 넣지 못했어요. 파일로 받아서 웹 앱에서 가져와 주세요.', 'bad')
+  r.onsuccess = () => {
+    const tx = r.result.transaction('kv', 'readwrite')
+    tx.objectStore('kv').put(opened, 'inbox')
+    tx.oncomplete = () => { r.result.close(); location.href = 'app/#import' }
+    tx.onerror = tx.onabort = r.onerror   // a full disk aborts without an error event
+  }
+})
 f.addEventListener('submit', async e => {
   e.preventDefault()
   const code = document.getElementById('code').value.trim().normalize('NFC')
@@ -94,7 +110,9 @@ f.addEventListener('submit', async e => {
     const a = Object.assign(document.createElement('a'), { href: url, download: '내 설정.charamonitor' })
     document.body.append(a); a.click(); a.remove()
     setTimeout(() => URL.revokeObjectURL(url), 60000)
-    say('받았어요. 다운로드 폴더의 내 설정.charamonitor 를 열어 주세요.', 'good')
+    say('받았어요. 다운로드 폴더의 내 설정.charamonitor 를 열어 주세요. 아이폰 사파리에서는 아래 버튼으로 웹 앱에 바로 넣을 수 있어요. 홈 화면에 추가한 웹 앱은 사파리와 저장 공간이 따로라서, 그 앱에서는 파일을 받아 친구 > 내 설정 파일 가져오기로 넣어 주세요.', 'good')
+    opened = plain
+    toApp.hidden = false
   } catch {
     say('파일을 받지 못했어요. 잠시 뒤 다시 해 주세요.', 'bad')
   } finally { go.disabled = false }

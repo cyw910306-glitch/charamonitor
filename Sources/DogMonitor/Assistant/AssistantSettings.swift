@@ -83,7 +83,7 @@ final class AssistantSettings: ObservableObject {
     }
 
     /// The 알림 시점 choices for calendar alerts.
-    static let leadPresets: [[Int]] = [[5], [10], [15, 5], [30, 10]]
+    static let leadPresets = SetupFile.calendarLeadPresets
     static func leadLabel(_ leads: [Int]) -> String {
         let list = leads.map(String.init).joined(separator: "·")
         return L("\(list)분 전")

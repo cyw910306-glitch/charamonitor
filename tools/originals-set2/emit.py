@@ -27,10 +27,10 @@ for mod, Name, prop in CHARS:
 // frames.json format (FrameArt): palette + 20 rows x 34 characters per frame, plus "extras" (hungry, eat, special).
 
 extension OriginalArt {{
-    static let {prop} = #\"\"\"
+    public static let {prop} = #\"\"\"
 {body}
 \"\"\"#
 }}
 """
-    open(f"{PKG}/Sources/DogMonitor/Sprite/Originals{Name}.swift", "w").write(src)
+    open(f"{PKG}/Sources/CharaCore/Originals{Name}.swift", "w").write(src)
     print(Name, len(src))

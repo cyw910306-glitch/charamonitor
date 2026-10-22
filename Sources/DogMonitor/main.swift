@@ -100,6 +100,7 @@ MainActor.assumeIsolated {
         }
     }
     if args.contains("--render-sprites") { runCLI("--render-sprites") { try SpritePreview.renderAll(to: $0) } }
+    if args.contains("--export-web-sprites") { runCLI("--export-web-sprites") { try WebSprites.export(to: $0) } }   // web/app/sprites
     if args.contains("--export-setup") {   // 내 설정 내보내기 without the save panel: <folder>/내 설정.charamonitor
         runCLI("--export-setup") { dir in
             let r = try SetupFile.export(to: dir.appendingPathComponent("내 설정.charamonitor"))

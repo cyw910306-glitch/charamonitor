@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>캐릭모니터 웹 앱</title>
+<meta name="description" content="아이폰 홈 화면에서 캐릭모니터 친구와 놀아요. 무료, 오프라인, 어디에도 보내지 않아요.">
+<meta name="theme-color" content="#F5EDE6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#211915" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="캐릭모니터">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main id="app">
+  <header class="top">
+    <button id="nameBtn" class="chip name" type="button"><span id="charName">캐릭모니터</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <span id="battery" class="chip battery" hidden><i aria-hidden="true"><b></b></i><span></span></span>
+    <button id="soundBtn" class="chip icon" type="button" aria-pressed="true">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8h3l4-3.5v11L6 12H3z" fill="currentColor"/><path class="on" d="M13 7.2a4 4 0 0 1 0 5.6M15.2 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="off" d="m13 7.5 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </header>
+
+  <aside id="install" class="install" hidden>
+    <button class="x" type="button" data-close-install data-i18n-label="close">×</button>
+    <b data-i18n="installTitle">홈 화면에 추가하면 앱처럼 쓸 수 있어요</b>
+    <ol>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 10H5.5v10h13V10H17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span data-i18n="installStep1">사파리의 공유 버튼을 눌러요</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8.5v7M8.5 12h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span data-i18n="installStep2">홈 화면에 추가를 골라요</span></li>
+    </ol>
+  </aside>
+
+  <section id="stage" aria-label="캐릭터">
+    <canvas id="cv"></canvas>
+    <div id="bubble" class="bubble" hidden></div>
+    <div id="focusPill" class="focus-pill" hidden>
+      <span data-i18n="focusing">집중 중</span> <b id="focusLeft">25:00</b>
+      <button id="focusStop" type="button" data-i18n="stop">그만하기</button>
+    </div>
+    <p id="hint" class="hint" data-i18n="hint">톡 눌러 보세요. 꾹 누르면 쓰다듬고, 끌어서 던질 수도 있어요.</p>
+  </section>
+
+  <nav class="dock">
+    <button type="button" data-sheet="friends"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="3.2"/><circle cx="16.5" cy="10" r="2.6"/><path d="M3.5 19c.6-3.2 3-5 5.5-5s4.9 1.8 5.5 5M14 15.2c.8-.7 1.7-1 2.6-1 2 0 3.6 1.4 4 4"/></svg><span data-i18n="friends">친구</span></button>
+    <button type="button" data-sheet="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.4l-5.1 2.7 1-5.6-4.1-4 5.7-.8z"/></svg><span data-i18n="play">놀이</span></button>
+    <button type="button" data-sheet="focus"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4.2l2.6 1.6M9.5 3h5"/></svg><span data-i18n="focus">집중</span></button>
+    <button type="button" data-sheet="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></svg><span data-i18n="settings">설정</span></button>
+  </nav>
+</main>
+
+<div id="scrim" class="scrim" hidden></div>
+
+<section id="sheet-friends" class="sheet" role="dialog" aria-modal="true" aria-labelledby="t-friends" hidden>
+  <header><h2 id="t-friends" data-i18n="pickTitle">친구 고르기</h2><button class="x" type="button" data-close data-i18n-label="close">×</button></header>
+  <div class="body">
+    <div class="import">
+      <label class="btn"><input id="fileIn" type="file" accept=".charamonitor"><span data-i18n="importBtn">내 설정 파일 가져오기</span></label>
+      <p class="note" data-i18n="importNote">맥 앱에서 내보낸 .charamonitor 파일 속 내 캐릭터를 이 기기에 넣어요. 파일은 이 기기 안에서만 읽고 어디에도 보내지 않아요.</p>
+    </div>
+    <div id="grid"></div>
+  </div>
+</section>
+
+<section id="sheet-play" class="sheet" role="dialog" aria-modal="true" aria-labelledby="t-play" hidden>
+  <header><h2 id="t-play" data-i18n="games">미니 게임</h2><button class="x" type="button" data-close data-i18n-label="close">×</button></header>
+  <div class="body cards">
+    <button class="card game-card" type="button" data-game="star">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.4l-5.1 2.7 1-5.6-4.1-4 5.7-.8z"/></svg>
+      <span><b data-i18n="starTitle">별 줍기</b><small data-i18n="starDesc">60초 동안 발판을 뛰어다니며 별을 모아요</small></span>
+      <em id="bestStar"></em>
+    </button>
+    <button class="card game-card" type="button" data-game="mole">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="18" rx="8" ry="2.6"/><path d="M7.5 17.5V12a4.5 4.5 0 0 1 9 0v5.5"/></svg>
+      <span><b data-i18n="moleTitle">두더지잡기</b><small data-i18n="moleDesc">30초 동안 쏙 나오는 친구를 톡 눌러요</small></span>
+      <em id="bestMole"></em>
+    </button>
+  </div>
+</section>
+
+<section id="sheet-focus" class="sheet" role="dialog" aria-modal="true" aria-labelledby="t-focus" hidden>
+  <header><h2 id="t-focus" data-i18n="focusTitle">집중 타이머</h2><button class="x" type="button" data-close data-i18n-label="close">×</button></header>
+  <div class="body">
+    <p class="note" data-i18n="focusDesc">친구가 옆에서 같이 공부해요. 끝나면 소리와 진동으로 알려 줘요.</p>
+    <div class="row2">
+      <button class="btn big" type="button" data-focus="25"><b>25</b><span data-i18n="minutes">분</span></button>
+      <button class="btn big" type="button" data-focus="50"><b>50</b><span data-i18n="minutes">분</span></button>
+    </div>
+    <p class="note small" data-i18n="focusKeep">화면을 꺼도 끝나는 시각은 그대로예요. 다시 열면 바로 맞춰져요.</p>
+  </div>
+</section>
+
+<section id="sheet-settings" class="sheet" role="dialog" aria-modal="true" aria-labelledby="t-settings" hidden>
+  <header><h2 id="t-settings" data-i18n="settings">설정</h2><button class="x" type="button" data-close data-i18n-label="close">×</button></header>
+  <div class="body">
+    <label class="row"><span data-i18n="sound">소리</span><input id="optSound" type="checkbox" class="switch"></label>
+    <label class="row" id="vibeRow"><span data-i18n="vibration">진동</span><input id="optVibe" type="checkbox" class="switch"></label>
+    <label class="row"><span data-i18n="language">언어</span>
+      <select id="optLang"><option value="auto" data-i18n="auto">자동</option><option value="ko">한국어</option><option value="en">English</option></select>
+    </label>
+    <button id="delPacks" class="btn ghost" type="button" data-i18n="deletePacks">가져온 캐릭터 지우기</button>
+    <button id="resetAll" class="btn ghost danger" type="button" data-i18n="reset">모든 데이터 지우기</button>
+    <p class="note" data-i18n="privacy">모든 것은 이 기기 안에만 있어요. 분석 도구도, 바깥으로 나가는 요청도 없어요.</p>
+    <p class="note"><a href="../" data-i18n="macApp">맥 앱 보러 가기</a></p>
+  </div>
+</section>
+
+<section id="game" class="game" hidden>
+  <canvas id="gcv"></canvas>
+  <div class="ghud"><span id="gScore">0</span><span id="gTime">60</span><button id="gClose" class="x" type="button" data-i18n-label="close">×</button></div>
+  <p id="gHelp" class="ghelp"></p>
+  <div id="gPad" class="gpad" hidden>
+    <button id="gLeft" type="button" aria-label="left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg></button>
+    <button id="gRight" type="button" aria-label="right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+    <button id="gJump" type="button" data-i18n="jump">점프</button>
+  </div>
+  <div id="gResult" class="gresult" hidden>
+    <b id="gResTitle"></b>
+    <p id="gResBest"></p>
+    <div class="row2"><button id="gAgain" class="btn" type="button" data-i18n="again">다시 하기</button><button id="gDone" class="btn ghost" type="button" data-i18n="close">닫기</button></div>
+  </div>
+</section>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="setup.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -93,6 +93,9 @@ kbd{font:600 13px/1 -apple-system,BlinkMacSystemFont,sans-serif; background:var(
 
 .why{background:var(--soft); border-radius:14px; padding:14px 16px; font-size:15px; margin:18px 0 4px}
 .two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.phone{display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center}
+.phone .qr{width:168px; height:168px; border-radius:14px; border:1px solid var(--line); background:#fff; padding:6px; display:block}
+@media (max-width:560px){ .phone{grid-template-columns:1fr} .phone .qr{width:150px; height:150px; margin:0 auto} }
 .two > div{border:1px solid var(--line); border-radius:16px; padding:16px 18px}
 .two h3{margin-top:0}
 .two ol.steps li{font-size:15px}
@@ -115,7 +118,7 @@ footer p{margin:4px 0}
 </head>
 <body>
 <div class="wrap">
-  <p class="mobile-note" role="note">📱 캐릭모니터는 맥 전용 앱이에요. 이 페이지는 맥에서 열어 주세요.</p>
+  <p class="mobile-note" role="note">📱 캐릭모니터 앱은 맥용이에요. 아이폰에서는 <a href="app/">웹 앱</a>으로 친구와 놀 수 있어요.</p>
 
   <header class="hero">
     <img src="icon-256.png" width="136" height="136" alt="캐릭모니터 앱 아이콘: 살구색 도트 강아지 젤리가 앞에서 달리고, 뒤에 스케이터 고양이와 허스키가 서 있는 모습">
@@ -124,6 +127,7 @@ footer p{margin:4px 0}
     <div class="cta">
       <a class="btn primary" href="#install">터미널로 설치하기</a>
       <a class="btn ghost" href="#download">직접 내려받기</a>
+      <a class="btn ghost" href="#iphone">아이폰에서 쓰기 (웹 앱)</a>
       <a class="btn ghost" href="https://github.com/cyw910306-glitch/charamonitor">GitHub 소스 코드</a>
     </div>
 
@@ -197,6 +201,23 @@ footer p{margin:4px 0}
       </div>
 
       <p class="why"><b>왜 경고가 뜨나요?</b> 개인이 만든 앱이라 Apple 공증을 받지 않아서 뜨는 안내예요. 앱은 속도 재기, 하루에 한 번 서명된 버전 파일 확인(새 버전이 있으면 업데이트 받기), 자동 다듬기(이 맥에 ChatGPT로 로그인된 Codex가 있을 때만, 설정에서 끌 수 있어요), 직접 켠 기능(날씨 창문, 내 AI, 메일 계정) 말고는 인터넷에 연결하지 않아요. 소스 코드가 공개돼 있어서 직접 확인하고 빌드할 수도 있어요.</p>
+    </section>
+
+    <section class="card" id="iphone" aria-labelledby="h-iphone">
+      <h2 id="h-iphone">아이폰에서 쓰기 (웹 앱) <span class="badge">무료</span></h2>
+      <p class="sub">설치 없이 사파리에서 열고 홈 화면에 추가하면 앱처럼 써요. 인터넷이 없어도 돌아가고, 아무것도 밖으로 보내지 않아요.</p>
+      <div class="phone">
+        <img class="qr" src="app-qr.svg" width="168" height="168" alt="웹 앱 주소 charamonitor.vercel.app/app/ 로 가는 QR 코드">
+        <div>
+          <ol class="steps">
+            <li>아이폰 카메라로 QR 코드를 비추거나 아래 버튼을 눌러 사파리에서 열어요.</li>
+            <li>공유 버튼을 누르고 <b>홈 화면에 추가</b>를 골라요.</li>
+            <li>톡 누르면 반응하고, 꾹 누르면 쓰다듬고, 끌어서 던질 수도 있어요. 별 줍기, 두더지잡기, 집중 타이머도 있어요.</li>
+          </ol>
+          <div class="dl"><a class="btn primary" href="app/">웹 앱 열기</a></div>
+          <p class="sub" style="margin-top:8px !important">맥에서 <b>내 설정 내보내기</b>로 만든 파일을 웹 앱에서 가져오면 내 캐릭터도 아이폰에서 만날 수 있어요. 파일은 그 기기 안에서만 읽어요.</p>
+        </div>
+      </div>
     </section>
 
     <section class="card" id="usage" aria-labelledby="h-usage">

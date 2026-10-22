@@ -7,6 +7,9 @@ options:
   deploymentTarget:
     macOS: "13.0"
   developmentLanguage: ko
+packages:
+  DogMonitor:
+    path: .
 targets:
   CharaMonitor:
     type: application
@@ -15,6 +18,9 @@ targets:
       - path: Sources/DogMonitor
       - path: Resources/MAS/PrivacyInfo.xcprivacy
         buildPhase: resources
+    dependencies:
+      - package: DogMonitor
+        product: CharaCore   # the shared art, packs, voice and setup file checks (also used by ios/)
     settings:
       base:
         PRODUCT_NAME: CharaMonitor
