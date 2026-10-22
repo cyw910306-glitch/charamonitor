@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Builds the app and writes the download files into web/:
-#   JellyMonitor.dmg, JellyMonitor.zip, SHA256SUMS, version.txt, update.json + update.json.sig (signed, for the in-app updater)
+#   JellyMonitor.dmg, JellyMonitor.zip, SHA256SUMS, version.txt, update.json + update.json.sig (signed, for the in-app updater),
+#   sponsors.json.sig (the 후원 친구 list, signed the same way)
 # Usage: [UPDATE_NOTES="한 줄 요약"] scripts/package.sh
 set -euo pipefail
 
@@ -42,5 +43,11 @@ swift "$ROOT/tools/update/sign_manifest.swift" "$WEB/update.json"
 # The built app checks the files with its own embedded public key (read-only, no network).
 "$APP/Contents/MacOS/DogMonitor" --check-update "$WEB"
 
+echo "==> 후원 친구 목록 (sponsors.json, 서명)"
+# web/sponsors.json is edited by hand (raise "serial" with every change: apps refuse a lower one). Signed again on every
+# release with the same key and tool, then checked by the built app like update.json.
+swift "$ROOT/tools/update/sign_manifest.swift" "$WEB/sponsors.json"
+"$APP/Contents/MacOS/DogMonitor" --check-sponsors "$WEB"
+
 echo "==> 만든 파일 ($WEB)"
-(cd "$WEB" && ls -lh JellyMonitor.dmg JellyMonitor.zip SHA256SUMS version.txt update.json update.json.sig && cat SHA256SUMS version.txt update.json)
+(cd "$WEB" && ls -lh JellyMonitor.dmg JellyMonitor.zip SHA256SUMS version.txt update.json update.json.sig sponsors.json sponsors.json.sig && cat SHA256SUMS version.txt update.json)

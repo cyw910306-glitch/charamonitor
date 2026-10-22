@@ -1,0 +1,33 @@
+{
+  "serial": 1,
+  "enabled": true,
+  "maxPerDay": 2,
+  "minHoursBetween": 3,
+  "hosts": ["wayhomeguide.co.kr", "offer-platform.vercel.app", "tokku-kit.vercel.app", "mbtilovetest.com", "benefit-radar-kappa.vercel.app", "jlpt-n3-study.vercel.app"],
+  "cards": [
+    {"id": "wayhome", "emoji": "🏠", "color": "#B04238", "url": "https://wayhomeguide.co.kr",
+     "title": {"ko": "WAYHOME 셀프 인테리어 길잡이", "en": "WAYHOME self-interior guide"},
+     "pitch": {"ko": "셀프 인테리어, 순서와 견적부터 같이 잡아 줘요. 처음이어도 헤매지 않아요.", "en": "Plan your own interior job step by step, from the order of work to quotes."},
+     "cta": {"ko": "구경하기", "en": "Take a look"}},
+    {"id": "offer", "emoji": "🎤", "color": "#2F4BD8", "url": "https://offer-platform.vercel.app",
+     "title": {"ko": "OFFER¹ 면접 코칭", "en": "OFFER¹ interview coaching"},
+     "pitch": {"ko": "실전처럼 연습하고 답변을 다듬어요. 면접 전날의 막막함이 줄어들어요.", "en": "Practice like the real thing and sharpen your answers before the big day."},
+     "cta": {"ko": "둘러보기", "en": "See how"}},
+    {"id": "tokku", "emoji": "🎨", "color": "#E2557B", "url": "https://tokku-kit.vercel.app",
+     "title": {"ko": "톡꾸 키트: 사진으로 카톡 테마", "en": "Tokku Kit: KakaoTalk themes from photos"},
+     "pitch": {"ko": "좋아하는 사진으로 나만의 카톡 테마를 만들어요. 무료이고 금방 끝나요.", "en": "Turn your favorite photos into your own KakaoTalk theme. Free and quick."},
+     "cta": {"ko": "만들어 보기", "en": "Try it"}},
+    {"id": "mbti", "emoji": "💘", "color": "#C2366A", "url": "https://mbtilovetest.com",
+     "title": {"ko": "MBTI 연애 테스트", "en": "MBTI love test"},
+     "pitch": {"ko": "우리 둘의 연애 궁합은 어떨까요? 몇 문항만 답하면 결과가 나와요.", "en": "How well do you two match? Answer a few questions and see."},
+     "cta": {"ko": "해 보기", "en": "Take the test"}},
+    {"id": "benefit", "emoji": "🎁", "color": "#1F8460", "url": "https://benefit-radar-kappa.vercel.app",
+     "title": {"ko": "혜택레이더: 정부 혜택 매칭", "en": "Benefit Radar: government benefits"},
+     "pitch": {"ko": "조건만 넣으면 받을 수 있는 정부 혜택을 찾아 줘요. 놓친 지원금이 있을지 몰라요.", "en": "Enter a few details and see the government benefits you may qualify for."},
+     "cta": {"ko": "찾아보기", "en": "Find mine"}},
+    {"id": "jlpt", "emoji": "🗾", "color": "#3E3166", "url": "https://jlpt-n3-study.vercel.app",
+     "title": {"ko": "JLPT 스터디", "en": "JLPT study"},
+     "pitch": {"ko": "N5부터 N1까지 단어, 한자, 문법, 모의고사를 한곳에서 공부해요.", "en": "Words, kanji, grammar and mock tests from N5 to N1, all in one place."},
+     "cta": {"ko": "공부하기", "en": "Start studying"}}
+  ]
+}

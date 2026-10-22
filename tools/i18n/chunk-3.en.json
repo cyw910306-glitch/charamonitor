@@ -3382,5 +3382,209 @@
  {
   "key": "설정의 커서 친구 카드에서 누르면 소리를 켜면 누를 때마다 멍, 야옹, 뾱 하고 울어요. 내 캐릭터는 꾸미기에서 소리 파일을 넣을 수 있어요.",
   "en": "Turn on Sound on click in the cursor friend card in Settings and each click gets a woof, a meow or a squeak. Custom characters can take your own sound files in Customize."
+ },
+ {
+  "key": "하트 러그",
+  "en": "Heart rug"
+ },
+ {
+  "key": "복숭아 색",
+  "en": "Peach colour"
+ },
+ {
+  "key": "구름 쿠션",
+  "en": "Cloud cushion"
+ },
+ {
+  "key": "빵빠레 반응",
+  "en": "Fanfare reaction"
+ },
+ {
+  "key": "리본 폴더",
+  "en": "Ribbon folder"
+ },
+ {
+  "key": "별빛 러그",
+  "en": "Starlight rug"
+ },
+ {
+  "key": "코코아 색",
+  "en": "Cocoa colour"
+ },
+ {
+  "key": "무지개 러그",
+  "en": "Rainbow rug"
+ },
+ {
+  "key": "러그·위젯 색",
+  "en": "Rug & widget colour"
+ },
+ {
+  "key": "친구 누르기",
+  "en": "Click a friend"
+ },
+ {
+  "key": "폴더 모양",
+  "en": "Folder style"
+ },
+ {
+  "key": "바탕화면 러그의 그림에서 골라요",
+  "en": "Pick it under Desktop rug > Picture"
+ },
+ {
+  "key": "러그 색과 집중 위젯 색에서 골라요",
+  "en": "Pick it in Rug colour and Focus widget colour"
+ },
+ {
+  "key": "장난감 상자에서 꺼내요",
+  "en": "Take it out of the Toy box"
+ },
+ {
+  "key": "친구를 누르면 가끔 나와요",
+  "en": "Shows up now and then when you click a friend"
+ },
+ {
+  "key": "폴더 친구의 모양에서 골라요",
+  "en": "Pick it under Folder friend > Style"
+ },
+ {
+  "key": "후원 친구 지금 보기",
+  "en": "Show Sponsor Friend now"
+ },
+ {
+  "key": "코코아",
+  "en": "Cocoa"
+ },
+ {
+  "key": "별빛",
+  "en": "Starlight"
+ },
+ {
+  "key": "무지개",
+  "en": "Rainbow"
+ },
+ {
+  "key": "지금은 소개할 서비스가 없어요",
+  "en": "There is nothing to show right now"
+ },
+ {
+  "key": "저는 후원 친구예요. 가끔 제작자가 만든 서비스를 천에 덮어 데려와요. 열어 보면 꾸미기 선물이 하나씩 열리고, 설정에서 언제든 끌 수 있어요.",
+  "en": "I'm Sponsor Friend. Now and then I bring one of the maker's services under a cloth. Open it to unlock a decoration gift, one at a time. You can turn me off in Settings anytime."
+ },
+ {
+  "key": "선물이 열렸어요: %@ %@",
+  "en": "Gift unlocked: %1$@ %2$@"
+ },
+ {
+  "key": "오늘 선물은 다 받았어요",
+  "en": "You got today's gifts"
+ },
+ {
+  "key": "내일 또 열려요. 끝까지 봐 줘서 고마워요",
+  "en": "More open tomorrow. Thanks for watching to the end"
+ },
+ {
+  "key": "선물을 다 모았어요. 고마워요!",
+  "en": "You collected every gift. Thank you!"
+ },
+ {
+  "key": "새 선물은 다음 버전에서 또 와요",
+  "en": "New gifts come with later versions"
+ },
+ {
+  "key": "열어 보기",
+  "en": "Open it"
+ },
+ {
+  "key": "오늘은 그만",
+  "en": "Not today"
+ },
+ {
+  "key": "후원 친구 끄기",
+  "en": "Turn off Sponsor Friend"
+ },
+ {
+  "key": "눌러서 열어 보기",
+  "en": "Click to open"
+ },
+ {
+  "key": "잠깐 멈췄어요. 다시 보면 이어져요",
+  "en": "Paused. It goes on when you look again"
+ },
+ {
+  "key": "후원 친구 · 제작자 서비스 소개",
+  "en": "Sponsor Friend · the maker's services"
+ },
+ {
+  "key": "선물을 받았어요",
+  "en": "Gift received"
+ },
+ {
+  "key": "선물까지 %lld초",
+  "en": "%lld s to the gift"
+ },
+ {
+  "key": "후원 친구",
+  "en": "Sponsor Friend"
+ },
+ {
+  "key": "가끔 친구가 천을 덮은 액자를 들고 와요. 열어 보면 제작자 서비스 소개가 나오고 꾸미기 선물이 열려요",
+  "en": "Now and then a friend brings a frame under a cloth. Open it to see one of the maker's services and unlock a decoration gift"
+ },
+ {
+  "key": "얼마나 자주",
+  "en": "How often"
+ },
+ {
+  "key": "오늘은 쉬어요",
+  "en": "Resting today"
+ },
+ {
+  "key": "지금 보기",
+  "en": "Show now"
+ },
+ {
+  "key": "후원 친구를 보면 하나씩 열려요 (%lld/%lld) · 하루 2개까지",
+  "en": "One opens each time you watch Sponsor Friend (%lld/%lld) · up to 2 a day"
+ },
+ {
+  "key": "기록",
+  "en": "Counts"
+ },
+ {
+  "key": "보여 준 %lld · 열어 본 %lld · 끝까지 본 %lld · 눌러 본 %lld",
+  "en": "Shown %lld · opened %lld · watched %lld · clicked %lld"
+ },
+ {
+  "key": "이 숫자는 이 맥에만 있어요",
+  "en": "These numbers stay on this Mac"
+ },
+ {
+  "key": "다음 선물",
+  "en": "Next gift"
+ },
+ {
+  "key": "잠겨 있어요",
+  "en": "Locked"
+ },
+ {
+  "key": "잠긴 선물",
+  "en": "Locked gift"
+ },
+ {
+  "key": "캐릭모니터 %@ · 무료 오픈 소스",
+  "en": "CharaMonitor %@ · free, open source"
+ },
+ {
+  "key": "무료 오픈 소스",
+  "en": "Free, open source"
+ },
+ {
+  "key": "후원 친구는 제작자가 만든 다른 서비스를 소개해요. 기기 ID나 기록은 밖으로 나가지 않아요. 앱을 켤 때와 하루 한 번 이 사이트에서 서명된 소개 목록만 받아요. 버튼을 누를 때만 그 서비스가 열리고, 제작자의 그 서비스가 IP와 캐릭모니터에서 왔다는 표시(utm)를 받아요.",
+  "en": "Sponsor Friend shows other services made by the maker. No device ID or history leaves your Mac. When the app starts and once a day it only fetches a signed list from this app's site. A service opens only when you press its button, and that service, run by the maker, gets your IP and a tag (utm) saying you came from CharaMonitor."
+ },
+ {
+  "key": "전체 화면, 집중 중, 놀이 중, 화면이 잠겼을 때, 2분 넘게 자리를 비웠을 때, 회의나 화면 공유·녹화 중에는 오지 않아요. 세 번 그냥 보내면 더 드물게 와요.",
+  "en": "It never comes in full screen, during focus or play, while the screen is locked, after 2 minutes away, or during a meeting, screen share or recording. Let it go by three times and it comes more rarely."
  }
 ]

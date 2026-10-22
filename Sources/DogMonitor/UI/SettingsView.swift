@@ -60,7 +60,7 @@ struct SettingsView: View {
                 #if !MAS   // the App Store updates the App Store build
                 UpdateCard()
                 #endif
-                Text("캐릭모니터 \(AppInfo.version) · 무료 비영리 오픈 소스")
+                Text("캐릭모니터 \(AppInfo.version) · 무료 오픈 소스")
                     .font(.system(size: 11)).foregroundStyle(.secondary)
             }
         }
@@ -153,7 +153,7 @@ struct HelpSheet: View {
 
 enum AppInfo {
     /// A bare `swift build` binary has no Info.plist; it shows the version scripts/build_app.sh stamps instead.
-    static let unbundledVersion = "2.9.1"
+    static let unbundledVersion = "3.0"
     static var version: String { Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? unbundledVersion }
     /// Where the source lives (PolyForm Noncommercial 1.0.0).
     static let repoURL = URL(string: "https://github.com/cyw910306-glitch/charamonitor")!

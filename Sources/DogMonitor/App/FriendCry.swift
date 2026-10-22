@@ -19,7 +19,7 @@ enum FriendCry {
         switch r {
         case .dizzy: .dizzy
         case .pout: .sulk
-        case .jump, .spin: .hop
+        case .jump, .spin, .party: .hop
         default: .normal
         }
     }

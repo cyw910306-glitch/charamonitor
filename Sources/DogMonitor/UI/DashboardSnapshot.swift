@@ -26,6 +26,9 @@ enum DashboardSnapshot {
         if ProcessInfo.processInfo.environment["QA_ONLY"] == "agent" { return try MainActor.assumeIsolated { try AgentQA.render(to: dir) } }
         if ProcessInfo.processInfo.environment["QA_ONLY"] == "extras" { return try renderExtras(monitor: monitor, settings: settings, to: dir) }
         if ProcessInfo.processInfo.environment["QA_ONLY"] == "desktop" { return try MainActor.assumeIsolated { try DesktopQA.render(to: dir) } }
+        #if !MAS
+        if ProcessInfo.processInfo.environment["QA_ONLY"] == "sponsor" { return try MainActor.assumeIsolated { try DesktopQA.sponsor(to: dir) } }
+        #endif
         if ProcessInfo.processInfo.environment["QA_ONLY"] == "weather" { return try renderWeather(settings: settings, to: dir) }
         if ProcessInfo.processInfo.environment["QA_ONLY"] == "pages" { return try renderPages(monitor: monitor, settings: settings, to: dir) }
         try renderPicker(monitor: monitor, settings: settings, to: dir)

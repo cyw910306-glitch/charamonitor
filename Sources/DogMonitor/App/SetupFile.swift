@@ -69,8 +69,8 @@ enum SetupFile {
         "assistant.persona": .string, "assistant.voice": .bool, "assistant.nudges": .string, "assistant.aiNudges": .bool,
         "assistant.lines": .stringMap, "assistant.workHours": .data,
         "assistant.calendarLeads": .ints,
-        // the rest
-        "petState": .data,
+        // the rest (후원 선물 that are open; 후원 친구's counters and on/off stay on each Mac)
+        "petState": .data, "sponsor.gifts": .data,
     ]
 
     struct Dirs {

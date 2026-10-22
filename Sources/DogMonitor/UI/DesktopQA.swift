@@ -170,7 +170,68 @@ enum DesktopQA {
         try focusWidgets(to: dir, looks: looks)
         try quickAsk(to: dir, looks: looks)
         try rugFaces(to: dir)
+        #if !MAS
+        try sponsor(to: dir)
+        #endif
     }
+
+    #if !MAS
+    /// 후원 친구 (QA_ONLY=sponsor, or with the rest): its 설정 card fresh and with gifts open, the card in each state and
+    /// each service's colours, the covered frame, and the gifts' own art (구름 쿠션, 리본 폴더). Run with
+    /// `-AppleLanguages '(en)'` for English. Only the QA's own defaults suite is touched; nothing is fetched.
+    @MainActor
+    static func sponsor(to dir: URL) throws {
+        let looks: [(NSAppearance.Name, String)] = [(.aqua, "light"), (.darkAqua, "dark")]
+        let lang = appIsEnglish ? "en" : "ko"
+        func settings(_ name: String) throws {
+            for (appearance, suffix) in looks {
+                try DashboardSnapshot.snapshot(DesktopSettingsView(sponsorOnly: true).frame(width: 380).padding(), appearance: appearance,
+                                               to: dir.appendingPathComponent("sponsor-settings-\(name)-\(lang)-\(suffix).png"))
+            }
+        }
+        try settings("fresh")
+        for _ in 0..<3 { SponsorGifts.shared.unlock() }
+        SponsorCenter.shared.state.stats = SponsorStats(offers: 7, opens: 4, completes: 3, clicks: 1)
+        SponsorCenter.shared.state.stop(now: Date())
+        AppSettings.shared.expandDetails = true
+        try settings("gifts")
+        AppSettings.shared.expandDetails = false
+
+        let cards = SponsorManifest.bundled.cards
+        guard let first = cards.first else { return }
+        let peach = SponsorGift.peach
+        let states: [(String, SponsorCardView)] = [
+            ("viewing", SponsorCardView(card: first, watched: 6)),
+            ("paused", SponsorCardView(card: first, watched: 9, paused: true)),
+            ("gift", SponsorCardView(card: first, watched: 15, done: (L("선물이 열렸어요: \(peach.emoji) \(peach.label)"), peach.howTo))),
+            ("capped", SponsorCardView(card: first, watched: 15, done: (L("오늘 선물은 다 받았어요"), L("내일 또 열려요. 끝까지 봐 줘서 고마워요")))),
+        ]
+        for (name, view) in states {
+            for (appearance, suffix) in looks {
+                try DashboardSnapshot.snapshot(view.padding(14), appearance: appearance,
+                                               to: dir.appendingPathComponent("sponsor-card-\(name)-\(lang)-\(suffix).png"))
+            }
+        }
+        let all = VStack(spacing: 10) { ForEach(cards, id: \.id) { SponsorCardView(card: $0, watched: 10) } }
+        try DashboardSnapshot.snapshot(all.padding(14), appearance: .aqua, to: dir.appendingPathComponent("sponsor-cards-all-\(lang).png"))
+
+        let frame = SponsorFrame()
+        try png(frame.qaLayer(), background: NSColor(red: 0.80, green: 0.86, blue: 0.93, alpha: 1), scale: 3,
+                to: dir.appendingPathComponent("sponsor-frame.png"))
+        let dog = DogSpriteCache(profile: .defaultDog, pixelSize: 8, style: .auto)
+        var art: [(String, NSImage)] = [("toy-cloud", ToyArt.image(.cloud))]
+        if let who = BuddyGait.frames(dog)[.stand]?.first {
+            art.append(("folder-ribbon", FolderIcons.art(folder: NSWorkspace.shared.icon(for: .folder), character: FolderIcons.trimmed(who),
+                                                         smooth: dog.smooth, style: .ribbon)))
+        }
+        for (name, image) in art {
+            guard let tiff = image.tiffRepresentation, let data = NSBitmapImageRep(data: tiff)?.representation(using: .png, properties: [:])
+            else { throw CocoaError(.fileWriteUnknown) }
+            try data.write(to: dir.appendingPathComponent("sponsor-\(name).png"))
+        }
+        try rugFaces(to: dir)
+    }
+    #endif
 
     /// 바탕화면 러그's faces as flat textures: 캐릭터 for a pixel dog and an illustrated original in two 러그 색, a pixel
     /// original printed in dark mode, its back, and the old 무늬.
@@ -185,6 +246,9 @@ enum DesktopQA {
             ("check-sky", RugArt.front(.check, color: .sky, character: nil)),
             ("dots-lavender", RugArt.front(.dots, color: .lavender, character: nil)),
             ("back-lemon", RugArt.back(.dots, color: .lemon)),
+            ("hearts-peach", RugArt.front(.hearts, color: .peach, character: nil)),
+            ("stars-lavender", RugArt.front(.stars, color: .lavender, character: nil)),
+            ("rainbow-cocoa", RugArt.front(.rainbow, color: .cocoa, character: nil)),
         ]
         if let original = OriginalCatalog.all.first {
             shots.append(("character-original-mint", RugArt.front(.character, color: .mint, character: RugArt.art(DogSpriteCache(original, style: .illustration)))))

@@ -64,7 +64,7 @@ enum Tour {
 enum WhatsNew {
     static let key = "lastSeenVersion"
     /// This release's one-liner; empty = say nothing. Change it per release.
-    static let line = L("커서 친구를 누르면 캐릭터 소리가 나요. 설정의 커서 친구 카드에서 누르면 소리를 켜 보세요.")
+    static let line = L("후원 친구가 생겼어요. 가끔 캐릭터가 천 덮인 액자를 들고 오면 눌러 보세요. 끝까지 보면 후원 선물이 하나씩 열려요.")
 
     /// Whether `current` is newer than the version seen last. Pure.
     static func announces(last: String?, current: String) -> Bool {

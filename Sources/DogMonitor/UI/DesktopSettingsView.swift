@@ -32,7 +32,7 @@ enum DesktopFriends {
 
 /// "데스크톱 친구" in 설정: the friend saying hi, 꾸미기, then one sticker card per friend; changes show at once.
 /// Sections in order: 꾸미기 / 커서 친구 / 복제 친구 / 대롱대롱 친구 / 풀밭 친구들 / 폴더 친구 / 놀이 / 장난감 상자 / 맥과 같이 놀기 /
-/// 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기.
+/// 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기 / 후원 친구 (the direct build).
 struct DesktopSettingsView: View {
     @ObservedObject var store: MotionStore = .shared
     @ObservedObject var hanging: HangingStore = .shared
@@ -49,12 +49,27 @@ struct DesktopSettingsView: View {
     @ObservedObject var games: ClickGames = .shared
     @AppStorage(GroupDance.key, store: AppDefaults.store) private var groupDance = false
     @StateObject private var quickSample = FriendQuickAsk.sample()
+    /// 후원 선물 that are open show up in the pickers below.
+    @ObservedObject var gifts: SponsorGifts = .shared
+    #if !MAS
+    @ObservedObject var sponsor: SponsorCenter = .shared
+    /// QA renders only: just the 후원 친구 card.
+    var sponsorOnly = false
+    #endif
     /// The card that just said hi (a friend switched on) and whose badge is hopping.
     @State private var hello: DesktopTool?
     @State private var hop: DesktopTool?
     @State private var heroHop = false
 
     var body: some View {
+        #if !MAS
+        if sponsorOnly { sponsorSection } else { cards }
+        #else
+        cards
+        #endif
+    }
+
+    private var cards: some View {
         VStack(alignment: .leading, spacing: 10) {
             hero
             decorSection
@@ -70,6 +85,9 @@ struct DesktopSettingsView: View {
             weatherSection
             focusSection
             quickAskSection
+            #if !MAS
+            sponsorSection
+            #endif
         }
         .animation(DesktopKit.reduceMotion ? nil : .easeOut(duration: 0.22), value: store.cursorBuddy)
         .animation(DesktopKit.reduceMotion ? nil : .easeOut(duration: 0.22), value: weather.on)
@@ -464,7 +482,7 @@ struct DesktopSettingsView: View {
             tagline("바탕화면에 장난감을 꺼내 두면 친구들이 놀러 와요")
             if toys.prefs.on {
                 VStack(alignment: .leading, spacing: 7) {
-                    ForEach(ToyKind.allCases, id: \.self) { kind in
+                    ForEach(ToyKind.allCases.filter { toys.prefs.has($0) || $0.isOffered }, id: \.self) { kind in
                         row(LocalizedStringKey(kind.label)) {
                             HStack(spacing: 8) {
                                 onOff(LocalizedStringKey(kind.label), Binding(get: { toys.prefs.has(kind) }, set: { on in
@@ -525,7 +543,7 @@ struct DesktopSettingsView: View {
         VStack(alignment: .leading, spacing: 7) {
             row("모양") {
                 Picker("모양", selection: $folder.prefs.iconStyle) {
-                    ForEach(FolderIconStyle.allCases, id: \.self) { Text($0.label).tag($0) }
+                    ForEach(FolderIconStyle.offered(current: folder.prefs.iconStyle), id: \.self) { Text($0.label).tag($0) }
                 }
                 .labelsHidden().pickerStyle(.menu).controlSize(.small).fixedSize()
             }
@@ -563,13 +581,13 @@ struct DesktopSettingsView: View {
             if rug.prefs.on {
                 row("그림") {
                     Picker("그림", selection: $rug.prefs.face) {
-                        ForEach(RugFace.allCases, id: \.self) { Text($0.label).tag($0) }
+                        ForEach(RugFace.offered(current: rug.prefs.face), id: \.self) { Text($0.label).tag($0) }
                     }
                     .labelsHidden().pickerStyle(.menu).controlSize(.small).fixedSize()
                 }
                 row("러그 색") {
                     HStack(spacing: 6) {
-                        ForEach(FocusTheme.allCases, id: \.self) { t in
+                        ForEach(FocusTheme.offered(current: rug.prefs.color), id: \.self) { t in
                             swatch(t, chosen: rug.prefs.color == t) { rug.prefs.color = t }
                         }
                         Text(rug.prefs.color.label).font(f(11)).foregroundStyle(.secondary).padding(.leading, 2)
@@ -611,7 +629,7 @@ struct DesktopSettingsView: View {
             VStack(alignment: .leading, spacing: 7) {
                 row("위젯 색") {
                     HStack(spacing: 6) {
-                        ForEach(FocusTheme.allCases, id: \.self) { t in swatch(t, chosen: focus.theme == t) { focus.theme = t } }
+                        ForEach(FocusTheme.offered(current: focus.theme), id: \.self) { t in swatch(t, chosen: focus.theme == t) { focus.theme = t } }
                         Text(focus.theme.label).font(f(11)).foregroundStyle(.secondary).padding(.leading, 2)
                     }
                 }
@@ -703,6 +721,79 @@ struct DesktopSettingsView: View {
         .accessibilityLabel(t.label)
         .accessibilityAddTraits(chosen ? .isSelected : [])
     }
+
+    #if !MAS
+    // MARK: 후원 친구
+
+    /// On/off, how often, 오늘은 그만 and 지금 보기, the 후원 선물 grid, this Mac's counts and what is (not) sent.
+    private var sponsorSection: some View {
+        let s = sponsor.state, on = s.on
+        let stopped = s.stoppedDay == SponsorRules.day(Date())
+        return Panel(tint: tint(.sponsor, on: on)) {
+            header("🎀", "후원 친구", .sponsor, isOn: $sponsor.state.on)
+            tagline("가끔 친구가 천을 덮은 액자를 들고 와요. 열어 보면 제작자 서비스 소개가 나오고 꾸미기 선물이 열려요")
+            VStack(alignment: .leading, spacing: 7) {
+                row("얼마나 자주") {
+                    Picker("얼마나 자주", selection: $sponsor.state.frequency) {
+                        ForEach(SponsorFrequency.allCases, id: \.self) { Text($0.label).tag($0) }
+                    }
+                    .labelsHidden().pickerStyle(.segmented).controlSize(.small).disabled(!on)
+                }
+                row("오늘") {
+                    HStack(spacing: 6) {
+                        Button(stopped ? "오늘은 쉬어요" : "오늘은 그만") { sponsor.stopToday() }.controlSize(.small).disabled(stopped || !on)
+                        Button("지금 보기") { sponsor.showNow() }.controlSize(.small)
+                    }
+                }
+            }
+            giftGrid
+            Text("후원 친구를 보면 하나씩 열려요 (\(gifts.openCount)/\(SponsorGift.allCases.count)) · 하루 2개까지")
+                .font(f(11)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+            row("기록") {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("보여 준 \(s.stats.offers) · 열어 본 \(s.stats.opens) · 끝까지 본 \(s.stats.completes) · 눌러 본 \(s.stats.clicks)")
+                        .font(f(11)).monospacedDigit()
+                    Text("이 숫자는 이 맥에만 있어요").font(f(10)).foregroundStyle(.secondary)
+                }
+            }
+            details("후원 친구는 제작자가 만든 다른 서비스를 소개해요. 기기 ID나 기록은 밖으로 나가지 않아요. 앱을 켤 때와 하루 한 번 이 사이트에서 서명된 소개 목록만 받아요. 버튼을 누를 때만 그 서비스가 열리고, 제작자의 그 서비스가 IP와 캐릭모니터에서 왔다는 표시(utm)를 받아요.",
+                    "전체 화면, 집중 중, 놀이 중, 화면이 잠겼을 때, 2분 넘게 자리를 비웠을 때, 회의나 화면 공유·녹화 중에는 오지 않아요. 세 번 그냥 보내면 더 드물게 와요.")
+        }
+    }
+
+    /// The gifts in their order, four to a row: open ones with where they are, locked ones as a grey silhouette.
+    private var giftGrid: some View {
+        let all = SponsorGift.allCases, accent = palette.tint(.sponsor) ?? Color.accentColor
+        return VStack(spacing: 6) {
+            ForEach(Array(stride(from: 0, to: all.count, by: 4)), id: \.self) { start in
+                HStack(spacing: 6) {
+                    ForEach(all[start..<min(start + 4, all.count)], id: \.self) { g in giftTile(g, accent: accent) }
+                }
+            }
+        }
+    }
+
+    private func giftTile(_ g: SponsorGift, accent: Color) -> some View {
+        let open = gifts.isOpen(g)
+        return VStack(spacing: 2) {
+            ZStack {
+                Text(verbatim: g.emoji).font(.system(size: 18 * k))
+                    .saturation(open ? 1 : 0).opacity(open ? 1 : 0.22)
+                if !open { Text(verbatim: "?").font(.system(size: 13 * k, weight: .heavy, design: .rounded)).foregroundStyle(.secondary) }
+            }
+            Text(verbatim: open ? g.label : gifts.next == g ? L("다음 선물") : L("잠겨 있어요"))
+                .font(.system(size: 10 * k, weight: .semibold)).lineLimit(1).minimumScaleFactor(0.7)
+                .foregroundStyle(open ? Color.primary : Color.secondary)
+            Text(verbatim: open ? g.place : " ").font(.system(size: 9 * k)).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.7)
+        }
+        .padding(.vertical, 6).padding(.horizontal, 3)
+        .frame(maxWidth: .infinity)
+        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(open ? accent.opacity(0.18) : Color.primary.opacity(0.05)))
+        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(open ? accent.opacity(0.45) : Color.primary.opacity(0.08), lineWidth: 1))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(open ? "\(g.label), \(g.place)" : L("잠긴 선물"))
+    }
+    #endif
 
     // MARK: 날씨 창문
 
@@ -947,7 +1038,7 @@ private struct Details: View {
 
 /// One 데스크톱 친구 card, for its colour (AppPalette.tint) and its hello.
 enum DesktopTool: Int, CaseIterable {
-    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones, folder, play, toys, mac
+    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones, folder, play, toys, mac, sponsor
 }
 
 /// 꾸미기 > 색 테마 (AppSettings.palette). Raw values are saved; never rename one. 딸기우유 is the sticker book (a
@@ -986,9 +1077,9 @@ enum AppPalette: String, CaseIterable {
     }
 
     /// 딸기우유's card colours in DesktopTool order: peach, lavender, mint, pink, sky, lemon, coral, aqua, folder blue, grape,
-    /// caramel, teal.
+    /// caramel, teal, bubblegum.
     static let stickers = ["#FF9F6B", "#A88BF0", "#4FC98E", "#FF7EB3", "#5AAEF5", "#F2C230", "#FF8577", "#5EC4DE", "#6FA8F0", "#B57BE0",
-                           "#E0A458", "#3FB8A9"]
+                           "#E0A458", "#3FB8A9", "#F5A3C7"]
 }
 
 

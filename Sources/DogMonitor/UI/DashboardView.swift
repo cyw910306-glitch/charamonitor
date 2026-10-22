@@ -392,7 +392,7 @@ private enum MoreMenu {
             .applicationName: L("캐릭모니터"),
             .applicationVersion: AppInfo.version,
             // The license and its Required Notice travel with every copy (PolyForm Noncommercial, Notices).
-            .credits: NSAttributedString(string: L("무료 비영리 오픈 소스") + "\nPolyForm Noncommercial 1.0.0\n" + AppInfo.licenseURL.absoluteString
+            .credits: NSAttributedString(string: L("무료 오픈 소스") + "\nPolyForm Noncommercial 1.0.0\n" + AppInfo.licenseURL.absoluteString
                                              + "\n" + AppInfo.requiredNotice + "\n" + AppInfo.repoURL.absoluteString,
                                          attributes: [.font: NSFont.systemFont(ofSize: 12), .foregroundColor: NSColor.labelColor]),
         ])

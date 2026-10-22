@@ -44,8 +44,9 @@ struct FocusSession: Equatable {
 }
 
 /// 위젯 색: a pastel sticker in light mode, a deep tint of the same in dark mode. 그만하기 and the progress bar take `accent`.
+/// 복숭아 and 코코아 are 후원 선물 (SponsorGifts). Raw values are saved; never rename one.
 enum FocusTheme: String, CaseIterable {
-    case lavender, strawberry, mint, lemon, sky
+    case lavender, strawberry, mint, lemon, sky, peach, cocoa
 
     var label: String {
         switch self {
@@ -54,6 +55,8 @@ enum FocusTheme: String, CaseIterable {
         case .mint: return L("민트")
         case .lemon: return L("레몬")
         case .sky: return L("하늘")
+        case .peach: return L("복숭아")
+        case .cocoa: return L("코코아")
         }
     }
 
@@ -65,6 +68,8 @@ enum FocusTheme: String, CaseIterable {
         case .mint: return "🌿"
         case .lemon: return "🍋"
         case .sky: return "☁️"
+        case .peach: return "🍑"
+        case .cocoa: return "☕"
         }
     }
 
@@ -81,6 +86,10 @@ enum FocusTheme: String, CaseIterable {
         case (.lemon, true): return ("#3E3620", "#FFF0B8", "#9A6A00")
         case (.sky, false): return ("#E0F0FD", "#23415E", "#2A72B0")
         case (.sky, true): return ("#1F3247", "#D3EAFB", "#2A72B0")
+        case (.peach, false): return ("#FFE9DD", "#5E2E18", "#B4532A")
+        case (.peach, true): return ("#40281E", "#FFDCCB", "#B4532A")
+        case (.cocoa, false): return ("#F3E6DC", "#4A3426", "#8A5A3C")
+        case (.cocoa, true): return ("#33261E", "#F0DFD2", "#8A5A3C")
         }
     }
 }

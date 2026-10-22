@@ -1,1 +1,1 @@
-{"version":"2.9.1","build":40,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"66fbeaf84bf1bcd3ca5f402e05a84a12ee599db6307a204bd1ca1f5b0132a5ca","minSystem":"13.0","notes":"커서 친구를 누르면 캐릭터 소리가 나요. 설정의 커서 친구 카드에서 누르면 소리를 켜 보세요. 없는 메시지가 왔다고 말하던 오류도 고쳤어요."}
+{"version":"3.0","build":41,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"41dc5b2f5caa2f811b99cd5678307625df00e92120a6e522907eeae65f67d19c","minSystem":"13.0","notes":"후원 친구가 생겼어요. 가끔 캐릭터가 천 덮인 액자를 들고 오면 눌러 보세요. 끝까지 보면 후원 선물이 하나씩 열려요."}

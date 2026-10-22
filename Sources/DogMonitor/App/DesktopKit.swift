@@ -179,9 +179,19 @@ enum FriendMenu {
         let focus = FocusCenter.shared
         return DesktopFriends.toggles.map { t in item(t.title, on: t.isOn()) { t.set(!t.isOn()) } } + [
             .separator(),
+        ] + sponsorItems + [
             item(focus.running ? L("집중 그만하기") : L("집중 시작")) { if focus.running { focus.stop() } else { focus.start() } },
             submenu(L("놀이"), playItems()),
         ]
+    }
+
+    /// 후원 친구 지금 보기 (the direct build only).
+    private static var sponsorItems: [NSMenuItem] {
+        #if MAS
+        []
+        #else
+        [item(L("후원 친구 지금 보기")) { SponsorCenter.shared.showNow() }]
+        #endif
     }
 
     /// 놀이 ▸: 놀이 모드 (the keyboard one) and its star games, then the click games. Each game adds its own items here.
@@ -405,15 +415,23 @@ struct Fling {
 /// What a friend does when it is clicked: a pose (gait), a little move (`pose`) and a mark over its head.
 enum Reaction: String, CaseIterable {
     case hearts, jump, spin, blush, surprised, giggle, sneeze, dizzy, pout
+    /// 빵빠레: a 후원 선물 (SponsorGifts), among the everyday ones once it is open.
+    case party
 
     /// The everyday ones, picked at random; `dizzy` and `pout` come from clicking again and again (ClickCombo).
     static let cute: [Reaction] = [.hearts, .jump, .spin, .blush, .surprised, .giggle, .sneeze]
+    /// `cute`, and 빵빠레 once that gift is open.
+    static var everyday: [Reaction] { cute + (SponsorGifts.shared.isOpen(.party) ? [.party] : []) }
+
+    /// It turns about its middle (the others about their feet).
+    var spins: Bool { self == .spin || self == .party }
 
     var duration: TimeInterval {
         switch self {
         case .jump: 0.9
         case .spin, .surprised: 1.0
         case .hearts, .giggle, .sneeze: 1.2
+        case .party: 1.3
         case .blush: 1.4
         case .dizzy, .pout: 2.2
         }
@@ -422,7 +440,7 @@ enum Reaction: String, CaseIterable {
     /// Its pose; a friend without it shows its happy one (eat), then walk.
     var gait: BuddyGait {
         switch self {
-        case .hearts, .giggle, .blush: .special
+        case .hearts, .giggle, .blush, .party: .special
         case .jump, .spin, .surprised, .sneeze: .stand
         case .dizzy: .dizzy
         case .pout: .sulk
@@ -439,6 +457,7 @@ enum Reaction: String, CaseIterable {
         case .sneeze: (L("에취!"), .systemTeal)
         case .dizzy: ("@", .systemIndigo)
         case .pout: (L("흥!"), .systemRed)
+        case .party: ("🎉", .systemYellow)
         case .jump, .spin: nil
         }
     }
@@ -465,6 +484,7 @@ enum Reaction: String, CaseIterable {
             let v = max(0, 1 - CGFloat((t - 0.5) / 0.3))   // 취! a jolt that fades
             return (0, 0, 1 + 0.1 * v, 1 - 0.1 * v)
         case .pout: return (0, 0, 1, 1)
+        case .party: return (arc(0.5) * 0.35, t < 0.5 ? 2 * .pi * CGFloat(t / 0.5) : 0, 1, 1)   // up with one spin
         }
     }
 }
@@ -481,7 +501,7 @@ struct ClickCombo {
         last = t
         if count == 3 { return .dizzy }
         if count >= 5 { count = 0; return .pout }
-        return pick(Reaction.cute)
+        return pick(Reaction.everyday)
     }
 }
 

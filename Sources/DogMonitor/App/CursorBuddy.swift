@@ -240,6 +240,8 @@ final class CursorBuddy {
         case kick(start: TimeInterval, dir: CGFloat, from: CGPoint)
         /// 바쁜 맥: pushing this window's side (nil: no room by it, it sweats in place), last looked at `checked`.
         case push(CGRect?, checked: TimeInterval)
+        /// 후원 친구: holding the covered frame up where it stands (SponsorCenter), since then; no following.
+        case sponsor(since: TimeInterval)
     }
 
     private var look: SpriteLook?
@@ -343,6 +345,27 @@ final class CursorBuddy {
         parked = true
         schedule(1.0 / 30)
         return true
+    }
+
+    /// 후원 친구 (SponsorCenter): it stops where it is and holds the frame up over its head, wiggling now and then.
+    /// False while it is off, held, thrown or on another errand.
+    func holdForSponsor() -> Bool {
+        guard errandFree else { return false }
+        endStory()
+        mode = .sponsor(since: ProcessInfo.processInfo.systemUptime)
+        parked = true
+        schedule(1.0 / 30)
+        return true
+    }
+
+    /// Still holding the frame (a drag, a throw or switching it off ends that).
+    var holdsSponsor: Bool { if case .sponsor = mode { return true }; return false }
+
+    /// The frame is gone: back to the cursor, happy first when it was opened.
+    func releaseSponsor(cheer happy: Bool) {
+        guard holdsSponsor else { return }
+        if happy { cheer(until: ProcessInfo.processInfo.systemUptime + 1.5) } else { mode = .follow; parked = true }
+        schedule(1.0 / 30)
     }
 
     /// Out and on its feet (or sitting, pushing, watching the butterfly): free for an errand.
@@ -487,7 +510,7 @@ final class CursorBuddy {
         _ = qaPose(k: 0)
         view.layer?.sublayers?.filter { $0.name == FriendMark.name }.forEach { $0.removeFromSuperlayer() }
         let box = size, p = r.pose(t, still: false)
-        layout(origin: CGPoint(x: -4000, y: -4000), box: box, turn: (p.angle, p.sx, p.sy), pivot: r == .spin ? 0.5 : 0, lines: 0,
+        layout(origin: CGPoint(x: -4000, y: -4000), box: box, turn: (p.angle, p.sx, p.sy), pivot: r.spins ? 0.5 : 0, lines: 0,
                rise: max(0, p.lift * box.height))
         showing = (frames[r.gait] ?? frames[r.gait == .special ? .eat : .walk] ?? frames[.walk]).map { r == .pout ? $0.left : $0.right } ?? []
         sprite.setFrames(showing, smooth: smooth)
@@ -525,7 +548,7 @@ final class CursorBuddy {
         // Grows with the cursor's speed (not while hanging), eases back when it slows.
         let top = still ? 1 : MotionStore.shared.buddyBoost.maxScale
         var hanging = false   // or flying, or on an errand: no growing
-        switch mode { case .hang, .fly, .deliver, .kick, .push: hanging = true; default: break }
+        switch mode { case .hang, .fly, .deliver, .kick, .push, .sponsor: hanging = true; default: break }
         if pressAt != nil, NSEvent.pressedMouseButtons & 1 == 0 { pressAt = nil }   // a release we never saw
         scale = BuddyMath.ease(scale, to: hanging ? 1 : BuddyMath.boost(speed: motion.speed, max: top), dt: dt)
         if abs(scale - 1) < 0.005 { scale = 1 }
@@ -725,7 +748,7 @@ final class CursorBuddy {
                 origin = position
                 gait = moving ? .run : .stand
                 if t >= 3 { mode = .follow; parked = true }
-            case .cushion:   // a nap until the cursor moves
+            case .cushion, .cloud:   // a nap until the cursor moves
                 if toyBeat < 0 { toyBeat = 0; ToyBox.shared.played(id, dir: 0) }
                 busy = false
                 gait = .sleep
@@ -748,7 +771,7 @@ final class CursorBuddy {
             rise = max(0, p.lift * box.height)
             origin.y += rise
             turn = (p.angle, p.sx, p.sy)
-            if r == .spin { pivot = 0.5 }   // spins about its middle
+            if r.spins { pivot = 0.5 }   // spins about its middle
             if now - start >= r.duration { mode = .follow; parked = true }
 
         case .deliver(let to, let dropped):
@@ -788,6 +811,15 @@ final class CursorBuddy {
                          angle: still ? 0 : b.angle, smooth: false)
             }
             if t >= TrashKick.duration || still && kicked { cheer(until: now + 1.2) }
+
+        case .sponsor(let since):
+            gait = .stand
+            origin = BuddyMath.clamp(position, size: box, in: bounds)
+            // A little wiggle every 6 s, as if to say "look".
+            if !still, (now - since).truncatingRemainder(dividingBy: 6) < 0.6 {
+                turn = (0.05 * CGFloat(sin(now * 9)), 1, 1)
+                busy = true
+            }
 
         case .push(let win, let checked):
             if cursorMoved || !MacReactions.shared.busy { mode = .follow; parked = false; break }
@@ -960,7 +992,10 @@ final class CursorBuddy {
 
     /// The frame of the front app's front window in screen points (y up). Only bounds, layer and owner: no names,
     /// so no screen recording permission.
-    private func frontWindow() -> CGRect? {
+    private func frontWindow() -> CGRect? { Self.frontWindowFrame() }
+
+    /// `frontWindow`, for others too (후원 친구 reads it to stay away from full screen).
+    static func frontWindowFrame() -> CGRect? {
         guard let list = CGWindowListCopyWindowInfo([.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID) as? [[String: Any]],
               let primary = NSScreen.screens.first?.frame.height else { return nil }
         let me = ProcessInfo.processInfo.processIdentifier, front = NSWorkspace.shared.frontmostApplication?.processIdentifier
@@ -1099,7 +1134,7 @@ final class CursorBuddy {
 
     /// Clicked: reaction `r` in place with its mark. Dizzy and pout also say so (at most every 30 s).
     private func react(_ r: Reaction, now: TimeInterval) {
-        switch mode { case .hang, .drop, .fly, .deliver, .kick: return; default: break }   // a click mid-air or mid-errand changes nothing
+        switch mode { case .hang, .drop, .fly, .deliver, .kick, .sponsor: return; default: break }   // a click mid-air or mid-errand changes nothing
         endStory()
         FriendCry.play(r, friend: "buddy")
         if r == .pout { facingLeft.toggle() }   // turns its back on you
@@ -1221,7 +1256,7 @@ final class CursorBuddy {
     }
 
     /// Left-facing copy; nearest-neighbour so pixels stay crisp.
-    private static func mirrored(_ image: NSImage) -> NSImage {
+    static func mirrored(_ image: NSImage) -> NSImage {
         NSImage(size: image.size, flipped: false) { rect in
             NSGraphicsContext.current?.imageInterpolation = .none
             let t = NSAffineTransform()

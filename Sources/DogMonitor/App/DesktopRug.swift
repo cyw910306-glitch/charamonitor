@@ -26,9 +26,10 @@ enum RugSoftness: String, Codable, CaseIterable {
 }
 
 /// 러그 그림: the chosen character printed big on a pastel rug, or one of the woven patterns, all in 러그 색.
-/// Raw values are saved (`pattern` is the diamond weave, from before there were others).
+/// Raw values are saved (`pattern` is the diamond weave, from before there were others). 하트, 별빛 and 무지개 are 후원 선물
+/// (SponsorGifts).
 enum RugFace: String, Codable, CaseIterable {
-    case character, pattern, stripes, check, dots
+    case character, pattern, stripes, check, dots, hearts, stars, rainbow
 
     var label: String {
         switch self {
@@ -37,6 +38,9 @@ enum RugFace: String, Codable, CaseIterable {
         case .stripes: return L("줄무늬")
         case .check: return L("체크")
         case .dots: return L("물방울")
+        case .hearts: return L("하트")
+        case .stars: return L("별빛")
+        case .rainbow: return L("무지개")
         }
     }
 }
@@ -441,10 +445,10 @@ final class DesktopRug {
         FriendMenu.pop([
             FriendMenu.item(L("빳빳하게 펼치기")) { [weak self] in self?.smooth() },
             FriendMenu.item(L("러그를 화면 가운데로")) { [weak self] in self?.center() },
-            FriendMenu.submenu(L("러그 그림"), RugFace.allCases.map { f in
+            FriendMenu.submenu(L("러그 그림"), RugFace.offered(current: store.prefs.face).map { f in
                 FriendMenu.item(f.label, on: store.prefs.face == f) { RugStore.shared.prefs.face = f }
             }),
-            FriendMenu.submenu(L("러그 색"), FocusTheme.allCases.map { t in
+            FriendMenu.submenu(L("러그 색"), FocusTheme.offered(current: store.prefs.color).map { t in
                 FriendMenu.item("\(t.emoji) \(t.label)", on: store.prefs.color == t) { RugStore.shared.prefs.color = t }
             }),
             FriendMenu.submenu(L("러그 크기"), RugSize.allCases.map { s in
@@ -489,6 +493,9 @@ enum RugArt {
         case .stripes: return stripes(color)
         case .check: return check(color)
         case .dots: return dots(color)
+        case .hearts: return hearts(color)
+        case .stars: return stars(color)
+        case .rainbow: return rainbow(color)
         }
     }
 
@@ -686,6 +693,73 @@ enum RugArt {
             for x in centred(f.minX, f.maxX, step: step) { NSRect(x: x - band / 2, y: f.minY, width: band, height: f.height).fill(using: .sourceOver) }
             for y in centred(f.minY, f.maxY, step: step) { NSRect(x: f.minX, y: y - band / 2, width: f.width, height: band).fill(using: .sourceOver) }
         }
+    }
+
+    /// 하트 (a 후원 선물): rows of accent hearts on the pale ground, every other row shifted and in the band colour.
+    private static func hearts(_ color: FocusTheme) -> NSImage {
+        woven(color) { f, c in
+            c.base.setFill(); f.fill()
+            let step: CGFloat = 46, inner = f.insetBy(dx: 30, dy: 30)
+            for (j, y) in centred(inner.minY, inner.maxY, step: step).enumerated() {
+                (j % 2 == 0 ? c.accent : c.band).setFill()
+                for x in centred(inner.minX, inner.maxX, step: step) where j % 2 == 0 || x + step / 2 <= inner.maxX {
+                    heart(CGPoint(x: j % 2 == 0 ? x : x + step / 2, y: y), 11).fill()
+                }
+            }
+        }
+    }
+
+    /// 별빛 (a 후원 선물): a night field in the ink colour, five-point stars in accent and white, tiny dots between.
+    private static func stars(_ color: FocusTheme) -> NSImage {
+        woven(color) { f, c in
+            c.ink.setFill(); f.fill()
+            let step: CGFloat = 58, inner = f.insetBy(dx: 32, dy: 32)
+            for (j, y) in centred(inner.minY, inner.maxY, step: step).enumerated() {
+                for (i, x) in centred(inner.minX, inner.maxX, step: step).enumerated() {
+                    let cx = x + (j % 2 == 0 ? 0 : step / 2)
+                    guard cx <= inner.maxX else { continue }
+                    ((i + j) % 2 == 0 ? NSColor.white : c.band).setFill()
+                    star(CGPoint(x: cx, y: y), (i + j) % 3 == 0 ? 13 : 9).fill()
+                    NSColor(white: 1, alpha: 0.55).setFill()
+                    NSBezierPath(ovalIn: CGRect(x: cx + step / 2 - 2, y: y + step / 2 - 2, width: 4, height: 4)).fill()
+                }
+            }
+        }
+    }
+
+    /// 무지개 (a 후원 선물): pastel arcs in every 위젯 색's accent over the pale ground, rising from the bottom middle.
+    private static func rainbow(_ color: FocusTheme) -> NSImage {
+        woven(color, stitches: RGBColor(hex: color.hexes(dark: false).accent).nsColor.withAlphaComponent(0.55)) { f, c in
+            NSColor.white.setFill(); f.fill()
+            let hub = CGPoint(x: f.midX, y: f.minY + 30), band: CGFloat = 22
+            let accents = FocusTheme.allCases.map { RGBColor(hex: $0.hexes(dark: false).accent).nsColor }
+            for (k, a) in accents.enumerated() {
+                let r = min(f.width / 2 - 16, f.height - 46) - CGFloat(k) * band
+                guard r > band else { break }
+                let arc = NSBezierPath()
+                arc.appendArc(withCenter: hub, radius: r - band / 2, startAngle: 0, endAngle: 180)
+                arc.lineWidth = band
+                (a.blended(withFraction: 0.35, of: .white) ?? a).setStroke()
+                arc.stroke()
+            }
+            c.base.setFill()
+            for dx in [-150, 150] as [CGFloat] {   // two little clouds at its feet
+                for (ox, s) in [(-18, 20), (0, 26), (18, 20)] as [(CGFloat, CGFloat)] {
+                    NSBezierPath(ovalIn: CGRect(x: hub.x + dx + ox - s, y: hub.y - 14, width: s * 2, height: s * 1.4)).fill()
+                }
+            }
+        }
+    }
+
+    private static func star(_ c: CGPoint, _ r: CGFloat) -> NSBezierPath {
+        let p = NSBezierPath()
+        for k in 0..<10 {
+            let a = CGFloat.pi / 2 + CGFloat(k) * .pi / 5, len = k % 2 == 0 ? r : r * 0.45
+            let q = CGPoint(x: c.x + cos(a) * len, y: c.y + sin(a) * len)
+            if k == 0 { p.move(to: q) } else { p.line(to: q) }
+        }
+        p.close()
+        return p
     }
 
     /// 물방울: white polka dots on the band colour, every other row shifted half a step, clear of the stitching.

@@ -622,7 +622,7 @@ final class DesktopClones {
             ToyBox.shared.played(t.id, dir: dir)
             c.go(x: min(max(c.walk.x + dir * ToyPhysics.rollDistance(320), w / 2), size.width - w / 2), y: c.ground, run: true)
             pop("!", .systemOrange, over: c)
-        case .cushion:
+        case .cushion, .cloud:
             c.walk.state = .sit
             c.napping = true
             c.sitUntil = now + .random(in: 12...30)
@@ -897,7 +897,7 @@ final class DesktopClones {
         } else if let r = c.react {
             let p = r.r.pose(now - r.start, still: still)
             turn = (p.angle, p.sx, p.sy); lift = p.lift * c.size.height
-            if r.r == .spin { pivot = 0.5 }
+            if r.r.spins { pivot = 0.5 }
         }
         CATransaction.begin()
         CATransaction.setDisableActions(true)

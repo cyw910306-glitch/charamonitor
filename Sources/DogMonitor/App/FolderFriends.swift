@@ -566,7 +566,7 @@ final class FolderFriends {
         if let r = f.react {
             let p = r.r.reaction.pose(now - r.start, still: still)
             turn = (p.angle, p.sx, p.sy)
-            if r.r.reaction == .spin { pivot = 0.5 }
+            if r.r.reaction.spins { pivot = 0.5 }
             if r.r.reaction == .pout, !still { turn.sx = 1.04; turn.sy = 0.94 }
         } else if !still, now < f.lean.until {
             turn.angle = f.lean.dir * 0.07   // holding on: the window goes right, its top leans back left

@@ -153,6 +153,29 @@ final class FolderIcons: ObservableObject {
             case .stand, .nap:
                 // Feet just on the folder's top edge, as big as the room above allows.
                 who.draw(in: place(h: side - 4 - front, maxW: side * 0.8, x: side * 0.56, y: front))
+            case .ribbon:
+                // 리본 (a 후원 선물): a band down the front panel tied in a bow under the edge, then it stands as 서 있기.
+                let pink = RGBColor(hex: "#E5637F").nsColor, deep = RGBColor(hex: "#B8435E").nsColor
+                pink.setFill()
+                let foot = box.minY + box.height * 0.17   // the folder's drawn bottom, above the icon's own margin
+                NSRect(x: box.midX - 14, y: foot, width: 28, height: front - foot - 4).fill()
+                let knot = CGPoint(x: box.midX, y: front - 30)
+                for dir in [-1.0, 1.0] as [CGFloat] {
+                    let loop = NSBezierPath()
+                    loop.move(to: knot)
+                    loop.curve(to: knot, controlPoint1: CGPoint(x: knot.x + dir * 90, y: knot.y + 50), controlPoint2: CGPoint(x: knot.x + dir * 90, y: knot.y - 50))
+                    pink.setFill(); loop.fill()
+                    deep.setStroke(); loop.lineWidth = 4; loop.stroke()
+                    let tail = NSBezierPath()
+                    tail.move(to: knot)
+                    tail.line(to: CGPoint(x: knot.x + dir * 34, y: knot.y - 70))
+                    tail.line(to: CGPoint(x: knot.x + dir * 12, y: knot.y - 62))
+                    tail.close()
+                    pink.setFill(); tail.fill()
+                }
+                deep.setFill()
+                NSBezierPath(roundedRect: CGRect(x: knot.x - 15, y: knot.y - 14, width: 30, height: 28), xRadius: 9, yRadius: 9).fill()
+                who.draw(in: place(h: side - 4 - front, maxW: side * 0.8, x: side * 0.56, y: front))
             case .peek:
                 // Most of it inside the folder: the front panel is drawn again over everything below its top edge.
                 let r = place(h: (side - 8 - front) / 0.5, maxW: box.width * 0.9, x: side * 0.53, y: 0)
@@ -170,9 +193,9 @@ final class FolderIcons: ObservableObject {
     }
 }
 
-/// How the character is on a folder's icon.
+/// How the character is on a folder's icon. 리본 is a 후원 선물 (SponsorGifts). Raw values are saved; never rename one.
 enum FolderIconStyle: String, CaseIterable, Codable {
-    case stand, peek, nap, sticker
+    case stand, peek, nap, sticker, ribbon
 
     var label: String {
         switch self {
@@ -180,6 +203,7 @@ enum FolderIconStyle: String, CaseIterable, Codable {
         case .peek: return L("얼굴만 빼꼼")
         case .nap: return L("누워서 낮잠")
         case .sticker: return L("스티커")
+        case .ribbon: return L("리본")
         }
     }
 }

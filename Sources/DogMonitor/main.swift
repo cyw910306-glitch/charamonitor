@@ -38,6 +38,11 @@ MainActor.assumeIsolated {
         Task.detached { exit(await UpdateCheck.runCLI(folder: folder)) }
         dispatchMain()
     }
+    if let i = args.firstIndex(of: "--check-sponsors") {   // read-only: the signed 후원 친구 list, as the app would take it
+        let folder = i + 1 < args.count && !args[i + 1].hasPrefix("--") ? URL(fileURLWithPath: args[i + 1], isDirectory: true) : nil
+        Task.detached { exit(await SponsorCheck.runCLI(folder: folder)) }
+        dispatchMain()
+    }
     #endif
     #if !MAS   // install scripts only: the App Store build turns this on only from 설정 (2.4.5(iii))
     if args.contains("--enable-login-item") {

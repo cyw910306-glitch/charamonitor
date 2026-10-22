@@ -6,7 +6,7 @@
 
 ```bash
 B=build.noindex/mas/CharaMonitor.app/Contents/MacOS/CharaMonitor
-strings "$B" | grep -iE 'networkQuality|osascript|csrutil|update\.json|LaunchAgents|proc_pidinfo|System Events|WKWebView|agent-bridge|chat\.db|claude -p|codex exec'
+strings "$B" | grep -iE 'networkQuality|osascript|csrutil|update\.json|sponsors\.json|LaunchAgents|proc_pidinfo|System Events|WKWebView|agent-bridge|chat\.db|claude -p|codex exec'
 ```
 
 | 기능 | 직접판 | MAS판 | 이유(가이드라인) | 코드 |
@@ -24,6 +24,7 @@ strings "$B" | grep -iE 'networkQuality|osascript|csrutil|update\.json|LaunchAge
 | iCloud 메일 보내기(Mail.app AppleScript) | 있음 | 없음, 메일 작성 창만 | 샌드박스 | Agent/AgentCenter.swift |
 | Apple Mail 새 메일 알림 | 있음 | 없음, IMAP 메일 계정만 | 다른 앱 데이터 접근 | Assistant/AssistantIntegrations.swift |
 | 문자 읽기(Messages DB), 다른 앱 알림 읽기(알림 센터 DB), 전체 디스크 접근 | 있음 | 없음 | 2.4.5(i), 다른 앱 데이터 접근 | Assistant/InboxMessages.swift, InboxNotifications.swift |
+| 후원 친구(제작자 서비스 소개 카드) | 있음 | 없음, 후원 선물(꾸미기)은 모두 열림. MAS판엔 광고가 없어요 | 2.3.1, 3.1.1 | App/Sponsor.swift, App/SponsorStage.swift |
 | 로그인 시 자동 실행 | 기본 꺼짐 | 기본 꺼짐, 설정에서 켬(SMAppService) | 2.4.5(iii) | App/LoginItem.swift |
 
 남는 것: 메뉴바 캐릭터 애니메이션, 대시보드 수치, 속도 측정, 재시동 권장, 캐릭터 선택·꾸미기, 사진으로 내 캐릭터(맥 안 변환), 내 그림으로 만든 캐릭터 팩(앱 컨테이너 안 `Application Support/DogMonitor/Packs`, 캐릭터 선택의 '팩 폴더 열기'로 보이는 기능, [PACKS.md](../PACKS.md)), 상황별 모션, 데스크톱 친구, 펫 키우기, AI 비서(기기 안 AI·기본 답변, 내 AI API 키 연결, 먼저 말 걸기, 목소리, 캘린더·미리 알림, IMAP 메일 계정, 아이폰 알림, 단축어로 말 시키기), 비서가 행동하기 v1(카드 확인 후 실행), 활성 상태 보기 열기.

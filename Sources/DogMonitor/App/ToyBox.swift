@@ -4,9 +4,9 @@ import QuartzCore
 
 // MARK: Settings
 
-/// A toy in the 장난감 상자. Raw values are saved; never rename one.
+/// A toy in the 장난감 상자. Raw values are saved; never rename one. 구름 쿠션 is a 후원 선물 (SponsorGifts), a 쿠션 in every way.
 enum ToyKind: String, Codable, CaseIterable {
-    case trampoline, ball, cushion, slide
+    case trampoline, ball, cushion, slide, cloud
 
     var label: String {
         switch self {
@@ -14,6 +14,7 @@ enum ToyKind: String, Codable, CaseIterable {
         case .ball: return L("공")
         case .cushion: return L("쿠션")
         case .slide: return L("미끄럼틀")
+        case .cloud: return L("구름 쿠션")
         }
     }
 
@@ -24,6 +25,7 @@ enum ToyKind: String, Codable, CaseIterable {
         case .ball: return CGSize(width: 34, height: 34)
         case .cushion: return CGSize(width: 78, height: 30)
         case .slide: return CGSize(width: 104, height: 78)
+        case .cloud: return CGSize(width: 84, height: 32)
         }
     }
 
@@ -32,6 +34,7 @@ enum ToyKind: String, Codable, CaseIterable {
         switch self {
         case .trampoline: return (0.06, 0.94, 0.72)
         case .cushion: return (0.08, 0.92, 0.8)
+        case .cloud: return (0.1, 0.9, 0.78)
         case .slide: return (0.03, 0.37, 0.84)   // the deck at the top of the ladder
         case .ball: return nil
         }
@@ -241,7 +244,7 @@ final class ToyBox {
     func played(_ id: UUID, dir: CGFloat) {
         guard let i = items.first(where: { $0.id == id }) else { return }
         switch i.kind {
-        case .trampoline, .cushion: squash(i)
+        case .trampoline, .cushion, .cloud: squash(i)
         case .ball: kick(i, vx: dir * 320)
         case .slide: break
         }
@@ -392,7 +395,7 @@ final class ToyBox {
             i.kind.stand(in: i.panel.frame).map { abs($0.maxY - b.y) < 0.5 && b.x >= $0.minX && b.x <= $0.maxX } == true
         }) else { return }
         let v = fall[n]
-        let up = i.kind == .trampoline ? ToyPhysics.launch(fall: v) : i.kind == .cushion ? ToyPhysics.cushion(fall: v) : 0
+        let up = i.kind == .trampoline ? ToyPhysics.launch(fall: v) : i.kind == .cushion || i.kind == .cloud ? ToyPhysics.cushion(fall: v) : 0
         if up > 0 { play.update(n) { $0.vy = up; $0.onGround = false; $0.jumps = 1 } }   // the 2단 점프 is still there
         squash(i)
     }
@@ -447,6 +450,7 @@ enum ToyArt {
             case .ball: ball(r)
             case .cushion: cushion(r)
             case .slide: slide(r)
+            case .cloud: cloud(r)
             }
             return true
         }
@@ -526,6 +530,27 @@ enum ToyArt {
         seam.stroke()
         rgb(230, 120, 150).setFill()
         NSBezierPath(ovalIn: CGRect(x: body.midX - 3, y: body.midY - 3, width: 6, height: 6)).fill()
+    }
+
+    /// 구름 쿠션: three soft white bumps on a flat base, outlined in sky blue, with a rosy cheek.
+    private static func cloud(_ r: CGRect) {
+        let w = r.width, h = r.height, sky = rgb(90, 174, 245)
+        let p = NSBezierPath(roundedRect: CGRect(x: 3, y: 2, width: w - 6, height: h * 0.5), xRadius: h * 0.25, yRadius: h * 0.25)
+        for (cx, rad) in [(0.3, 0.3), (0.52, 0.38), (0.73, 0.28)] as [(CGFloat, CGFloat)] {
+            p.append(NSBezierPath(ovalIn: CGRect(x: w * cx - h * rad * 1.3, y: h * 0.78 - h * rad * 2, width: h * rad * 2.6, height: h * rad * 2)))
+        }
+        NSColor.white.setFill()
+        p.fill()
+        // One outline round the whole puff: stroke it, then fill again so the inner seams go.
+        sky.setStroke()
+        p.lineWidth = line * 2
+        p.stroke()
+        NSColor.white.setFill()
+        p.fill()
+        rgb(255, 179, 199, 0.8).setFill()
+        NSBezierPath(ovalIn: CGRect(x: w * 0.62, y: h * 0.28, width: 7, height: 4)).fill()
+        rgb(220, 236, 252).setFill()
+        NSBezierPath(roundedRect: CGRect(x: w * 0.2, y: 5, width: w * 0.6, height: 3), xRadius: 1.5, yRadius: 1.5).fill()
     }
 
     private static func slide(_ r: CGRect) {

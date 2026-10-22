@@ -59,14 +59,20 @@ enum UpdateCheck {
 
     /// The signature is checked before anything is parsed. Throws for unsigned, tampered or foreign-key files.
     static func verify(_ data: Data, signature: Data, publicKey: [UInt8] = publicKey) throws -> UpdateManifest {
-        guard let text = String(data: signature, encoding: .utf8),
-              let sig = Data(base64Encoded: text.trimmingCharacters(in: .whitespacesAndNewlines)),
-              let pub = try? Curve25519.Signing.PublicKey(rawRepresentation: publicKey),
-              pub.isValidSignature(sig, for: data) else { throw UpdateError.badSignature }
+        guard signed(data, signature: signature, publicKey: publicKey) else { throw UpdateError.badSignature }
         guard let m = try? JSONDecoder().decode(UpdateManifest.self, from: data), m.build > 0,
               m.sha256.count == 64, m.sha256.allSatisfy(\.isHexDigit) else { throw UpdateError.badManifest }
         guard isAllowed(URL(string: m.url)) else { throw UpdateError.badHost }
         return m
+    }
+
+    /// Whether `signature` (one base64 line, sign_manifest.swift) is the release key's over exactly these bytes.
+    /// The 후원 친구 list (sponsors.json) is checked the same way.
+    static func signed(_ data: Data, signature: Data, publicKey: [UInt8] = publicKey) -> Bool {
+        guard let text = String(data: signature, encoding: .utf8),
+              let sig = Data(base64Encoded: text.trimmingCharacters(in: .whitespacesAndNewlines)),
+              let pub = try? Curve25519.Signing.PublicKey(rawRepresentation: publicKey) else { return false }
+        return pub.isValidSignature(sig, for: data)
     }
 
     /// Dotted numbers, missing parts count as 0: "1.10" > "1.9", "1.7" == "1.7.0".
@@ -108,11 +114,20 @@ enum UpdateCheck {
         guard isAllowed(response.url), (response as? HTTPURLResponse)?.statusCode == 200 else { throw UpdateError.offline }
     }
 
-    static func fetch(_ url: URL) async throws -> Data {
-        let result: (Data, URLResponse)
-        do { result = try await session.data(for: request(url)) } catch let e as UpdateError { throw e } catch { throw UpdateError.offline }
-        try checkResponse(result.1)
-        return result.0
+    /// The body of a small file, read only after the response checks out and never past `maxBytes` (a declared length
+    /// over it is refused before any byte is read).
+    static func fetch(_ url: URL, maxBytes: Int = 65_536) async throws -> Data {
+        do {
+            let (bytes, response) = try await session.bytes(for: request(url))
+            try checkResponse(response)
+            guard response.expectedContentLength <= Int64(maxBytes) else { throw UpdateError.badManifest }
+            var data = Data()
+            for try await b in bytes {
+                data.append(b)
+                if data.count > maxBytes { throw UpdateError.badManifest }
+            }
+            return data
+        } catch let e as UpdateError { throw e } catch { throw UpdateError.offline }
     }
 
     /// `folder`: read update.json and update.json.sig from disk instead (QA of freshly packaged files).
@@ -123,7 +138,7 @@ enum UpdateCheck {
             return try verify(d, signature: s)
         }
         async let d = fetch(manifestURL)
-        async let s = fetch(signatureURL)
+        async let s = fetch(signatureURL, maxBytes: 256)
         return try verify(try await d, signature: try await s)
     }
 

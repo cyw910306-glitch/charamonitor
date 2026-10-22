@@ -21,6 +21,24 @@
           "value": "text/plain; charset=utf-8"
         }
       ]
+    },
+    {
+      "source": "/sponsors.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/sponsors.json.sig",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ]
 }

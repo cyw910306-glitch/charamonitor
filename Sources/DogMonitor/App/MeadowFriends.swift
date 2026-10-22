@@ -684,7 +684,7 @@ final class MeadowFriends {
         if let r = f.react {
             let p = r.r.reaction.pose(now - r.start, still: still)
             turn = (p.angle, p.sx, p.sy)
-            if r.r.reaction == .spin { pivot = 0.5 }
+            if r.r.reaction.spins { pivot = 0.5 }
             if r.r.reaction == .pout, !still { turn.sx = 1.04; turn.sy = 0.94 }   // slumped, its back to you
         }
         CATransaction.begin()

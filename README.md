@@ -1,11 +1,12 @@
 # 캐릭모니터 (CharaMonitor)
 
 메뉴바에 사는 도트 캐릭터가 맥의 CPU 사용량에 맞춰 자고, 걷고, 뛰고, 헉헉대는 macOS 메뉴바 앱이에요.
-기본 캐릭터는 실제 반려견 "젤리"(살구색 말티푸)를 본뜬 강아지예요. **모든 기능이 무료인 비영리 오픈 소스**이고, 결제·후원·광고·계정이 없어요.
+기본 캐릭터는 실제 반려견 "젤리"(살구색 말티푸)를 본뜬 강아지예요. **결제 없는 무료 오픈 소스**예요. 계정도 없고, 끌 수 있는 후원 친구(제작자 서비스 소개)가 있어요. 꾸미기 선물 8가지는 후원 친구를 끝까지 보면 하나씩 열려요 (앱스토어판은 처음부터 다 열려 있어요).
 
 A macOS menu bar app: a pixel-art pet that naps, walks, runs and pants with your Mac's CPU load, plus a dashboard,
-desktop friends, a pet room and an optional AI assistant. **Free, non-commercial open source.** No payments, no
-donations, no ads, no account.
+desktop friends, a pet room and an optional AI assistant. **Free, open source.** No payments or account; an optional
+Sponsor Friend (the author's own services) you can turn off. A few decorations open as you watch it (all open in the
+App Store version).
 
 - 사이트: https://charamonitor.vercel.app
 - 소스: https://github.com/cyw910306-glitch/charamonitor
@@ -85,14 +86,16 @@ web/                사이트(정적 페이지)
 
 ## 개인정보 (Privacy)
 
-- 계정, 결제, 광고, 추적, 사용 통계가 없어요. 개발자 서버가 없어서 개발자는 아무 데이터도 받지 않아요.
+- 계정, 결제, 추적, 사용 통계가 없어요. 개발자는 여러분의 데이터를 받지 않아요. 다만 후원 친구 카드의 버튼을 누르면 제작자의 그 서비스가 IP와 utm 표시를 받아요.
 - 맥 상태, 설정, 캐릭터, 펫, 대화 기록은 이 맥에만 저장돼요(`~/Library/Application Support/DogMonitor`, `com.jelly.dogmonitor` 설정).
-- 직접 켠 기능만 밖으로 나가요: 내 AI(고른 회사로 질문과 맥 숫자), 아이폰 알림(짧은 상태 문구), 메일 계정(내 메일 서버), 날씨 창문(도시 좌표, MET Norway), 자동 다듬기(이 맥에 로그인된 ChatGPT·Claude로 사진), 속도 측정, 업데이트 확인(서명된 버전 파일).
+- 직접 켠 기능만 밖으로 나가요: 내 AI(고른 회사로 질문과 맥 숫자), 아이폰 알림(짧은 상태 문구), 메일 계정(내 메일 서버), 날씨 창문(도시 좌표, MET Norway), 자동 다듬기(이 맥에 로그인된 ChatGPT·Claude로 사진), 속도 측정, 업데이트 확인(서명된 버전 파일), 후원 친구(직접판, 켤 때와 하루 한 번 서명된 소개 목록, 끌 수 있어요).
 - 자세한 내용: [web/privacy.html](web/privacy.html) (https://charamonitor.vercel.app/privacy.html)
 
-No account, payments, ads, tracking or analytics, and no developer server. Everything stays on your Mac unless you
+No account, payments, tracking or analytics. The developer receives none of your data, except that a Sponsor Friend button
+opens the author's own service, which sees your IP and a utm tag. Everything stays on your Mac unless you
 turn on a feature that needs the network (your own AI, iPhone notifications, your mail server, weather, AI touch-up
-through your own ChatGPT/Claude CLI, speed test, signed update check).
+through your own ChatGPT/Claude CLI, speed test, signed update check, and in the direct version the signed Sponsor
+Friend list at launch and once a day, which you can turn off).
 
 ## 기여
 
