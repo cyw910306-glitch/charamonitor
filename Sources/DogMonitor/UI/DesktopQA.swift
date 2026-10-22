@@ -130,7 +130,7 @@ enum DesktopQA {
 
         // 폴더 친구 on stand-in Finder windows (no real window is read): standing on the edge, walking, napping, clicked,
         // holding on while dragged; at each size, still as under 동작 줄이기, light and dark windows. Then as an original
-        // (QA_FOLDER_CHARACTER, an original or a pack id such as pack-ck-chiikawa-hd, else the first original) at 크게.
+        // (QA_FOLDER_CHARACTER, an original or a pack id such as pack-<slug>, else the first original) at 크게.
         FolderFriends.qaHidden = true
         FriendMark.qa = true
         let folderLooks: [(NSColor, Bool, String)] = [(NSColor(red: 0.80, green: 0.86, blue: 0.93, alpha: 1), false, "light"),
