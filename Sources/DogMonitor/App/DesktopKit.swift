@@ -174,13 +174,24 @@ enum FriendMenu {
         return item
     }
 
-    /// Each friend on or off, then 집중 시작 / 그만하기. Also fills the menu bar's 데스크톱 친구 submenu.
+    /// Each friend on or off, then 집중 시작 / 그만하기 and 놀이 ▸. Also fills the menu bar's 데스크톱 친구 submenu.
     static func desktopItems() -> [NSMenuItem] {
         let focus = FocusCenter.shared
         return DesktopFriends.toggles.map { t in item(t.title, on: t.isOn()) { t.set(!t.isOn()) } } + [
             .separator(),
             item(focus.running ? L("집중 그만하기") : L("집중 시작")) { if focus.running { focus.stop() } else { focus.start() } },
+            submenu(L("놀이"), playItems()),
         ]
+    }
+
+    /// 놀이 ▸: 놀이 모드 (the keyboard one) and its star games, then the click games. Each game adds its own items here.
+    static func playItems() -> [NSMenuItem] {
+        [item(PlayMode.shared.isPlaying ? L("놀이 그만하기") : L("놀이 모드 시작")) {
+            if PlayMode.shared.isPlaying { PlayMode.shared.end() } else { PlayMode.shared.start() }
+        },
+         item(L("별 줍기")) { StarGame.shared.start(duel: false) },
+         item(L("2인 대결")) { StarGame.shared.start(duel: true) },
+         .separator()] + ClickGames.menuItems()
     }
 
     static func build(_ own: [NSMenuItem]) -> NSMenu {
@@ -504,7 +515,7 @@ enum FriendMark {
             group.animations = [fade]
         } else {
             let rise = CABasicAnimation(keyPath: "position.y")
-            rise.byValue = min((layer.bounds.height - rect.maxY) * 0.9, rect.height * 0.8)   // a whole-screen panel: just over the head
+            rise.byValue = min((layer.bounds.maxY - rect.maxY) * 0.9, rect.height * 0.8)   // a whole-screen panel: just over the head
             group.animations = [fade, rise]
         }
         m.add(group, forKey: nil)

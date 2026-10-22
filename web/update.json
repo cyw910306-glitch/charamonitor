@@ -1,1 +1,1 @@
-{"version":"2.8.5","build":38,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"9eb26dbd201a0e3c636228d37f209276ee8663d7bd697667b226eb3a725c020b","minSystem":"13.0","notes":"폴더 아이콘 모양을 바꾸면 바로 반영돼요."}
+{"version":"2.9","build":39,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"1297d9d03c88c7e70d509493a5e3ca4700861148e0eedb6b98d8357d2bfd1b87","minSystem":"13.0","notes":"놀이 모드가 생겼어요. 방향키와 스페이스로 캐릭터를 조종해 창 위를 뛰어다니고, 별 줍기·숨바꼭질·공놀이·두더지잡기도 해 보세요."}

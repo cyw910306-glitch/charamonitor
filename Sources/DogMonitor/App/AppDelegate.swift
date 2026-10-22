@@ -31,7 +31,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         FolderIcons.shared.start()       // folders wearing the character follow a new character
         #endif
         DesktopRug.shared.start()        // the same for the 바탕화면 러그
+        ToyBox.shared.start()            // the same for the 장난감 상자 (over the rug; ticks only while a ball rolls)
         DesktopClones.shared.start()     // the same for the 복제 친구 (over the rug)
+        MacReactions.shared.start(monitor: monitor)   // 맥과 같이 놀기: idle while its three switches are off
         // 우리 동네 바람 follows the 날씨 창문's city while the window is on (no fetch of its own), else 산들.
         HangingFriends.localWind = { WeatherWindow.shared.on ? WeatherService.shared.current?.wind : nil }
         AssistantCenter.shared.start()   // speech bubble, 먼저 말 걸기, opt-in integrations

@@ -31,7 +31,8 @@ enum DesktopFriends {
 }
 
 /// "데스크톱 친구" in 설정: the friend saying hi, 꾸미기, then one sticker card per friend; changes show at once.
-/// Sections in order: 꾸미기 / 커서 친구 / 복제 친구 / 대롱대롱 친구 / 풀밭 친구들 / 폴더 친구 / 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기.
+/// Sections in order: 꾸미기 / 커서 친구 / 복제 친구 / 대롱대롱 친구 / 풀밭 친구들 / 폴더 친구 / 놀이 / 장난감 상자 / 맥과 같이 놀기 /
+/// 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기.
 struct DesktopSettingsView: View {
     @ObservedObject var store: MotionStore = .shared
     @ObservedObject var hanging: HangingStore = .shared
@@ -40,8 +41,13 @@ struct DesktopSettingsView: View {
     @ObservedObject var folderIcons: FolderIcons = .shared
     @ObservedObject var rug: RugStore = .shared
     @ObservedObject var clones: CloneStore = .shared
+    @ObservedObject var toys: ToyStore = .shared
     @ObservedObject var focus: FocusCenter = .shared
     @ObservedObject var settings: AppSettings = .shared
+    @AppStorage(PlayMode.twoPlayerKey, store: AppDefaults.store) private var twoPlayer = false
+    @AppStorage(StarRules.bestKey, store: AppDefaults.store) private var bestStars = 0
+    @ObservedObject var games: ClickGames = .shared
+    @AppStorage(GroupDance.key, store: AppDefaults.store) private var groupDance = false
     @StateObject private var quickSample = FriendQuickAsk.sample()
     /// The card that just said hi (a friend switched on) and whose badge is hopping.
     @State private var hello: DesktopTool?
@@ -57,6 +63,9 @@ struct DesktopSettingsView: View {
             hangingSection
             meadowSection
             folderSection
+            playSection
+            toysSection
+            macSection
             rugSection
             weatherSection
             focusSection
@@ -183,10 +192,15 @@ struct DesktopSettingsView: View {
                     }
                     row("움직이기") { onOff("움직이기", $clones.prefs.moves, .clones) }
                     row("어울리기") { onOff("어울리기", $clones.prefs.interacts, .clones) }
+                    row("술래잡기") { onOff("술래잡기", $clones.prefs.tag, .clones).disabled(!clones.prefs.interacts || !clones.prefs.moves) }
+                    row("기차놀이") { onOff("기차놀이", $clones.prefs.train, .clones).disabled(!clones.prefs.interacts || !clones.prefs.moves) }
+                    row("단체 춤") { onOff("단체 춤", $groupDance, .clones) }
                 }
                 details("커서 친구를 오른쪽 클릭해서 '복제해서 바탕화면에 두기'를 누르면 똑같은 친구가 바탕화면에 생겨요. 8명까지 두고, 다시 켜도 그 자리에 있어요.",
                         "혼자 산책하고 앉고 낮잠도 자요. 어울리기를 켜 두면 서로 인사하거나 쫓아다니고, 커서를 쳐다보거나 달려오고, 러그가 있으면 올라가 앉아요.",
-                        "누르면 반응하고, 잡아서 옮기거나 휙 던질 수 있어요. 움직이기를 끄면 놓은 자리 그대로 장식이 돼요. 오른쪽 클릭으로 한 명씩 치울 수 있어요.")
+                        "누르면 반응하고, 잡아서 옮기거나 휙 던질 수 있어요. 움직이기를 끄면 놓은 자리 그대로 장식이 돼요. 오른쪽 클릭으로 한 명씩 치울 수 있어요.",
+                        "친구들끼리 놀기도 해요. 술래잡기를 켜면 가끔 한 명이 술래가 되어 20초 동안 쫓아다니고, 기차놀이를 켜면 커서 친구 뒤에 줄줄이 붙어 따라가요. 둘 다 어울리기가 켜져 있어야 하고, 오른쪽 클릭 메뉴로 바로 시작할 수도 있어요.",
+                        "단체 춤을 켜 두면 춤춰 줘·응원해 줘를 누르거나 집중을 잘 마쳤을 때처럼 축하할 일이 생기면 모든 친구가 10초 동안 같이 춤춰요.")
             }
         }
     }
@@ -349,6 +363,8 @@ struct DesktopSettingsView: View {
                         .labelsHidden().pickerStyle(.segmented).controlSize(.small)
                     }
                     row("항상 위") { onOff("다른 창보다 위에 두기", $meadow.prefs.onTop, .meadow) }
+                    row("줄넘기") { onOff("줄넘기", $meadow.prefs.jumpRope, .meadow).disabled(meadow.prefs.count < 3) }
+                    row("단체 춤") { onOff("단체 춤", $groupDance, .meadow) }
                 }
                 ForEach(0..<min(meadow.prefs.count, meadow.prefs.slots.count), id: \.self) { i in
                     HStack(spacing: 6) {
@@ -356,7 +372,8 @@ struct DesktopSettingsView: View {
                         whoPicker(who($meadow.prefs.slots, i, copy: "meadow"))
                     }
                 }
-                details("화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 포즈를 바꾸며 말을 걸고 옆 친구도 돌아봐요. 여러 번 누르면 어지러워하다 삐지고, 커서로 문지르면 쓰다듬어져요. ⌥ 누른 채 클릭하면 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요.")
+                details("화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 포즈를 바꾸며 말을 걸고 옆 친구도 돌아봐요. 여러 번 누르면 어지러워하다 삐지고, 커서로 문지르면 쓰다듬어져요. ⌥ 누른 채 클릭하면 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요.",
+                        "줄넘기를 켜 두면 세 명 이상일 때 가끔 양 끝 두 친구가 줄을 돌리고 나머지가 박자 맞춰 뛰어요. 열 번 연속 넘으면 다 같이 기뻐해요. 오른쪽 클릭 메뉴로 바로 시작할 수도 있어요.")
             }
         }
     }
@@ -384,6 +401,112 @@ struct DesktopSettingsView: View {
                         "창마다를 켜면 열린 Finder 창마다 한 명씩, 세 개 창까지 올라가요. 다른 창이 가리거나 창이 메뉴바에 붙어 자리가 없으면 잠깐 숨어요.",
                         "누르면 반응하고 말을 걸어요. ⌥ 누른 채 클릭하면 퀵물어보기, 오른쪽 클릭은 메뉴예요. 창의 위치와 크기만 보고, 창 이름이나 안의 내용은 보지 않아서 권한이 필요 없어요.")
             }
+        }
+    }
+
+    // MARK: 놀이
+
+    /// 놀이 모드: no switch of its own, a session starts from the button or a friend's menu.
+    private var playSection: some View {
+        Panel(tint: palette.tint(.play)) {
+            HStack(spacing: 8) {
+                badge("🎮", "놀이", .play)
+                Spacer()
+                Button("놀이 모드 시작") { PlayMode.shared.start() }.controlSize(.small)
+            }
+            tagline("친구를 키보드로 움직여 창 위를 폴짝폴짝 뛰어다녀요")
+            row("둘이 놀기") { onOff("둘이 놀기", $twoPlayer, .play) }
+            row("미니 게임") {
+                Button("별 줍기") { StarGame.shared.start(duel: false) }.controlSize(.small)
+                Button("2인 대결") { StarGame.shared.start(duel: true) }.controlSize(.small)
+                if bestStars > 0 { Text("최고 기록 \(bestStars)개").font(f(12)).foregroundStyle(.secondary) }
+            }
+            details("← →로 걷고, Shift를 같이 누르면 뛰어요. 스페이스로 점프하고, 공중에서 한 번 더 누르면 2단 점프예요. ↓로 웅크리고, ↓ 누른 채 스페이스를 누르면 창 아래로 내려가요. Esc를 누르면 끝나요.",
+                    "화면 아래(독 위), 열린 창의 위쪽 끝, 바탕화면 러그 위에 올라설 수 있어요. 아래에서 뛰어오르면 창 끝을 지나 올라가요. 다른 곳을 클릭하거나 다른 앱으로 넘어가도 끝나요.",
+                    "둘이 놀기를 켜면 색이 다른 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요.",
+                    "별 줍기는 60초 동안 창 위, 화면 아래, 공중에 뜬 별을 모아요. 🍪는 3점이고, 높이 뜬 별은 2단 점프로 닿아요. 2인 대결은 둘이 같이 모아서 많이 모은 쪽이 이겨요.",
+                    "커서 친구나 복제 친구를 오른쪽 클릭해서 놀이 모드를 고를 수도 있어요. 키보드는 놀이하는 동안에만 받고, 창은 위치와 크기만 봐서 권한이 필요 없어요.")
+            row("클릭 놀이") {
+                HStack(spacing: 6) {
+                    ForEach(ClickGames.Kind.allCases, id: \.self) { g in
+                        Button(games.playing == g ? L("그만하기") : g.title) { games.toggle(g) }.controlSize(.small)
+                    }
+                }
+            }
+            details("숨바꼭질: 친구가 창 뒤나 독 뒤에 숨어서 머리만 빼꼼 내밀어요. 보이는 부분을 누르면 찾은 거예요. 15초가 지나면 힌트를 주고, 세 판을 해요.",
+                    "공놀이: 공을 끌어서 던지면 친구가 달려가 물어 와요. 한 번 누르면 공을 톡 차올려요. 바탕화면 러그 위에 공이 멈추면 골이에요.",
+                    "두더지잡기: 30초 동안 독 위로 튀어나오는 친구를 눌러요. 풀밭 친구들이 켜져 있으면 그 친구들이 나와요. 최고 점수를 기억해요.",
+                    "게임 조각을 오른쪽 클릭해서 그만할 수 있어요. 마우스로만 놀아서 키보드를 받지 않아요.")
+        }
+    }
+
+    // MARK: 장난감 상자
+
+    /// A switch per toy (on: one is out, off: all of that kind go back in the box), 하나 더 up to 6 in all, 정리하기.
+    private var toysSection: some View {
+        let n = toys.prefs.toys.count
+        return Panel(tint: tint(.toys, on: toys.prefs.on)) {
+            header("🧸", "장난감 상자", .toys, isOn: Binding(get: { toys.prefs.on }, set: { on in
+                var p = toys.prefs
+                p.on = on
+                if on, p.toys.isEmpty { p.add(.trampoline); p.add(.ball) }   // an empty box opens with two out
+                toys.prefs = p
+            }))
+            tagline("바탕화면에 장난감을 꺼내 두면 친구들이 놀러 와요")
+            if toys.prefs.on {
+                VStack(alignment: .leading, spacing: 7) {
+                    ForEach(ToyKind.allCases, id: \.self) { kind in
+                        row(LocalizedStringKey(kind.label)) {
+                            HStack(spacing: 8) {
+                                onOff(LocalizedStringKey(kind.label), Binding(get: { toys.prefs.has(kind) }, set: { on in
+                                    if on { toys.prefs.add(kind) } else { toys.prefs.toys.removeAll { $0.kind == kind } }
+                                }), .toys)
+                                .disabled(n >= ToyPrefs.maxCount && !toys.prefs.has(kind))
+                                if toys.prefs.has(kind) {
+                                    Button("하나 더") { toys.prefs.add(kind) }.controlSize(.small).disabled(n >= ToyPrefs.maxCount)
+                                }
+                            }
+                        }
+                    }
+                    row("몇 개") {
+                        HStack(spacing: 8) {
+                            Text(verbatim: "\(n)/\(ToyPrefs.maxCount)").font(f(12)).monospacedDigit()
+                            Button("정리하기") { toys.prefs.toys = [] }.controlSize(.small).disabled(n == 0)
+                        }
+                    }
+                }
+                details("트램펄린, 공, 쿠션, 미끄럼틀을 바탕화면에 꺼내 둬요. 모두 합쳐 6개까지이고, 끌어서 옮기면 다시 켜도 그 자리에 있어요. 누르면 통통 튀거나 데굴데굴 굴러가고, 오른쪽 클릭으로 하나씩 치워요.",
+                        "커서 친구와 복제 친구가 가끔 놀러 와서 트램펄린에서 뛰고, 공을 차고 쫓아가고, 쿠션에서 낮잠을 자고, 미끄럼틀을 타요. 복제 친구는 어울리기가 켜져 있을 때 놀러 와요.",
+                        "놀이 모드에서는 장난감 위에도 올라설 수 있어요. 트램펄린은 아주 높이 튕겨 주고, 쿠션은 폭신하게 받아 주고, 미끄럼틀은 아래로 태워 줘요.")
+            }
+        }
+    }
+
+    // MARK: 맥과 같이 놀기
+
+    /// MacReactions: three switches of their own, all off at first.
+    private var macSection: some View {
+        Panel(tint: tint(.mac, on: store.macDownloads || store.macTrash || store.macBusy)) {
+            HStack(spacing: 8) {
+                badge("💻", "맥과 같이 놀기", .mac)
+                Spacer()
+            }
+            tagline("맥에서 생긴 일에 친구가 같이 반응해요")
+            VStack(alignment: .leading, spacing: 7) {
+                #if !MAS
+                row("다운로드 배달") { onOff("다운로드 배달", $store.macDownloads, .mac) }
+                row("휴지통") { onOff("휴지통", $store.macTrash, .mac) }
+                #endif
+                row("바쁜 맥") { onOff("바쁜 맥", $store.macBusy, .mac) }
+            }
+            #if MAS
+            details("바쁜 맥: CPU가 20초 넘게 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창 옆에서 영차영차 밀어요. 커서를 움직이면 따라오고, 맥이 한가해지면 그만해요. 복제 친구도 땀을 흘려요.")
+            #else
+            details("다운로드 배달: 다운로드 폴더에 파일이 다 받아지면 커서 친구가 그 파일 아이콘을 머리에 이고 화면 오른쪽 아래로 날라 줘요. 받는 중인 파일은 다 받아질 때까지 기다려요. 처음 켤 때 다운로드 폴더를 봐도 되는지 물어볼 수 있고, 허용하지 않으면 조용히 쉬어요.",
+                    "휴지통: 휴지통을 비우면 커서 친구가 작은 쓰레기 봉투를 화면 밖으로 뻥 차 버려요. 휴지통 안은 보지 않고 몇 개 들었는지만 봐서 권한이 필요 없어요.",
+                    "바쁜 맥: CPU가 20초 넘게 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창 옆에서 영차영차 밀어요. 커서를 움직이면 따라오고, 맥이 한가해지면 그만해요.",
+                    "복제 친구도 같이 폴짝 뛰고 땀을 흘려요.")
+            #endif
         }
     }
 
@@ -815,7 +938,7 @@ private struct Details: View {
 
 /// One 데스크톱 친구 card, for its colour (AppPalette.tint) and its hello.
 enum DesktopTool: Int, CaseIterable {
-    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones, folder
+    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones, folder, play, toys, mac
 }
 
 /// 꾸미기 > 색 테마 (AppSettings.palette). Raw values are saved; never rename one. 딸기우유 is the sticker book (a
@@ -853,8 +976,10 @@ enum AppPalette: String, CaseIterable {
         }
     }
 
-    /// 딸기우유's card colours in DesktopTool order: peach, lavender, mint, pink, sky, lemon, coral, aqua, folder blue.
-    static let stickers = ["#FF9F6B", "#A88BF0", "#4FC98E", "#FF7EB3", "#5AAEF5", "#F2C230", "#FF8577", "#5EC4DE", "#6FA8F0"]
+    /// 딸기우유's card colours in DesktopTool order: peach, lavender, mint, pink, sky, lemon, coral, aqua, folder blue, grape,
+    /// caramel, teal.
+    static let stickers = ["#FF9F6B", "#A88BF0", "#4FC98E", "#FF7EB3", "#5AAEF5", "#F2C230", "#FF8577", "#5EC4DE", "#6FA8F0", "#B57BE0",
+                           "#E0A458", "#3FB8A9"]
 }
 
 

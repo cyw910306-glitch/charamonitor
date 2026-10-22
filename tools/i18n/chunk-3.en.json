@@ -2970,5 +2970,385 @@
  {
   "key": "스티커",
   "en": "Sticker"
+ },
+ {
+  "key": "놀이 모드",
+  "en": "Play mode"
+ },
+ {
+  "key": "놀이 그만하기",
+  "en": "Stop playing"
+ },
+ {
+  "key": "놀이",
+  "en": "Play"
+ },
+ {
+  "key": "놀이 모드 시작",
+  "en": "Start play mode"
+ },
+ {
+  "key": "친구를 키보드로 움직여 창 위를 폴짝폴짝 뛰어다녀요",
+  "en": "Move your friend with the keyboard and hop across your windows"
+ },
+ {
+  "key": "둘이 놀기",
+  "en": "Two players"
+ },
+ {
+  "key": "← →로 걷고, Shift를 같이 누르면 뛰어요. 스페이스로 점프하고, 공중에서 한 번 더 누르면 2단 점프예요. ↓로 웅크리고, ↓ 누른 채 스페이스를 누르면 창 아래로 내려가요. Esc를 누르면 끝나요.",
+  "en": "← → walk, hold Shift to run. Space jumps, and once more in the air is a double jump. ↓ crouches, and ↓ with Space drops down through a window edge. Esc ends it."
+ },
+ {
+  "key": "화면 아래(독 위), 열린 창의 위쪽 끝, 바탕화면 러그 위에 올라설 수 있어요. 아래에서 뛰어오르면 창 끝을 지나 올라가요. 다른 곳을 클릭하거나 다른 앱으로 넘어가도 끝나요.",
+  "en": "It can stand on the bottom of the screen (above the Dock), on the top edges of open windows and on the desktop rug. Jumping from below goes up through a window edge. Clicking elsewhere or switching apps ends it too."
+ },
+ {
+  "key": "둘이 놀기를 켜면 색이 다른 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요.",
+  "en": "With Two players on, a second friend in another color joins in. A and D walk, W jumps, S crouches."
+ },
+ {
+  "key": "커서 친구나 복제 친구를 오른쪽 클릭해서 놀이 모드를 고를 수도 있어요. 키보드는 놀이하는 동안에만 받고, 창은 위치와 크기만 봐서 권한이 필요 없어요.",
+  "en": "You can also right-click the cursor friend or a copied friend and choose Play mode. Keys are only read while playing, and only window positions and sizes are looked at, so no permission is needed."
+ },
+ {
+  "key": "놀이 모드: 커서 친구나 복제 친구를 오른쪽 클릭해서 고르면 키보드로 움직여요. ← →로 걷고 Shift로 뛰고, 스페이스로 점프(공중에서 한 번 더 누르면 2단 점프), ↓로 웅크려요. 창 위쪽 끝에 올라서고 ↓+스페이스로 내려가요. Esc로 끝내요.",
+  "en": "Play mode: right-click the cursor friend or a copied friend and choose it to move it with the keyboard. ← → walk, Shift runs, Space jumps (once more in the air for a double jump), ↓ crouches. It stands on window edges, and ↓ + Space drops down. Esc ends it."
+ },
+ {
+  "key": "별 줍기",
+  "en": "Star catch"
+ },
+ {
+  "key": "2인 대결",
+  "en": "Two-player match"
+ },
+ {
+  "key": "최고 %lld",
+  "en": "Best %lld"
+ },
+ {
+  "key": "비겼어요! %lld 대 %lld",
+  "en": "It's a tie! %lld to %lld"
+ },
+ {
+  "key": "비겼다! %lld 대 %lld",
+  "en": "A tie! %lld to %lld"
+ },
+ {
+  "key": "%@가 이겼어요! %lld 대 %lld",
+  "en": "%@ wins! %lld to %lld"
+ },
+ {
+  "key": "%@가 이겼다! %lld 대 %lld",
+  "en": "%@ wins! %lld to %lld"
+ },
+ {
+  "key": "새 기록이에요! 별 %lld개 🎉",
+  "en": "New record! %lld stars 🎉"
+ },
+ {
+  "key": "새 기록이다! 별 %lld개 🎉",
+  "en": "New record! %lld stars 🎉"
+ },
+ {
+  "key": "별을 %lld개 모았어요!",
+  "en": "You caught %lld stars!"
+ },
+ {
+  "key": "별을 %lld개 모았어!",
+  "en": "Caught %lld stars!"
+ },
+ {
+  "key": "별을 못 모았어요. 다음엔 꼭 모아 봐요!",
+  "en": "No stars this time. Let's catch some next time!"
+ },
+ {
+  "key": "별을 못 모았네. 다음엔 꼭 모아 보자!",
+  "en": "No stars this time. Let's get some next time!"
+ },
+ {
+  "key": "미니 게임",
+  "en": "Mini games"
+ },
+ {
+  "key": "최고 기록 %lld개",
+  "en": "Best: %lld"
+ },
+ {
+  "key": "별 줍기는 60초 동안 창 위, 화면 아래, 공중에 뜬 별을 모아요. 🍪는 3점이고, 높이 뜬 별은 2단 점프로 닿아요. 2인 대결은 둘이 같이 모아서 많이 모은 쪽이 이겨요.",
+  "en": "Star catch: for 60 seconds, collect the stars on window edges, along the bottom of the screen and up in the air. 🍪 is worth 3, and the high stars need a double jump. In a two-player match you both collect, and whoever gets more wins."
+ },
+ {
+  "key": "별 줍기·2인 대결: 놀이 메뉴에서 골라요. 60초 동안 별을 모으고, 2인 대결은 W·A·S·D로 한 명 더 같이 해요.",
+  "en": "Star catch and two-player match: pick them from the Play menu. Collect stars for 60 seconds; in a match a second player joins on W, A, S, D."
+ },
+ {
+  "key": "숨바꼭질",
+  "en": "Hide and seek"
+ },
+ {
+  "key": "공놀이",
+  "en": "Ball play"
+ },
+ {
+  "key": "두더지잡기",
+  "en": "Whack-a-mole"
+ },
+ {
+  "key": "숨바꼭질 시작! 제가 어디 숨었는지 찾아 보세요",
+  "en": "Hide and seek! See if you can find where I'm hiding"
+ },
+ {
+  "key": "못 찾겠다 꾀꼬리! 다음에 또 해요",
+  "en": "Couldn't find me! Let's play again next time"
+ },
+ {
+  "key": "힌트: 어느 창 위쪽에서 꼼지락 소리가 나요",
+  "en": "Hint: something is wriggling along the top of a window"
+ },
+ {
+  "key": "힌트: 화면 아래쪽 독 근처가 수상해요",
+  "en": "Hint: something looks fishy near the Dock at the bottom"
+ },
+ {
+  "key": "다 찾았어요! 세 번 합쳐 %@초, 가장 빨리 찾은 건 %@초예요",
+  "en": "You found me every time! %1$@ s in all, the quickest in %2$@ s"
+ },
+ {
+  "key": "들켰다! %@초 만에 찾았어요 (%lld/%lld)",
+  "en": "Found me! That took %1$@ s (%2$lld/%3$lld)"
+ },
+ {
+  "key": "공을 끌어서 던져 주세요! 러그 위에 멈추면 골이에요",
+  "en": "Drag the ball and throw it! If it stops on the rug, it's a goal"
+ },
+ {
+  "key": "공을 끌어서 던져 주세요! 제가 물어 올게요",
+  "en": "Drag the ball and throw it! I'll fetch it"
+ },
+ {
+  "key": "공놀이 재밌었어요!",
+  "en": "That was fun!"
+ },
+ {
+  "key": "골!",
+  "en": "Goal!"
+ },
+ {
+  "key": "골인! 벌써 %lld골이에요",
+  "en": "Goal! That's %lld already"
+ },
+ {
+  "key": "두더지잡기! 30초 동안 튀어나오는 친구를 콕 눌러요",
+  "en": "Whack-a-mole! Tap the friends that pop up for 30 seconds"
+ },
+ {
+  "key": "두더지잡기 %lld점 · 최고 %lld점",
+  "en": "Whack-a-mole %1$lld · best %2$lld"
+ },
+ {
+  "key": "두더지잡기 %lld점 · 최고 %lld점 · %lld초 · 누르면 그만",
+  "en": "Whack-a-mole %1$lld · best %2$lld · %3$lld s · click to stop"
+ },
+ {
+  "key": "끝! %lld점, 최고 기록이에요!",
+  "en": "Done! %lld points, a new best!"
+ },
+ {
+  "key": "끝! %lld점이에요. 최고 기록은 %lld점",
+  "en": "Done! %1$lld points. Your best is %2$lld"
+ },
+ {
+  "key": "클릭 놀이",
+  "en": "Click games"
+ },
+ {
+  "key": "숨바꼭질: 친구가 창 뒤나 독 뒤에 숨어서 머리만 빼꼼 내밀어요. 보이는 부분을 누르면 찾은 거예요. 15초가 지나면 힌트를 주고, 세 판을 해요.",
+  "en": "Hide and seek: your friend hides behind a window or the Dock with just its head peeking out. Click the part you can see to find it. After 15 seconds you get a hint, and there are three rounds."
+ },
+ {
+  "key": "공놀이: 공을 끌어서 던지면 친구가 달려가 물어 와요. 한 번 누르면 공을 톡 차올려요. 바탕화면 러그 위에 공이 멈추면 골이에요.",
+  "en": "Ball play: drag the ball and throw it, and your friend runs to fetch it. A single click kicks the ball up. If the ball stops on the desktop rug, it's a goal."
+ },
+ {
+  "key": "두더지잡기: 30초 동안 독 위로 튀어나오는 친구를 눌러요. 풀밭 친구들이 켜져 있으면 그 친구들이 나와요. 최고 점수를 기억해요.",
+  "en": "Whack-a-mole: for 30 seconds, click the friends popping up above the Dock. With Meadow friends on, they are the ones that pop up. Your best score is kept."
+ },
+ {
+  "key": "게임 조각을 오른쪽 클릭해서 그만할 수 있어요. 마우스로만 놀아서 키보드를 받지 않아요.",
+  "en": "Right-click any game piece to stop. The games use only the mouse, so no keys are read."
+ },
+ {
+  "key": "클릭 놀이: 메뉴 막대의 데스크톱 친구 > 놀이에서 숨바꼭질·공놀이·두더지잡기를 골라요. 마우스로만 놀아요.",
+  "en": "Click games: choose Hide and seek, Ball play or Whack-a-mole from Desktop friends > Play in the menu bar. They use only the mouse."
+ },
+ {
+  "key": "트램펄린",
+  "en": "Trampoline"
+ },
+ {
+  "key": "공",
+  "en": "Ball"
+ },
+ {
+  "key": "쿠션",
+  "en": "Cushion"
+ },
+ {
+  "key": "미끄럼틀",
+  "en": "Slide"
+ },
+ {
+  "key": "치우기",
+  "en": "Put away"
+ },
+ {
+  "key": "장난감 모두 정리하기",
+  "en": "Put all toys away"
+ },
+ {
+  "key": "바탕화면에 장난감을 꺼내 두면 친구들이 놀러 와요",
+  "en": "Put toys out on the desktop and friends come over to play"
+ },
+ {
+  "key": "몇 개",
+  "en": "How many"
+ },
+ {
+  "key": "트램펄린, 공, 쿠션, 미끄럼틀을 바탕화면에 꺼내 둬요. 모두 합쳐 6개까지이고, 끌어서 옮기면 다시 켜도 그 자리에 있어요. 누르면 통통 튀거나 데굴데굴 굴러가고, 오른쪽 클릭으로 하나씩 치워요.",
+  "en": "Put a trampoline, ball, cushion or slide on the desktop, up to 6 in all. Drag one to move it and it stays there after a restart. Click one to make it bounce or roll, and right-click to put it away."
+ },
+ {
+  "key": "커서 친구와 복제 친구가 가끔 놀러 와서 트램펄린에서 뛰고, 공을 차고 쫓아가고, 쿠션에서 낮잠을 자고, 미끄럼틀을 타요. 복제 친구는 어울리기가 켜져 있을 때 놀러 와요.",
+  "en": "The cursor friend and copied friends come over now and then: they bounce on the trampoline, kick the ball and chase it, nap on the cushion and go down the slide. Copied friends come when Play together is on."
+ },
+ {
+  "key": "놀이 모드에서는 장난감 위에도 올라설 수 있어요. 트램펄린은 아주 높이 튕겨 주고, 쿠션은 폭신하게 받아 주고, 미끄럼틀은 아래로 태워 줘요.",
+  "en": "In Play mode you can stand on the toys too. The trampoline throws you up high, the cushion gives a soft landing and the slide carries you down."
+ },
+ {
+  "key": "장난감 상자: 설정에서 트램펄린·공·쿠션·미끄럼틀을 꺼내 두면 커서 친구와 복제 친구가 가끔 놀러 와요. 끌어서 옮기고 오른쪽 클릭으로 치워요. 놀이 모드에서는 트램펄린이 높이 튕겨 주고 미끄럼틀이 아래로 태워 줘요.",
+  "en": "Toy box: put a trampoline, ball, cushion or slide out from Settings and the cursor friend and copied friends come over to play now and then. Drag to move them, right-click to put them away. In Play mode the trampoline throws you up high and the slide carries you down."
+ },
+ {
+  "key": "장난감 상자",
+  "en": "Toy box"
+ },
+ {
+  "key": "맥과 같이 놀기",
+  "en": "Play along with your Mac"
+ },
+ {
+  "key": "맥에서 생긴 일에 친구가 같이 반응해요",
+  "en": "Your friend reacts to what happens on your Mac"
+ },
+ {
+  "key": "다운로드 배달",
+  "en": "Download delivery"
+ },
+ {
+  "key": "휴지통",
+  "en": "Trash"
+ },
+ {
+  "key": "바쁜 맥",
+  "en": "Busy Mac"
+ },
+ {
+  "key": "바쁜 맥: CPU가 20초 넘게 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창 옆에서 영차영차 밀어요. 커서를 움직이면 따라오고, 맥이 한가해지면 그만해요. 복제 친구도 땀을 흘려요.",
+  "en": "Busy Mac: when the CPU stays busy for more than 20 seconds, the cursor friend sweats and pushes hard against the side of the front window. Move the cursor and it follows again; it stops once the Mac calms down. Copied friends sweat too."
+ },
+ {
+  "key": "다운로드 배달: 다운로드 폴더에 파일이 다 받아지면 커서 친구가 그 파일 아이콘을 머리에 이고 화면 오른쪽 아래로 날라 줘요. 받는 중인 파일은 다 받아질 때까지 기다려요. 처음 켤 때 다운로드 폴더를 봐도 되는지 물어볼 수 있고, 허용하지 않으면 조용히 쉬어요.",
+  "en": "Download delivery: when a file finishes downloading into your Downloads folder, the cursor friend carries its icon on its head to the lower right of the screen. Files still downloading are waited for until they are done. The first time, macOS may ask whether it can look at the Downloads folder; if you say no, it quietly stays off."
+ },
+ {
+  "key": "휴지통: 휴지통을 비우면 커서 친구가 작은 쓰레기 봉투를 화면 밖으로 뻥 차 버려요. 휴지통 안은 보지 않고 몇 개 들었는지만 봐서 권한이 필요 없어요.",
+  "en": "Trash: when you empty the Trash, the cursor friend kicks a little trash bag off the screen. It never looks inside the Trash, only at how many items it holds, so no permission is needed."
+ },
+ {
+  "key": "바쁜 맥: CPU가 20초 넘게 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창 옆에서 영차영차 밀어요. 커서를 움직이면 따라오고, 맥이 한가해지면 그만해요.",
+  "en": "Busy Mac: when the CPU stays busy for more than 20 seconds, the cursor friend sweats and pushes hard against the side of the front window. Move the cursor and it follows again; it stops once the Mac calms down."
+ },
+ {
+  "key": "복제 친구도 같이 폴짝 뛰고 땀을 흘려요.",
+  "en": "Copied friends hop and sweat along too."
+ },
+ {
+  "key": "맥과 같이 놀기: 맥이 오래 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창을 영차영차 밀어요. 설정에서 켜요.",
+  "en": "Play along with your Mac: when the Mac stays busy, the cursor friend sweats and pushes hard on the front window. Turn it on in Settings."
+ },
+ {
+  "key": "맥과 같이 놀기: 다운로드가 끝나면 커서 친구가 파일을 날라 주고, 휴지통을 비우면 봉투를 뻥 차고, 맥이 오래 바쁘면 땀을 흘리며 맨 앞 창을 밀어요. 설정에서 하나씩 켜요.",
+  "en": "Play along with your Mac: the cursor friend carries finished downloads, kicks a bag away when you empty the Trash, and sweats while pushing the front window when the Mac stays busy. Turn each one on in Settings."
+ },
+ {
+  "key": "맥이 많이 바빠요. 저도 같이 밀어 볼게요!",
+  "en": "Your Mac is working hard. I'll help push!"
+ },
+ {
+  "key": "다운로드 왔어요: %@ 외 %lld개",
+  "en": "Download arrived: %@ and %lld more"
+ },
+ {
+  "key": "다운로드 왔어요: %@",
+  "en": "Download arrived: %@"
+ },
+ {
+  "key": "휴지통을 비웠어요. 뻥!",
+  "en": "Trash emptied. Boom!"
+ },
+ {
+  "key": "술래",
+  "en": "It"
+ },
+ {
+  "key": "술래잡기",
+  "en": "Tag"
+ },
+ {
+  "key": "기차놀이",
+  "en": "Train"
+ },
+ {
+  "key": "술래잡기는 복제 친구가 두 명 있어야 해요",
+  "en": "Tag needs two copied friends"
+ },
+ {
+  "key": "기차놀이는 커서 친구가 나와 있어야 해요",
+  "en": "Train needs the cursor friend to be out"
+ },
+ {
+  "key": "앗",
+  "en": "Oops"
+ },
+ {
+  "key": "열 번 연속 성공! 우리 최고예요",
+  "en": "Ten in a row! We're the best"
+ },
+ {
+  "key": "줄넘기",
+  "en": "Jump rope"
+ },
+ {
+  "key": "단체 춤",
+  "en": "Group dance"
+ },
+ {
+  "key": "친구들끼리 놀기도 해요. 술래잡기를 켜면 가끔 한 명이 술래가 되어 20초 동안 쫓아다니고, 기차놀이를 켜면 커서 친구 뒤에 줄줄이 붙어 따라가요. 둘 다 어울리기가 켜져 있어야 하고, 오른쪽 클릭 메뉴로 바로 시작할 수도 있어요.",
+  "en": "They play together too. With Tag on, now and then one becomes It and chases the others for 20 seconds. With Train on, they line up behind the cursor friend and follow it. Both need Play together on, and you can start them right away from the right-click menu."
+ },
+ {
+  "key": "단체 춤을 켜 두면 춤춰 줘·응원해 줘를 누르거나 집중을 잘 마쳤을 때처럼 축하할 일이 생기면 모든 친구가 10초 동안 같이 춤춰요.",
+  "en": "With Group dance on, every friend dances together for 10 seconds whenever there is something to celebrate, like Dance for me, Cheer me on or a focus session done well."
+ },
+ {
+  "key": "줄넘기를 켜 두면 세 명 이상일 때 가끔 양 끝 두 친구가 줄을 돌리고 나머지가 박자 맞춰 뛰어요. 열 번 연속 넘으면 다 같이 기뻐해요. 오른쪽 클릭 메뉴로 바로 시작할 수도 있어요.",
+  "en": "With Jump rope on and three or more friends out, now and then the two at the ends turn a rope and the rest jump it in time. Ten in a row and they all cheer. You can start it right away from the right-click menu."
+ },
+ {
+  "key": "친구들끼리: 복제 친구 카드에서 술래잡기·기차놀이를, 풀밭 친구들 카드에서 줄넘기를 켜면 가끔 친구들끼리 놀아요. 단체 춤을 켜 두면 축하할 일이 생길 때 다 같이 10초 동안 춤춰요.",
+  "en": "Playing together: turn on Tag and Train on the copied friend card, or Jump rope on the meadow friends card, and now and then they play with each other. With Group dance on, everyone dances together for 10 seconds when there is something to celebrate."
  }
 ]

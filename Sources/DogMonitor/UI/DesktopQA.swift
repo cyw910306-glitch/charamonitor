@@ -22,16 +22,26 @@ enum DesktopQA {
         WeatherWindow.shared.on = true   // the switch only: WeatherWindow.start() never runs here, so nothing is fetched
         RugStore.shared.prefs.on = true   // the switch only: DesktopRug.start() never runs here
         FolderStore.shared.prefs.on = true   // the switch only: FolderFriends.start() never runs here (no window list read)
+        var toys = ToyPrefs()   // the switch only: ToyBox.start() never runs here
+        toys.on = true
+        toys.add(.trampoline)
+        toys.add(.ball)
+        ToyStore.shared.prefs = toys
+        MotionStore.shared.macBusy = true   // the switch only: MacReactions.start(monitor:) never runs here
         // 복제 친구: three out (the card says 3/8); DesktopClones.start() runs only for its own render below.
         CloneStore.shared.prefs = ClonePrefs(on: true, clones: (0..<3).map { CloneSpot(character: nil, x: 0.2 + 0.1 * Double($0), y: 0.05) })
         try settings("on")
         // 꾸미기: another 색 테마, big text and every 자세히 open, then back to the defaults.
         let look = AppSettings.shared
         (look.palette, look.settingsTextLarge, look.expandDetails) = (.lavender, true, true)
+        AppDefaults.store.set(128, forKey: StarRules.bestKey)   // 별 줍기's 최고 기록 next to its buttons, at big text
         try settings("custom")
+        AppDefaults.store.removeObject(forKey: StarRules.bestKey)
         (look.palette, look.settingsTextLarge, look.expandDetails) = (.strawberry, false, false)
         RugStore.shared.prefs.on = false
         FolderStore.shared.prefs.on = false
+        ToyStore.shared.prefs = ToyPrefs()
+        MotionStore.shared.macBusy = false
 
         // 대롱대롱 친구: five on the main screen, one of them a framed photo when my-dog/jelly-avatar.jpg is there.
         HangingFriends.qaHidden = true

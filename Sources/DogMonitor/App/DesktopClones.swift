@@ -37,6 +37,9 @@ struct ClonePrefs: Codable, Equatable {
     var moves = true
     /// With each other, the cursor and the rug.
     var interacts = true
+    /// 친구들끼리 (with 어울리기): now and then a round of 술래잡기, or a 기차놀이 behind the 커서 친구.
+    var tag = false
+    var train = false
 
     static let maxCount = 8
 
@@ -57,6 +60,8 @@ extension ClonePrefs {
         clones = Array((try c.decodeIfPresent([CloneSpot].self, forKey: .clones) ?? d.clones).prefix(Self.maxCount))
         moves = try c.decodeIfPresent(Bool.self, forKey: .moves) ?? d.moves
         interacts = try c.decodeIfPresent(Bool.self, forKey: .interacts) ?? d.interacts
+        tag = try c.decodeIfPresent(Bool.self, forKey: .tag) ?? d.tag
+        train = try c.decodeIfPresent(Bool.self, forKey: .train) ?? d.train
     }
 }
 
@@ -116,6 +121,10 @@ final class DesktopClones {
         var think: TimeInterval = 0, sitUntil: TimeInterval = 0, touched: TimeInterval = 0
         var cursorRunAfter: TimeInterval = 0, bumpAfter: TimeInterval = 0, hoverAfter: TimeInterval = 0
         var sitOnArrival = false
+        /// Walking to a 장난감 to use it there.
+        var toy: (id: UUID, kind: ToyKind)?
+        /// Out playing (놀이 모드): hidden, left alone and untouchable until given back.
+        var lent = false
         var following: UUID?
         var frame = 0, clock: TimeInterval = 0
         var shown: NSImage?
@@ -125,8 +134,8 @@ final class DesktopClones {
         }
 
         var walking: Bool { walk.state == .walk || ground != groundTarget }
-        var busy: Bool { walking || walk.airborne || fling != nil || react != nil || held }
-        var idle: Bool { !busy && walk.state == .idle }
+        var busy: Bool { !lent && (walking || walk.airborne || fling != nil || react != nil || held) }
+        var idle: Bool { !busy && walk.state == .idle && !lent }
         var gait: BuddyGait {
             if fling != nil { return .run }
             if let r = react?.r { return frames[r.gait] != nil ? r.gait : r.gait == .special && frames[.eat] != nil ? .eat : .walk }
@@ -178,6 +187,30 @@ final class DesktopClones {
     /// QA renders only: poses show although 움직이기 is off (so nothing ticks).
     private var qaPosed = false
 
+    // 친구들끼리: at most one game at a time, run from `tick` (30 fps while one is on, nothing extra otherwise).
+    private struct TagRound { var it: UUID; var immune: UUID?; var runAt: TimeInterval; var until: TimeInterval }
+    private struct TrainRound { var cars: [UUID]; var gap: CGFloat; var path: TrainPath; var until: TimeInterval }
+    private var tagRound: TagRound?
+    private var trainRound: TrainRound?
+    private var dance: (start: TimeInterval, beat: Int)?
+    /// When one starts on its own next.
+    private var gameAt: TimeInterval = 0
+    private var playing: Bool { tagRound != nil || trainRound != nil || dance != nil }
+    /// "술래" over the 술래's head.
+    private lazy var itMark: CATextLayer = {
+        let m = CATextLayer()
+        m.string = L("술래")
+        m.fontSize = 10
+        m.foregroundColor = NSColor.white.cgColor
+        m.backgroundColor = NSColor.systemOrange.cgColor
+        m.cornerRadius = 4
+        m.alignmentMode = .center
+        m.bounds = CGRect(x: 0, y: 0, width: 30, height: 14)
+        m.zPosition = 1
+        m.actions = ["position": NSNull()]
+        return m
+    }()
+
     func start() {
         guard !started else { return }
         started = true
@@ -227,15 +260,59 @@ final class DesktopClones {
         return true
     }
 
+    /// 놀이 모드 takes that clone: hidden where it stands. Its drawing's rect on screen and who it is; nil when it is not out.
+    func lendForPlay(_ id: UUID) -> (rect: CGRect, character: String?)? {
+        guard let p = panel, p.isVisible, let c = clones.first(where: { $0.id == id }), !c.lent else { return nil }
+        c.lent = true
+        c.fling = nil; c.react = nil; c.held = false
+        c.walk = MeadowWalk(x: c.walk.x)
+        c.layer.isHidden = true
+        if pressed === c { pressed = nil; clicks = ClickRecognizer() }
+        let rect = CGRect(x: p.frame.minX + c.walk.x - c.size.width / 2, y: p.frame.minY + c.ground, width: c.size.width, height: c.size.height)
+        return (rect, store.prefs.clones.first { $0.id == id }?.character)
+    }
+
+    /// Back from 놀이 모드 with its feet at screen point `feet` (kept on the panel), with a ✦; the spot is saved.
+    func giveBackFromPlay(_ id: UUID, feet: CGPoint) {
+        guard let p = panel, let c = clones.first(where: { $0.id == id }), c.lent else { return }
+        c.lent = false
+        c.walk = MeadowWalk(x: min(max(feet.x - p.frame.minX, c.size.width / 2), max(c.size.width / 2, p.frame.width - c.size.width / 2)))
+        c.ground = min(max(0, feet.y - p.frame.minY), max(0, p.frame.height - c.size.height))
+        c.groundTarget = c.ground
+        c.touched = ProcessInfo.processInfo.systemUptime
+        c.layer.isHidden = false
+        layout(c)
+        pop("✦", .systemYellow, over: c)
+        save([c])
+        wake()
+    }
+
+    /// 맥과 같이 놀기 (MacReactions): everyone out shows `mark` over its head, and hops too when `hop` (if they move).
+    func macMark(_ mark: String, hop: Bool) {
+        guard panel?.isVisible == true else { return }
+        for c in clones where !c.lent && !c.held {
+            pop(mark, .systemYellow, over: c)
+            if hop, moves { c.walk.hop() }
+        }
+        if hop { wake() }
+    }
+
     /// The top middle of that clone on screen; nil once it is gone.
     private func head(_ id: UUID) -> CGPoint? {
         guard let p = panel, p.isVisible, let c = clones.first(where: { $0.id == id }) else { return nil }
         return CGPoint(x: p.frame.minX + c.walk.x, y: p.frame.minY + c.ground + c.walk.y + c.size.height)
     }
 
-    /// 춤춰 줘·응원해 줘: they hop one after another.
+    /// 춤춰 줘·응원해 줘: they hop one after another; with 단체 춤 they all dance to one beat for 10 s.
     private func cheer() {
         guard moves else { return }
+        if GroupDance.on {
+            endGames()
+            for c in clones where !c.lent && !c.held && c.fling == nil { stopForGame(c) }
+            dance = (ProcessInfo.processInfo.systemUptime, -1)
+            wake()
+            return
+        }
         for (i, c) in clones.enumerated() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.12 * Double(i)) { [weak self] in c.walk.hop(); self?.wake() }
         }
@@ -256,8 +333,11 @@ final class DesktopClones {
             sync(fresh: true)
         }
         if !moves {   // 움직이기 off or 동작 줄이기: back on their feet where they are, a throw or a hop in the air ends there
+            endGames()
             clones.forEach { $0.walk = MeadowWalk(x: $0.walk.x); $0.fling = nil; $0.react = nil; $0.napping = false; $0.groundTarget = $0.ground }
         }
+        if tagRound != nil, !(social && store.prefs.tag) { endGames() }
+        if trainRound != nil, !(social && store.prefs.train) { endGames() }
         clones.forEach(layout)
         wake()
     }
@@ -271,6 +351,8 @@ final class DesktopClones {
         clones.forEach { $0.layer.removeFromSuperlayer() }
         clones = []
         hits = [:]
+        dropGames()
+        gameAt = ProcessInfo.processInfo.systemUptime + GroupPlay.gap(random: .random(in: 0..<1)) / 2
         sync(fresh: false)
         if monitors.isEmpty {
             let mask: NSEvent.EventTypeMask = [.mouseMoved]
@@ -303,6 +385,7 @@ final class DesktopClones {
         timer?.invalidate(); timer = nil; interval = 0
         monitors.forEach(NSEvent.removeMonitor); monitors = []
         clones.forEach { $0.layer.removeFromSuperlayer() }
+        dropGames()
         clones = []; pressed = nil; built = nil; hovered = nil
         panel?.orderOut(nil)
     }
@@ -399,8 +482,9 @@ final class DesktopClones {
         let local = panel.map { CGPoint(x: mouse.x - $0.frame.minX, y: mouse.y - $0.frame.minY) }
         let over = panel.map { $0.frame.contains(mouse) } == true ? clone(at: mouse) : nil
         let h = panel?.frame.height ?? 0
+        games(now: now, dt: dt)
 
-        for c in clones where !c.held {
+        for c in clones where !c.held && !c.lent {
             if var f = c.fling {
                 f.step(dt: dt)
                 c.walk.x = f.position.x; c.ground = f.position.y; c.groundTarget = c.ground
@@ -409,7 +493,11 @@ final class DesktopClones {
                 continue
             }
             if let r = c.react, now - r.start >= r.r.duration { c.react = nil }
-            if moves, c.react == nil { think(c, now: now) }
+            if trainRound?.cars.contains(c.id) == true {   // a car: `games` moves it along the path, a hop still lands
+                if c.walk.airborne { c.walk.step(dt: dt) }
+                continue
+            }
+            if moves, c.react == nil, !playing { think(c, now: now) }
             c.walk.step(dt: dt)
             if c.ground != c.groundTarget, !c.walk.airborne {
                 let d = c.groundTarget - c.ground, most = c.walk.speed * CGFloat(dt)
@@ -418,10 +506,11 @@ final class DesktopClones {
             if c.walk.state == .walk { if c.walk.vx < -1 { c.facingLeft = true } else if c.walk.vx > 1 { c.facingLeft = false } }
             if !c.walking, c.running || c.walk.speed != MeadowWalk.speed { c.running = false; c.walk.speed = MeadowWalk.speed }
             if !c.walking, c.sitOnArrival, c.walk.state == .idle { c.sitOnArrival = false; c.walk.state = .sit; c.sitUntil = now + .random(in: 6...14) }
+            if !c.walking, let t = c.toy, c.walk.state == .idle { c.toy = nil; use(c, t, now: now) }
             if c.walk.state == .sit, now >= c.sitUntil { c.walk.state = .idle; c.napping = false }
         }
         separate(now: now)
-        if social, let local { meetCursor(local, over: over, now: now, height: h) }
+        if social, !playing, let local { meetCursor(local, over: over, now: now, height: h) }
         if let o = over, o.id != hovered, social, now >= o.hoverAfter {   // the cursor comes onto one: a heart and a little hop
             o.hoverAfter = now + 3
             o.touched = now
@@ -446,16 +535,25 @@ final class DesktopClones {
             layout(c, now: now)
             busy = busy || c.busy
         }
+        // A game behind every window ends: nobody would see it, and it would keep the frames at 30 fps.
+        let visible = panel?.occlusionState.contains(.visible) ?? false
+        if !visible, playing { endGames() }
+        busy = busy || playing
+        if let r = tagRound, let it = clones.first(where: { $0.id == r.it }) {
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            itMark.position = CGPoint(x: it.walk.x, y: it.ground + it.walk.y + it.size.height + 10)
+            CATransaction.commit()
+        }
         hover()
         // Walking, flying, reacting or held: 30 fps. Standing about: 2 a second (the bob is Core Animation's). Still, or
         // 움직이기 off, or behind every window: nothing until a change.
-        let visible = panel?.occlusionState.contains(.visible) ?? false
         if !moves && !busy && pressed == nil || !visible && !busy { timer?.invalidate(); timer = nil; interval = 0; return }
         schedule(busy || pressed != nil ? 1.0 / 30 : 0.5)
     }
 
-    /// Now and then an idle one picks something: a stroll, a sit, a nap (after a minute untouched), a hop, the rug, or
-    /// (어울리기) a friend nearby.
+    /// Now and then an idle one picks something: a stroll, a sit, a nap (after a minute untouched), a hop, the rug, a
+    /// 장난감 nearby, or (어울리기) a friend nearby.
     private func think(_ c: Clone, now: TimeInterval) {
         guard now >= c.think, c.idle || c.walk.state == .sit && c.napping, let size = panel?.frame.size else { return }
         c.think = now + .random(in: 3...8)
@@ -478,6 +576,11 @@ final class DesktopClones {
         if store.prefs.interacts, r < 0.15, RugStore.shared.prefs.on, let rug = rug(inset: c.size) {
             c.go(x: .random(in: rug.minX...rug.maxX), y: .random(in: rug.minY...rug.maxY), run: false)
             c.sitOnArrival = true
+        } else if store.prefs.interacts, r < 0.3, let o = panel?.frame.origin,
+                  let t = ToyBox.shared.pick(near: CGPoint(x: o.x + c.walk.x, y: o.y + c.ground), reach: 400) {
+            let s = t.kind.spot(in: t.frame, width: w, fromX: o.x + c.walk.x)
+            c.go(x: min(max(s.x - o.x, w / 2), size.width - w / 2), y: min(max(s.y - o.y, 0), size.height - c.size.height), run: false)
+            c.toy = (t.id, t.kind)
         } else if r < 0.5 {
             c.go(x: min(max(c.walk.x + .random(in: -220...220), w / 2), size.width - w / 2),
                  y: min(max(c.ground + .random(in: -40...40), 0), size.height - c.size.height), run: false)
@@ -491,6 +594,45 @@ final class DesktopClones {
             pop("z", .systemBlue, over: c)
         } else if r < 0.9 {
             c.walk.hop()
+        }
+    }
+
+    /// At a 장난감: bounces on the 트램펄린, kicks the 공 and runs after it, naps on the 쿠션, goes down the 미끄럼틀.
+    private func use(_ c: Clone, _ t: (id: UUID, kind: ToyKind), now: TimeInterval) {
+        guard let o = panel?.frame.origin, let size = panel?.frame.size, let f = ToyBox.shared.frame(of: t.id) else { return }
+        let s = t.kind.spot(in: f, width: c.size.width, fromX: o.x + c.walk.x)
+        guard hypot(s.x - o.x - c.walk.x, s.y - o.y - c.ground) < 16 else { return }   // stopped short (a bump): never mind
+        c.think = now + .random(in: 4...8)
+        let w = c.size.width
+        switch t.kind {
+        case .trampoline:
+            for k in 0..<3 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7 * Double(k)) { [weak self] in
+                    guard let self, !c.held, !c.lent, c.fling == nil, c.react == nil, !c.walking else { return }
+                    c.walk.state = .hop
+                    c.walk.vy = MeadowWalk.hopSpeed * 1.6   // the mat throws it higher than a hop
+                    ToyBox.shared.played(t.id, dir: 0)
+                    self.wake()
+                }
+            }
+            pop("♪", .systemPurple, over: c)
+        case .ball:
+            let dir: CGFloat = s.x < f.midX ? 1 : -1
+            c.facingLeft = dir < 0
+            ToyBox.shared.played(t.id, dir: dir)
+            c.go(x: min(max(c.walk.x + dir * ToyPhysics.rollDistance(320), w / 2), size.width - w / 2), y: c.ground, run: true)
+            pop("!", .systemOrange, over: c)
+        case .cushion:
+            c.walk.state = .sit
+            c.napping = true
+            c.sitUntil = now + .random(in: 12...30)
+            ToyBox.shared.played(t.id, dir: 0)
+            pop("z", .systemBlue, over: c)
+        case .slide:
+            let end = ToyKind.chute(f).bottom
+            c.facingLeft = false
+            c.go(x: min(max(end.x - o.x + w * 0.3, w / 2), size.width - w / 2), y: max(0, f.minY - o.y), run: true)
+            pop("♪", .systemYellow, over: c)
         }
     }
 
@@ -544,7 +686,8 @@ final class DesktopClones {
     /// (a hop and a "!"). 움직이기 off: none of it, they stay as put, side by side if so.
     private func separate(now: TimeInterval) {
         guard moves, let w = panel?.frame.width else { return }
-        var left = clones.filter { !$0.held && $0.fling == nil }.sorted { $0.ground < $1.ground }
+        let cars = Set(trainRound?.cars ?? [])   // a train keeps its own spacing
+        var left = clones.filter { !$0.held && !$0.lent && $0.fling == nil && !cars.contains($0.id) }.sorted { $0.ground < $1.ground }
         while let first = left.first {
             let shelf = left.prefix { $0.ground - first.ground < first.size.height * 0.6 }
             left.removeFirst(shelf.count)
@@ -583,9 +726,164 @@ final class DesktopClones {
             c.react = (r, now)
             c.walk = MeadowWalk(x: c.walk.x)   // stops where it is for it, as the 커서 친구 does
             c.groundTarget = c.ground
-            c.following = nil; c.sitOnArrival = false
+            c.following = nil; c.sitOnArrival = false; c.toy = nil
         }
         if let m = r.mark { pop(m.text, m.color, over: c) } else if !moves { pop("♥", .systemPink, over: c) }
+    }
+
+    // MARK: 친구들끼리
+
+    /// Who can join a game now: out, not held up and not flying.
+    private var players: [Clone] { clones.filter { !$0.lent && !$0.held && $0.fling == nil } }
+
+    /// Stops what it was doing (a walk, a nap, tagging along) to join in.
+    private func stopForGame(_ c: Clone) {
+        c.walk = MeadowWalk(x: c.walk.x)
+        c.groundTarget = c.ground
+        c.react = nil; c.napping = false; c.following = nil; c.sitOnArrival = false; c.running = false; c.toy = nil
+    }
+
+    /// 술래잡기 or 기차놀이 from a menu: says why when it cannot start.
+    private func startGame(tag: Bool) {
+        let now = ProcessInfo.processInfo.systemUptime
+        endGames()
+        if tag ? !startTag(now: now) : !startTrain(now: now) {
+            SpeechBubbleCenter.shared.say(text: tag ? L("술래잡기는 복제 친구가 두 명 있어야 해요") : L("기차놀이는 커서 친구가 나와 있어야 해요"),
+                                          source: .system)
+        }
+        wake()
+    }
+
+    @discardableResult
+    private func startTag(now: TimeInterval) -> Bool {
+        let ps = players
+        guard social, store.prefs.tag, ps.count >= 2, let it = ps.randomElement(), let layer = panel?.contentView?.layer else { return false }
+        ps.forEach(stopForGame)
+        tagRound = TagRound(it: it.id, immune: nil, runAt: now + CloneTag.count, until: now + CloneTag.round)
+        itMark.contentsScale = panel?.backingScaleFactor ?? 2
+        layer.addSublayer(itMark)
+        it.walk.hop()
+        pop("!", .systemOrange, over: it)
+        return true
+    }
+
+    @discardableResult
+    private func startTrain(now: TimeInterval) -> Bool {
+        let ps = players
+        guard social, store.prefs.train, !ps.isEmpty, let p = panel, let lead = CursorBuddy.shared.feet() else { return false }
+        let head = CGPoint(x: lead.x - p.frame.minX, y: lead.y - p.frame.minY)
+        let cars = ps.sorted { hypot($0.walk.x - head.x, $0.ground - head.y) < hypot($1.walk.x - head.x, $1.ground - head.y) }
+        cars.forEach(stopForGame)
+        let gap = (cars.map(\.size.width).max() ?? 40) + 4
+        // Laid out through where they stand now, so each first walks to its place in line instead of all to one point.
+        var path = TrainPath(maxLength: gap * CGFloat(cars.count + 1) + 200)
+        for c in cars.reversed() { path.add(CGPoint(x: c.walk.x, y: c.ground)) }
+        path.add(head)
+        trainRound = TrainRound(cars: cars.map(\.id), gap: gap, path: path, until: now + 25)
+        cars.forEach { pop("!", .systemOrange, over: $0) }
+        return true
+    }
+
+    /// Over: the 술래잡기 players sit down for a rest, the train cars stop where they are; spots are saved.
+    private func endGames() {
+        let now = ProcessInfo.processInfo.systemUptime
+        if tagRound != nil {
+            for c in players {
+                stopForGame(c)
+                c.walk.state = .sit
+                c.sitUntil = now + .random(in: 6...10)
+                c.think = c.sitUntil
+            }
+        }
+        if let r = trainRound {
+            for c in clones where r.cars.contains(c.id) && !c.lent {
+                stopForGame(c)
+                c.think = now + .random(in: 3...8)
+                pop("♥", .systemPink, over: c)
+            }
+        }
+        if tagRound != nil || trainRound != nil { save(clones.filter { !$0.lent }) }
+        dropGames()
+    }
+
+    /// Forgets any game at once (the clones are rebuilt or put away).
+    private func dropGames() {
+        tagRound = nil; trainRound = nil; dance = nil
+        itMark.removeFromSuperlayer()
+    }
+
+    /// One step of the game on, or (at the standing-about pace) now and then a new one.
+    private func games(now: TimeInterval, dt: TimeInterval) {
+        if tagRound != nil { stepTag(now: now) }
+        if trainRound != nil { stepTrain(now: now, dt: dt) }
+        if let d = dance {
+            guard let n = GroupDance.beat(now - d.start) else { dance = nil; return }
+            guard n != d.beat else { return }
+            dance = (d.start, n)
+            let m = GroupDance.move(n)
+            for c in players {
+                c.facingLeft = m.facingLeft
+                if m.hop { c.walk.hop() }
+                if m.note { pop("♪", .systemPurple, over: c) }
+            }
+        }
+        guard !playing, social, now >= gameAt, store.prefs.tag || store.prefs.train else { return }
+        gameAt = now + GroupPlay.gap(random: .random(in: 0..<1))
+        let tagFirst = store.prefs.tag && (!store.prefs.train || Bool.random())
+        if !(tagFirst ? startTag(now: now) : startTrain(now: now)) { _ = tagFirst ? startTrain(now: now) : startTag(now: now) }
+    }
+
+    private func stepTag(now: TimeInterval) {
+        guard var r = tagRound, let size = panel?.frame.size else { return }
+        let ps = players
+        guard now < r.until, ps.count >= 2, clones.contains(where: { $0.id == r.it && !$0.lent }) else { endGames(); return }
+        let points = ps.map { CGPoint(x: $0.walk.x, y: $0.ground) }
+        // Held up or flying, the 술래 is not in `ps`: the others just keep away meanwhile.
+        if let i = ps.firstIndex(where: { $0.id == r.it }), now >= r.runAt {
+            let it = ps[i], immune = ps.firstIndex { $0.id == r.immune }
+            if let j = CloneTag.tagged(it: i, at: points, reach: it.size.width * 0.8 + 14, immune: immune) {
+                let caught = ps[j]   // counts to one where it stands, then runs
+                r = TagRound(it: caught.id, immune: it.id, runAt: now + CloneTag.count, until: r.until)
+                stopForGame(caught)
+                caught.walk.hop()
+                pop("!", .systemOrange, over: caught)
+            } else if now >= it.think, let q = CloneTag.quarry(it: i, at: points, immune: immune) {
+                it.think = now + 0.3
+                it.go(x: ps[q].walk.x, y: ps[q].ground, run: true)
+                it.walk.speed = 150   // a bit quicker than the ones running away, so a round has tags
+            }
+        }
+        tagRound = r
+        guard let it = clones.first(where: { $0.id == r.it }) else { return }
+        for c in ps where c !== it && now >= c.think && hypot(c.walk.x - it.walk.x, c.ground - it.ground) < 260 {
+            c.think = now + .random(in: 0.5...0.9)
+            let x = CloneTag.flee(me: c.walk.x, it: it.walk.x, lo: c.size.width / 2, hi: size.width - c.size.width / 2, run: .random(in: 120...220))
+            c.go(x: x, y: min(max(c.ground + .random(in: -30...30), 0), max(0, size.height - c.size.height)), run: true)
+            c.walk.speed = 120
+        }
+    }
+
+    private func stepTrain(now: TimeInterval, dt: TimeInterval) {
+        guard var r = trainRound, let p = panel else { return }
+        guard now < r.until, let lead = CursorBuddy.shared.feet() else { endGames(); return }
+        let s = p.frame.size
+        r.path.add(CGPoint(x: min(max(lead.x - p.frame.minX, 0), s.width), y: min(max(lead.y - p.frame.minY, 0), s.height)))
+        trainRound = r
+        for (k, id) in r.cars.enumerated() {
+            guard let c = clones.first(where: { $0.id == id }), !c.lent, !c.held, c.fling == nil, c.react == nil,
+                  let to = r.path.point(behind: r.gap * CGFloat(k + 1)) else { continue }
+            let tx = min(max(to.x, c.size.width / 2), max(c.size.width / 2, s.width - c.size.width / 2))
+            let ty = min(max(to.y, 0), max(0, s.height - c.size.height))
+            let dx = tx - c.walk.x, dy = ty - c.ground, d = hypot(dx, dy), most = 320 * CGFloat(dt)
+            if d > 0.5 {
+                let f = min(1, most / d)
+                c.walk.x += dx * f; c.ground += dy * f
+                if abs(dx) > 0.5 { c.facingLeft = dx < 0 }
+            }
+            c.walk.target = c.walk.x; c.groundTarget = c.ground
+            c.walk.state = d > 1 ? .walk : .idle
+            c.running = d > 40
+        }
     }
 
     private func layout(_ c: Clone) { layout(c, now: ProcessInfo.processInfo.systemUptime) }
@@ -638,7 +936,7 @@ final class DesktopClones {
     private func clone(at p: CGPoint) -> Clone? {
         guard let origin = panel?.frame.origin else { return nil }
         return clones.last { c in
-            guard let image = c.shown else { return false }
+            guard !c.lent, let image = c.shown else { return false }
             let id = ObjectIdentifier(image)
             if hits[id] == nil { hits[id] = AlphaHit(image) }
             var lx = p.x - origin.x - (c.walk.x - c.size.width / 2)
@@ -710,7 +1008,12 @@ final class DesktopClones {
         guard let v = panel?.contentView else { return }
         let id = clone(at: p)?.id
         var own: [NSMenuItem] = []
-        if let id { own.append(FriendMenu.item(L("이 친구 치우기")) { [weak self] in self?.remove([id]) }) }
+        if let id {
+            own.append(FriendMenu.item(L("이 친구 치우기")) { [weak self] in self?.remove([id]) })
+            own.append(FriendMenu.submenu(L("놀이"), StarGame.menuItems(.clone(id))))
+        }
+        if social, store.prefs.tag { own.append(FriendMenu.item(L("술래잡기")) { [weak self] in self?.startGame(tag: true) }) }
+        if social, store.prefs.train { own.append(FriendMenu.item(L("기차놀이")) { [weak self] in self?.startGame(tag: false) }) }
         own += [
             FriendMenu.item(L("모두 치우기")) { CloneStore.shared.prefs.clones = [] },
             FriendMenu.item(L("움직이기"), on: store.prefs.moves) { CloneStore.shared.prefs.moves.toggle() },
@@ -728,7 +1031,7 @@ final class DesktopClones {
                 c.held = true
                 c.fling = nil; c.react = nil
                 c.walk = MeadowWalk(x: c.walk.x)
-                c.napping = false; c.following = nil; c.sitOnArrival = false
+                c.napping = false; c.following = nil; c.sitOnArrival = false; c.toy = nil
             case .dragged(let p):
                 c.walk.x = min(max(p.x + grab.dx - panel.frame.minX, c.size.width / 2), panel.frame.width - c.size.width / 2)
                 c.ground = min(max(0, p.y + grab.dy - panel.frame.minY), panel.frame.height - c.size.height)

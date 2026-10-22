@@ -206,6 +206,12 @@ final class CursorBuddy {
     /// 집중 중: a low pink desk with an open book in front of it (our own shapes over its standing pose).
     private let desk = CAShapeLayer(), book = CAShapeLayer()
     private var butterfly: NSWindow?
+    /// What it carries or kicks (맥과 같이 놀기), in a window of its own; `propped` it showed this tick.
+    private var prop: NSWindow?
+    private let propLayer = CALayer()
+    private var propped = false
+    private var carried: CGImage?
+    private var sweatAt: TimeInterval = 0
     private var timer: Timer?
     private var interval: TimeInterval = 0
     private var bag: Set<AnyCancellable> = []
@@ -226,6 +232,14 @@ final class CursorBuddy {
         case fly(Fling)
         /// Clicked: reacting in place since `start`.
         case react(Reaction, start: TimeInterval)
+        /// Off to a 장난감 (장난감 상자), then using it since `since`.
+        case toy(UUID, ToyKind, since: TimeInterval?)
+        /// 다운로드 배달: running to `to` (its feet there) with the file's icon over its head, then putting it down.
+        case deliver(to: CGPoint, dropped: TimeInterval?)
+        /// 휴지통: kicking a bundle that lies at `from` (its lower left, screen points) off the screen, `dir` +1 right.
+        case kick(start: TimeInterval, dir: CGFloat, from: CGPoint)
+        /// 바쁜 맥: pushing this window's side (nil: no room by it, it sweats in place), last looked at `checked`.
+        case push(CGRect?, checked: TimeInterval)
     }
 
     private var look: SpriteLook?
@@ -253,7 +267,9 @@ final class CursorBuddy {
     private var stillSince: TimeInterval = 0   // the cursor last moved
     private var landed: TimeInterval = -1      // a drop landed: squashed for a moment
     private var dizzyAfter: TimeInterval = 0, clingAfter: TimeInterval = 0, perchAfter: TimeInterval = 0
-    private var playAt: TimeInterval = 0, storyAt: TimeInterval = 0
+    private var playAt: TimeInterval = 0, storyAt: TimeInterval = 0, toyAt: TimeInterval = 0
+    /// The 트램펄린 bounce it is on (the mat dips once each); -1 before the toy is first played.
+    private var toyBeat = -1
     private var idle: (read: TimeInterval, seconds: TimeInterval) = (-10, 0)
     private var reperch = false   // dropping off a window that moved
     /// A left press on the drawing started then (꾸욱 wind-up), until it is dragged or let go.
@@ -263,7 +279,11 @@ final class CursorBuddy {
     /// The drawing's rect on screen at the last layout (bubbles over its head point here).
     private var drawn = CGRect.zero
 
-    private var enabled: Bool { MotionStore.shared.cursorBuddy && !asleep }
+    /// Lent to 놀이 모드: out of sight until the session gives it back.
+    private var playing = false
+    /// Where it comes back from a session: its feet there, then it walks after the cursor.
+    private var resumeAt: CGPoint?
+    private var enabled: Bool { MotionStore.shared.cursorBuddy && !asleep && !playing }
     private static let napAfter: TimeInterval = 90
     /// QA renders only (DesktopQA): the window stays see-through (alpha 0), so nothing shows on the developer's screen.
     static var qaHidden = false
@@ -298,11 +318,73 @@ final class CursorBuddy {
         return CGPoint(x: drawn.midX, y: drawn.maxY)
     }
 
-    /// 춤춰 줘·응원해 줘·a focus well done: its special moment in place, with a heart.
+    /// 다운로드 배달 (MacReactions): off to the lower right of its screen with `icon` over its head, then back to the
+    /// cursor. False while it is off, held, thrown or on another errand.
+    // ponytail: the Dock's Downloads stack has no position without Accessibility; the lower right stands in for it
+    func deliver(_ icon: NSImage) -> Bool {
+        guard errandFree, let b = screen?.visibleFrame else { return false }
+        var r = CGRect(x: 0, y: 0, width: 64, height: 64)
+        carried = icon.cgImage(forProposedRect: &r, context: nil, hints: nil)
+        endStory()
+        mode = .deliver(to: CGPoint(x: b.maxX - size.width / 2 - 6, y: b.minY), dropped: nil)
+        parked = false
+        schedule(1.0 / 30)
+        return true
+    }
+
+    /// 휴지통 (MacReactions): kicks a little bundle off the screen, toward the nearer side. False as for `deliver`.
+    func kickTrash() -> Bool {
+        guard errandFree, let b = screen?.visibleFrame else { return false }
+        endStory()
+        let dir: CGFloat = drawn.midX >= b.midX ? 1 : -1
+        facingLeft = dir < 0
+        mode = .kick(start: ProcessInfo.processInfo.systemUptime, dir: dir,
+                     from: CGPoint(x: dir > 0 ? drawn.maxX : drawn.minX - bundleSide, y: drawn.minY))
+        parked = true
+        schedule(1.0 / 30)
+        return true
+    }
+
+    /// Out and on its feet (or sitting, pushing, watching the butterfly): free for an errand.
+    private var errandFree: Bool {
+        guard timer != nil, window?.isVisible == true, drawn.width > 0 else { return false }
+        switch mode { case .follow, .act, .react, .perch, .push, .story: return true; default: return false }
+    }
+
+    private var screen: NSScreen? {
+        NSScreen.screens.first { NSMouseInRect(CGPoint(x: drawn.midX, y: drawn.midY), $0.frame, false) } ?? NSScreen.main
+    }
+
+    private var bundleSide: CGFloat { 7 * max(1.5, pixelSize) * 1.4 }
+
+    /// Its feet (the drawing's bottom middle) on screen while it is out, for the 복제 친구 기차놀이; nil while off.
+    func feet() -> CGPoint? {
+        guard timer != nil, window?.isVisible == true, drawn.width > 0 else { return nil }
+        return CGPoint(x: drawn.midX, y: drawn.minY)
+    }
+
+    /// 놀이 모드 takes it: hidden, and where its drawing was (nil while it is off: the session starts at the cursor).
+    func lendForPlay() -> CGRect? {
+        let was = timer != nil && window?.isVisible == true ? drawn : nil
+        playing = true
+        refresh()
+        return was
+    }
+
+    /// The session is over: back out with its feet at `feet` if it is on, following the cursor again from there.
+    func giveBackFromPlay(feet: CGPoint) {
+        guard playing else { return }
+        playing = false
+        resumeAt = feet
+        refresh()
+        resumeAt = nil
+    }
+
+    /// 춤춰 줘·응원해 줘·a focus well done: its special moment in place, with a heart (10 s with 단체 춤).
     private func celebrate() {
         guard timer != nil else { return }
         switch mode { case .follow, .act, .perch, .react: break; default: return }   // not mid-swing or mid-fall
-        cheer(until: ProcessInfo.processInfo.systemUptime + 2.5)
+        cheer(until: ProcessInfo.processInfo.systemUptime + (GroupDance.on ? GroupDance.length : 2.5))   // 단체 춤: as long as the others
         schedule(1.0 / 30)
     }
 
@@ -325,7 +407,8 @@ final class CursorBuddy {
         if window == nil { makeWindow() }
         if timer == nil {
             let t = ProcessInfo.processInfo.systemUptime
-            position = BuddyMath.target(cursor: NSEvent.mouseLocation, size: size)
+            position = resumeAt.map { CGPoint(x: $0.x - size.width / 2, y: $0.y) } ?? BuddyMath.target(cursor: NSEvent.mouseLocation, size: size)
+            resumeAt = nil
             lastTick = t
             stillSince = t
             playAt = t + BuddyMath.playGap(working: false, random: .random(in: 0...1))
@@ -344,6 +427,8 @@ final class CursorBuddy {
         scale = 1
         window?.orderOut(nil)
         butterfly?.orderOut(nil)
+        prop?.orderOut(nil)
+        carried = nil
     }
 
     private func makeWindow() {
@@ -429,6 +514,7 @@ final class CursorBuddy {
         let elapsed = max(0, now - lastTick)
         let dt = min(0.1, elapsed)
         lastTick = now
+        propped = false
         let cursor = NSEvent.mouseLocation
         motion.feed(cursor, at: now)
         let cursorMoved = cursor != lastCursor
@@ -438,8 +524,8 @@ final class CursorBuddy {
 
         // Grows with the cursor's speed (not while hanging), eases back when it slows.
         let top = still ? 1 : MotionStore.shared.buddyBoost.maxScale
-        var hanging = false   // or flying: no growing
-        switch mode { case .hang, .fly: hanging = true; default: break }
+        var hanging = false   // or flying, or on an errand: no growing
+        switch mode { case .hang, .fly, .deliver, .kick, .push: hanging = true; default: break }
         if pressAt != nil, NSEvent.pressedMouseButtons & 1 == 0 { pressAt = nil }   // a release we never saw
         scale = BuddyMath.ease(scale, to: hanging ? 1 : BuddyMath.boost(speed: motion.speed, max: top), dt: dt)
         if abs(scale - 1) < 0.005 { scale = 1 }
@@ -450,8 +536,11 @@ final class CursorBuddy {
         let bounds = NSScreen.screens.first { NSMouseInRect(cursor, $0.frame, false) }?.visibleFrame ?? NSScreen.main?.visibleFrame ?? .zero
         // The cursor went to another display: start the chase from that display's edge, not across the gap.
         let slack = bounds.insetBy(dx: -(box.width + BuddyMath.gap), dy: -(box.height + BuddyMath.gap))
-        // A thrown one keeps its own walls (the screen it was thrown on).
-        if case .fly = mode {} else if !slack.contains(position) { position = BuddyMath.clamp(position, size: box, in: bounds) }
+        // A thrown one keeps its own walls (the screen it was thrown on), one on an errand its own screen.
+        switch mode {
+        case .fly, .deliver, .kick: break
+        default: if !slack.contains(position) { position = BuddyMath.clamp(position, size: box, in: bounds) }
+        }
 
         // Shaken hard while just following: dizzy for a moment.
         if motion.isShaking, MotionStore.shared.buddyBoost != .off, now >= dizzyAfter, case .follow = mode {
@@ -494,8 +583,9 @@ final class CursorBuddy {
                 let napping = idleSeconds(now) >= Self.napAfter
                 gait = has(.eat) && BuddyMath.eats(batterySampler.sample()) ? .eat : napping ? .sleep : .stand
                 if FocusCenter.shared.session?.paused == false { gait = .study }   // 집중 중: at its desk, no naps
-                // 꾸욱 held down is not idle
-                if parked, play, !still, !napping, pressAt == nil, now - stillSince >= 3 { idleLife(now: now, box: box, bounds: bounds) }
+                // 바쁜 맥: off to push the front window once the cursor rests. 꾸욱 held down is not idle.
+                if parked, MacReactions.shared.busy, !napping, pressAt == nil, now - stillSince >= 5 { mode = .push(frontWindow(), checked: now) }
+                else if parked, play, !still, !napping, pressAt == nil, now - stillSince >= 3 { idleLife(now: now, box: box, bounds: bounds) }
             }
 
         case .act(let g, let until):
@@ -601,6 +691,55 @@ final class CursorBuddy {
             if !still { turn = (-f.spin, 1, 1); pivot = 0.5 }
             if f.isSettled { land(f, now: now) } else { mode = .fly(f) }
 
+        case .toy(let id, let kind, let since):
+            if cursorMoved || !play { mode = .follow; parked = false; break }
+            guard let f = ToyBox.shared.frame(of: id) else { mode = .follow; parked = false; break }
+            let feet = kind.spot(in: f, width: box.width, fromX: position.x + box.width / 2)
+            let spot = CGPoint(x: feet.x - box.width / 2, y: feet.y)
+            guard let since else {   // on the way there
+                let next = BuddyMath.step(from: position, to: spot, dt: dt)
+                face(next.x - position.x)
+                moving = next != position
+                position = next
+                origin = position
+                gait = .walk
+                if !moving { mode = .toy(id, kind, since: now); toyBeat = -1 }
+                break
+            }
+            let t = now - since
+            busy = true
+            origin = position
+            switch kind {
+            case .trampoline:   // three bounces, the mat dipping under each
+                let beat = Int(t / 0.6), u = CGFloat(t / 0.6) - CGFloat(beat)
+                if beat != toyBeat, beat < 3 { toyBeat = beat; ToyBox.shared.played(id, dir: 0) }
+                origin.y += 4 * u * (1 - u) * box.height * 1.4
+                gait = .walk
+                if t >= 1.8 { mode = .follow; parked = true; origin = position }
+            case .ball:   // kicks it, then runs after it
+                if toyBeat < 0 { toyBeat = 0; ToyBox.shared.played(id, dir: feet.x < f.midX ? 1 : -1) }
+                let next = BuddyMath.step(from: position, to: spot, dt: dt, speed: BuddyMath.runSpeed)
+                face(next.x - position.x)
+                moving = next != position
+                position = next
+                origin = position
+                gait = moving ? .run : .stand
+                if t >= 3 { mode = .follow; parked = true }
+            case .cushion:   // a nap until the cursor moves
+                if toyBeat < 0 { toyBeat = 0; ToyBox.shared.played(id, dir: 0) }
+                busy = false
+                gait = .sleep
+                if t >= 30 { mode = .follow; parked = true }
+            case .slide:   // down the chute
+                let c = ToyKind.chute(f), u = CGFloat(min(1, t / 0.8))
+                position = CGPoint(x: c.top.x + (c.bottom.x - c.top.x) * u - box.width / 2, y: c.top.y + (c.bottom.y - c.top.y) * u)
+                origin = position
+                facingLeft = false
+                moving = true
+                gait = .walk
+                if t >= 0.8 { position.y = f.minY; mode = .follow; parked = true }
+            }
+
         case .react(let r, let start):
             busy = true
             gait = has(r.gait) ? r.gait : r.gait == .special && has(.eat) ? .eat : .walk
@@ -611,6 +750,62 @@ final class CursorBuddy {
             turn = (p.angle, p.sx, p.sy)
             if r == .spin { pivot = 0.5 }   // spins about its middle
             if now - start >= r.duration { mode = .follow; parked = true }
+
+        case .deliver(let to, let dropped):
+            busy = true
+            let spot = CGPoint(x: to.x - box.width / 2, y: to.y)
+            let side = max(16, min(32, box.height * 0.6))
+            if let d = dropped {
+                // Puts it down in front of its feet: the icon sinks, shrinks and fades.
+                let u = CGFloat(min(1, (now - d) / 0.5)), s = side * (1 - 0.6 * u)
+                let x = position.x + box.width / 2 + (facingLeft ? -1 : 1) * box.width * 0.6 * u
+                gait = has(.special) ? .special : .stand
+                showProp(carried, in: CGRect(x: x - s / 2, y: position.y + (box.height + 1) * (1 - u), width: s, height: s), alpha: Float(1 - u), smooth: true)
+                if u >= 1 { mode = .follow; parked = false; carried = nil; hearts() }
+            } else {
+                let next = BuddyMath.step(from: position, to: spot, dt: dt, speed: BuddyMath.speed * 2)
+                face(next.x - position.x)
+                moving = next != position
+                position = next
+                gait = .run
+                showProp(carried, in: CGRect(x: position.x + box.width / 2 - side / 2, y: position.y + box.height + 1, width: side, height: side), smooth: true)
+                if next == spot { mode = .deliver(to: to, dropped: now) }
+            }
+            origin = position
+
+        case .kick(let start, let dir, let from):
+            busy = true
+            let t = now - start, kicked = t >= TrashKick.windup
+            origin = BuddyMath.clamp(position, size: box, in: bounds)
+            gait = kicked ? (has(.special) ? .special : .run) : .stand
+            if !still {   // leans back to wind up, then swings through
+                let follow = CGFloat(max(0, 1 - (t - TrashKick.windup) / 0.3))
+                turn = (kicked ? -dir * 0.18 * follow : dir * 0.12, 1, 1)
+            }
+            if !kicked || !still {
+                let b = TrashKick.bundle(t, dir: dir), side = bundleSide
+                showProp(Self.bundle, in: CGRect(x: from.x + b.offset.x, y: from.y + b.offset.y, width: side, height: side),
+                         angle: still ? 0 : b.angle, smooth: false)
+            }
+            if t >= TrashKick.duration || still && kicked { cheer(until: now + 1.2) }
+
+        case .push(let win, let checked):
+            if cursorMoved || !MacReactions.shared.busy { mode = .follow; parked = false; break }
+            if idleSeconds(now) >= Self.napAfter { gait = .sleep; break }   // nobody around: naps, no window checks
+            if now - checked >= 5 { mode = .push(frontWindow(), checked: now) }   // moved, closed or another came in front
+            let spot = win.flatMap { MacPush.spot(window: $0, size: box, in: bounds) }
+            let next = BuddyMath.step(from: position, to: spot?.origin ?? position, dt: dt, speed: BuddyMath.speed * 2)
+            face(next.x - position.x)
+            moving = next != position
+            position = next
+            origin = BuddyMath.clamp(position, size: box, in: bounds)
+            gait = moving ? .run : spot == nil ? .stand : .walk
+            guard !moving else { break }
+            if let dir = spot?.dir {   // leaning into the window with its legs going, trembling a little
+                facingLeft = dir < 0
+                if !still { turn = BuddyMath.lean(k: 0.6, dir: dir); origin.x += CGFloat(sin(now * 45)) }
+            }
+            if now >= sweatAt { sweatAt = now + 1.6; mark("💦", .systemBlue) }
         }
 
         // 꾸욱: held down, it squashes and trembles a little, gathering itself for the hop or the throw.
@@ -636,6 +831,7 @@ final class CursorBuddy {
         }
 
         layout(origin: origin, box: box, turn: turn, pivot: pivot, lines: moving && !hanging ? k : 0, rise: rise)
+        if !propped, prop?.isVisible == true { prop?.orderOut(nil) }   // the errand ended or was cut short
         if desk.isHidden != (gait != .study) { desk.isHidden = gait != .study; book.isHidden = desk.isHidden }
         takeClicks(cursor: cursor, origin: origin, box: box, rise: rise)
 
@@ -724,7 +920,7 @@ final class CursorBuddy {
 
     // MARK: Idle life
 
-    /// Resting by a quiet cursor: now and then a butterfly, a seat on the front window, or a bit of play.
+    /// Resting by a quiet cursor: now and then a butterfly, a seat on the front window, a 장난감 nearby, or a bit of play.
     private func idleLife(now: TimeInterval, box: CGSize, bounds: CGRect) {
         if now >= storyAt, now - stillSince >= 5 {
             storyAt = now + .random(in: 180...360)
@@ -740,6 +936,11 @@ final class CursorBuddy {
                 mode = .perch(win, checked: now)
                 return
             }
+        }
+        if now - stillSince >= 8, now >= toyAt, let t = ToyBox.shared.pick(near: CGPoint(x: position.x + box.width / 2, y: position.y), reach: 360) {
+            toyAt = now + .random(in: 60...150)
+            mode = .toy(t.id, t.kind, since: nil)
+            return
         }
         guard now >= playAt else { return }
         playAt = now + BuddyMath.playGap(working: AssistantSettings.shared.workHours.working(Date()), random: .random(in: 0...1))
@@ -809,6 +1010,7 @@ final class CursorBuddy {
             FriendMenu.item(L("퀵물어보기")) { [weak self] in self?.quickAsk() },
             FriendMenu.item(L("AI 비서랑 이야기하기")) { [weak self] in self?.openAssistant?() },
             FriendMenu.item(L("복제해서 바탕화면에 두기")) { [weak self] in self?.cloneOut() },
+            FriendMenu.submenu(L("놀이"), StarGame.menuItems(.buddy)),
             FriendMenu.item(L("커서 친구 쉬게 하기")) { MotionStore.shared.cursorBuddy = false },
         ], with: e, for: view)
     }
@@ -896,7 +1098,7 @@ final class CursorBuddy {
 
     /// Clicked: reaction `r` in place with its mark. Dizzy and pout also say so (at most every 30 s).
     private func react(_ r: Reaction, now: TimeInterval) {
-        switch mode { case .hang, .drop, .fly: return; default: break }   // a click mid-air changes nothing
+        switch mode { case .hang, .drop, .fly, .deliver, .kick: return; default: break }   // a click mid-air or mid-errand changes nothing
         endStory()
         if r == .pout { facingLeft.toggle() }   // turns its back on you
         mode = .react(r, start: now)
@@ -939,7 +1141,7 @@ final class CursorBuddy {
 
     private func showButterfly(_ p: CGPoint?, t: TimeInterval) {
         guard let p else { butterfly?.orderOut(nil); return }
-        let w = butterfly ?? makeButterfly()
+        let w = butterfly ?? makeFloat()
         butterfly = w
         let s = CGSize(width: 5 * pixelSize, height: 4 * pixelSize)
         w.setFrame(CGRect(x: p.x - s.width / 2, y: p.y - s.height / 2, width: s.width, height: s.height), display: false)
@@ -950,7 +1152,35 @@ final class CursorBuddy {
         if !w.isVisible { w.orderFrontRegardless() }
     }
 
-    private func makeButterfly() -> NSWindow {
+    // MARK: Props
+
+    /// What it carries or kicks: `image` in `rect` (screen points), turned by `angle` about its middle.
+    private func showProp(_ image: CGImage?, in rect: CGRect, angle: CGFloat = 0, alpha: Float = 1, smooth: Bool) {
+        propped = true
+        let w = prop ?? makeFloat()
+        if prop == nil { w.contentView?.layer?.addSublayer(propLayer); prop = w }
+        let pad = ceil(rect.width * 0.25)   // room for the turn
+        w.setFrame(rect.insetBy(dx: -pad, dy: -pad), display: false)
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        propLayer.contents = image
+        propLayer.contentsScale = w.backingScaleFactor
+        propLayer.magnificationFilter = smooth ? .linear : .nearest
+        propLayer.opacity = alpha
+        propLayer.setAffineTransform(.identity)
+        propLayer.frame = CGRect(x: pad, y: pad, width: rect.width, height: rect.height)
+        propLayer.setAffineTransform(CGAffineTransform(rotationAngle: angle))
+        CATransaction.commit()
+        if !w.isVisible { w.orderFrontRegardless() }
+    }
+
+    /// 휴지통's bundle: a tied bag, 7 x 7 dots drawn in code.
+    private static let bundle = dots(["..t.t..", "...t...", ".bbbbb.", "bbbhbbb", "bbhbbbb", "bbbbbbb", ".bbbbb."],
+                                     ["b": CGColor(red: 0.4, green: 0.44, blue: 0.5, alpha: 1), "h": CGColor(red: 0.66, green: 0.7, blue: 0.76, alpha: 1),
+                                      "t": CGColor(red: 0.95, green: 0.76, blue: 0.3, alpha: 1)])
+
+    /// A borderless see-through panel that never takes the mouse, for the butterfly and the props.
+    private func makeFloat() -> NSWindow {
         let w = NSPanel(contentRect: .zero, styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: true)
         w.hidesOnDeactivate = false
         w.isOpaque = false
@@ -969,13 +1199,20 @@ final class CursorBuddy {
     }
 
     /// Our butterfly, wings open and closed: 5 x 4 dots drawn in code.
-    private static let wings: [CGImage] = [["ww.ww", "wwbww", ".wbw.", ".w.w."], [".w.w.", ".wbw.", "..b..", "....."]].compactMap { rows in
-        guard let ctx = CGContext(data: nil, width: 5, height: 4, bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceRGB(),
+    private static let wings: [CGImage] = [["ww.ww", "wwbww", ".wbw.", ".w.w."], [".w.w.", ".wbw.", "..b..", "....."]].compactMap {
+        dots($0, ["w": CGColor(red: 0.98, green: 0.62, blue: 0.25, alpha: 1), "b": CGColor(red: 0.25, green: 0.2, blue: 0.2, alpha: 1)])
+    }
+
+    /// Rows of dots, top row first, each character a colour from `colors` ("." and unknown ones see-through).
+    private static func dots(_ rows: [String], _ colors: [Character: CGColor]) -> CGImage? {
+        let w = rows.map(\.count).max() ?? 0, h = rows.count
+        guard let ctx = CGContext(data: nil, width: w, height: h, bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceRGB(),
                                   bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
         for (r, row) in rows.enumerated() {
-            for (c, ch) in row.enumerated() where ch != "." {
-                ctx.setFillColor(ch == "w" ? CGColor(red: 0.98, green: 0.62, blue: 0.25, alpha: 1) : CGColor(red: 0.25, green: 0.2, blue: 0.2, alpha: 1))
-                ctx.fill(CGRect(x: c, y: 3 - r, width: 1, height: 1))   // the context's y goes up
+            for (c, ch) in row.enumerated() {
+                guard let color = colors[ch] else { continue }
+                ctx.setFillColor(color)
+                ctx.fill(CGRect(x: c, y: h - 1 - r, width: 1, height: 1))   // the context's y goes up
             }
         }
         return ctx.makeImage()

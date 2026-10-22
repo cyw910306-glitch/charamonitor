@@ -18,6 +18,10 @@ final class MotionStore: ObservableObject {
     @Published var quickAskMotion: QuickAskMotion { didSet { defaults.set(quickAskMotion.rawValue, forKey: "quickAskMotion") } }
     @Published var quickAskSound: Bool { didSet { defaults.set(quickAskSound, forKey: "quickAskSound") } }
     @Published var quickAskShowAvatar: Bool { didSet { defaults.set(quickAskShowAvatar, forKey: "quickAskShowAvatar") } }
+    /// 맥과 같이 놀기 (MacReactions): 다운로드 배달, 휴지통 and 바쁜 맥, each off by default.
+    @Published var macDownloads: Bool { didSet { defaults.set(macDownloads, forKey: "macDownloads") } }
+    @Published var macTrash: Bool { didSet { defaults.set(macTrash, forKey: "macTrash") } }
+    @Published var macBusy: Bool { didSet { defaults.set(macBusy, forKey: "macBusy") } }
 
     init(defaults: UserDefaults = AppDefaults.store) {
         self.defaults = defaults
@@ -31,6 +35,9 @@ final class MotionStore: ObservableObject {
         quickAskMotion = defaults.string(forKey: "quickAskMotion").flatMap(QuickAskMotion.init) ?? .bouncy
         quickAskSound = defaults.bool(forKey: "quickAskSound")
         quickAskShowAvatar = defaults.object(forKey: "quickAskShowAvatar") as? Bool ?? true
+        macDownloads = defaults.bool(forKey: "macDownloads")
+        macTrash = defaults.bool(forKey: "macTrash")
+        macBusy = defaults.bool(forKey: "macBusy")
     }
 }
 

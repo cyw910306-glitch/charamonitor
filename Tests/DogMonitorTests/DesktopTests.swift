@@ -84,7 +84,7 @@ final class DesktopTests: XCTestCase {
         defer { FriendMenu.openSettings = nil }
         let a = FriendMenu.build([FriendMenu.item("own") { ran = true }])
         XCTAssertEqual(a.items.map(\.title), ["own", "", L("데스크톱 친구"), L("설정 열기")])
-        XCTAssertEqual(a.items[2].submenu?.items.count, DesktopFriends.toggles.count + 2)   // toggles, separator, 집중
+        XCTAssertEqual(a.items[2].submenu?.items.count, DesktopFriends.toggles.count + 3)   // toggles, separator, 집중, 놀이 ▸
         a.performActionForItem(at: 0)
         a.performActionForItem(at: 3)
         XCTAssertFalse(ran)   // runs once the menu has let go

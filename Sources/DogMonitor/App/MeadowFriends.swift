@@ -11,6 +11,8 @@ struct MeadowPrefs: Codable, Equatable {
     var slots = MeadowPrefs.defaultSlots
     /// Above other windows; off = on the desktop, behind windows.
     var onTop = false
+    /// 친구들끼리: now and then two turn a rope and the others jump it (3 or more out).
+    var jumpRope = false
 
     static let maxCount = 6
     static let defaultSlots: [HangSlot] = (0..<maxCount).map {
@@ -27,6 +29,7 @@ extension MeadowPrefs {
         count = try c.decodeIfPresent(Int.self, forKey: .count) ?? d.count
         slots = (try c.decodeIfPresent([HangSlot].self, forKey: .slots) ?? d.slots).map(\.clamped)
         onTop = try c.decodeIfPresent(Bool.self, forKey: .onTop) ?? d.onTop
+        jumpRope = try c.decodeIfPresent(Bool.self, forKey: .jumpRope) ?? d.jumpRope
     }
 }
 
@@ -273,6 +276,32 @@ final class MeadowFriends {
     /// Everyday lines at most this often, so clicks in a row are not a wall of bubbles (dizzy and pout always talk).
     private var talkAfter: TimeInterval = 0
 
+    // 친구들끼리: 줄넘기 or 단체 춤, run from `tick` (30 fps while one is on, nothing extra otherwise).
+    private struct RopeRound {
+        var holders: [Friend], jumpers: [Friend]
+        /// Where each one stands for it, in `holders + jumpers` order.
+        var spots: [CGFloat]
+        /// Nil while they are still getting into place.
+        var rope: JumpRope?
+        var gatherUntil: TimeInterval, until: TimeInterval
+        var streak = RopeStreak()
+        var hopped = -1, judged = -1
+    }
+    private var ropeRound: RopeRound?
+    private var dance: (start: TimeInterval, beat: Int)?
+    /// When 줄넘기 starts on its own next.
+    private var gameAt: TimeInterval = 0
+    private var playing: Bool { ropeRound != nil || dance != nil }
+    private lazy var rope: CAShapeLayer = {
+        let l = CAShapeLayer()
+        l.fillColor = nil
+        l.strokeColor = NSColor(red: 0.95, green: 0.5, blue: 0.35, alpha: 1).cgColor
+        l.lineWidth = 2.5
+        l.lineCap = .round
+        l.actions = ["path": NSNull(), "zPosition": NSNull()]
+        return l
+    }()
+
     private struct Built: Equatable {
         var slots: [HangSlot]
         var look: SpriteLook
@@ -310,7 +339,7 @@ final class MeadowFriends {
             .store(in: &bag)
         DesktopKit.celebrate
             .receive(on: RunLoop.main)
-            .sink { [weak self] _ in self?.cheer() }
+            .sink { [weak self] _ in self?.cheer(party: true) }
             .store(in: &bag)
         refresh()
     }
@@ -323,8 +352,16 @@ final class MeadowFriends {
         return CGPoint(x: p.frame.minX + f.walk.x, y: p.frame.minY + Self.floor + f.walk.y + lift + f.size.height)
     }
 
-    /// 춤춰 줘·응원해 줘 (and 다 같이 뛰기 from the menu): they hop one after another; hearts only under 동작 줄이기.
-    private func cheer() {
+    /// 춤춰 줘·응원해 줘 (and 다 같이 뛰기 from the menu): they hop one after another; hearts only under 동작 줄이기. With
+    /// 단체 춤 a celebration has them all dance to one beat for 10 s instead.
+    private func cheer(party: Bool = false) {
+        if party, GroupDance.on, !still, !friends.isEmpty {
+            endGames()
+            friends.filter { !$0.held }.forEach { $0.react = nil; $0.walk = MeadowWalk(x: $0.walk.x) }
+            dance = (ProcessInfo.processInfo.systemUptime, -1)
+            wake()
+            return
+        }
         for (i, f) in friends.enumerated() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.12 * Double(i)) { [weak self] in
                 guard let self, !f.held else { return }
@@ -344,6 +381,7 @@ final class MeadowFriends {
         let level = prefs.onTop ? .floating : NSWindow.Level(Int(CGWindowLevelForKey(.desktopIconWindow)) + 1)
         if now != built { build(now, screen: screen) }
         if panel?.level != level { panel?.level = level }
+        if ropeRound != nil, !prefs.jumpRope { endGames() }
         wake()
     }
 
@@ -356,6 +394,8 @@ final class MeadowFriends {
         p.orderFrontRegardless()
         friends.forEach { $0.layer.removeFromSuperlayer() }
         hits = [:]
+        dropGames()
+        gameAt = ProcessInfo.processInfo.systemUptime + GroupPlay.gap(random: .random(in: 0..<1)) / 2
         let target = screen.frame.height / 8   // about an eighth of the screen tall
         friends = now.slots.enumerated().map { makeFriend($0, $1, width: p.frame.width, target: target, scale: screen.backingScaleFactor) }
         if monitors.isEmpty {
@@ -376,6 +416,7 @@ final class MeadowFriends {
         timer?.invalidate(); timer = nil; interval = 0
         monitors.forEach(NSEvent.removeMonitor); monitors = []
         friends.forEach { $0.layer.removeFromSuperlayer() }
+        dropGames()
         friends = []; pressed = nil; built = nil
         panel?.orderOut(nil)
     }
@@ -467,10 +508,11 @@ final class MeadowFriends {
         let dt = min(0.1, max(0, now - lastTick))
         lastTick = now
         handle(clicks.poll(at: now))
+        games(now: now)
         var busy = false, waiting = false
         for f in friends where !f.held {
             if let r = f.react, now - r.start >= r.r.duration { f.react = nil }
-            if !still, f.react == nil { think(f, now: now) }
+            if !still, f.react == nil, !playing { think(f, now: now) }
             f.walk.step(dt: dt)
             if f.walk.state == .sit, now >= f.sitUntil { f.walk.state = .idle }
             if f.walk.vx < -1 { f.facingLeft = true } else if f.walk.vx > 1 { f.facingLeft = false }
@@ -495,8 +537,10 @@ final class MeadowFriends {
         hover()
         // Walking, falling or reacting: 30 fps. Standing about: 2 a second, the pace of its idle frames and of thinking
         // what to do next (the bounce is Core Animation's), and the pace that ends a still pose or a sit under 동작 줄이기.
-        // Still with nothing to end, or behind every window: nothing until a change.
+        // Still with nothing to end, or behind every window: nothing until a change. A game nobody sees ends.
         let visible = panel?.occlusionState.contains(.visible) ?? false
+        if !visible, playing { endGames() }
+        busy = busy || playing
         if still && !busy && !waiting && pressed == nil || !visible && !busy { timer?.invalidate(); timer = nil; interval = 0; return }
         schedule(busy || pressed != nil ? 1.0 / 30 : 0.5)
     }
@@ -515,6 +559,111 @@ final class MeadowFriends {
         } else if r < stroll + 0.3 {
             f.walk.hop()
         }
+    }
+
+    // MARK: 친구들끼리
+
+    /// 줄넘기: the two at the ends walk out to hold the rope, the ones between line up in the middle to jump it.
+    @discardableResult
+    private func startRope(now: TimeInterval) -> Bool {
+        guard !still, store.prefs.jumpRope, friends.count >= 3, !friends.contains(where: \.held), let w = panel?.frame.width,
+              let layer = panel?.contentView?.layer else { return false }
+        let line = friends.sorted { $0.walk.x < $1.walk.x }
+        let holders = [line[0], line[line.count - 1]], jumpers = Array(line.dropFirst().dropLast())
+        let size = friends.map(\.size.width).max() ?? 40, step = size + 10
+        let half = CGFloat(jumpers.count - 1) / 2 * step + size + 20   // the middle to a holder
+        let mid = min(max(line[line.count / 2].walk.x, half + size / 2), w - half - size / 2)
+        let spots = [mid - half, mid + half] + jumpers.indices.map { mid + (CGFloat($0) - CGFloat(jumpers.count - 1) / 2) * step }
+        for (f, x) in zip(holders + jumpers, spots) {
+            f.react = nil
+            f.walk = MeadowWalk(x: f.walk.x)
+            f.walk.walk(to: x)
+        }
+        ropeRound = RopeRound(holders: holders, jumpers: jumpers, spots: spots, gatherUntil: now + 8, until: now + 8 + JumpRope.round)
+        rope.contentsScale = panel?.backingScaleFactor ?? 2
+        rope.path = nil
+        layer.addSublayer(rope)
+        return true
+    }
+
+    /// Over: everyone back to wandering a little later.
+    private func endGames() {
+        let now = ProcessInfo.processInfo.systemUptime
+        if ropeRound != nil { friends.forEach { $0.think = now + .random(in: 3...8) } }
+        dropGames()
+    }
+
+    private func dropGames() {
+        ropeRound = nil; dance = nil
+        rope.removeFromSuperlayer()
+    }
+
+    /// One step of the game on, or (at the standing-about pace) now and then a new one.
+    private func games(now: TimeInterval) {
+        if still, playing { endGames() }   // 동작 줄이기 came on
+        if ropeRound != nil { stepRope(now: now) }
+        if let d = dance {
+            guard let n = GroupDance.beat(now - d.start) else { dance = nil; return }
+            guard n != d.beat else { return }
+            dance = (d.start, n)
+            let m = GroupDance.move(n)
+            for f in friends where !f.held && f.react == nil {
+                f.facingLeft = m.facingLeft
+                if m.hop { f.walk.hop() }
+                if m.note { pop("♪", .systemPurple, over: f) }
+            }
+        }
+        guard !playing, !still, store.prefs.jumpRope, now >= gameAt else { return }
+        gameAt = now + GroupPlay.gap(random: .random(in: 0..<1))
+        startRope(now: now)
+    }
+
+    private func stepRope(now: TimeInterval) {
+        guard var r = ropeRound else { return }
+        let all = r.holders + r.jumpers
+        guard now < r.until, !r.holders.contains(where: \.held), all.allSatisfy({ f in friends.contains { $0 === f } }) else { endGames(); return }
+        defer { ropeRound = r; drawRope(r, now: now) }
+        guard let turning = r.rope else {
+            let there = zip(all, r.spots).allSatisfy { f, x in f.walk.state != .walk && abs(f.walk.x - x) < 3 || f.react != nil }
+            guard there || now >= r.gatherUntil else { return }
+            r.rope = JumpRope(start: now)
+            r.until = now + JumpRope.round
+            r.holders[0].facingLeft = false; r.holders[1].facingLeft = true
+            return
+        }
+        let next = turning.passes(at: now)
+        if next > r.hopped, now >= turning.hop(next) {   // hop for the coming pass; now and then one is late
+            r.hopped = next
+            for f in r.jumpers where !f.held && f.react == nil && Double.random(in: 0..<1) >= 0.06 { f.walk.hop() }
+        }
+        guard next - 1 > r.judged else { return }   // a pass is just over: everyone up in the air cleared it
+        r.judged = next - 1
+        let missed = r.jumpers.filter { !$0.held && !$0.walk.airborne }
+        missed.forEach { pop(L("앗"), .systemOrange, over: $0) }
+        guard r.streak.pass(cleared: missed.isEmpty) else { return }
+        all.forEach { pop("♥", .systemPink, over: $0) }
+        r.holders.forEach { $0.walk.hop() }
+        if let j = r.jumpers.first, let i = friends.firstIndex(where: { $0 === j }) {
+            SpeechBubbleCenter.shared.say(text: Self.persona(character: j.character).dress(L("열 번 연속 성공! 우리 최고예요")), source: .system,
+                                          aloud: false, anchor: { [weak self] in self?.head(i) })
+        }
+    }
+
+    /// The rope from hand to hand: over their heads, round behind them, under their feet and back in front.
+    private func drawRope(_ r: RopeRound, now: TimeInterval) {
+        guard let turning = r.rope, let a = r.holders.first, let b = r.holders.last else { rope.path = nil; return }
+        let tall = r.jumpers.map(\.size.height).max() ?? a.size.height
+        let hand = Self.floor + a.size.height * 0.45
+        let s = turning.swing(at: now)
+        let middle = s > 0 ? s * (Self.floor + tall * 1.3 - hand) : s * (hand - 2)   // the middle's height over the hands
+        let p = CGMutablePath()
+        p.move(to: CGPoint(x: a.walk.x + a.size.width * 0.3, y: hand))
+        p.addQuadCurve(to: CGPoint(x: b.walk.x - b.size.width * 0.3, y: hand), control: CGPoint(x: (a.walk.x + b.walk.x) / 2, y: hand + 2 * middle))
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        rope.path = p
+        rope.zPosition = turning.behind(at: now) ? -1 : 1
+        CATransaction.commit()
     }
 
     private func separate() {
@@ -696,6 +845,9 @@ final class MeadowFriends {
         let f = friend(at: p)
         var own: [NSMenuItem] = []
         if let f { own.append(FriendMenu.item(L("퀵물어보기")) { [weak self] in self?.quickAsk(f) }) }
+        if store.prefs.jumpRope, friends.count >= 3, !still {
+            own.append(FriendMenu.item(L("줄넘기")) { [weak self] in self?.endGames(); self?.startRope(now: ProcessInfo.processInfo.systemUptime); self?.wake() })
+        }
         own += [
             FriendMenu.item(L("다 같이 뛰기")) { [weak self] in self?.cheer() },
             FriendMenu.item(L("다른 창보다 위에 두기"), on: store.prefs.onTop) { MeadowStore.shared.prefs.onTop.toggle() },
