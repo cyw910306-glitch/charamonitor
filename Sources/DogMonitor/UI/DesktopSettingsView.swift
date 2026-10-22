@@ -37,6 +37,7 @@ struct DesktopSettingsView: View {
     @ObservedObject var hanging: HangingStore = .shared
     @ObservedObject var meadow: MeadowStore = .shared
     @ObservedObject var folder: FolderStore = .shared
+    @ObservedObject var folderIcons: FolderIcons = .shared
     @ObservedObject var rug: RugStore = .shared
     @ObservedObject var clones: CloneStore = .shared
     @ObservedObject var focus: FocusCenter = .shared
@@ -366,6 +367,9 @@ struct DesktopSettingsView: View {
         Panel(tint: tint(.folder, on: folder.prefs.on)) {
             header("📁", "폴더 친구", .folder, isOn: $folder.prefs.on)
             tagline("Finder 창 위에 올라앉아 놀아요")
+            #if !MAS
+            folderIconRow
+            #endif
             if folder.prefs.on {
                 VStack(alignment: .leading, spacing: 7) {
                     row("크기") {
@@ -382,6 +386,35 @@ struct DesktopSettingsView: View {
             }
         }
     }
+
+    #if !MAS
+    /// 폴더 아이콘: the character on the folders' own icons; works with the 폴더 친구 switch off too.
+    private var folderIconRow: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            row("폴더 아이콘") {
+                HStack(spacing: 6) {
+                    Button("바탕화면 폴더에 입히기") { FolderIcons.shared.dress(FolderIcons.desktopFolders()) }
+                    Button("폴더 고르기…") {
+                        let p = NSOpenPanel()
+                        p.canChooseDirectories = true; p.canChooseFiles = false; p.allowsMultipleSelection = true
+                        p.prompt = L("입히기")
+                        NSApp.activate(ignoringOtherApps: true)
+                        if p.runModal() == .OK { FolderIcons.shared.dress(p.urls) }
+                    }
+                    if !folderIcons.dressed.isEmpty { Button("원래대로") { FolderIcons.shared.undress() } }
+                }
+                .controlSize(.small)
+            }
+            if folderIcons.dressed.isEmpty {
+                details("폴더 아이콘 위에 지금 고른 캐릭터를 올려 둬요. 바탕화면, Finder 창, 독 어디서 봐도 보여요. 캐릭터를 바꾸면 폴더 위 캐릭터도 같이 바뀌어요.",
+                        "직접 바꿔 둔 폴더 아이콘은 건드리지 않아요.")
+            } else {
+                details("폴더 \(folderIcons.dressed.count)개에 캐릭터가 올라가 있어요. 원래대로를 누르면 원래 폴더 아이콘으로 돌아가요.",
+                        "직접 바꿔 둔 폴더 아이콘은 건드리지 않아요.")
+            }
+        }
+    }
+    #endif
 
     // MARK: 바탕화면 러그
 

@@ -27,6 +27,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         WeatherWindow.shared.start()     // the same for the 날씨 창문; its weather GETs only while it shows
         MeadowFriends.shared.start()     // the same for 풀밭 친구들
         FolderFriends.shared.start()     // the same for the 폴더 친구 (no timer while no Finder window is out)
+        #if !MAS
+        FolderIcons.shared.start()       // folders wearing the character follow a new character
+        #endif
         DesktopRug.shared.start()        // the same for the 바탕화면 러그
         DesktopClones.shared.start()     // the same for the 복제 친구 (over the rug)
         // 우리 동네 바람 follows the 날씨 창문's city while the window is on (no fetch of its own), else 산들.

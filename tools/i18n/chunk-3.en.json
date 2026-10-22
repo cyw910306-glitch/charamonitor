@@ -2900,8 +2900,8 @@
   "en": "Click it and it reacts and talks. Option-click for Quick Ask; right-click for its menu. It only looks at where windows are and how big, never their names or what is inside, so it needs no permission."
  },
  {
-  "key": "폴더 친구: 열린 Finder 창 위쪽 끝에 올라앉아 놀고, 창을 옮기면 같이 가요. 창을 닫으면 폴짝 내려와요. 창마다 한 명씩 둘 수도 있어요.",
-  "en": "Folder Friend: it sits and plays on the top edge of an open Finder window and comes along when you move the window. Close the window and it hops down. You can have one on every window too."
+  "key": "폴더 친구: 열린 Finder 창 위쪽 끝에 올라앉아 놀고, 창을 옮기면 같이 가요. 창을 닫으면 폴짝 내려와요. 창마다 한 명씩 둘 수도 있어요. 폴더 아이콘 위에 캐릭터를 입혀 둘 수도 있어요.",
+  "en": "Folder Friend: it sits and plays on the top edge of an open Finder window and comes along when you move the window. Close the window and it hops down. You can have one on every window too. You can also dress folder icons with the character."
  },
  {
   "key": "폴더 위가 제일 명당이에요",
@@ -2918,5 +2918,37 @@
  {
   "key": "이 폴더 안엔 뭐가 있어요?",
   "en": "What's inside this folder?"
+ },
+ {
+  "key": "폴더 아이콘",
+  "en": "Folder icons"
+ },
+ {
+  "key": "바탕화면 폴더에 입히기",
+  "en": "Dress desktop folders"
+ },
+ {
+  "key": "폴더 고르기…",
+  "en": "Choose folders…"
+ },
+ {
+  "key": "입히기",
+  "en": "Dress"
+ },
+ {
+  "key": "원래대로",
+  "en": "Restore"
+ },
+ {
+  "key": "폴더 아이콘 위에 지금 고른 캐릭터를 올려 둬요. 바탕화면, Finder 창, 독 어디서 봐도 보여요. 캐릭터를 바꾸면 폴더 위 캐릭터도 같이 바뀌어요.",
+  "en": "Puts the character you chose on top of folder icons. It shows on the desktop, in Finder windows and in the Dock. Change the character and the one on your folders changes too."
+ },
+ {
+  "key": "직접 바꿔 둔 폴더 아이콘은 건드리지 않아요.",
+  "en": "Folder icons you set yourself are left alone."
+ },
+ {
+  "key": "폴더 %lld개에 캐릭터가 올라가 있어요. 원래대로를 누르면 원래 폴더 아이콘으로 돌아가요.",
+  "en": "The character is on %lld folders. Restore brings back the usual folder icons."
  }
 ]
