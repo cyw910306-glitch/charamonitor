@@ -118,3 +118,100 @@ final class PlayModeTests: XCTestCase {
         XCTAssertFalse(PlayMode.idleOver(now: 500, lastKey: 0, game: true), "a game keeps it going")
     }
 }
+
+/// 놀이 기술: 하늘날기 (↑ 꾹), 높이 점프 (↑↑), 대시 (←← / →→), and the quick-pair detector behind the last two.
+final class PlayMovesTests: XCTestCase {
+    private let walls: ClosedRange<CGFloat> = 0...1440
+    private let dt = 1.0 / 60
+    private var ground: PlayPlatform { PlayPlatform(minX: 0, maxX: 1440, y: 80, solid: true) }
+
+    private func step(_ b: inout PlayBody, _ input: PlayInput, ceiling: CGFloat = .greatestFiniteMagnitude) {
+        PlayPhysics.step(&b, input: input, platforms: [ground], walls: walls, width: 40, dt: dt, ceiling: ceiling)
+    }
+
+    /// The highest the feet get after a ground jump, pressing `second` (once) on frame `at`.
+    private func apex(second: PlayInput?, at: Int) -> CGFloat {
+        var b = PlayBody(x: 300, y: 80, onGround: true)
+        step(&b, PlayInput(jump: true))
+        var top = b.y
+        for f in 1..<240 {
+            step(&b, f == at ? (second ?? PlayInput()) : PlayInput())
+            top = max(top, b.y)
+        }
+        return top - 80
+    }
+
+    func testDoubleTapIsTheSameKeyQuicklyAndThenStartsOver() {
+        var t = DoubleTap()
+        XCTAssertFalse(t.press(126, at: 0))
+        XCTAssertTrue(t.press(126, at: 0.2))
+        XCTAssertFalse(t.press(126, at: 0.3), "a third press starts a new pair")
+        XCTAssertFalse(t.press(123, at: 0.4), "another key")
+        XCTAssertFalse(t.press(124, at: 0.45))
+        XCTAssertFalse(t.press(124, at: 0.8), "too slow")
+    }
+
+    func testHoldingUpFliesUntilTheFuelIsGoneThenFallsAndRefills() {
+        var b = PlayBody(x: 300, y: 80, onGround: true)
+        step(&b, PlayInput(jump: true, up: true))
+        for _ in 0..<20 { step(&b, PlayInput(up: true)) }   // past the 0.2 s hold
+        XCTAssertTrue(b.flying)
+        XCTAssertLessThan(b.fuel, PlayPhysics.fuelMax)
+        for _ in 0..<30 { step(&b, PlayInput(up: true)) }
+        XCTAssertEqual(b.vy, PlayPhysics.flyRise, accuracy: 5, "eases to the rise speed, no gravity")
+        var frames = 50
+        while b.flying, frames < 400 { step(&b, PlayInput(up: true)); frames += 1 }
+        XCTAssertEqual(b.fuel, 0)
+        XCTAssertEqual(frames, 12 + 90, accuracy: 2, "1.5 s of flight after the 0.2 s hold")
+        XCTAssertFalse(b.onGround)
+        for _ in 0..<300 { step(&b, PlayInput(up: true)) }
+        XCTAssertTrue(b.onGround, "out of fuel it falls")
+        var ground = PlayBody(x: 300, y: 80, onGround: true, fuel: 0)
+        for _ in 0..<118 { step(&ground, PlayInput()) }
+        XCTAssertLessThan(ground.fuel, PlayPhysics.fuelMax)
+        for _ in 0..<3 { step(&ground, PlayInput()) }
+        XCTAssertEqual(ground.fuel, PlayPhysics.fuelMax, "full again in 2 s")
+    }
+
+    func testLettingGoOfUpFallsAtOnce() {
+        var b = PlayBody(x: 300, y: 80, onGround: true)
+        step(&b, PlayInput(jump: true, up: true))
+        for _ in 0..<40 { step(&b, PlayInput(up: true)) }
+        XCTAssertTrue(b.flying)
+        step(&b, PlayInput())
+        XCTAssertFalse(b.flying)
+        XCTAssertEqual(b.upHeld, 0)
+    }
+
+    func testFlyingStopsAtTheCeiling() {
+        var b = PlayBody(x: 300, y: 80, onGround: true)
+        step(&b, PlayInput(jump: true, up: true), ceiling: 300)
+        for _ in 0..<80 { step(&b, PlayInput(up: true), ceiling: 300) }
+        XCTAssertEqual(b.y, 300)
+        XCTAssertLessThanOrEqual(b.vy, PlayPhysics.flyRise)
+    }
+
+    func testHighJumpTopsOutAboutOnePointEightJumps() {
+        let plain = apex(second: nil, at: 0)
+        let high = apex(second: PlayInput(highJump: true), at: 6)
+        XCTAssertEqual(high / plain, PlayPhysics.highJumpScale, accuracy: PlayPhysics.highJumpScale * 0.05)
+        let double = apex(second: PlayInput(jump: true), at: 6)
+        XCTAssertLessThan(double, high, "the old 2단 점프 stays lower")
+    }
+
+    func testHighJumpOnTheGroundIsAPlainJump() {
+        var b = PlayBody(x: 300, y: 80, onGround: true)
+        step(&b, PlayInput(highJump: true))
+        XCTAssertEqual(b.vy, PlayPhysics.jump - PlayPhysics.gravity * CGFloat(dt), accuracy: 0.01)
+        XCTAssertEqual(b.jumps, 1)
+    }
+
+    func testDashBeatsShiftAndCrouchingStopsIt() {
+        var b = PlayBody(x: 100, y: 80, onGround: true)
+        for _ in 0..<60 { step(&b, PlayInput(right: true, run: true, dash: true)) }
+        XCTAssertEqual(b.x, 100 + PlayPhysics.dash, accuracy: 1)
+        XCTAssertGreaterThan(PlayPhysics.dash, PlayPhysics.run)
+        step(&b, PlayInput(right: true, down: true, dash: true))
+        XCTAssertEqual(b.vx, 0)
+    }
+}

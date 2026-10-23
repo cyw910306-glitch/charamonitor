@@ -1692,10 +1692,6 @@
   "en": "Very hot"
  },
  {
-  "key": "무료 비영리 오픈 소스",
-  "en": "Free, non-commercial open source"
- },
- {
   "key": "커서 친구",
   "en": "Cursor Buddy"
  },
@@ -2616,10 +2612,6 @@
   "en": "Source code (GitHub)"
  },
  {
-  "key": "캐릭모니터 %@ · 무료 비영리 오픈 소스",
-  "en": "CharaMonitor %@ · Free, non-commercial open source"
- },
- {
   "key": "설정하지 못했어요: %@",
   "en": "Couldn't set it up: %@"
  },
@@ -3004,16 +2996,8 @@
   "en": "It can stand on the bottom of the screen (above the Dock), on the top edges of open windows and on the desktop rug. Jumping from below goes up through a window edge. Clicking elsewhere or switching apps ends it too."
  },
  {
-  "key": "둘이 놀기를 켜면 색이 다른 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요.",
-  "en": "With Two players on, a second friend in another color joins in. A and D walk, W jumps, S crouches."
- },
- {
   "key": "커서 친구나 복제 친구를 오른쪽 클릭해서 놀이 모드를 고를 수도 있어요. 키보드는 놀이하는 동안에만 받고, 창은 위치와 크기만 봐서 권한이 필요 없어요.",
   "en": "You can also right-click the cursor friend or a copied friend and choose Play mode. Keys are only read while playing, and only window positions and sizes are looked at, so no permission is needed."
- },
- {
-  "key": "놀이 모드: 커서 친구나 복제 친구를 오른쪽 클릭해서 고르면 키보드로 움직여요. ← →로 걷고 Shift로 뛰고, ↑로 점프(공중에서 한 번 더 누르면 2단 점프), ↓로 웅크려요. 창 위쪽 끝에 올라서고 ↓+↑로 내려가요. Esc로 끝내요.",
-  "en": "Play mode: right-click the cursor friend or a copied friend and choose it to move it with the keyboard. ← → walk, Shift runs, ↑ jumps (once more in the air for a double jump), ↓ crouches. It stands on window edges, and ↓ + ↑ drops down. Esc ends it."
  },
  {
   "key": "별 줍기",
@@ -3590,5 +3574,577 @@
  {
   "key": "광고 · 후원 친구",
   "en": "Ad · Sponsor Friend"
+ },
+ {
+  "key": "내 상태",
+  "en": "My status"
+ },
+ {
+  "key": "가상 오피스 열기",
+  "en": "Open virtual office"
+ },
+ {
+  "key": "가상 오피스",
+  "en": "Virtual office"
+ },
+ {
+  "key": "나",
+  "en": "Me"
+ },
+ {
+  "key": "눌러서 내 상태 바꾸기",
+  "en": "Click to change my status"
+ },
+ {
+  "key": "오프라인",
+  "en": "Offline"
+ },
+ {
+  "key": "AI 팀원",
+  "en": "AI teammate"
+ },
+ {
+  "key": "가상 오피스 켜기",
+  "en": "Turn on virtual office"
+ },
+ {
+  "key": "놀이 기술",
+  "en": "Play moves"
+ },
+ {
+  "key": "옷 입히기",
+  "en": "Wardrobe"
+ },
+ {
+  "key": "근처 친구",
+  "en": "Nearby friends"
+ },
+ {
+  "key": "같이 놀기",
+  "en": "Play together"
+ },
+ {
+  "key": "무전기",
+  "en": "Walkie-talkie"
+ },
+ {
+  "key": "원격 지원",
+  "en": "Remote help"
+ },
+ {
+  "key": "가끔 제작자 서비스를 소개하고 꾸미기 선물을 줘요",
+  "en": "Now and then shows the maker's services and gives a decoration gift"
+ },
+ {
+  "key": "하늘날기·높이 점프·빠른 대시",
+  "en": "Fly, high jump and dash"
+ },
+ {
+  "key": "모자·리본·안경·목도리·셔츠",
+  "en": "Hats, ribbons, glasses, scarves, shirts"
+ },
+ {
+  "key": "같은 와이파이 맥끼리 친구 맺고 대화",
+  "en": "Pair and chat with Macs on the same Wi-Fi"
+ },
+ {
+  "key": "친구 맥과 같이 뛰기·별 대결",
+  "en": "Run together and star duels with a friend's Mac"
+ },
+ {
+  "key": "버튼 누르는 동안만 내 목소리 전달",
+  "en": "Sends your voice only while you hold the button"
+ },
+ {
+  "key": "나·친구·AI 팀원 자리와 상태판",
+  "en": "Desks and a status board for you, friends and the AI teammate"
+ },
+ {
+  "key": "수락하면 화면 공유로 도와주기 (맥끼리)",
+  "en": "Help through Screen Sharing once accepted (Mac to Mac)"
+ },
+ {
+  "key": "%lld월 %lld일",
+  "en": "%1$lld/%2$lld"
+ },
+ {
+  "key": "새 플러그인: %@ (설정 > 플러그인)",
+  "en": "New plugin: %@ (Settings > Plugins)"
+ },
+ {
+  "key": "플러그인",
+  "en": "Plugins"
+ },
+ {
+  "key": "새 플러그인이 매주 하나씩 열려요. 인스타 @%@ 에서 먼저 공개해요",
+  "en": "A new plugin opens every week. They show up first on Instagram @%@"
+ },
+ {
+  "key": "설치됨",
+  "en": "Installed"
+ },
+ {
+  "key": "열림 · 눌러서 설정",
+  "en": "Open · click to set up"
+ },
+ {
+  "key": "곧 공개",
+  "en": "Coming soon"
+ },
+ {
+  "key": "곧 공개 · %@",
+  "en": "Coming %@"
+ },
+ {
+  "key": "인스타 @%@ 에서 먼저 공개해요",
+  "en": "Shown first on Instagram @%@"
+ },
+ {
+  "key": "여는 날 전에 인스타에서 먼저 코드를 나눠요. 아래 코드 넣기에 넣으면 바로 열려요.",
+  "en": "Before the day it opens, a code is shared on Instagram. Enter it in Enter code below and it opens right away."
+ },
+ {
+  "key": "인스타에서 보기",
+  "en": "View on Instagram"
+ },
+ {
+  "key": "놀이 기술 쓰기",
+  "en": "Use play moves"
+ },
+ {
+  "key": "놀이 모드에서 ↑를 꾹 누르면 하늘을 날고, ↑를 빠르게 두 번 누르면 높이 점프해요. ← →를 빠르게 두 번 누르면 대시해요. 둘이 놀기의 친구는 W·A·D로 똑같이 해요.",
+  "en": "In play mode, hold ↑ to fly and press ↑ twice quickly for a high jump. Press ← or → twice quickly to dash. The second player does the same with W, A and D."
+ },
+ {
+  "key": "친구의 같이 놀기 초대 받기",
+  "en": "Accept play invites from friends"
+ },
+ {
+  "key": "근처 친구에서 맺은 친구의 메뉴에서 같이 뛰기나 별 대결을 골라요. 받는 쪽이 수락해야 시작해요.",
+  "en": "Pick Run together or Star duel in a paired friend's menu (Nearby friends). It starts only when the other side accepts."
+ },
+ {
+  "key": "코드 넣기",
+  "en": "Enter code"
+ },
+ {
+  "key": "인스타 코드 8자리",
+  "en": "8-character Instagram code"
+ },
+ {
+  "key": "새 플러그인이 열렸어요: %@",
+  "en": "A new plugin opened: %@"
+ },
+ {
+  "key": "%@은(는) 이미 열려 있어요",
+  "en": "%@ is already open"
+ },
+ {
+  "key": "코드가 맞지 않아요",
+  "en": "That code doesn't match"
+ },
+ {
+  "key": "잠시 뒤에 다시 넣어 주세요",
+  "en": "Please try again in a moment"
+ },
+ {
+  "key": "근무 중",
+  "en": "Working"
+ },
+ {
+  "key": "자리 비움",
+  "en": "Away"
+ },
+ {
+  "key": "식사",
+  "en": "Meal"
+ },
+ {
+  "key": "화장실",
+  "en": "Restroom"
+ },
+ {
+  "key": "회의",
+  "en": "Meeting"
+ },
+ {
+  "key": "퇴근",
+  "en": "Off work"
+ },
+ {
+  "key": "플러그인: 설정 > 데스크톱 친구 > 플러그인에서 새 기능을 보고 켜요. 새 플러그인은 매주 하나씩 열리고, 인스타에서 먼저 소개해요.",
+  "en": "Plugins: see and turn on new features in Settings > Desktop friends > Plugins. A new plugin opens every week, shown first on Instagram."
+ },
+ {
+  "key": "플러그인: 설정 > 데스크톱 친구 > 플러그인에서 새 기능을 보고 켜요. 새 플러그인은 매주 금요일에 하나씩 열려요. 인스타에서 먼저 받은 코드를 넣으면 며칠 일찍 열려요.",
+  "en": "Plugins: see and turn on new features in Settings > Desktop friends > Plugins. A new plugin opens every Friday. Enter a code from Instagram to open it a few days early."
+ },
+ {
+  "key": "놀이 모드: 커서 친구나 복제 친구를 오른쪽 클릭해서 고르면 키보드로 움직여요. ← →로 걷고 Shift로 뛰고, ↑로 점프(공중에서 한 번 더 누르면 2단 점프), ↓로 웅크려요. 창 위쪽 끝에 올라서고 ↓+↑로 내려가요. 놀이 기술 플러그인이 열리면 ↑를 꾹 눌러 날고 ↑ 두 번으로 높이 뛰어요. Esc로 끝내요.",
+  "en": "Play mode: right-click the cursor friend or a clone and pick it to move it with the keyboard. ← → walk, Shift runs, ↑ jumps (press again in the air for a double jump), ↓ crouches. Stand on the top edges of windows and drop down with ↓+↑. Once the Play moves plugin opens, hold ↑ to fly and press ↑ twice to jump high. Esc ends it."
+ },
+ {
+  "key": "놀이 기술: 놀이 모드에서 ↑를 꾹 누르면 하늘을 날고(머리 위 막대가 날 수 있는 시간), ↑를 빠르게 두 번 누르면 높이 점프해요. ← →를 빠르게 두 번 누르면 대시해요. 둘이 놀기의 친구는 W·A·D로 똑같이 해요.",
+  "en": "Play moves: in play mode, hold ↑ to fly (the bar over the head is the flying time left) and press ↑ twice quickly for a high jump. Press ← or → twice quickly to dash. The second player does the same with W, A and D."
+ },
+ {
+  "key": "옷 입히기: 모자·리본·안경·목도리·셔츠를 고르면 메뉴바부터 바탕화면 친구들까지 다 같이 입어요. 위치가 어긋나면 위치 조정으로 맞춰요.",
+  "en": "Wardrobe: pick hats, ribbons, glasses, scarves and shirts and every friend wears them, from the menu bar to the desktop. If something sits off, fix it with Adjust position."
+ },
+ {
+  "key": "근처 친구: 같은 와이파이의 맥끼리 6자리 코드로 친구를 맺고 대화해요. 켜기 전엔 아무에게도 보이지 않고, 친구가 아닌 맥은 말을 걸 수 없어요.",
+  "en": "Nearby friends: Macs on the same Wi-Fi pair with a 6-digit code and chat. Nobody sees you before you turn it on, and Macs that are not your friends cannot reach you."
+ },
+ {
+  "key": "같이 놀기: 친구 맥과 같이 뛰거나 60초 별 대결을 해요. 친구 메뉴에서 초대하고, 받는 쪽이 수락해야 시작해요.",
+  "en": "Play together: run around with a friend's Mac or have a 60-second star duel. Invite from the friend's menu; it starts only when they accept."
+ },
+ {
+  "key": "무전기: 친구 창의 무전 버튼을 누르고 있는 동안에만 마이크가 켜지고 내 목소리가 그 친구에게 가요.",
+  "en": "Walkie-talkie: the mic is on and your voice goes to that friend only while you hold the talk button in their window."
+ },
+ {
+  "key": "베레모",
+  "en": "Beret"
+ },
+ {
+  "key": "야구모자",
+  "en": "Baseball Cap"
+ },
+ {
+  "key": "고깔",
+  "en": "Party Hat"
+ },
+ {
+  "key": "비니",
+  "en": "Beanie"
+ },
+ {
+  "key": "꽃",
+  "en": "Flower"
+ },
+ {
+  "key": "동그란 안경",
+  "en": "Round Glasses"
+ },
+ {
+  "key": "선글라스",
+  "en": "Sunglasses"
+ },
+ {
+  "key": "하트 안경",
+  "en": "Heart Glasses"
+ },
+ {
+  "key": "목도리",
+  "en": "Scarf"
+ },
+ {
+  "key": "나비넥타이",
+  "en": "Bow Tie"
+ },
+ {
+  "key": "딸기",
+  "en": "Strawberry"
+ },
+ {
+  "key": "흰",
+  "en": "White"
+ },
+ {
+  "key": "검정",
+  "en": "Black"
+ },
+ {
+  "key": "놀이 기술 플러그인이 열려 있으면: ↑를 꾹 누르면 하늘을 날아요(1.5초, 땅에 서면 다시 차요). ↑를 빠르게 두 번 누르면 높이 점프, ← 나 →를 빠르게 두 번 누르면 손을 뗄 때까지 대시예요.",
+  "en": "With the Play Moves plugin open: hold ↑ to fly (1.5 s, it refills once you stand). Tap ↑ twice quickly for a high jump, and tap ← or → twice quickly to dash until you let go."
+ },
+ {
+  "key": "둘이 놀기를 켜면 색이 다른 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요. W 꾹, W 두 번, A·D 두 번도 똑같이 돼요.",
+  "en": "Turn on Play Together and a friend in another colour joins. A·D walk, W jumps, S crouches. Holding W, W twice and A·D twice work the same way."
+ },
+ {
+  "key": "메뉴 막대 캐릭터",
+  "en": "Menu bar character"
+ },
+ {
+  "key": "모자",
+  "en": "Hat"
+ },
+ {
+  "key": "셔츠",
+  "en": "Shirt"
+ },
+ {
+  "key": "위치 조정",
+  "en": "Adjust Position"
+ },
+ {
+  "key": "모자·안경은 머리 위치를 찾아서 씌워요. 어긋나면 위치 조정으로 옮겨 주세요.",
+  "en": "Hats and glasses go where the head is found. If one is off, move it with Adjust Position."
+ },
+ {
+  "key": "다 벗기",
+  "en": "Take All Off"
+ },
+ {
+  "key": "좌우 %lld",
+  "en": "Left/right %lld"
+ },
+ {
+  "key": "위아래 %lld",
+  "en": "Up/down %lld"
+ },
+ {
+  "key": "메시지",
+  "en": "Message"
+ },
+ {
+  "key": "같이 뛰기",
+  "en": "Run Together"
+ },
+ {
+  "key": "별 대결",
+  "en": "Star Duel"
+ },
+ {
+  "key": "원격 지원 요청",
+  "en": "Ask for Remote Help"
+ },
+ {
+  "key": "온라인",
+  "en": "Online"
+ },
+ {
+  "key": "누르고 있는 동안 말하기",
+  "en": "Hold to Talk"
+ },
+ {
+  "key": "말하는 중",
+  "en": "Talking"
+ },
+ {
+  "key": "누르고 있는 동안 친구에게 목소리를 보내요",
+  "en": "Sends your voice to your friend while held"
+ },
+ {
+  "key": "친구",
+  "en": "Friend"
+ },
+ {
+  "key": "친구 맺기가 안 됐어요. 코드를 확인하고 다시 해 주세요.",
+  "en": "Couldn't become friends. Check the code and try again."
+ },
+ {
+  "key": "%@와 친구가 됐어요",
+  "en": "You and %@ are friends now"
+ },
+ {
+  "key": "대화하기",
+  "en": "Chat"
+ },
+ {
+  "key": "친구 추가…",
+  "en": "Add Friend…"
+ },
+ {
+  "key": "%@와 친구가 될까요?",
+  "en": "Become friends with %@?"
+ },
+ {
+  "key": "친구 하기",
+  "en": "Be Friends"
+ },
+ {
+  "key": "원격 지원 요청은 잠시 뒤에 다시 보내 주세요.",
+  "en": "Please ask for remote help again in a little while."
+ },
+ {
+  "key": "%@에게 원격 지원을 요청했어요.",
+  "en": "Asked %@ for remote help."
+ },
+ {
+  "key": "%@가 내 화면을 보고 도와주려 해요.",
+  "en": "%@ wants to see your screen and help."
+ },
+ {
+  "key": "수락하면 %@의 맥에서 화면 공유가 열리고, 이 맥이 한 번 더 허락을 물어요.",
+  "en": "If you accept, Screen Sharing opens on %@'s Mac, and this Mac asks for permission once more."
+ },
+ {
+  "key": "수락",
+  "en": "Accept"
+ },
+ {
+  "key": "시스템 설정 > 일반 > 공유 > 화면 공유를 켜 주세요. 켠 다음 다시 보내기를 누르면 친구 맥에서 열려요.",
+  "en": "Turn on System Settings > General > Sharing > Screen Sharing. Then press Send Again and it opens on your friend's Mac."
+ },
+ {
+  "key": "화면 공유가 꺼져 있어요",
+  "en": "Screen Sharing is off"
+ },
+ {
+  "key": "다시 보내기",
+  "en": "Send Again"
+ },
+ {
+  "key": "%@가 지금은 원격 지원을 받지 않아요.",
+  "en": "%@ isn't taking remote help right now."
+ },
+ {
+  "key": "상대 맥에서 화면 공유가 꺼져 있어요, 켜는 방법을 보냈어요",
+  "en": "Screen Sharing is off on their Mac; they've been shown how to turn it on"
+ },
+ {
+  "key": "마이크가 꺼져 있어요. 시스템 설정 > 개인정보 보호 및 보안 > 마이크에서 캐릭모니터를 켜 주세요.",
+  "en": "The microphone is off. Turn on CharaMonitor in System Settings > Privacy & Security > Microphone."
+ },
+ {
+  "key": "회의 중이라 무전을 듣지 않았어요",
+  "en": "Didn't play a walkie-talkie message during a meeting"
+ },
+ {
+  "key": "🔊 %@ 말하는 중",
+  "en": "🔊 %@ is talking"
+ },
+ {
+  "key": "근처 친구 켜기",
+  "en": "Turn on Nearby Friends"
+ },
+ {
+  "key": "같은 와이파이의 맥끼리 코드로 친구를 맺고 대화해요. 켠 동안만 이 맥이 보이고, 친구가 아닌 맥은 메시지도 목소리도 보낼 수 없어요. 로그인이나 인터넷 친구는 아직 없어요.",
+  "en": "Macs on the same Wi-Fi become friends with a code and chat. This Mac is visible only while this is on, and Macs that aren't friends can't send messages or voice. No sign-in or internet friends yet."
+ },
+ {
+  "key": "내 이름",
+  "en": "My name"
+ },
+ {
+  "key": "친구를 삭제할까요?",
+  "en": "Delete this friend?"
+ },
+ {
+  "key": "서로의 친구 목록에서 빠져요. 다시 친구가 되려면 코드를 새로 넣어야 해요.",
+  "en": "You'll leave each other's friend lists. To be friends again, enter a new code."
+ },
+ {
+  "key": "친구 추가",
+  "en": "Add Friend"
+ },
+ {
+  "key": "그만",
+  "en": "Stop"
+ },
+ {
+  "key": "내 코드 보여주기",
+  "en": "Show My Code"
+ },
+ {
+  "key": "코드를 보여주고 있는 맥이 근처에 없어요. 친구 맥에서 '내 코드 보여주기'를 눌러 주세요.",
+  "en": "No Mac nearby is showing a code. On your friend's Mac, press 'Show My Code'."
+ },
+ {
+  "key": "친구 맥",
+  "en": "Friend's Mac"
+ },
+ {
+  "key": "6자리 코드",
+  "en": "6-digit code"
+ },
+ {
+  "key": "연결",
+  "en": "Connect"
+ },
+ {
+  "key": "무전기 켜기",
+  "en": "Turn on Walkie-Talkie"
+ },
+ {
+  "key": "친구 창의 무전기 버튼을 누르고 있는 동안만 마이크가 켜지고, 그 친구에게만 목소리가 가요. 처음 누를 때 마이크 권한을 물어요.",
+  "en": "The mic is on only while you hold the walkie-talkie button in a friend's window, and your voice goes only to that friend. The first press asks for microphone permission."
+ },
+ {
+  "key": "근처 친구를 먼저 켜 주세요.",
+  "en": "Turn on Nearby Friends first."
+ },
+ {
+  "key": "원격 지원 받기 허용",
+  "en": "Allow Remote Help"
+ },
+ {
+  "key": "친구가 요청하면 먼저 물어봐요. 수락해도 친구 맥에서 macOS 화면 공유가 열리고 이 맥이 한 번 더 허락을 받아요. 이 앱은 화면을 찍거나 조작하지 않아요. 맥끼리만 돼요.",
+  "en": "When a friend asks, you're asked first. Even after you accept, macOS Screen Sharing opens on their Mac and this Mac asks for permission again. This app never captures or controls your screen. Mac to Mac only."
+ },
+ {
+  "key": "도움을 줄 때는 친구 메뉴의 '원격 지원 요청'을 눌러요.",
+  "en": "To help someone, choose 'Ask for Remote Help' in the friend menu."
+ },
+ {
+  "key": "플러그인 > 근처 친구에서 친구를 맺으면 친구 자리가 생겨요.",
+  "en": "Pair with a friend in Plugins > Nearby Friends and they get a desk here."
+ },
+ {
+  "key": "AI 비서에서 AI 엔진을 연결하면 일해요",
+  "en": "Connect an AI engine in AI Assistant and it gets to work"
+ },
+ {
+  "key": "공석",
+  "en": "Empty"
+ },
+ {
+  "key": "나, AI 팀원, 친구 맺은 맥의 자리와 상태를 한 판에 보여요. 5분 동안 손을 안 대면 자리 비움, 집중 타이머 중엔 집중, 화상 회의 앱이 앞에 있으면 회의로 바뀌어요. 직접 고른 식사, 화장실, 퇴근 같은 상태는 바꿀 때까지 그대로예요. 상태는 친구 맺은 맥에만 가요.",
+  "en": "Shows the desks and statuses of you, your AI teammate and your paired Macs on one board. After 5 minutes without input it says Away, during a focus timer Focus, and with a video call app in front Meeting. A status you pick yourself, like Meal break, Restroom or Off for the day, stays until you change it. Your status goes only to paired Macs."
+ },
+ {
+  "key": "%@ 맥의 주소를 찾지 못했어요",
+  "en": "Couldn't find the address of %@'s Mac"
+ },
+ {
+  "key": "원격 지원: 친구 메뉴에서 원격 지원 요청을 보내고, 친구가 수락하면 macOS 화면 공유가 열려요. 맥끼리만 되고, 받는 맥은 설정에서 받기 허용을 켜고 화면 공유도 직접 켜 둬야 해요.",
+  "en": "Remote Support: send a Remote Support Request from the friend menu, and macOS Screen Sharing opens once your friend accepts. It works Mac to Mac only; the receiving Mac needs Allow remote support on in Settings and Screen Sharing turned on by its owner."
+ },
+ {
+  "key": "가상 오피스: 나, AI 팀원, 친구 맺은 맥의 자리와 상태(근무 중·자리 비움·식사·화장실·회의·집중·퇴근)를 한 판에 보여요. 상태는 친구 맺은 맥에만 보여요. 자리를 비우면 공석으로 보여요. 데스크톱 친구 > 내 상태에서 고르거나 내 자리를 눌러 바꿔요.",
+  "en": "Virtual Office: one board with the desks and statuses (working, away, meal, restroom, meeting, focus, off work) of you, your AI teammate and your paired Macs. Statuses show only on Macs you're friends with. An empty desk shows when you step away. Pick yours under Desktop Friends > My Status, or click your own desk."
+ },
+ {
+  "key": "2분 동안 보여요. 친구 맥에서 '코드 넣기'로 이 맥을 골라 이 숫자를 넣어 주세요. 세 번 틀리면 새 코드로 바뀌고, 여섯 번이면 멈춰요. 두 맥에 뜨는 확인 숫자가 같은지 꼭 봐 주세요.",
+  "en": "Shown for 2 minutes. On your friend's Mac, use 'Enter code', pick this Mac and type these digits. Three wrong tries make a new code, six stop it. Make sure both Macs show the same check number."
+ },
+ {
+  "key": "다른 맥이 코드를 맞추려 했어요. 친구 추가를 멈췄어요.",
+  "en": "Another Mac tried to guess the code. Adding friends stopped."
+ },
+ {
+  "key": "이미 친구인 맥이에요. 다시 맺으려면 친구 목록에서 먼저 삭제해 주세요.",
+  "en": "This Mac is already your friend. To pair again, remove it from your friends first."
+ },
+ {
+  "key": "확인 숫자 %@\n친구 맥에도 같은 숫자가 보일 때만 친구 하기를 눌러 주세요. 다르면 다른 맥이 끼어든 거예요.",
+  "en": "Check number %@\nPress Be friends only if your friend's Mac shows the same number. If it differs, another Mac is in between."
+ },
+ {
+  "key": "⚠️ 같은 이름의 맥이 둘 이상 보여요. 다른 맥이 흉내 낼 수 있으니 친구 맥과 확인 숫자를 꼭 비교해 주세요.",
+  "en": "⚠️ More than one Mac shows the same name. Another Mac may be copying it, so be sure to compare the check number with your friend's Mac."
+ },
+ {
+  "key": "초대를 보냈어요",
+  "en": "Invite sent"
+ },
+ {
+  "key": "%@가 지금은 같이 못 놀아요",
+  "en": "%@ can't play right now"
+ },
+ {
+  "key": "%@가 놀이를 끝냈어요",
+  "en": "%@ ended the game"
+ },
+ {
+  "key": "%@이(가) 같이 뛰자고 해요",
+  "en": "%@ wants to run around together"
+ },
+ {
+  "key": "%@이(가) 별 대결 하자고 해요",
+  "en": "%@ wants a star duel"
  }
 ]

@@ -45,7 +45,7 @@ public enum SetupFile {
     public static let keys: [String: Kind] = [
         // AppSettings
         "profile": .data, "character": .string, "customCharacterID": .string, "catID": .string, "originalID": .string,
-        "showCPUPercent": .bool, "characterColors": .data, "catLooks": .data,
+        "showCPUPercent": .bool, "characterColors": .data, "catLooks": .data, "outfits": .data,
         "hiddenCharacters": .data, "renderStyle": .string, "palette": .string, "motionLevel": .string,
         "friendSounds": .bool, "settingsTextLarge": .bool, "expandDetails": .bool,
         // 상황별 모션, 커서 친구, 퀵물어보기

@@ -1,0 +1,11 @@
+{"serial":1,
+ "instagram":{"handle":"0won.made","url":"https://www.instagram.com/0won.made/"},
+ "plugins":[
+  {"id":"playMoves","release":"2026-10-30","code":"f64aa172695c693c11d680a7d8331ac6468ceaa04824eac5da88bfb72bed7839","post":null},
+  {"id":"wardrobe","release":"2026-11-06","code":"03daef84467fbc7e4eb5150db95e8a52f7341ffcb56eb332f4e690ecb98b6fe0","post":null},
+  {"id":"nearby","release":"2026-11-13","code":"e29c64d5a2a2b47e6de3bac85e9f59f0bb1fd49427bec2824c550a75b3a1560e","post":null},
+  {"id":"netPlay","release":"2026-11-20","code":"8f51ab676f70d8ae510880d27df6cf03b6bbc55239f128156b9f85b814c0d27a","post":null},
+  {"id":"walkieTalkie","release":"2026-11-27","code":"97533cb5e1c0e99cc46eeda1017b7f6cf950c2a6dc23066a514f03d53a84e6a6","post":null},
+  {"id":"office","release":"2026-12-04","code":"86fe74d1c4c0deffc63ff071a771b7868d212c563c9ff44197ebebc3f6fc9731","post":null},
+  {"id":"remoteHelp","release":"2026-12-11","code":"e081ed4bd173f80cec7e9fcb7f57f2a22834e1c4caca4bb3bedf449673a351fe","post":null}
+ ]}

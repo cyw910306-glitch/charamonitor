@@ -412,6 +412,7 @@ final class HangingFriends {
         var slots: [HangSlot]
         var look: SpriteLook
         var colors: [String: [String: RGBColor]]
+        var outfits: [String: Outfit]   // 옷 입히기 of the friends' own characters
         var screens: [CGRect]
         var fromTop: Bool
         var feel: StringFeel
@@ -475,7 +476,7 @@ final class HangingFriends {
         let prefs = store.prefs
         let level = prefs.onTop ? .floating : NSWindow.Level(Int(CGWindowLevelForKey(.desktopIconWindow)) + 1)
         let now = Built(slots: Array(prefs.slots.prefix(max(1, min(HangPrefs.maxCount, prefs.count)))), look: SpriteLook(AppSettings.shared),
-                        colors: AppSettings.shared.characterColors,
+                        colors: AppSettings.shared.characterColors, outfits: AppSettings.shared.outfits,
                         screens: NSScreen.screens.flatMap { [$0.frame, $0.visibleFrame] }, fromTop: prefs.fromTop, feel: prefs.feel)
         if now != built { build(now, level: level) }
         for p in panels.values where p.level != level { p.level = level }

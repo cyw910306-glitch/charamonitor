@@ -67,6 +67,15 @@ enum StarRules {
         }
     }
 
+    /// 별 대결 over the network: the `index`th star from `seed`, the same on both Macs: across the ground (0...1 of
+    /// the visible frame's width), how far up in points (0 or `lift`), a treat or not, and how long it stays.
+    static func netSpot(seed: UInt64, index: Int) -> (x: CGFloat, up: CGFloat, treat: Bool, life: TimeInterval) {
+        var rng = SplitMix64(seed: seed ^ UInt64(index) &* 0x9E3779B97F4A7C15)
+        let up = Double.random(in: 0...1, using: &rng) < 0.4 ? CGFloat.random(in: lift, using: &rng) : 0
+        let x = CGFloat.random(in: 0...1, using: &rng), treat = Double.random(in: 0...1, using: &rng) < 0.2
+        return (x, up, treat, .random(in: life, using: &rng))
+    }
+
     /// The saved 별 줍기 best; anything that is not a count reads as none yet.
     static func best(in store: UserDefaults) -> Int { max(0, store.integer(forKey: bestKey)) }
 
@@ -79,18 +88,35 @@ enum StarRules {
     }
 }
 
+/// A seeded generator, so two Macs draw the same numbers (SplitMix64).
+struct SplitMix64: RandomNumberGenerator {
+    var state: UInt64
+    init(seed: UInt64) { state = seed }
+    mutating func next() -> UInt64 {
+        state &+= 0x9E3779B97F4A7C15
+        var z = state
+        z = (z ^ (z >> 30)) &* 0xBF58476D1CE4E5B9
+        z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
+        return z ^ (z >> 31)
+    }
+}
+
 // MARK: The game
 
 /// 별 줍기 (one player, 60 seconds, the best saved) and 2인 대결 (P2 on WASD, separate scores) on 놀이 모드: stars on
 /// window tops, the ground over the Dock and in mid-air, a small HUD at the top of the session's screen (an overlay
 /// layer, no window of its own), a sparkle and a chime per pickup. Esc, time up or anything else that ends the
-/// session ends the game with a result bubble. Nothing exists or runs outside a game.
+/// session ends the game with a result bubble. 별 대결 (같이 놀기) is a duel with a `seed`: the stars come from it,
+/// along the ground, so both Macs show the same ones; P2 is the friend's Mac (NetPlay), which scores itself. Nothing exists or runs outside a game.
 final class StarGame {
     static let shared = StarGame()
 
     private(set) var isOn = false
     private var duel = false
-    private var stars: [(spot: StarSpot, layer: CATextLayer)] = []
+    private var stars: [(spot: StarSpot, layer: CATextLayer, id: Int)] = []
+    private var seed: UInt64?
+    private var spawned = 0
+    private var names = ["1P", "2P"]
     private var scores = [0, 0]
     private var clock: TimeInterval = 0
     private var hud: CATextLayer?
@@ -100,15 +126,19 @@ final class StarGame {
     private var scale: CGFloat = 2
 
     /// Starts 놀이 모드 from `source` when it is not on, then the game; nothing while a game is on.
-    func start(duel: Bool, from source: PlayMode.Source = .buddy) {
+    /// `seed` and `rival` (the friend's name) for 별 대결.
+    func start(duel: Bool, from source: PlayMode.Source = .buddy, seed: UInt64? = nil, rival: String? = nil) {
         let play = PlayMode.shared
         guard !isOn else { return }
         if !play.isPlaying { play.start(source) }
         guard play.isPlaying, let world = play.overlay() else { return }
-        play.twoPlayer = duel   // 별 줍기 is one player's score
+        play.twoPlayer = duel && seed == nil   // 별 줍기 is one player's score; in 별 대결 P2 is on the friend's Mac
         isOn = true
         self.duel = duel
         scores = [0, 0]
+        self.seed = seed
+        spawned = 0
+        names = seed == nil ? ["1P", "2P"] : [SocialBus.shared.nickname, rival ?? "2P"]
         clock = 0
         shown = ""
         stars = []
@@ -134,7 +164,7 @@ final class StarGame {
     private func tick(_ dt: TimeInterval) {
         let play = PlayMode.shared
         clock += dt
-        for i in 0..<(duel ? 2 : 1) {
+        for i in 0..<(duel && seed == nil ? 2 : 1) {
             guard let r = play.player(i) else { continue }
             for j in StarRules.touched(stars.map(\.spot), radius: radius, by: r).reversed() { pick(j, by: i) }
         }
@@ -145,15 +175,30 @@ final class StarGame {
     }
 
     private func pick(_ j: Int, by player: Int) {
-        let (spot, layer) = stars.remove(at: j)
+        let (spot, layer, id) = stars.remove(at: j)
         layer.removeFromSuperlayer()
         scores[player] += spot.points
+        if seed != nil { NetPlay.shared.took(id) }
         if let world = PlayMode.shared.overlay() {
             let r = radius * 2
             FriendMark.pop(spot.treat ? "♥" : "✦", color: .systemYellow, over: CGRect(x: spot.center.x - r, y: spot.center.y - r, width: r * 2, height: r * 2),
                            in: world, still: DesktopKit.reduceMotion, scale: scale)
         }
         ChimeSound.play(scores[player], volume: 0.4)
+    }
+
+    /// P1's score, for the friend's Mac.
+    var score: Int { scores[0] }
+
+    /// 별 대결: the friend picked up that star (gone here too) or now has that many points.
+    func remote(took id: Int) {
+        guard isOn, let j = stars.firstIndex(where: { $0.id == id }) else { return }
+        stars.remove(at: j).layer.removeFromSuperlayer()
+    }
+
+    func remote(score: Int) {
+        guard isOn, seed != nil else { return }
+        scores[1] = max(0, score)
     }
 
     /// Up to `onScreen` stars, each new one away from the rest and the players.
@@ -163,9 +208,17 @@ final class StarGame {
         let players = (0..<2).compactMap { play.player($0) }.map { CGPoint(x: $0.midX, y: $0.midY) }
         var rng = SystemRandomNumberGenerator()
         while stars.count < StarRules.onScreen {
-            guard var s = StarRules.spawn(on: play.platforms(), top: play.visible.maxY, radius: radius, body: body,
-                                          avoid: stars.map(\.spot.center) + players, using: &rng) else { return }
-            s.until = clock + .random(in: StarRules.life)
+            var s: StarSpot
+            if let seed {   // ponytail: along the ground only, never kept apart, so both Macs agree with nothing sent
+                let n = StarRules.netSpot(seed: seed, index: spawned), v = play.visible, inset = max(radius, body.width / 2)
+                s = StarSpot(center: CGPoint(x: v.minX + inset + n.x * (v.width - inset * 2), y: min(v.minY + body.height / 2 + n.up, v.maxY - radius)),
+                             treat: n.treat, until: clock + n.life)
+            } else {
+                guard let spot = StarRules.spawn(on: play.platforms(), top: play.visible.maxY, radius: radius, body: body,
+                                                 avoid: stars.map(\.spot.center) + players, using: &rng) else { return }
+                s = spot
+                s.until = clock + .random(in: StarRules.life)
+            }
             let l = CATextLayer()
             l.string = s.treat ? "🍪" : "⭐"
             l.fontSize = radius * 1.6
@@ -182,7 +235,8 @@ final class StarGame {
                 l.add(bob, forKey: nil)
             }
             world.addSublayer(l)
-            stars.append((s, l))
+            stars.append((s, l, spawned))
+            spawned += 1
         }
     }
 
@@ -190,7 +244,7 @@ final class StarGame {
     private func drawHUD() {
         guard let hud else { return }
         let left = Int(max(0, StarRules.seconds - clock).rounded(.up))
-        let text = duel ? "1P ⭐ \(scores[0])   :   \(scores[1]) ⭐ 2P     ⏱ \(left)"
+        let text = duel ? "\(names[0]) ⭐ \(scores[0])   :   \(scores[1]) ⭐ \(names[1])     ⏱ \(left)"
             : "⭐ \(scores[0])     " + L("최고 \(best)") + "     ⏱ \(left)"
         guard text != shown else { return }
         shown = text
@@ -207,6 +261,7 @@ final class StarGame {
     private func finish() {
         guard isOn else { return }
         isOn = false
+        seed = nil
         stars = []; hud = nil   // their layers go with the overlay
         let (a, b) = (scores[0], scores[1])
         let persona = AssistantModel.persona()
@@ -216,7 +271,7 @@ final class StarGame {
         if duel {
             card = a == b ? nil : .cheer
             line = a == b ? (polite ? L("비겼어요! \(a) 대 \(b)") : L("비겼다! \(a) 대 \(b)"))
-                : polite ? L("\(a > b ? "1P" : "2P")가 이겼어요! \(a) 대 \(b)") : L("\(a > b ? "1P" : "2P")가 이겼다! \(a) 대 \(b)")
+                : polite ? L("\(a > b ? names[0] : names[1])가 이겼어요! \(a) 대 \(b)") : L("\(a > b ? names[0] : names[1])가 이겼다! \(a) 대 \(b)")
         } else if StarRules.record(a, in: AppDefaults.store) {
             card = .cheer
             line = polite ? L("새 기록이에요! 별 \(a)개 🎉") : L("새 기록이다! 별 \(a)개 🎉")

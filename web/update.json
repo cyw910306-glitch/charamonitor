@@ -1,1 +1,1 @@
-{"version":"3.0.2","build":43,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"a619712e92458a0ec90953d0ff47c45d1506f5e2f16634bf22f75f11a7507b51","minSystem":"13.0","notes":"놀이 모드의 점프 키가 스페이스에서 방향키 ↑로 바뀌었어요."}
+{"version":"3.1","build":44,"url":"https://jelly-monitor.vercel.app/JellyMonitor.zip","sha256":"9bba5f87f346ba87330970ab9c0c8af91ef10fbec95cd5b628e3f5b364030b96","minSystem":"13.0","notes":"플러그인이 생겼어요. 매주 하나씩 열려요: 하늘날기·높이 점프·대시, 옷 입히기, 같은 와이파이 친구(대화·같이 놀기·무전기), 가상 오피스 상태판, 원격 지원."}

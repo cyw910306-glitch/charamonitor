@@ -20,12 +20,14 @@ final class DogSpriteCache {
     private(set) var smooth = false
 
     /// `custom` (a custom character's frames) wins over the dog when given. `style` 일러스트 smooths the pixel art.
-    init(profile: DogProfile, custom: [[[UInt8]]]? = nil, pixelSize: CGFloat = 1, style: RenderStyle = .current) {
+    /// `outfit` (옷 입히기) is drawn into the art before it is scaled or smoothed.
+    init(profile: DogProfile, custom: [[[UInt8]]]? = nil, pixelSize: CGFloat = 1, style: RenderStyle = .current, outfit: Outfit? = nil) {
         let size = NSSize(width: CGFloat(Self.canvasWidth) * pixelSize, height: CGFloat(Self.canvasHeight) * pixelSize)
         imageSize = size
         // ponytail: no Mac display is 3x, so big dashboard sprites skip the 3x copy (about 10 MB saved).
         let scales: [CGFloat] = pixelSize <= 2 ? [1, 2, 3] : [1, 2]
-        let rgba = custom ?? DogRenderer.frames(profile)
+        let worn = Wardrobe.worn(outfit)
+        let rgba = Wardrobe.dress(custom ?? DogRenderer.frames(profile), outfit: worn)
         let smooth = style == .illustration
         let draw = { (f: [UInt8]) -> NSImage in
             guard smooth else { return Self.image(DogRenderer.art(f), size: size, scales: scales, oneX: DogRenderer.art1x(f)) }
@@ -35,27 +37,33 @@ final class DogSpriteCache {
         self.smooth = smooth
         framesByPose = rgba.map { $0.map(draw) }
         let extraRGBA = custom != nil ? nil : BuiltinExtras.dog?(profile)
-        extras = (extraRGBA ?? [:]).filter { !$0.value.isEmpty }.mapValues { $0.map(draw) }
+        extras = (extraRGBA ?? [:]).filter { !$0.value.isEmpty }.mapValues { Wardrobe.dress([$0], outfit: worn)[0].map(draw) }
     }
 
-    /// A ready-made character, scaled by `pixelSize` (a cat breed, an original), drawn in `style`.
-    init(_ character: any AnimatedCharacter, pixelSize: CGFloat = 1, style: RenderStyle = .current) {
+    /// A ready-made character, scaled by `pixelSize` (a cat breed, an original), drawn in `style`, wearing `outfit`
+    /// (nil: what the user put on it in 옷 입히기; .some(nil): nothing).
+    init(_ character: any AnimatedCharacter, pixelSize: CGFloat = 1, style: RenderStyle = .current, outfit: Outfit?? = nil) {
         let base = character.imageSize
         imageSize = NSSize(width: base.width * pixelSize, height: base.height * pixelSize)
         let smooth = style.smooth(character.smooth)
-        let draw = { (f: NSImage) in
-            Self.scaled(style.restyle(f, drawnSmooth: character.smooth, density: character.artDensity), by: pixelSize, smooth: smooth)
+        let worn = Wardrobe.worn(outfit ?? Wardrobe.outfit(for: character.id))
+        // Pixel frames are read back at their own art px (a pack's 2 per point, or the pixelated HD pair's 2).
+        let density = character.smooth ? 2 : max(1, character.artDensity)
+        let grid = smooth ? (w: Int(base.width) * 2, h: Int(base.height) * 2) : (w: Int(base.width) * density, h: Int(base.height) * density)
+        let draw = { (set: [NSImage]) in
+            Wardrobe.dress(set.map { style.restyle($0, drawnSmooth: character.smooth, density: character.artDensity) }, outfit: worn, grid: grid, smooth: smooth)
+                .map { Self.scaled($0, by: pixelSize, smooth: smooth) }
         }
         let walk = character.frames(for: .walk)
         framesByPose = DogPose.allCases.map { pose in
             let f = character.frames(for: pose)
-            return (f.isEmpty ? walk : f).map(draw)
+            return draw(f.isEmpty ? walk : f)
         }
         var extras: [ExtraMotion: [NSImage]] = [:]
         for m in ExtraMotion.allCases {
-            if let f = character.frames(forExtra: m), !f.isEmpty { extras[m] = f.map(draw) }
+            if let f = character.frames(forExtra: m), !f.isEmpty { extras[m] = draw(f) }
             let more = character.extraVariants(m).dropFirst().filter { !$0.isEmpty }
-            if extras[m] != nil, !more.isEmpty { takes[m] = more.map { $0.map(draw) } }
+            if extras[m] != nil, !more.isEmpty { takes[m] = more.map(draw) }
             if extras[m] != nil { takeLines[m] = (0...more.count).map { character.lines(forExtra: m, variant: $0) } }
         }
         self.extras = extras
@@ -63,15 +71,17 @@ final class DogSpriteCache {
         self.smooth = smooth
     }
 
-    /// A 실사 photo character, drawn from its source at each backing scale (never upscaled from a bitmap).
-    init(real: RealSprite, pixelSize: CGFloat = 1) {
+    /// A 실사 photo character, drawn from its source at each backing scale (never upscaled from a bitmap), wearing
+    /// `outfit` smoothed over it.
+    init(real: RealSprite, pixelSize: CGFloat = 1, outfit: Outfit? = nil) {
         imageSize = NSSize(width: CGFloat(Self.canvasWidth) * pixelSize, height: CGFloat(Self.canvasHeight) * pixelSize)
         let scales: [CGFloat] = pixelSize <= 2 ? [1, 2, 3] : [1, 2]
-        framesByPose = real.poseImages(pixelSize: pixelSize, scales: scales)
+        let worn = Wardrobe.worn(outfit), grid = (w: Self.canvasWidth * 2, h: Self.canvasHeight * 2)
+        framesByPose = real.poseImages(pixelSize: pixelSize, scales: scales).map { Wardrobe.dress($0, outfit: worn, grid: grid, smooth: true) }
         var extras: [ExtraMotion: [NSImage]] = [:]
         for m in ExtraMotion.allCases {
             let f = real.extraImages(m, pixelSize: pixelSize, scales: scales)
-            if !f.isEmpty { extras[m] = f }
+            if !f.isEmpty { extras[m] = Wardrobe.dress(f, outfit: worn, grid: grid, smooth: true) }
         }
         self.extras = extras
     }
@@ -80,11 +90,11 @@ final class DogSpriteCache {
     convenience init(_ look: SpriteLook, pixelSize: CGFloat) {
         let custom = look.custom?.styled(look.style)
         if let real = custom?.real {
-            self.init(real: real, pixelSize: pixelSize)
+            self.init(real: real, pixelSize: pixelSize, outfit: look.outfit)
         } else if let ready = look.ready {
-            self.init(ready, pixelSize: pixelSize, style: look.style)
+            self.init(ready, pixelSize: pixelSize, style: look.style, outfit: .some(look.outfit))
         } else {
-            self.init(profile: look.profile, custom: custom?.frames, pixelSize: pixelSize, style: look.style)
+            self.init(profile: look.profile, custom: custom?.frames, pixelSize: pixelSize, style: look.style, outfit: look.outfit)
         }
     }
 
@@ -183,6 +193,8 @@ struct SpriteLook: Equatable {
     var colors: [String: RGBColor]?
     var cat: CatProfile?
     var style: RenderStyle
+    /// 옷 입히기 drawn over every frame (stream 3 fills it from the store; a friend's comes with their look).
+    var outfit: Outfit?
 
     init(_ settings: AppSettings) {
         style = settings.renderStyle
@@ -194,6 +206,7 @@ struct SpriteLook: Equatable {
         readyID = character == .cat ? settings.catID : character == .original ? settings.originalID : nil
         colors = character == .original ? readyID.flatMap { settings.characterColors[$0] } : nil
         cat = character == .cat ? readyID.flatMap { settings.catLooks[$0] } : nil
+        outfit = Wardrobe.worn(settings.outfits[Wardrobe.key(self)])
     }
 
     /// The catalog character this look shows, if it is one.
@@ -205,6 +218,22 @@ struct SpriteLook: Equatable {
             return OriginalCatalog.character(id).map { CharacterColors.apply(colors, to: $0) }
         default: return nil
         }
+    }
+}
+
+extension SpriteLook {
+    /// A paired friend's look: their built-in character with its 꾸미기, or the plain dog when this Mac lacks it.
+    init(friend f: FriendLook) {
+        self.init(AppSettings.shared)
+        custom = nil
+        profile = f.profile ?? .defaultDog
+        profile.name = ""
+        character = f.character == .custom ? .dog : f.character
+        readyID = character == .dog ? nil : f.id
+        colors = character == .original ? f.colors : nil
+        cat = character == .cat ? f.cat : nil
+        outfit = f.outfit
+        if character != .dog, ready == nil { character = .dog; readyID = nil; colors = nil; cat = nil }
     }
 }
 

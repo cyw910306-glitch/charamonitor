@@ -43,6 +43,11 @@ MainActor.assumeIsolated {
         Task.detached { exit(await SponsorCheck.runCLI(folder: folder)) }
         dispatchMain()
     }
+    if let i = args.firstIndex(of: "--check-plugins") {   // read-only: the signed 플러그인 list (days, codes' hashes)
+        let folder = i + 1 < args.count && !args[i + 1].hasPrefix("--") ? URL(fileURLWithPath: args[i + 1], isDirectory: true) : nil
+        Task.detached { exit(await PluginCheck.runCLI(folder: folder)) }
+        dispatchMain()
+    }
     #endif
     #if !MAS   // install scripts only: the App Store build turns this on only from 설정 (2.4.5(iii))
     if args.contains("--enable-login-item") {
@@ -141,6 +146,13 @@ MainActor.assumeIsolated {
             try DashboardSnapshot.render(to: $0)
         }
     }
+
+    #if !MAS
+    if let i = args.firstIndex(of: "--qa-defaults"), i + 1 < args.count {   // QA: a throwaway preferences suite (SocialQA)
+        AppDefaults.store = UserDefaults(suiteName: args[i + 1])!
+        SocialQA.start(args)
+    }
+    #endif
 
     let app = NSApplication.shared
     let appDelegate = AppDelegate()

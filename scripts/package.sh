@@ -2,6 +2,7 @@
 # Builds the app and writes the download files into web/:
 #   JellyMonitor.dmg, JellyMonitor.zip, SHA256SUMS, version.txt, update.json + update.json.sig (signed, for the in-app updater),
 #   sponsors.json.sig (the 후원 친구 list, signed the same way)
+#   plugins.json.sig (the 플러그인 days and code hashes, signed the same way)
 # Usage: [UPDATE_NOTES="한 줄 요약"] scripts/package.sh
 set -euo pipefail
 
@@ -49,5 +50,11 @@ echo "==> 후원 친구 목록 (sponsors.json, 서명)"
 swift "$ROOT/tools/update/sign_manifest.swift" "$WEB/sponsors.json"
 "$APP/Contents/MacOS/DogMonitor" --check-sponsors "$WEB"
 
+echo "==> 플러그인 목록 (plugins.json, 서명)"
+# web/plugins.json holds each new plugin's day and its Instagram code's hash (tools/update/plugin_code.swift; the codes
+# themselves stay in ~/Library/Application Support/JellyMonitorSeller/plugin-codes.json). Raise "serial" with every change.
+swift "$ROOT/tools/update/sign_manifest.swift" "$WEB/plugins.json"
+"$APP/Contents/MacOS/DogMonitor" --check-plugins "$WEB"
+
 echo "==> 만든 파일 ($WEB)"
-(cd "$WEB" && ls -lh JellyMonitor.dmg JellyMonitor.zip SHA256SUMS version.txt update.json update.json.sig sponsors.json sponsors.json.sig && cat SHA256SUMS version.txt update.json)
+(cd "$WEB" && ls -lh JellyMonitor.dmg JellyMonitor.zip SHA256SUMS version.txt update.json update.json.sig sponsors.json sponsors.json.sig plugins.json plugins.json.sig && cat SHA256SUMS version.txt update.json)

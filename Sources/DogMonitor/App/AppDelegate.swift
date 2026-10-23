@@ -40,6 +40,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // 우리 동네 바람 follows the 날씨 창문's city while the window is on (no fetch of its own), else 산들.
         HangingFriends.localWind = { WeatherWindow.shared.on ? WeatherService.shared.current?.wind : nil }
         AssistantCenter.shared.start()   // speech bubble, 먼저 말 걸기, opt-in integrations
+        PluginCenter.shared.start()
+        SocialBus.shared.start()
+        OfficeCenter.shared.start()
+        NetPlay.shared.start()
         WhatsNew.check()                 // a newer version says its one-liner once
         Tour.startIfNew()                // the first bubbles explain the character, 3 s in
         SetupFlow.helloLater()           // once, after 내 설정 가져오기 restarted the app

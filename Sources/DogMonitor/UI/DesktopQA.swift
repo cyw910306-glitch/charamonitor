@@ -175,6 +175,53 @@ enum DesktopQA {
         #endif
     }
 
+    /// QA_ONLY=social: the 플러그인 card closed and open, each plugin's settings (옷 입히기, 근처 친구 with a code and two
+    /// friends, 무전기, 원격 지원, 가상 오피스) and the 가상 오피스 board and a friend's chat. The friends are made up and
+    /// live in memory; no listener, browser or link starts, nothing goes on the network.
+    @MainActor
+    static func social(to dir: URL) throws {
+        let looks: [(NSAppearance.Name, String)] = [(.aqua, "light"), (.darkAqua, "dark")]
+        func shot<V: View>(_ name: String, width: CGFloat = 380, _ view: @autoclosure () -> V) throws {
+            for (appearance, suffix) in looks {
+                try DashboardSnapshot.snapshot(view().frame(width: width).padding(), appearance: appearance,
+                                               to: dir.appendingPathComponent("social-\(name)-\(suffix).png"))
+            }
+        }
+        try shot("plugins-closed", PluginsSection())
+        AppDefaults.store.set(PluginID.drip.map(\.rawValue), forKey: PluginCenter.unlockedKey)
+        PluginCenter.shared.refresh()
+        try shot("plugins-open", PluginsSection())
+        try shot("wardrobe", WardrobeSettings())
+        let bus = SocialBus.shared
+        try shot("nearby-off", NearbySettings(part: .nearby))
+        AppDefaults.store.set(true, forKey: "social.on")
+        AppDefaults.store.set(true, forKey: "social.voice")
+        AppDefaults.store.set(true, forKey: "social.remoteHelp")
+        AppDefaults.store.set(true, forKey: OfficeCenter.onKey)
+        let cat = FriendLook(character: .cat, id: CatCatalog.all.first?.id, profile: nil, colors: nil, cat: nil, outfit: nil)
+        bus.setFriends([
+            SocialFriend(id: "qa-a", nickname: "해인", look: cat, status: .meal, pairedAt: Date()),
+            SocialFriend(id: "qa-b", nickname: "창연", look: .fallback, status: .focus, pairedAt: Date()),
+            SocialFriend(id: "qa-c", nickname: "멀리 있는 친구", look: .fallback, status: .working, pairedAt: Date()),
+        ])
+        bus.setOnline(["qa-a", "qa-b"])
+        bus.setOn(true)
+        bus.code = "482913"
+        bus.myStatus = .restroom
+        try shot("nearby-on", NearbySettings(part: .nearby))
+        try shot("walkie", NearbySettings(part: .walkieTalkie))
+        try shot("remote", NearbySettings(part: .remoteHelp))
+        try shot("office-settings", OfficeSettings())
+        try shot("office-board", width: 360, OfficeBoardView(center: OfficeCenter.shared).frame(height: 300))
+        SocialChat.shared.append("qa-a", "점심 먹으러 가요!", mine: false)
+        SocialChat.shared.append("qa-a", "맛있게 먹고 와요", mine: true)
+        try shot("chat", width: 340, FriendChatView(friendID: "qa-a").frame(height: 320))
+        bus.setOn(false)
+        bus.setFriends([])
+        bus.setOnline([])
+        bus.code = nil
+    }
+
     #if !MAS
     /// 후원 친구 (QA_ONLY=sponsor, or with the rest): its 설정 card fresh and with gifts open, the card in each state and
     /// each service's colours, the covered frame, and the gifts' own art (구름 쿠션, 리본 폴더). Run with

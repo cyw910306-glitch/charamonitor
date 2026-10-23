@@ -24,7 +24,9 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "tools" / "i18n"
 HANGUL = re.compile(r"[가-힣]")
 CHUNKS = 3
-BUILDS = [("i18n", []), ("i18n-mas", ["-Xswiftc", "-DMAS"])]
+# CharaCore once more on its own: all modules write into one flat folder named after each file, so the app's
+# Models.swift and SetupFile.swift overwrite CharaCore's (the app compiles after the library, so the app's win).
+BUILDS = [("i18n", [], "DogMonitor"), ("i18n-mas", ["-Xswiftc", "-DMAS"], "DogMonitor"), ("i18n-core", [], "CharaCore")]
 # --todo ignores these: terminal tools and QA renders for development, and the facts and prompts we send
 # to the AI (the offline chat matches those Korean words too) stay Korean. So do terminal print lines.
 TODO_SKIP = {"main.swift", "MetricsCLI.swift", "AssistantCLI.swift", "AssistantPrompt.swift", "PetQA.swift",
@@ -33,14 +35,14 @@ TODO_SKIP = {"main.swift", "MetricsCLI.swift", "AssistantCLI.swift", "AssistantP
 CLI_LINE = re.compile(r"\b(print|fputs)\(")
 
 
-def build(name, extra):
+def build(name, extra, target):
     # The compiler writes the lists only for files it compiles, so each run builds from a fresh scratch folder
     # (about ten seconds in debug, no package dependencies), apart from the app's own .build.
     strings = ROOT / ".build" / f"{name}-strings"
     for old in (strings, ROOT / ".build" / name):
         shutil.rmtree(old, ignore_errors=True)
     strings.mkdir(parents=True)
-    cmd = ["swift", "build", "--target", "DogMonitor", "--package-path", str(ROOT),
+    cmd = ["swift", "build", "--target", target, "--package-path", str(ROOT),
            "--scratch-path", str(ROOT / ".build" / name), *extra,
            "-Xswiftc", "-emit-localized-strings", "-Xswiftc", "-emit-localized-strings-path", "-Xswiftc", str(strings)]
     print(f"==> swift build ({name})", file=sys.stderr)
@@ -176,8 +178,8 @@ def todo(seen):
 
 def main():
     entries = []
-    for name, extra in BUILDS:
-        entries += read_stringsdata(build(name, extra))
+    for name, extra, target in BUILDS:
+        entries += read_stringsdata(build(name, extra, target))
     seen = {(f, ln, c) for _, f, ln, c in entries}
     first = {}
     for key, f, ln, _ in sorted(entries, key=lambda e: (e[1], e[2], e[3])):

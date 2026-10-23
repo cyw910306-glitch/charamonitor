@@ -6,6 +6,10 @@
     <key>com.apple.security.app-sandbox</key><true/>
     <!-- Speed test, 날씨 창문, the user's own AI and mail servers. -->
     <key>com.apple.security.network.client</key><true/>
+    <!-- 근처 친구 (opt-in): paired Macs on the same Wi-Fi connect to this one (Bonjour, TLS with a pairing key). -->
+    <key>com.apple.security.network.server</key><true/>
+    <!-- 무전기 (opt-in): the microphone only while the talk button is held. -->
+    <key>com.apple.security.device.audio-input</key><true/>
     <!-- 내 캐릭터 photos picked in an open panel or dropped on the creator; 내 설정 내보내기 writes where the save panel says. -->
     <key>com.apple.security.files.user-selected.read-write</key><true/>
     <!-- AI 비서 calendar and reminder lines (EventKit, opt-in in 설정). -->

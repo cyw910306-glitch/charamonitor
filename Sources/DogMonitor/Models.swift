@@ -126,6 +126,8 @@ final class AppSettings: ObservableObject {
     @Published var characterColors: [String: [String: RGBColor]] { didSet { save(characterColors, "characterColors") } }
     /// 꾸미기 of a cat breed: its own profile once a colour changed, by cat id.
     @Published var catLooks: [String: CatProfile] { didSet { save(catLooks, "catLooks") } }
+    /// 옷 입히기 by Wardrobe.key (a character id, "custom:<uuid>" or "dog"). Missing: nothing on.
+    @Published var outfits: [String: Outfit] { didSet { save(outfits, "outfits") } }
     /// Built-in characters taken off 캐릭터 선택 ("목록에서 지우기"), by id. Restorable there.
     @Published var hiddenCharacters: [String] { didSet { save(hiddenCharacters, "hiddenCharacters") } }
     /// 그림 스타일 of every drawn character (RenderStyle); unknown or missing: 자동.
@@ -226,6 +228,7 @@ final class AppSettings: ObservableObject {
         aiAutoRefine = defaults.object(forKey: "aiAutoRefine") as? Bool ?? false
         characterColors = defaults.data(forKey: "characterColors").flatMap { try? JSONDecoder().decode([String: [String: RGBColor]].self, from: $0) } ?? [:]
         catLooks = defaults.data(forKey: "catLooks").flatMap { try? JSONDecoder().decode([String: CatProfile].self, from: $0) } ?? [:]
+        outfits = defaults.data(forKey: "outfits").flatMap { try? JSONDecoder().decode([String: Outfit].self, from: $0) } ?? [:]
         renderStyle = defaults.string(forKey: "renderStyle").flatMap(RenderStyle.init(rawValue:)) ?? .auto
         hiddenCharacters = defaults.data(forKey: "hiddenCharacters").flatMap { try? JSONDecoder().decode([String].self, from: $0) } ?? []
         palette = defaults.string(forKey: "palette").flatMap(AppPalette.init) ?? .strawberry

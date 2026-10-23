@@ -182,7 +182,7 @@ enum FriendMenu {
         ] + sponsorItems + [
             item(focus.running ? L("집중 그만하기") : L("집중 시작")) { if focus.running { focus.stop() } else { focus.start() } },
             submenu(L("놀이"), playItems()),
-        ]
+        ] + SocialBus.menuItems() + OfficeCenter.menuItems()
     }
 
     /// 후원 친구 지금 보기 (the direct build only).

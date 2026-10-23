@@ -14,8 +14,11 @@ struct PlayPlatform: Equatable {
 }
 
 /// What one player holds this frame. `jump` is the press itself (not the key held), set once per press.
+/// 놀이 기술: `up` is ↑ held (꾹: 하늘날기), `highJump` the second ↑ of a quick pair (one-shot, in place of `jump`),
+/// `dash` held after a quick second ← or →.
 struct PlayInput: Equatable {
     var left = false, right = false, run = false, down = false, jump = false
+    var up = false, highJump = false, dash = false
 }
 
 enum PlayEvent: Equatable { case jumped, landed }
@@ -29,11 +32,39 @@ struct PlayBody: Equatable {
     var jumps = 0
     var crouching = false
     var facingLeft = false
+    /// Seconds of 하늘날기 left (PlayPhysics.fuelMax when full); it fills again on the ground.
+    var fuel: CGFloat = PlayPhysics.fuelMax
+    var flying = false
+    /// How long ↑ has been held.
+    var upHeld: TimeInterval = 0
+    /// Feet height when the last jump from the ground began (높이 점프 measures from it).
+    var jumpFrom: CGFloat = 0
+}
+
+/// A quick second press of the same key (높이 점프, 대시). Pure and tested.
+struct DoubleTap {
+    static let window: TimeInterval = 0.25
+    private var last: (key: UInt16, at: TimeInterval)?
+
+    /// True when this press of `key` comes within `window` of the one before it; a third press starts over.
+    mutating func press(_ key: UInt16, at t: TimeInterval) -> Bool {
+        if let l = last, l.key == key, t - l.at <= Self.window { last = nil; return true }
+        last = (key, t)
+        return false
+    }
 }
 
 /// The platformer under 놀이 모드: gravity, walking, a double jump, one-way platforms. Pure and tested (PlayModeTests).
 enum PlayPhysics {
     static let walk: CGFloat = 220, run: CGFloat = 480
+    /// 대시 (two quick ← or →): faster than Shift.
+    static let dash: CGFloat = 760
+    /// 하늘날기: ↑ held this long in the air lifts it at `flyRise` for at most `fuelMax` seconds, refilled at
+    /// `refuel` seconds per second on the ground (full in 2 s).
+    static let flyHold: TimeInterval = 0.2
+    static let flyRise: CGFloat = 260, fuelMax: CGFloat = 1.5, refuel: CGFloat = 0.75
+    /// 높이 점프: about this many plain jumps high.
+    static let highJumpScale: CGFloat = 1.8
     static let gravity: CGFloat = 2600, maxFall: CGFloat = 1800
     /// About 155 pt up, then about 120 more for the second one.
     static let jump: CGFloat = 900, doubleJump: CGFloat = 800
@@ -42,23 +73,32 @@ enum PlayPhysics {
     /// Windows smaller than this are sheets, popovers and helpers: nothing to stand on.
     static let minWindow = CGSize(width: 80, height: 40)
 
-    /// One frame of `dt` seconds for a body `width` wide; its feet stay within `walls` (screen x).
+    /// One frame of `dt` seconds for a body `width` wide; its feet stay within `walls` (screen x) and never go
+    /// above `ceiling` (the session passes the top of the visible frame less the body's height).
     @discardableResult
     static func step(_ b: inout PlayBody, input: PlayInput, platforms: [PlayPlatform], walls: ClosedRange<CGFloat>,
-                     width: CGFloat, dt: TimeInterval) -> [PlayEvent] {
+                     width: CGFloat, dt: TimeInterval, ceiling: CGFloat = .greatestFiniteMagnitude) -> [PlayEvent] {
         var events: [PlayEvent] = []
         let t = CGFloat(max(0, dt))
         let dir: CGFloat = (input.right ? 1 : 0) - (input.left ? 1 : 0)
         b.crouching = b.onGround && input.down
-        b.vx = b.crouching ? 0 : dir * (input.run ? run : walk)
+        b.vx = b.crouching ? 0 : dir * (input.dash ? dash : input.run ? run : walk)
         if dir != 0 { b.facingLeft = dir < 0 }
+        b.upHeld = input.up ? b.upHeld + max(0, dt) : 0
 
-        if input.jump {
+        if input.highJump, !b.onGround, b.jumps == 1, b.vy > 0 {
+            // Still rising from a ground jump: enough speed to top out at highJumpScale plain jumps above where it began.
+            let h = jump * jump / (2 * gravity)
+            b.vy = (2 * gravity * max(0, highJumpScale * h - (b.y - b.jumpFrom))).squareRoot()
+            b.jumps = 2
+            events.append(.jumped)
+        } else if input.jump || input.highJump {
             let under = b.onGround ? support(b, platforms) : nil
             if let p = under, input.down, !p.solid {
                 b.y = p.y - 1   // under its edge: the landing check no longer sees it
                 b.onGround = false; b.crouching = false; b.jumps = 1
             } else if b.onGround || b.jumps < 2 {
+                if b.onGround { b.jumpFrom = b.y }
                 b.vy = b.onGround ? jump : doubleJump
                 b.jumps = b.onGround ? 1 : 2
                 b.onGround = false; b.crouching = false
@@ -71,20 +111,30 @@ enum PlayPhysics {
         }
         let lo = walls.lowerBound + width / 2, hi = max(lo, walls.upperBound - width / 2)
         b.x = min(max(b.x + b.vx * t, lo), hi)
-        guard !b.onGround else { return events }
+        b.flying = !b.onGround && input.up && b.upHeld >= flyHold && b.fuel > 0
+        guard !b.onGround else {
+            b.fuel = min(fuelMax, b.fuel + refuel * t)
+            return events
+        }
 
-        b.vy = max(-maxFall, b.vy - gravity * t)
-        let from = b.y, to = b.y + b.vy * t
+        if b.flying {
+            b.vy += (flyRise - b.vy) * min(1, 10 * t)   // no gravity: eases up to the rise speed
+            b.fuel = max(0, b.fuel - t)
+        } else {
+            b.vy = max(-maxFall, b.vy - gravity * t)
+        }
+        let from = b.y, to = min(b.y + b.vy * t, max(from, ceiling))
+        if to < b.y + b.vy * t { b.vy = min(b.vy, 0) }   // head against the top
         b.y = to
         // Falling: the highest edge it passed through from above. Rising, it goes up through them.
         if b.vy <= 0, let p = platforms.filter({ $0.spans(b.x) && from >= $0.y && to <= $0.y }).max(by: { $0.y < $1.y }) {
-            b.y = p.y; b.vy = 0; b.onGround = true; b.jumps = 0
+            b.y = p.y; b.vy = 0; b.onGround = true; b.jumps = 0; b.flying = false
             events.append(.landed)
         }
         // Never under the ground, whatever the frame skipped.
         if let floor = platforms.filter({ $0.solid && $0.spans(b.x) }).map(\.y).max(), b.y < floor {
             if !b.onGround { events.append(.landed) }
-            b.y = floor; b.vy = 0; b.onGround = true; b.jumps = 0
+            b.y = floor; b.vy = 0; b.onGround = true; b.jumps = 0; b.flying = false
         }
         return events
     }
@@ -124,7 +174,9 @@ enum PlayPhysics {
 /// session (no global key monitor, no permission); Esc, a click elsewhere, an app or Space switch, sleep or a display
 /// change, or 2 minutes with no key, ends it, and the friend goes back to what it was doing from where the player stopped.
 /// P1: ← → 걷기, Shift 달리기, ↑ 점프 (공중에서 한 번 더: 2단 점프), ↓ 웅크리기, ↓ + ↑ 내려가기.
-/// P2 (`twoPlayer`, for games): A D 걷기, W 점프, S 웅크리기, the same character tinted.
+/// 놀이 기술 (plugin playMoves, `movesKey`): ↑ 꾹 하늘날기 (1.5 s of fuel, a bar shows it), ↑↑ quickly 높이 점프,
+/// ←← or →→ quickly 대시 until the key is let go.
+/// P2 (`twoPlayer`, for games): A D 걷기, W 점프, S 웅크리기, the same character tinted; W 꾹, W W, A A, D D likewise.
 /// For games built on it: `onTick`, `onEvent`, `onEnd`, `onStep`, `under`, `player(_:)`, `body(_:)`, `update(_:_:)`,
 /// `platforms()`, `overlay(on:)`, and `didStart` to add hooks from outside; every hook is cleared when the session ends. Nothing exists or ticks outside a session; in one, 60 fps while anything moves or a
 /// game ticks, 4 a second otherwise (the window list is read at most 4 times a second either way).
@@ -132,6 +184,13 @@ final class PlayMode {
     static let shared = PlayMode()
     /// 설정 > 놀이 > 둘이 놀기: P2 comes out when a session starts.
     static let twoPlayerKey = "play.twoPlayer"
+    /// 설정 > 플러그인 > 놀이 기술 on (unset = on once the plugin opens).
+    static let movesKey = "play.moves"
+
+    /// 하늘날기, 높이 점프 and 대시 may be used: the plugin is open and its switch is on. Read at each key press.
+    static var movesOn: Bool {
+        PluginGate.isOpen(.playMoves) && (AppDefaults.store.object(forKey: movesKey) as? Bool ?? true)
+    }
     /// No key for this long and no game on: the player walked away (or the keys never reached us), the session ends.
     static let idleLimit: TimeInterval = 120
 
@@ -171,12 +230,15 @@ final class PlayMode {
         var frames: [BuddyGait: [NSImage]] = [:]
         var size = CGSize.zero
         let layer = CALayer(), mark = CATextLayer()
+        /// 하늘날기 fuel, shown only while it is not full.
+        let fuel = CALayer(), fuelFill = CALayer()
+        var taps = DoubleTap()
         var frame = 0, clock: TimeInterval = 0
         var shown: NSImage?
 
         init(body: PlayBody) { self.body = body }
         var rect: CGRect { CGRect(x: body.x - size.width / 2, y: body.y, width: size.width, height: size.height) }
-        func remove() { layer.removeFromSuperlayer(); mark.removeFromSuperlayer() }
+        func remove() { layer.removeFromSuperlayer(); mark.removeFromSuperlayer(); fuel.removeFromSuperlayer() }
     }
 
     private var source = Source.buddy
@@ -331,8 +393,20 @@ final class PlayMode {
         p.mark.bounds = CGRect(x: 0, y: 0, width: p.mark.fontSize * 1.6, height: p.mark.fontSize * 1.3)
         p.mark.anchorPoint = CGPoint(x: 0.5, y: 0)
         p.mark.actions = ["position": NSNull()]
+        p.fuel.bounds = CGRect(x: 0, y: 0, width: 28, height: 4)
+        p.fuel.anchorPoint = CGPoint(x: 0.5, y: 0)
+        p.fuel.cornerRadius = 2
+        p.fuel.backgroundColor = NSColor.black.withAlphaComponent(0.35).cgColor
+        p.fuel.isHidden = true
+        p.fuel.actions = ["position": NSNull(), "hidden": NSNull()]
+        p.fuelFill.anchorPoint = .zero
+        p.fuelFill.cornerRadius = 2
+        p.fuelFill.backgroundColor = NSColor.systemTeal.cgColor
+        p.fuelFill.actions = ["bounds": NSNull(), "position": NSNull()]
+        p.fuel.addSublayer(p.fuelFill)
         overlay()?.addSublayer(p.layer)
         overlay()?.addSublayer(p.mark)
+        overlay()?.addSublayer(p.fuel)
     }
 
     private func addP2() {
@@ -407,19 +481,28 @@ final class PlayMode {
         if down, e.keyCode == 53 { end(); return }   // Esc
         let fresh = down && !e.isARepeat
         // ponytail: physical keys (kVK codes), so WASD works on any keyboard layout and input source
-        switch e.keyCode {
-        case 123: players.first?.input.left = down
-        case 124: players.first?.input.right = down
-        case 125: players.first?.input.down = down
-        case 126: if fresh { players.first?.input.jump = true }   // ↑
-        case 0: players.dropFirst().first?.input.left = down
-        case 2: players.dropFirst().first?.input.right = down
-        case 1: players.dropFirst().first?.input.down = down
-        case 13: if fresh { players.dropFirst().first?.input.jump = true }
-        default: return
+        guard let (i, k) = Self.keys[e.keyCode] else { return }
+        defer { wake() }
+        guard players.indices.contains(i) else { return }
+        let p = players[i], moves = Self.movesOn
+        let double = fresh && moves && p.taps.press(e.keyCode, at: lastKey)
+        switch k {
+        case .left, .right:
+            if k == .left { p.input.left = down } else { p.input.right = down }
+            if double { p.input.dash = true } else if !down { p.input.dash = false }
+        case .down:
+            p.input.down = down
+            if down { p.input.dash = false }   // 웅크리면 대시 끝
+        case .up:
+            if fresh { if double { p.input.highJump = true } else { p.input.jump = true } }
+            p.input.up = down && moves
         }
-        wake()
     }
+
+    private enum Key { case left, right, down, up }
+    /// ← → ↓ ↑ for P1, A D S W for P2.
+    private static let keys: [UInt16: (Int, Key)] = [123: (0, .left), 124: (0, .right), 125: (0, .down), 126: (0, .up),
+                                                     0: (1, .left), 2: (1, .right), 1: (1, .down), 13: (1, .up)]
 
     private func readPlatforms(now: TimeInterval) {
         lastRead = now
@@ -454,8 +537,9 @@ final class PlayMode {
         if now - lastRead >= 0.25 { readPlatforms(now: now) }
         let walls = screen.minX...screen.maxX
         for (i, p) in players.enumerated() {
-            let events = PlayPhysics.step(&p.body, input: p.input, platforms: edges, walls: walls, width: p.size.width, dt: dt)
-            p.input.jump = false
+            let events = PlayPhysics.step(&p.body, input: p.input, platforms: edges, walls: walls, width: p.size.width, dt: dt,
+                                          ceiling: visible.maxY - p.size.height)
+            p.input.jump = false; p.input.highJump = false
             for e in events { onEvent.forEach { $0(e, i) } }
         }
         onTick.forEach { $0(dt) }
@@ -463,7 +547,7 @@ final class PlayMode {
         guard isPlaying else { return }   // a game may end it from a hook
         players.forEach { advance($0, dt: dt); layout($0) }
         let resting = onTick.isEmpty && players.allSatisfy {
-            $0.body.onGround && $0.body.vx == 0 && !$0.input.left && !$0.input.right && !$0.input.down
+            $0.body.onGround && $0.body.vx == 0 && !$0.input.left && !$0.input.right && !$0.input.down && $0.body.fuel >= PlayPhysics.fuelMax
         }
         schedule(resting ? 0.25 : 1.0 / 60)
     }
@@ -494,6 +578,11 @@ final class PlayMode {
                                                                                 anchor: p.layer.anchorPoint, size: p.size)) }
         p.layer.setAffineTransform(t)
         p.mark.position = CGPoint(x: p.body.x, y: p.body.y + p.size.height * (p.body.crouching ? 0.75 : 1) + 2)
+        p.fuel.isHidden = p.body.fuel >= PlayPhysics.fuelMax
+        if !p.fuel.isHidden {
+            p.fuel.position = CGPoint(x: p.body.x, y: p.mark.position.y + p.mark.bounds.height + 2)
+            p.fuelFill.bounds = CGRect(x: 0, y: 0, width: 28 * max(0, p.body.fuel) / PlayPhysics.fuelMax, height: 4)
+        }
         CATransaction.commit()
     }
 }

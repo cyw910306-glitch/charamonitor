@@ -81,6 +81,8 @@ cat >> "$APP/Contents/Resources/en.lproj/InfoPlist.strings" <<EOF
 "NSRemindersUsageDescription" = "$REM_EN";
 "NSRemindersFullAccessUsageDescription" = "$REM_EN";
 "NSContactsUsageDescription" = "When you ask the AI assistant to write to someone, it looks up their address by name. Addresses go only to your mail server when mail is sent, never to the AI.";
+"NSLocalNetworkUsageDescription" = "Finds and connects to your friends' Macs on the same Wi-Fi. Only when Nearby Friends is turned on in Settings.";
+"NSMicrophoneUsageDescription" = "Sends your voice to a friend only while you hold the walkie-talkie button.";
 EOF
 plutil -lint -s "$APP/Contents/Resources/en.lproj/InfoPlist.strings"
 # English UI (tools/i18n/merge.py): the Korean source text is the key, so Korean needs no table.

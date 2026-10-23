@@ -306,6 +306,7 @@ final class MeadowFriends {
         var slots: [HangSlot]
         var look: SpriteLook
         var colors: [String: [String: RGBColor]]
+        var outfits: [String: Outfit]   // 옷 입히기 of the friends' own characters
         /// The screen's frame and visible frame: the Dock moving, resizing or hiding changes only the second.
         var screen: [CGRect]
     }
@@ -377,7 +378,7 @@ final class MeadowFriends {
         guard enabled, let screen = NSScreen.screens.first else { teardown(); return }
         let prefs = store.prefs
         let now = Built(slots: Array(prefs.slots.prefix(max(1, min(MeadowPrefs.maxCount, prefs.count)))), look: SpriteLook(AppSettings.shared),
-                        colors: AppSettings.shared.characterColors, screen: [screen.frame, screen.visibleFrame])
+                        colors: AppSettings.shared.characterColors, outfits: AppSettings.shared.outfits, screen: [screen.frame, screen.visibleFrame])
         let level = prefs.onTop ? .floating : NSWindow.Level(Int(CGWindowLevelForKey(.desktopIconWindow)) + 1)
         if now != built { build(now, screen: screen) }
         if panel?.level != level { panel?.level = level }

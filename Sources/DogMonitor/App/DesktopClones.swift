@@ -175,6 +175,7 @@ final class DesktopClones {
     private struct Built: Equatable {
         var look: SpriteLook
         var colors: [String: [String: RGBColor]]
+        var outfits: [String: Outfit]   // 옷 입히기 of the friends' own characters
         var pixelSize: CGFloat
         var screen: [CGRect]
     }
@@ -323,7 +324,7 @@ final class DesktopClones {
     private func refresh() {
         // The menu bar's screen, not NSScreen.main (whichever has the key window).
         guard enabled, let screen = NSScreen.screens.first else { teardown(); return }
-        let now = Built(look: SpriteLook(AppSettings.shared), colors: AppSettings.shared.characterColors,
+        let now = Built(look: SpriteLook(AppSettings.shared), colors: AppSettings.shared.characterColors, outfits: AppSettings.shared.outfits,
                         pixelSize: MotionStore.shared.buddySize.pixelSize, screen: [screen.frame, screen.visibleFrame])
         if now != built {
             saveAll()
