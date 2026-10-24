@@ -214,6 +214,8 @@ final class FocusCenter: ObservableObject {
         SpeechBubbleCenter.shared.say(text: persona.exclaim(line), source: .system, aloud: false,
                                       card: goalHit ? .dance : minutes >= 1 ? .proud : nil, anchor: DesktopFriends.speaker)
         goalHit = false
+        // 집중이 끝나면 숨 고르기 제안 (off by default), after the line has had a moment.
+        if minutes >= 1 { DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { BreathCenter.shared.offer() } }
     }
 
     /// "집중 시작" or "집중 그만" in the chat (AssistantIntent.focus): does it and says so.

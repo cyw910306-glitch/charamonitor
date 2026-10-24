@@ -9,9 +9,11 @@ struct NearbySettings: View {
     @AppStorage("social.voice", store: AppDefaults.store) private var voiceOn = false
     @AppStorage("social.remoteHelp", store: AppDefaults.store) private var remoteOn = false
     @AppStorage("social.nickname", store: AppDefaults.store) private var nickname = ""
+    @AppStorage(FriendRoom.key, store: AppDefaults.store) private var roomOn = true
     @State private var picked: NearbyMac?
     @State private var typed = ""
     @State private var removing: SocialFriend?
+    @State private var line = SocialBus.shared.todayLine()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -40,6 +42,16 @@ struct NearbySettings: View {
                     Text(L("내 이름"))
                     TextField(bus.nickname, text: $nickname).textFieldStyle(.roundedBorder).frame(maxWidth: 160)
                 }
+                HStack {
+                    Text(L("오늘 한마디"))
+                    TextField(L("40자까지, 친구에게만"), text: $line).textFieldStyle(.roundedBorder).onSubmit { bus.setTodayLine(line) }
+                    Button(L("저장")) { bus.setTodayLine(line) }.controlSize(.small).disabled(line == bus.todayLine())
+                }
+                note(L("친구 이름표를 누르면 한마디, 오늘 운세, 오늘 점심이 담긴 프로필 카드가 보여요. 내 상태를 퇴근한 척으로 두면 친구에겐 퇴근 팻말이 보여요."))
+                Toggle(L("친구 캐릭터가 내 화면에 머물기"), isOn: $roomOn).toggleStyle(.switch).controlSize(.small)
+                note(L("온라인인 친구가 독 위에 머물러요(퇴근이면 팻말을 들어요). 오른쪽 클릭으로 다같이 뽀뽀·똥을 보내고, 잡고 휙 던지면 친구 화면에도 날아가요. 회의나 화면 녹화 중엔 장난을 쉬어요."))
+                if roomOn { RoomPlaceSettings().padding(.leading, 12) }
+                ThrowSettings()
                 Divider()
                 addFriend
                 if !bus.friends.isEmpty {

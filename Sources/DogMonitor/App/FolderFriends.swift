@@ -178,6 +178,7 @@ final class FolderFriends {
         var shown: NSImage?
         var leaving: TimeInterval?
         var hidden = false
+        let hot = HotspotPanel()
 
         init(window: ListedWindow, host: CALayer, x: CGFloat) { self.window = window; self.host = host; walk = MeadowWalk(x: x) }
 
@@ -291,7 +292,7 @@ final class FolderFriends {
         if now != built { build(now) }
         finderFront = NSWorkspace.shared.frontmostApplication?.bundleIdentifier == FolderPerch.finder
         if monitors.isEmpty {
-            let mask: NSEvent.EventTypeMask = [.mouseMoved, .leftMouseDown, .leftMouseUp]
+            let mask: NSEvent.EventTypeMask = [.leftMouseDown, .leftMouseUp]
             if let g = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: { [weak self] e in self?.global(e) }) { monitors.append(g) }
         }
         poke()
@@ -318,6 +319,7 @@ final class FolderFriends {
     private func remove(_ f: Friend) {
         f.layer.removeFromSuperlayer()
         f.panel?.orderOut(nil)
+        f.hot.hide()
         if pressed === f { pressed = nil }
     }
 
@@ -327,8 +329,7 @@ final class FolderFriends {
         p.backgroundColor = .clear
         p.hasShadow = false
         if Self.qaHidden { p.alphaValue = 0 }
-        p.ignoresMouseEvents = true   // until the cursor is over the friend (hover)
-        p.acceptsMouseMovedEvents = true
+        p.ignoresMouseEvents = true   // for good: the friend's HotspotPanel takes its clicks
         p.hidesOnDeactivate = false
         // The normal level, ordered just above its Finder window: windows in front of that one cover it, like the window.
         p.level = .normal
@@ -336,8 +337,7 @@ final class FolderFriends {
         p.collectionBehavior = [.ignoresCycle, .fullScreenNone, .transient]
         p.isExcludedFromWindowsMenu = true
         p.isReleasedWhenClosed = false
-        let v = FolderView(frame: .zero)
-        v.owner = self
+        let v = NSView(frame: .zero)
         v.wantsLayer = true
         p.contentView = v
         return p
@@ -366,6 +366,8 @@ final class FolderFriends {
         let host = p.contentView?.layer ?? CALayer()
         let f = Friend(window: w, host: host, x: w.frame.width * (share ?? .random(in: 0.3...0.7)))
         f.panel = p
+        f.hot.collectionBehavior = p.collectionBehavior
+        f.hot.onMouse = { [weak self, weak f] e in if let self, let f { self.mouse(e, f) } }
         dress(f)
         host.addSublayer(f.layer)
         f.think = now + .random(in: 3...7)
@@ -383,6 +385,7 @@ final class FolderFriends {
         f.react = nil
         f.walk = MeadowWalk(x: f.walk.x)
         f.walk.hop()
+        f.hot.hide()
         if pressed === f { pressed = nil }
     }
 
@@ -401,7 +404,7 @@ final class FolderFriends {
         switch e.type {
         case .leftMouseDown: if windowsOut { schedule(1.0 / 60) }
         case .leftMouseUp: lastRelease = ProcessInfo.processInfo.systemUptime; if windowsOut { schedule(1.0 / 60) }
-        default: hover()
+        default: break
         }
     }
 
@@ -450,6 +453,7 @@ final class FolderFriends {
             if mine == nil || theirs.map({ mine! > $0 }) == true {
                 p.orderFrontRegardless()
                 p.order(.above, relativeTo: f.window.id)
+                if f.hot.isVisible { f.hot.order(.above, relativeTo: p.windowNumber) }
             }
         }
     }
@@ -458,6 +462,7 @@ final class FolderFriends {
     private func hide(_ f: Friend, _ hidden: Bool) {
         guard hidden != f.hidden, let p = f.panel else { return }
         f.hidden = hidden
+        if hidden { f.hot.hide() }
         if hidden, pressed === f { pressed = nil }
         let to: CGFloat = hidden || Self.qaHidden ? 0 : 1
         if still || hidden && !p.isVisible { p.alphaValue = to; if hidden { p.orderOut(nil) }; return }
@@ -532,7 +537,6 @@ final class FolderFriends {
             idleFrames = idleFrames || !still && (f.frames[f.gait]?.count ?? 0) > 1 || now < f.lookUntil || f.react != nil || f.walk.state == .sit
         }
         friends.removeAll { $0.leaving == .infinity }
-        hover()
         // Moving or reacting: 30 fps (60 while a window may be dragged). Idle frames or a nap: 2 a second. Else just the
         // window list's pace (nothing at all with no Finder window out).
         let fast = pollEvery.map { $0 < 0.1 } == true
@@ -598,6 +602,23 @@ final class FolderFriends {
             f.layer.removeAnimation(forKey: "bob")
         }
         CATransaction.commit()
+        place(f)
+    }
+
+    /// The friend's hotspot over its drawing, just above its panel; reacting, also the box under it (it may rise off the
+    /// spot it was clicked on, and the next click of a combo never falls through to Finder).
+    private func place(_ f: Friend) {
+        guard let p = f.panel, p.isVisible, !f.hidden, f.leaving == nil, let image = f.shown else { f.hot.hide(); return }
+        let id = ObjectIdentifier(image)
+        if hits[id] == nil { hits[id] = AlphaHit(image) }
+        let at = CGPoint(x: p.frame.minX + f.layer.position.x - f.size.width / 2, y: p.frame.minY + f.layer.position.y)
+        let rise = f.react != nil ? f.size.height : 0
+        let frame = CGRect(x: at.x, y: at.y - rise, width: f.size.width, height: f.size.height + rise).intersection(p.frame)
+        guard !frame.isEmpty else { f.hot.hide(); return }
+        var shape = HotspotShape(hit: hits[id], drawn: CGRect(x: at.x - frame.minX, y: at.y - frame.minY, width: f.size.width, height: f.size.height),
+                                 flipped: f.facingLeft)
+        if rise > 0 { shape.extra = [CGRect(x: 0, y: 0, width: frame.width, height: frame.height)] }
+        f.hot.place(frame, shape, level: p.level, above: p.windowNumber)
     }
 
     private func pop(_ text: String, _ color: NSColor, over f: Friend) {
@@ -639,36 +660,17 @@ final class FolderFriends {
 
     // MARK: Mouse
 
-    private func friend(at p: CGPoint) -> Friend? {
-        friends.last { f in
-            guard f.leaving == nil, !f.hidden, let panel = f.panel, panel.frame.contains(p), let image = f.shown else { return false }
-            let id = ObjectIdentifier(image)
-            if hits[id] == nil { hits[id] = AlphaHit(image) }
-            var lx = p.x - panel.frame.minX - (f.layer.position.x - f.size.width / 2)
-            if f.facingLeft { lx = f.size.width - lx }
-            let ly = p.y - panel.frame.minY - f.layer.position.y
-            if hits[id]?.hits(CGPoint(x: lx, y: ly), in: f.size) == true { return true }
-            return f.react != nil && lx >= 0 && lx <= f.size.width && ly >= -f.size.height && ly <= f.size.height
-        }
-    }
-
-    /// The panels take clicks only over a friend.
-    fileprivate func hover() {
-        guard pressed == nil, !friends.isEmpty else { return }
-        let p = NSEvent.mouseLocation
-        let over = friend(at: p)
-        for f in friends { if let panel = f.panel, panel.ignoresMouseEvents == (over === f) { panel.ignoresMouseEvents = over !== f } }
-    }
-
-    fileprivate func mouse(_ e: NSEvent) {
+    /// Every mouse event on `f`'s hotspot.
+    private func mouse(_ e: NSEvent, _ f: Friend) {
         let p = NSEvent.mouseLocation, t = ProcessInfo.processInfo.systemUptime
         switch e.type {
-        case .rightMouseDown: showMenu(e, at: p)
-        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e, at: p)
-        case .leftMouseDown where e.modifierFlags.contains(.option): quickAsk(friend(at: p))
+        case .mouseMoved, .mouseEntered, .mouseExited: return
+        case .rightMouseDown: showMenu(e, at: p, on: f)
+        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e, at: p, on: f)
+        case .leftMouseDown where e.modifierFlags.contains(.option): quickAsk(f)
         case .leftMouseDown:
             _ = clicks.mouseDown(p, at: t)
-            pressed = friend(at: p)
+            pressed = f   // its own hotspot took the press
         case .leftMouseDragged: _ = clicks.mouseMoved(p, at: t)
         case .leftMouseUp:
             var g = clicks.mouseUp(p, at: t)
@@ -687,24 +689,22 @@ final class FolderFriends {
     }
 
     private func quickAsk(_ f: Friend?) {
-        guard let f, let panel = f.panel else { return }
+        guard let f else { return }
         MainActor.assumeIsolated {
-            FriendQuickAsk.shared.toggle(from: panel, key: f.window.id) { [weak self, weak f] in f.flatMap { self?.head(of: $0) } }
+            FriendQuickAsk.shared.toggle(from: f.hot, key: f.window.id) { [weak self, weak f] in f.flatMap { self?.head(of: $0) } }
         }
     }
 
-    private func showMenu(_ e: NSEvent, at p: CGPoint) {
+    private func showMenu(_ e: NSEvent, at p: CGPoint, on f: Friend) {
         _ = clicks.cancel(at: p)
         pressed = nil
-        let f = friend(at: p)
-        guard let v = f?.panel?.contentView else { return }
+        guard let v = f.hot.contentView else { return }
         let own = [
             FriendMenu.item(L("퀵물어보기")) { [weak self] in self?.quickAsk(f) },
             FriendMenu.item(L("창마다 한 명씩"), on: store.prefs.everyWindow) { FolderStore.shared.prefs.everyWindow.toggle() },
             FriendMenu.item(L("폴더 친구 치우기")) { FolderStore.shared.prefs.on = false },
         ]
         FriendMenu.pop(own, with: e, for: v)
-        hover()
     }
 
     // MARK: QA
@@ -783,19 +783,4 @@ final class FolderFriends {
 fileprivate final class FolderPanel: NSPanel {
     override var canBecomeKey: Bool { false }
     override var canBecomeMain: Bool { false }
-}
-
-private final class FolderView: NSView {
-    weak var owner: FolderFriends?
-    override init(frame: NSRect) {
-        super.init(frame: frame)
-        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseMoved, .activeAlways, .inVisibleRect], owner: self))
-    }
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
-    override func mouseMoved(with event: NSEvent) { owner?.hover() }
-    override func mouseDown(with event: NSEvent) { owner?.mouse(event) }
-    override func mouseDragged(with event: NSEvent) { owner?.mouse(event) }
-    override func mouseUp(with event: NSEvent) { owner?.mouse(event) }
-    override func rightMouseDown(with event: NSEvent) { owner?.mouse(event) }
 }

@@ -58,6 +58,8 @@ final class AssistantSettings: ObservableObject {
     @Published var calendarLeads: [Int] { didSet { d.set(calendarLeads, forKey: "assistant.calendarLeads") } }
     /// 출근·점심·퇴근 인사 (all off until turned on).
     @Published var workHours: WorkHours { didSet { d.set(try? JSONEncoder().encode(workHours), forKey: "assistant.workHours") } }
+    /// 아침에 오늘의 운세 (Fortune.morningCheck), off until turned on.
+    @Published var fortuneMorning: Bool { didSet { d.set(fortuneMorning, forKey: "assistant.fortuneMorning") } }
     @Published var reminders: Bool { didSet { d.set(reminders, forKey: "assistant.reminders") } }
     @Published var mail: Bool { didSet { d.set(mail, forKey: "assistant.mail") } }
     @Published var phone: Bool { didSet { d.set(phone, forKey: "assistant.phone") } }
@@ -120,6 +122,7 @@ final class AssistantSettings: ObservableObject {
         calendar = defaults.bool(forKey: "assistant.calendar")
         calendarLeads = (defaults.array(forKey: "assistant.calendarLeads") as? [Int]).flatMap { $0.isEmpty ? nil : $0 } ?? [10]
         workHours = defaults.data(forKey: "assistant.workHours").flatMap { try? JSONDecoder().decode(WorkHours.self, from: $0) } ?? WorkHours()
+        fortuneMorning = defaults.bool(forKey: "assistant.fortuneMorning")
         reminders = defaults.bool(forKey: "assistant.reminders")
         mail = defaults.bool(forKey: "assistant.mail")
         phone = defaults.bool(forKey: "assistant.phone")

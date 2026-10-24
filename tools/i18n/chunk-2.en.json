@@ -2874,5 +2874,385 @@
  {
   "key": "캐릭터마다 그려진 그대로 보여 줘요",
   "en": "Shows each character as it was drawn"
+ },
+ {
+  "key": "오늘 한마디",
+  "en": "Line of the day"
+ },
+ {
+  "key": "친구에게만 보여요. 오늘 하루 동안 프로필 카드에 남아요.",
+  "en": "Only friends see it. It stays on your profile card for today."
+ },
+ {
+  "key": "40자까지",
+  "en": "Up to 40 characters"
+ },
+ {
+  "key": "%@에게 낙서 쪽지",
+  "en": "Doodle for %@"
+ },
+ {
+  "key": "%@의 낙서 쪽지",
+  "en": "Doodle from %@"
+ },
+ {
+  "key": "낙서 칸",
+  "en": "Doodle pad"
+ },
+ {
+  "key": "5초 동안 친구 화면에 떴다가 사라져요. 저장하지 않아요.",
+  "en": "It pops up on your friend's screen for 5 seconds, then disappears. Nothing is saved."
+ },
+ {
+  "key": "지금은 못 보내요. 잠깐 뒤에 다시 해 주세요.",
+  "en": "Can't send right now. Try again in a moment."
+ },
+ {
+  "key": "프로필 카드",
+  "en": "Profile card"
+ },
+ {
+  "key": "오늘 한마디가 아직 없어요",
+  "en": "No line of the day yet"
+ },
+ {
+  "key": "오늘 운세",
+  "en": "Today's fortune"
+ },
+ {
+  "key": "오늘 점심",
+  "en": "Today's lunch"
+ },
+ {
+  "key": "아직 몰라요",
+  "en": "Not yet"
+ },
+ {
+  "key": "오늘은 칼퇴 각, 다들 화이팅",
+  "en": "Leaving on time today, hang in there everyone"
+ },
+ {
+  "key": "다같이 뽀뽀",
+  "en": "Group kiss"
+ },
+ {
+  "key": "다같이 똥",
+  "en": "Group poop"
+ },
+ {
+  "key": "던지기",
+  "en": "Toss"
+ },
+ {
+  "key": "다같이 뽀뽀!",
+  "en": "Group kiss!"
+ },
+ {
+  "key": "다같이 똥!",
+  "en": "Group poop!"
+ },
+ {
+  "key": "날아왔어!",
+  "en": "I got tossed over!"
+ },
+ {
+  "key": "낙서 쪽지 보내기…",
+  "en": "Send a doodle…"
+ },
+ {
+  "key": "친구 캐릭터 화면에서 치우기",
+  "en": "Remove friends' characters from the screen"
+ },
+ {
+  "key": "다같이",
+  "en": "Everyone"
+ },
+ {
+  "key": "%@%@ 던져서 날아왔어!",
+  "en": "%1$@ tossed me over here!"
+ },
+ {
+  "key": "오늘 한마디…",
+  "en": "Line of the day…"
+ },
+ {
+  "key": "모임에 들어왔어요",
+  "en": "joined the meetup"
+ },
+ {
+  "key": "모임에서 나갔어요",
+  "en": "left the meetup"
+ },
+ {
+  "key": "오늘의 운세: %@",
+  "en": "Today's fortune: %@"
+ },
+ {
+  "key": "✏️ 낙서 쪽지",
+  "en": "✏️ Doodle"
+ },
+ {
+  "key": "아직 모임이 없어요",
+  "en": "No meetup yet"
+ },
+ {
+  "key": "연결됨 · %lld명",
+  "en": "Connected · %lld"
+ },
+ {
+  "key": " (외 %lld개)",
+  "en": " (+%lld more)"
+ },
+ {
+  "key": "원격 모임은 설정 > 플러그인에서 먼저 켜 주세요",
+  "en": "Turn on Remote meetup in Settings > Plugins first"
+ },
+ {
+  "key": "원격 모임에 들어갈까요?",
+  "en": "Join the remote meetup?"
+ },
+ {
+  "key": "코드 %@ 모임에 들어가요. 지금 모임이 있으면 거기서는 나가요.",
+  "en": "You'll join meetup %@. If you're in one now, you'll leave it."
+ },
+ {
+  "key": "들어가기",
+  "en": "Join"
+ },
+ {
+  "key": "원격 모임에 한마디",
+  "en": "A line for the remote meetup"
+ },
+ {
+  "key": "오늘 운세 보내기",
+  "en": "Send today's fortune"
+ },
+ {
+  "key": "한마디 보내기…",
+  "en": "Send a line…"
+ },
+ {
+  "key": "원격 모임 켜기",
+  "en": "Turn on Remote meetup"
+ },
+ {
+  "key": "상태",
+  "en": "Status"
+ },
+ {
+  "key": "같이 놀기와 무전기는 계속 같은 와이파이에서만 돼요.",
+  "en": "Play together and Walkie-talkie still work only on the same Wi-Fi."
+ },
+ {
+  "key": "새 모임 만들기",
+  "en": "Create a meetup"
+ },
+ {
+  "key": "받은 코드나 링크",
+  "en": "Code or link you received"
+ },
+ {
+  "key": "모임 코드",
+  "en": "Meetup code"
+ },
+ {
+  "key": "초대 링크 복사",
+  "en": "Copy invite link"
+ },
+ {
+  "key": "나가기",
+  "en": "Leave"
+ },
+ {
+  "key": "낙서 쪽지",
+  "en": "Doodle"
+ },
+ {
+  "key": "프로필",
+  "en": "Profiles"
+ },
+ {
+  "key": "오늘 저녁 7시 게임 어때?",
+  "en": "Game at 7 tonight?"
+ },
+ {
+  "key": "업무",
+  "en": "Work"
+ },
+ {
+  "key": "연결 중",
+  "en": "Connecting…"
+ },
+ {
+  "key": "사진, 눌러서 크게 보기",
+  "en": "Photo, click to see it big"
+ },
+ {
+  "key": "시즌 뽑기권도 1장 받았어요",
+  "en": "You also got 1 season ticket"
+ },
+ {
+  "key": "대화 모아보기…",
+  "en": "Chat roundup…"
+ },
+ {
+  "key": "종이 뭉치",
+  "en": "Paper ball"
+ },
+ {
+  "key": "탱탱볼",
+  "en": "Bouncy ball"
+ },
+ {
+  "key": "베개",
+  "en": "Pillow"
+ },
+ {
+  "key": "양말",
+  "en": "Sock"
+ },
+ {
+  "key": "도토리",
+  "en": "Acorn"
+ },
+ {
+  "key": "눈뭉치",
+  "en": "Snowball"
+ },
+ {
+  "key": "솔방울",
+  "en": "Pine cone"
+ },
+ {
+  "key": "다가가서 겁주기",
+  "en": "Walk over and scare"
+ },
+ {
+  "key": "다가가서 뽀뽀",
+  "en": "Walk over and kiss"
+ },
+ {
+  "key": "%@%@ 뽀뽀했어!",
+  "en": "%1$@ kissed you!"
+ },
+ {
+  "key": "%@에게 맞아서 기절!",
+  "en": "Knocked out by %@!"
+ },
+ {
+  "key": "투척물",
+  "en": "Throwables"
+ },
+ {
+  "key": "던지기 놀이 (명중·기절)",
+  "en": "Throw play (hits and knockouts)"
+ },
+ {
+  "key": "친구 캐릭터를 누르면 투척물을 던져요. 10초 안에 다섯 번 맞으면 6초 동안 기절하고, 모두의 화면에 별이 돌아요. 친구가 친구에게 날아가 부딪혀도 맞아요.",
+  "en": "Click a friend's character to throw something. Five hits in 10 seconds knock them out for 6 seconds, with stars on everyone's screen. A friend flung into another friend counts too."
+ },
+ {
+  "key": "눈뭉치·솔방울은 시즌 뽑기판에서 모아요.",
+  "en": "Snowballs and pine cones come from the season board."
+ },
+ {
+  "key": "누르면",
+  "en": "Click does"
+ },
+ {
+  "key": "투척물 던지기",
+  "en": "Throw an item"
+ },
+ {
+  "key": "던지기 가드",
+  "en": "Throw guard"
+ },
+ {
+  "key": "켜면 평소엔 눌러도 대화창이 열리고, 친구 캐릭터 오른쪽 클릭 > 던질 준비 뒤 10초 동안만 던져요.",
+  "en": "When on, a click opens the chat as usual, and you can throw only for 10 seconds after right-click > Ready to throw on a friend's character."
+ },
+ {
+  "key": "원격 모임에 한마디…",
+  "en": "A line to the remote meetup…"
+ },
+ {
+  "key": "창에서 내려오기",
+  "en": "Get off the window"
+ },
+ {
+  "key": "%@ 던지기",
+  "en": "Throw at %@"
+ },
+ {
+  "key": "던질 준비 (10초)",
+  "en": "Ready to throw (10 s)"
+ },
+ {
+  "key": "왁!",
+  "en": "Boo!"
+ },
+ {
+  "key": "입력 중",
+  "en": "Typing"
+ },
+ {
+  "key": "사진이 너무 커요. 20MB, 한 변 2만 픽셀까지 보낼 수 있어요.",
+  "en": "The photo is too big. Up to 20 MB and 20,000 pixels a side."
+ },
+ {
+  "key": "사진 파일만 보낼 수 있어요.",
+  "en": "Only photo files can be sent."
+ },
+ {
+  "key": "사진을 줄이지 못했어요. 다른 사진으로 해 주세요.",
+  "en": "Couldn't shrink the photo. Try another one."
+ },
+ {
+  "key": "친구가 지금 사진을 받을 수 없어요.",
+  "en": "Your friend can't get photos right now."
+ },
+ {
+  "key": "잠깐 뒤에 다시 보내 주세요.",
+  "en": "Try again in a moment."
+ },
+ {
+  "key": "사진",
+  "en": "Photo"
+ },
+ {
+  "key": "사진을 보냈어요",
+  "en": "Sent a photo"
+ },
+ {
+  "key": "받은 사진",
+  "en": "Received photo"
+ },
+ {
+  "key": "눌러서 크게 보기",
+  "en": "Click to see it big"
+ },
+ {
+  "key": "파일에서 고르기…",
+  "en": "Choose from files…"
+ },
+ {
+  "key": "복사한 사진 붙여넣기",
+  "en": "Paste copied photo"
+ },
+ {
+  "key": "친구가 온라인일 때 사진을 보낼 수 있어요.",
+  "en": "You can send photos while your friend is online."
+ },
+ {
+  "key": "친구 앱을 업데이트하면 사진을 주고받을 수 있어요.",
+  "en": "Photos work once your friend updates the app."
+ },
+ {
+  "key": "끌어다 놓거나 붙여넣어도 돼요. 위치 정보는 지우고 보내요.",
+  "en": "You can also drag it in or paste it. Location data is removed before sending."
+ },
+ {
+  "key": "사진을 보내는 중…",
+  "en": "Sending the photo…"
  }
 ]

@@ -702,6 +702,7 @@ final class SponsorCenter: ObservableObject {
         } else {
             doneText = (L("선물을 다 모았어요. 고마워요!"), L("새 선물은 다음 버전에서 또 와요"))
         }
+        if SeasonCenter.shared.sponsorWatched(), let t = doneText { doneText = (t.title, t.detail + ". " + L("시즌 뽑기권도 1장 받았어요")) }
         enter(.done)
     }
 

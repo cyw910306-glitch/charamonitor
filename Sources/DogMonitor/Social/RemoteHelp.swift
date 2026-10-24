@@ -71,10 +71,18 @@ final class RemoteHelp {
         guard incoming.ask(id, now: now), asking.insert(id).inserted else { return }   // over the limit: no answer at all
         DispatchQueue.main.async { [self] in
             let n = name(id)
-            let yes = SocialAlerts.ask(L("\(n)가 내 화면을 보고 도와주려 해요."),
-                                       L("수락하면 \(n)의 맥에서 화면 공유가 열리고, 이 맥이 한 번 더 허락을 물어요."),
-                                       [L("수락"), L("거절")], timeout: 60, safe: 1) == .alertFirstButtonReturn
+            #if MAS
+            let qa: Bool? = nil
+            #else
+            let qa: Bool? = SocialQA.active ? SocialQA.decide("remote") : nil
+            #endif
+            let yes = qa ?? (SocialAlerts.ask(L("\(n)가 내 화면을 보고 도와주려 해요."),
+                                              L("수락하면 \(n)의 맥에서 화면 공유가 열리고, 이 맥이 한 번 더 허락을 물어요."),
+                                              [L("수락"), L("거절")], timeout: 60, safe: 1) == .alertFirstButtonReturn)
             asking.remove(id)
+            // Answered: the next ask may show (still 3 per 10 minutes), the same as the friend's own limit lets it send.
+            // Kept pending, a second ask after a no went unanswered for the rest of the 90 s.
+            _ = incoming.answered(id, now: now, final: true)
             guard yes else { SocialBus.shared.send(.remoteAnswer(accept: false, screenSharingOn: false), to: id); return }
             reply(to: id)
         }
@@ -84,6 +92,9 @@ final class RemoteHelp {
     private func reply(to id: String) {
         Self.screenSharingOn { [self] on in
             SocialBus.shared.send(.remoteAnswer(accept: true, screenSharingOn: on), to: id)
+            #if !MAS
+            if SocialQA.active { SocialQA.log("remote reply screenSharingOn=\(on)"); return }   // no guide alert in QA
+            #endif
             if !on { DispatchQueue.main.async { self.guide(id) } }
         }
     }
@@ -130,6 +141,9 @@ final class RemoteHelp {
         guard accept else { say(L("\(name(id))가 지금은 원격 지원을 받지 않아요.")); return }
         guard on else { say(L("상대 맥에서 화면 공유가 꺼져 있어요, 켜는 방법을 보냈어요")); return }
         guard let url = SocialBus.shared.remoteHost(id).flatMap(Self.vncURL) else { say(L("\(name(id)) 맥의 주소를 찾지 못했어요")); return }
+        #if !MAS
+        if SocialQA.active { SocialQA.log("remote would open \(url)"); return }   // QA never opens Screen Sharing
+        #endif
         NSWorkspace.shared.open(url)
     }
 

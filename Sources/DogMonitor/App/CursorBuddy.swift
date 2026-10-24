@@ -200,7 +200,9 @@ final class CursorBuddy {
     var openAssistant: (() -> Void)?
 
     private var window: NSWindow?
-    private let view = BuddyView(frame: .zero)
+    private let view = NSView(frame: .zero)
+    /// Takes its clicks (the drawing window lets every one through).
+    private let hot = HotspotPanel()
     private let sprite = SpriteView(frame: .zero)
     private let lines = CAShapeLayer()   // speed lines
     /// 집중 중: a low pink desk with an open book in front of it (our own shapes over its standing pose).
@@ -242,6 +244,9 @@ final class CursorBuddy {
         case push(CGRect?, checked: TimeInterval)
         /// 후원 친구: holding the covered frame up where it stands (SponsorCenter), since then; no following.
         case sponsor(since: TimeInterval)
+        /// 포스트잇: typing along beside the note at `note` (screen points) since the last key, a frame a key; `back`:
+        /// walking back to `home` (its bottom left before) after the pause.
+        case type(note: CGRect, home: CGPoint, lastKey: TimeInterval, back: Bool)
     }
 
     private var look: SpriteLook?
@@ -253,6 +258,8 @@ final class CursorBuddy {
     private var hits: [ObjectIdentifier: AlphaHit] = [:]
 
     private var mode = Mode.follow
+    /// Keys typed into a 포스트잇: the typing pose shows this frame.
+    private var keys = 0
     private var position = CGPoint.zero   // bottom-left of the drawing at its current scale
     private var lastTick = ProcessInfo.processInfo.systemUptime   // monotonic: a clock change cannot fling it
     private var frame = 0, frameClock: TimeInterval = 0
@@ -358,6 +365,23 @@ final class CursorBuddy {
         return true
     }
 
+    /// 포스트잇 (StickyBoard): a key typed into the note at `note`. It goes over beside it and types along, then back
+    /// where it was `StickyMath.typingPause` after the last key. Not while it is off, held, thrown or on another errand,
+    /// nor in a meeting, a screen share or a recording (FriendVisit.quiet).
+    func typeAlong(by note: CGRect) {
+        let now = ProcessInfo.processInfo.systemUptime
+        if case .type(_, let home, _, _) = mode {
+            mode = .type(note: note, home: home, lastKey: now, back: false)
+        } else {
+            guard errandFree, !FriendVisit.quiet() else { return }
+            endStory()
+            mode = .type(note: note, home: position, lastKey: now, back: false)
+            parked = true
+        }
+        keys += 1
+        schedule(1.0 / 30)
+    }
+
     /// Still holding the frame (a drag, a throw or switching it off ends that).
     var holdsSponsor: Bool { if case .sponsor = mode { return true }; return false }
 
@@ -449,6 +473,7 @@ final class CursorBuddy {
         pressAt = nil
         scale = 1
         window?.orderOut(nil)
+        hot.hide()
         butterfly?.orderOut(nil)
         prop?.orderOut(nil)
         carried = nil
@@ -463,7 +488,7 @@ final class CursorBuddy {
         w.backgroundColor = .clear
         w.hasShadow = false
         if Self.qaHidden { w.alphaValue = 0 }
-        w.ignoresMouseEvents = true
+        w.ignoresMouseEvents = true   // for good: the HotspotPanel takes its clicks
         w.level = .floating   // above normal windows, below the menu bar
         w.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary]
         w.isExcludedFromWindowsMenu = true
@@ -481,7 +506,7 @@ final class CursorBuddy {
         book.fillColor = NSColor.white.cgColor
         book.strokeColor = NSColor(red: 0.35, green: 0.45, blue: 0.75, alpha: 1).cgColor
         for l in [desk, book] { l.isHidden = true; view.layer?.addSublayer(l) }   // after the sprite: in front of it
-        view.onMouse = { [weak self] in self?.mouse($0) }
+        hot.onMouse = { [weak self] in self?.mouse($0) }
         w.contentView = view
         window = w
     }
@@ -548,7 +573,7 @@ final class CursorBuddy {
         // Grows with the cursor's speed (not while hanging), eases back when it slows.
         let top = still ? 1 : MotionStore.shared.buddyBoost.maxScale
         var hanging = false   // or flying, or on an errand: no growing
-        switch mode { case .hang, .fly, .deliver, .kick, .push, .sponsor: hanging = true; default: break }
+        switch mode { case .hang, .fly, .deliver, .kick, .push, .sponsor, .type: hanging = true; default: break }
         if pressAt != nil, NSEvent.pressedMouseButtons & 1 == 0 { pressAt = nil }   // a release we never saw
         scale = BuddyMath.ease(scale, to: hanging ? 1 : BuddyMath.boost(speed: motion.speed, max: top), dt: dt)
         if abs(scale - 1) < 0.005 { scale = 1 }
@@ -561,7 +586,7 @@ final class CursorBuddy {
         let slack = bounds.insetBy(dx: -(box.width + BuddyMath.gap), dy: -(box.height + BuddyMath.gap))
         // A thrown one keeps its own walls (the screen it was thrown on), one on an errand its own screen.
         switch mode {
-        case .fly, .deliver, .kick: break
+        case .fly, .deliver, .kick, .type: break
         default: if !slack.contains(position) { position = BuddyMath.clamp(position, size: box, in: bounds) }
         }
 
@@ -574,7 +599,7 @@ final class CursorBuddy {
         }
 
         var gait = BuddyGait.stand
-        var moving = false, busy = false, sitting = false
+        var moving = false, busy = false, sitting = false, typing = false
         var origin = position
         var rise: CGFloat = 0   // a reaction's lift: the spot it rose off keeps taking clicks
         var turn: (angle: CGFloat, sx: CGFloat, sy: CGFloat) = (0, 1, 1)
@@ -812,6 +837,22 @@ final class CursorBuddy {
             }
             if t >= TrashKick.duration || still && kicked { cheer(until: now + 1.2) }
 
+        case .type(let note, let home, let lastKey, let back):
+            busy = true
+            let area = NSScreen.screens.first { $0.frame.intersects(note) }?.visibleFrame ?? bounds
+            let spot = back ? home : StickyMath.typingSpot(note: note, size: box, in: area)
+            let next = BuddyMath.step(from: position, to: spot, dt: dt, speed: BuddyMath.speed * 2)
+            face(next.x - position.x)
+            moving = next != position
+            position = next
+            origin = position
+            if moving { gait = .run; break }
+            if back { mode = .follow; parked = true; break }
+            facingLeft = note.midX < position.x + box.width / 2   // toward the note
+            gait = has(.special) ? .special : .run   // its busy pose, a frame a key
+            typing = true
+            if now - lastKey >= StickyMath.typingPause { mode = .type(note: note, home: home, lastKey: lastKey, back: true) }
+
         case .sponsor(let since):
             gait = .stand
             origin = BuddyMath.clamp(position, size: box, in: bounds)
@@ -865,7 +906,7 @@ final class CursorBuddy {
         layout(origin: origin, box: box, turn: turn, pivot: pivot, lines: moving && !hanging ? k : 0, rise: rise)
         if !propped, prop?.isVisible == true { prop?.orderOut(nil) }   // the errand ended or was cut short
         if desk.isHidden != (gait != .study) { desk.isHidden = gait != .study; book.isHidden = desk.isHidden }
-        takeClicks(cursor: cursor, origin: origin, box: box, rise: rise)
+        takeClicks(origin: origin, box: box, rise: rise)
 
         let set = frames[gait].map { facingLeft ? $0.left : $0.right } ?? frames[.walk].map { facingLeft ? $0.left : $0.right } ?? []
         if set != showing { showing = set; sprite.setFrames(set, smooth: smooth); frame = 0; frameClock = 0 }
@@ -881,10 +922,12 @@ final class CursorBuddy {
         if gait == .walk || gait == .run || gait == .special && moving { per /= Double(1 + 0.8 * k) }   // legs speed up too
         // The remainder carries over, so each motion keeps its own pace whatever the timer's jitter.
         frameClock = min(per, frameClock + min(elapsed, 1))
-        if frameClock >= per { frameClock -= per; if !still { frame += 1; sprite.show(frame) } }
+        if typing {   // a frame a key, not by the clock
+            if frame != keys, !still { frame = keys; sprite.show(frame) }
+        } else if frameClock >= per { frameClock -= per; if !still { frame += 1; sprite.show(frame) } }
 
-        // A resting cursor on it needs no fast ticks: the hit area only changes when the cursor or the frame does,
-        // and a cursor moving over the window while it takes clicks wakes the fast tick from BuddyView.
+        // A resting cursor on it needs no fast ticks: the hotspot only moves with the drawing, and a move over the
+        // hotspot wakes the fast tick (`mouse`).
         schedule(moving || busy || cursorMoved || clicks.pollAt != nil || scale != 1 ? 1.0 / 30 : per)
     }
 
@@ -934,20 +977,16 @@ final class CursorBuddy {
         CATransaction.commit()
     }
 
-    /// Takes the mouse only over the drawing, so clicks on the transparent rest go to the window below. Reacting
-    /// (`rise` up), also over the spot it rose off, so the next click of a combo never falls through.
-    private func takeClicks(cursor: CGPoint, origin: CGPoint, box: CGSize, rise: CGFloat) {
-        guard let window else { return }
-        var take = false
-        if case .hang(_, true, _) = mode { take = true }
-        else if NSEvent.pressedMouseButtons & 1 != 0 && !window.ignoresMouseEvents { take = true }   // mid-click: keep it
-        else if window.frame.contains(cursor), !showing.isEmpty {
-            let image = showing[min(sprite.index, showing.count - 1)], id = ObjectIdentifier(image)
-            if hits[id] == nil { hits[id] = AlphaHit(image) }
-            take = hits[id]?.hits(CGPoint(x: cursor.x - origin.x, y: cursor.y - origin.y), in: box) ?? false
-        }
-        if !take, rise > 0, CGRect(origin: CGPoint(x: origin.x, y: origin.y - rise), size: box).contains(cursor) { take = true }
-        if window.ignoresMouseEvents == take { window.ignoresMouseEvents = !take }
+    /// The hotspot over the drawing, so clicks on the transparent rest go to the window below. Reacting (`rise` up),
+    /// also over the spot it rose off, so the next click of a combo never falls through.
+    private func takeClicks(origin: CGPoint, box: CGSize, rise: CGFloat) {
+        guard let window, window.isVisible, !showing.isEmpty else { hot.hide(); return }
+        let image = showing[min(sprite.index, showing.count - 1)], id = ObjectIdentifier(image)
+        if hits[id] == nil { hits[id] = AlphaHit(image) }
+        let r = max(0, ceil(rise))
+        var shape = HotspotShape(hit: hits[id], drawn: CGRect(x: 0, y: r, width: box.width, height: box.height))
+        if r > 0 { shape.extra = [CGRect(origin: .zero, size: box)] }
+        hot.place(CGRect(x: origin.x, y: origin.y - r, width: box.width, height: box.height + r), shape, level: window.level)
     }
 
     // MARK: Idle life
@@ -1046,8 +1085,9 @@ final class CursorBuddy {
             FriendMenu.item(L("AI 비서랑 이야기하기")) { [weak self] in self?.openAssistant?() },
             FriendMenu.item(L("복제해서 바탕화면에 두기")) { [weak self] in self?.cloneOut() },
             FriendMenu.submenu(L("놀이"), StarGame.menuItems(.buddy)),
+        ] + ChairCenter.shared.menuItems() + [
             FriendMenu.item(L("커서 친구 쉬게 하기")) { MotionStore.shared.cursorBuddy = false },
-        ], with: e, for: view)
+        ], with: e, for: hot.contentView ?? view)
     }
 
     private func handle(_ g: ClickRecognizer.Gesture) {
@@ -1157,7 +1197,7 @@ final class CursorBuddy {
     private func quickAsk() {
         MainActor.assumeIsolated {
             let ask = FriendQuickAsk.shared
-            ask.toggle(from: view.window) { [weak self] in self?.head() }
+            ask.toggle(from: hot) { [weak self] in self?.head() }
         }
     }
 
@@ -1267,22 +1307,4 @@ final class CursorBuddy {
             return true
         }
     }
-}
-
-/// The buddy window's view: takes the first click (the window never becomes key) and hands mouse events on.
-/// While it takes the mouse, a move or exit wakes the fast tick, so it stops taking clicks off the drawing at once.
-private final class BuddyView: NSView {
-    var onMouse: ((NSEvent) -> Void)?
-    override init(frame: NSRect) {
-        super.init(frame: frame)
-        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self))
-    }
-    required init?(coder: NSCoder) { fatalError("not used") }
-    override func mouseMoved(with event: NSEvent) { onMouse?(event) }
-    override func mouseExited(with event: NSEvent) { onMouse?(event) }
-    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
-    override func mouseDown(with event: NSEvent) { onMouse?(event) }
-    override func mouseDragged(with event: NSEvent) { onMouse?(event) }
-    override func mouseUp(with event: NSEvent) { onMouse?(event) }
-    override func rightMouseDown(with event: NSEvent) { onMouse?(event) }
 }

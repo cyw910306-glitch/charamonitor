@@ -4146,5 +4146,949 @@
  {
   "key": "%@이(가) 별 대결 하자고 해요",
   "en": "%@ wants a star duel"
+ },
+ {
+  "key": "ChatGPT 펫 시트가 아니에요. 가로 8칸, 세로 11칸(1536x2288)이나 9칸(1536x1872)으로 나뉜 투명 PNG나 WebP 를 넣어 주세요.",
+  "en": "This is not a ChatGPT pet sheet. Use a transparent PNG or WebP split into 8 columns and 11 rows (1536x2288) or 9 rows (1536x1872)."
+ },
+ {
+  "key": "시트에 그림이 하나도 없어요.",
+  "en": "The sheet has nothing drawn on it."
+ },
+ {
+  "key": "바로가기(링크)는 읽지 않아요. 원래 파일을 넣어 주세요.",
+  "en": "Links are not read. Please use the original file."
+ },
+ {
+  "key": "pet.json 을 읽지 못했어요.",
+  "en": "Could not read pet.json."
+ },
+ {
+  "key": "펫 폴더나 zip 안에서 스프라이트 시트(spritesheet.webp 나 .png)를 찾지 못했어요.",
+  "en": "No sprite sheet (spritesheet.webp or .png) was found in the pet folder or zip."
+ },
+ {
+  "key": "파일을 읽지 못했어요.",
+  "en": "Could not read the file."
+ },
+ {
+  "key": "파일이 너무 커요. 50MB 까지 넣을 수 있어요.",
+  "en": "The file is too big. Up to 50 MB."
+ },
+ {
+  "key": "그림을 읽지 못했어요. PNG 나 WebP 파일인지 확인해 주세요.",
+  "en": "Could not read the picture. Check that it is a PNG or WebP file."
+ },
+ {
+  "key": "생각",
+  "en": "Thinking"
+ },
+ {
+  "key": "인사",
+  "en": "Wave"
+ },
+ {
+  "key": "점프",
+  "en": "Jump"
+ },
+ {
+  "key": "ChatGPT 펫",
+  "en": "ChatGPT pet"
+ },
+ {
+  "key": "ChatGPT 펫 시트에서 가져왔어요",
+  "en": "Imported from a ChatGPT pet sheet"
+ },
+ {
+  "key": "캐릭모니터에서 온 %@",
+  "en": "%@ from CharaMonitor"
+ },
+ {
+  "key": "zip 파일을 읽지 못했어요.",
+  "en": "Could not read the zip file."
+ },
+ {
+  "key": "zip 안에 파일이 너무 많아요.",
+  "en": "The zip has too many files."
+ },
+ {
+  "key": "zip 안에 폴더 밖을 가리키는 경로가 있어서 열지 않았어요.",
+  "en": "The zip was not opened: it has a path that points outside its folder."
+ },
+ {
+  "key": "가져오기…",
+  "en": "Import…"
+ },
+ {
+  "key": "내보내기",
+  "en": "Export"
+ },
+ {
+  "key": "폴더에 저장…",
+  "en": "Save to Folder…"
+ },
+ {
+  "key": "Codex 에 바로 설치",
+  "en": "Install in Codex"
+ },
+ {
+  "key": "ChatGPT 펫 시트(PNG·WebP), 펫 폴더, zip 을 여기에 끌어다 놓아도 돼요",
+  "en": "You can also drop a ChatGPT pet sheet (PNG, WebP), pet folder or zip here"
+ },
+ {
+  "key": "이 맥의 Codex 펫",
+  "en": "Codex pets on this Mac"
+ },
+ {
+  "key": "ChatGPT 펫 시트(PNG·WebP), pet.json 이 든 펫 폴더, 또는 zip 을 골라 주세요",
+  "en": "Choose a ChatGPT pet sheet (PNG, WebP), a pet folder with pet.json, or a zip"
+ },
+ {
+  "key": "ChatGPT 펫을 가져오지 못했어요",
+  "en": "Could not import the ChatGPT pet"
+ },
+ {
+  "key": "여기에 저장",
+  "en": "Save Here"
+ },
+ {
+  "key": "펫 폴더(pet.json 과 spritesheet.png)를 만들 곳을 골라 주세요",
+  "en": "Choose where to make the pet folder (pet.json and spritesheet.png)"
+ },
+ {
+  "key": "Codex 에 이미 같은 펫이 있어요. 바꿀까요?",
+  "en": "Codex already has this pet. Replace it?"
+ },
+ {
+  "key": "ChatGPT 나 Codex 의 Settings > Pets 에서 Refresh 를 누르고 '%@' 을 고르세요.",
+  "en": "In ChatGPT or Codex, open Settings > Pets, press Refresh and choose '%@'."
+ },
+ {
+  "key": "Codex 에 넣었어요",
+  "en": "Added to Codex"
+ },
+ {
+  "key": "설치하지 못했어요",
+  "en": "Could not install"
+ },
+ {
+  "key": "이 폴더에 이미 같은 펫이 있어요. 바꿀까요?",
+  "en": "This folder already has this pet. Replace it?"
+ },
+ {
+  "key": "퇴근한 척",
+  "en": "Pretend I clocked out"
+ },
+ {
+  "key": "아침에 오늘의 운세 알려 주기",
+  "en": "Tell me today's fortune in the morning"
+ },
+ {
+  "key": "오전에 처음 켜져 있을 때 한 번 말해 줘요. 회의나 화면 녹화 중이면 건너뛰어요.",
+  "en": "Says it once, the first time the app is on in the morning. Skipped during meetings or screen recording."
+ },
+ {
+  "key": "레버 열기",
+  "en": "Open lever"
+ },
+ {
+  "key": "11:30 알림",
+  "en": "11:30 reminder"
+ },
+ {
+  "key": "포스트잇",
+  "en": "Sticky notes"
+ },
+ {
+  "key": "바탕화면에 메모를 붙여 두면, 쓰는 동안 커서 친구가 옆에 와서 같이 타자를 쳐요",
+  "en": "Stick notes on your desktop, and the cursor friend comes over to type along while you write"
+ },
+ {
+  "key": "몇 장",
+  "en": "Notes"
+ },
+ {
+  "key": "붙이기",
+  "en": "Stick one"
+ },
+ {
+  "key": "위쪽 띠를 끌어서 옮기고, ▾로 접어 띠만 남겨요. 동그라미로 색을 바꾸고, 휴지통으로 떼어요. 쓴 게 있으면 한 번 더 물어봐요.",
+  "en": "Drag the top strip to move it, and fold it with ▾ to leave just the strip. Change the color with the dots and peel it off with the trash can. If it has writing, you'll be asked once more."
+ },
+ {
+  "key": "메모는 이 맥에만 저장돼요. 내 설정 파일에도 담기지 않고, 화면 공유나 녹화에도 보이지 않아요.",
+  "en": "Notes are saved on this Mac only. They aren't in your setup file and don't show in screen shares or recordings."
+ },
+ {
+  "key": "회의 중이거나 화면을 공유·녹화하는 동안에는 커서 친구가 타자 치러 오지 않아요.",
+  "en": "While you're in a meeting or sharing or recording your screen, the cursor friend won't come to type."
+ },
+ {
+  "key": "숨 고르기",
+  "en": "Breathing break"
+ },
+ {
+  "key": "끝나면 제안",
+  "en": "Suggest after"
+ },
+ {
+  "key": "집중이 끝나면 숨 고르기 제안",
+  "en": "Suggest a breathing break after focus"
+ },
+ {
+  "key": "숨 고르기 싱잉볼 소리",
+  "en": "Singing bowl sound for breathing breaks"
+ },
+ {
+  "key": "30초 숨 고르기: 노을, 새벽 사무실, 비 오는 숲 중 한 곳에서 친구가 눈을 감고 쉬는 동안 원을 따라 4초 들이쉬고 4초 내쉬어요. 싱잉볼 소리는 앱이 직접 만들어요. 끝나면 오늘 몇 번 했는지 알려 줘요.",
+  "en": "30-second breathing break: at sunset, the office at dawn or a rainy forest, your friend rests with eyes closed while you breathe in for 4 seconds and out for 4 with the circle. The app makes the singing bowl sound itself. At the end it tells you how many you've done today."
+ },
+ {
+  "key": "숨 고르기: 친구 오른쪽 클릭 > 데스크톱 친구 > 숨 고르기(30초)나 설정의 집중 타이머 카드에서 시작해요. 장면을 고르고 원을 따라 4초 들이쉬고 4초 내쉬어요. 집중이 끝날 때 제안받으려면 설정에서 켜요.",
+  "en": "Breathing break: start it from right-click > Desktop friends > Breathing break (30 s), or from the Focus timer card in Settings. Pick a scene and breathe in for 4 seconds and out for 4 with the circle. To get a suggestion when focus ends, turn it on in Settings."
+ },
+ {
+  "key": "점심 뽑기: 놀이 메뉴나 설정에서 열어 레버를 당기면 릴이 돌다가 오늘 점심이 나와요. 한식·중식·일식 같은 종류를 고르고, 자주 가는 곳은 내 메뉴에 넣어요. 몇 번이든 다시 당길 수 있고, 최근 3일 나온 메뉴는 빼 줘요. 11:30 알림은 켜야 와요.",
+  "en": "Lunch picker: open it from the Play menu or Settings and pull the lever. The reel spins and lands on today's lunch. Pick kinds like Korean, Chinese or Japanese, and add your regular spots to My menus. Pull as often as you like; menus from the last 3 days are skipped. The 11:30 reminder comes only when it's on."
+ },
+ {
+  "key": "포스트잇: 오른쪽 클릭 메뉴의 데스크톱 친구 > 포스트잇 붙이기로 바탕화면에 메모를 붙여요. 띠를 끌어 옮기고, 접고, 색을 바꿔요. 쓰는 동안 커서 친구가 옆에 와서 같이 타자를 쳐요. 메모는 이 맥에만 저장돼요.",
+  "en": "Sticky notes: use right-click > Desktop friends > Add a sticky note to stick a note on your desktop. Drag the strip to move it, fold it, and change its color. While you write, the cursor friend comes over and types along. Notes are saved on this Mac only."
+ },
+ {
+  "key": "오늘의 운세: 친구를 오른쪽 클릭해서 오늘의 운세를 봐요. 하루 동안 같은 운세가 나오고, 다시 뽑기는 하루 한 번 돼요. AI 비서 설정에서 켜면 아침에 먼저 알려 줘요.",
+  "en": "Today's fortune: right-click a friend to see today's fortune. It stays the same all day, and you can draw again once a day. Turn it on in AI assistant settings to hear it first thing in the morning."
+ },
+ {
+  "key": "친구 상주와 다같이: 온라인인 친구 캐릭터가 내 화면 독 위에 머물러요(퇴근이면 팻말을 들어요). 오른쪽 클릭 > 다같이에서 뽀뽀나 똥을 고르면 모두의 화면에서 같이 나오고, 친구를 잡고 휙 던지면 친구 화면에도 날아가요. 회의나 화면 녹화 중엔 장난을 쉬어요. 근처 친구 설정에서 끌 수 있어요.",
+  "en": "Friends on your Dock and group emotes: online friends' characters stay above the Dock on your screen (holding a sign when they've clocked out). Choose kiss or poop under right-click > Everyone and it plays on everyone's screen, and grab a friend and toss it to send it flying onto their screen too. Pranks take a break during meetings or screen recording. You can turn this off in Nearby friends settings."
+ },
+ {
+  "key": "모임 정원: 가상 오피스 위쪽에서 2·4·8명을 고르면 남은 자리가 초대 대기로 보여요. 누르면 친구 추가가 열리고, 다 같이 온라인이 되어 꽉 차면 축하해요.",
+  "en": "Meetup size: pick 2, 4 or 8 at the top of the virtual office and the empty seats show as waiting for invites. Click one to add a friend; when everyone is online and it's full, it celebrates."
+ },
+ {
+  "key": "40자까지, 친구에게만",
+  "en": "Up to 40 characters, friends only"
+ },
+ {
+  "key": "친구 이름표를 누르면 한마디, 오늘 운세, 오늘 점심이 담긴 프로필 카드가 보여요. 내 상태를 퇴근한 척으로 두면 친구에겐 퇴근 팻말이 보여요.",
+  "en": "Click a friend's name tag to see a profile card with their line, today's fortune and today's lunch. Set your status to Pretend I clocked out and friends see a clocked-out sign."
+ },
+ {
+  "key": "친구 캐릭터가 내 화면에 머물기",
+  "en": "Friends' characters stay on my screen"
+ },
+ {
+  "key": "온라인인 친구가 독 위에 머물러요(퇴근이면 팻말을 들어요). 오른쪽 클릭으로 다같이 뽀뽀·똥을 보내고, 잡고 휙 던지면 친구 화면에도 날아가요. 회의나 화면 녹화 중엔 장난을 쉬어요.",
+  "en": "Online friends stay above the Dock (holding a sign when they've clocked out). Right-click to send a group kiss or poop, and grab and toss one to send it flying onto their screen too. Pranks take a break during meetings or screen recording."
+ },
+ {
+  "key": "김치찌개",
+  "en": "Kimchi stew"
+ },
+ {
+  "key": "된장찌개",
+  "en": "Soybean paste stew"
+ },
+ {
+  "key": "제육볶음",
+  "en": "Spicy pork stir-fry"
+ },
+ {
+  "key": "비빔밥",
+  "en": "Bibimbap"
+ },
+ {
+  "key": "순두부찌개",
+  "en": "Soft tofu stew"
+ },
+ {
+  "key": "불고기",
+  "en": "Bulgogi"
+ },
+ {
+  "key": "국밥",
+  "en": "Rice soup"
+ },
+ {
+  "key": "냉면",
+  "en": "Cold noodles"
+ },
+ {
+  "key": "칼국수",
+  "en": "Knife-cut noodles"
+ },
+ {
+  "key": "갈비탕",
+  "en": "Short rib soup"
+ },
+ {
+  "key": "짜장면",
+  "en": "Jajangmyeon"
+ },
+ {
+  "key": "짬뽕",
+  "en": "Jjamppong"
+ },
+ {
+  "key": "탕수육",
+  "en": "Sweet and sour pork"
+ },
+ {
+  "key": "볶음밥",
+  "en": "Fried rice"
+ },
+ {
+  "key": "마라탕",
+  "en": "Malatang"
+ },
+ {
+  "key": "마파두부",
+  "en": "Mapo tofu"
+ },
+ {
+  "key": "울면",
+  "en": "Ulmyeon"
+ },
+ {
+  "key": "초밥",
+  "en": "Sushi"
+ },
+ {
+  "key": "라멘",
+  "en": "Ramen"
+ },
+ {
+  "key": "돈가스",
+  "en": "Tonkatsu"
+ },
+ {
+  "key": "우동",
+  "en": "Udon"
+ },
+ {
+  "key": "규동",
+  "en": "Gyudon"
+ },
+ {
+  "key": "소바",
+  "en": "Soba"
+ },
+ {
+  "key": "오므라이스",
+  "en": "Omurice"
+ },
+ {
+  "key": "파스타",
+  "en": "Pasta"
+ },
+ {
+  "key": "피자",
+  "en": "Pizza"
+ },
+ {
+  "key": "햄버거",
+  "en": "Burger"
+ },
+ {
+  "key": "리조또",
+  "en": "Risotto"
+ },
+ {
+  "key": "스테이크",
+  "en": "Steak"
+ },
+ {
+  "key": "샌드위치",
+  "en": "Sandwich"
+ },
+ {
+  "key": "떡볶이",
+  "en": "Tteokbokki"
+ },
+ {
+  "key": "김밥",
+  "en": "Gimbap"
+ },
+ {
+  "key": "라볶이",
+  "en": "Rabokki"
+ },
+ {
+  "key": "순대",
+  "en": "Sundae sausage"
+ },
+ {
+  "key": "쫄면",
+  "en": "Jjolmyeon"
+ },
+ {
+  "key": "만두",
+  "en": "Dumplings"
+ },
+ {
+  "key": "쌀국수",
+  "en": "Pho"
+ },
+ {
+  "key": "팟타이",
+  "en": "Pad thai"
+ },
+ {
+  "key": "분짜",
+  "en": "Bun cha"
+ },
+ {
+  "key": "나시고렝",
+  "en": "Nasi goreng"
+ },
+ {
+  "key": "카레",
+  "en": "Curry"
+ },
+ {
+  "key": "반미",
+  "en": "Banh mi"
+ },
+ {
+  "key": "닭가슴살 샐러드",
+  "en": "Chicken salad"
+ },
+ {
+  "key": "포케",
+  "en": "Poke"
+ },
+ {
+  "key": "연어 샐러드",
+  "en": "Salmon salad"
+ },
+ {
+  "key": "그릭 샐러드",
+  "en": "Greek salad"
+ },
+ {
+  "key": "샐러드 랩",
+  "en": "Salad wrap"
+ },
+ {
+  "key": "입력 중…",
+  "en": "Typing…"
+ },
+ {
+  "key": "💕 뽀뽀했어요",
+  "en": "💕 Kissed"
+ },
+ {
+  "key": "💫 기절했어요",
+  "en": "💫 Knocked out"
+ },
+ {
+  "key": "모임이 꽉 찼어요 (12명)",
+  "en": "The meetup is full (12)"
+ },
+ {
+  "key": "200자까지",
+  "en": "Up to 200 characters"
+ },
+ {
+  "key": "켜면 상태·이모트·운세·한마디·입력 중 표시·캐릭터 모습·프로필·낙서 쪽지만 종단간 암호화해서 중계 서버를 거쳐 보내요. 서버는 내용을 읽지 못하고 모임의 마지막 활동 24시간 뒤 지워요. 모임 친구는 친구 상주 자리에 캐릭터로 서고, 한마디는 머리 위 말풍선으로 떠요.",
+  "en": "When on, only status, emotes, fortunes, lines, typing, how your character looks, profile and doodle notes go end-to-end encrypted through the relay server. The server can't read them and deletes a meetup 24 hours after its last activity. Meetup friends stand in the friend row as characters, with their lines in bubbles over their heads."
+ },
+ {
+  "key": "최대 12명까지 함께해요. 초대 링크나 코드를 친구에게 보내 주세요.",
+  "en": "Up to 12 people. Send your friends the invite link or code."
+ },
+ {
+  "key": "한마디 (200자까지)",
+  "en": "Line (up to 200 characters)"
+ },
+ {
+  "key": "사진은 근처 친구 대화에서만 보낼 수 있어요. 원격 모임은 중계 서버를 거치고 한 번에 2KB까지라 사진을 싣지 않아요.",
+  "en": "Photos go only in nearby friend chats. The remote meetup goes through a relay server that carries 2 KB at a time, so it doesn't carry photos."
+ },
+ {
+  "key": "나 먼저 퇴근!",
+  "en": "I'm off first!"
+ },
+ {
+  "key": "전체",
+  "en": "Full"
+ },
+ {
+  "key": "아래",
+  "en": "Bottom"
+ },
+ {
+  "key": "위",
+  "en": "Top"
+ },
+ {
+  "key": "왼쪽",
+  "en": "Left"
+ },
+ {
+  "key": "오른쪽",
+  "en": "Right"
+ },
+ {
+  "key": "화면",
+  "en": "Screen"
+ },
+ {
+  "key": "주 화면",
+  "en": "Main screen"
+ },
+ {
+  "key": "자리",
+  "en": "Edge"
+ },
+ {
+  "key": "길이",
+  "en": "Length"
+ },
+ {
+  "key": "다른 앱 창에 매달기",
+  "en": "Hang on other apps' windows"
+ },
+ {
+  "key": "친구를 잡아 다른 앱 창의 윗변이나 옆에 놓으면 고무줄로 매달려 창을 따라다녀요. 당겼다 놓으면 튕겨 돌아오고, 세게 당기면 떨어져요. 창이 닫히면 떨어지고, 다른 창에 가려지면 숨었다 나와요. 화면 기록 권한은 필요 없어요.",
+  "en": "Drop a friend on the top or side of another app's window and it hangs there on a rubber band, following the window. Pull and let go and it springs back; pull hard and it falls. It falls when the window closes, and hides while another window covers it. No Screen Recording permission needed."
+ },
+ {
+  "key": "아직 기록이 없어요",
+  "en": "Nothing here yet"
+ },
+ {
+  "key": "3일 동안 이 맥에 보관",
+  "en": "Keep on this Mac for 3 days"
+ },
+ {
+  "key": "이 맥에만 3일 동안 남고 그보다 오래된 줄은 지워져요. 끄면 파일을 바로 지워요.",
+  "en": "Kept only on this Mac for 3 days, older lines are deleted. Turning it off deletes the file right away."
+ },
+ {
+  "key": "기록은 이 맥 메모리에만 있어서 앱을 끄면 사라져요.",
+  "en": "The log is only in this Mac's memory and is gone when the app quits."
+ },
+ {
+  "key": "보내는 중",
+  "en": "Sending"
+ },
+ {
+  "key": "보냄",
+  "en": "Sent"
+ },
+ {
+  "key": "못 보냄",
+  "en": "Not sent"
+ },
+ {
+  "key": "원격 모임에 한마디 (200자까지)",
+  "en": "A line to the remote meetup (up to 200 characters)"
+ },
+ {
+  "key": "쉿 모드라 무전을 듣지 않았어요",
+  "en": "Didn't play the walkie-talkie in hush mode"
+ },
+ {
+  "key": "귀마개",
+  "en": "Earmuffs"
+ },
+ {
+  "key": "눈송이 털모자",
+  "en": "Snowflake beanie"
+ },
+ {
+  "key": "사슴뿔",
+  "en": "Antlers"
+ },
+ {
+  "key": "별 안경",
+  "en": "Star glasses"
+ },
+ {
+  "key": "체크 목도리",
+  "en": "Check scarf"
+ },
+ {
+  "key": "방울 목걸이",
+  "en": "Bell necklace"
+ },
+ {
+  "key": "눈꽃",
+  "en": "Snowflake"
+ },
+ {
+  "key": "솔잎",
+  "en": "Pine"
+ },
+ {
+  "key": "산딸기",
+  "en": "Raspberry"
+ },
+ {
+  "key": "그룹 뽑기: 놀이 메뉴에서 룰렛·사다리·제비뽑기를 골라 항목을 넣고 뽑아요. 근처 친구와 원격 모임에도 같은 결과로 보여요.",
+  "en": "Group draw: pick roulette, ladder or lots in the play menu, add items and draw. Nearby friends and the remote meetup see the same result."
+ },
+ {
+  "key": "의자: 설정 > 데스크톱 친구의 의자 카드에서 바탕화면에 의자를 두고, 오른쪽 클릭으로 앉아요. 친구 화면의 내 캐릭터도 같이 앉아요.",
+  "en": "Chair: in Settings > Desktop friends, put a chair on the desktop from the Chair card and right-click to sit. Your character on your friends' screens sits too."
+ },
+ {
+  "key": "단축키: 설정의 단축키 카드에서 켜면 어떤 앱을 쓰고 있어도 키 조합으로 친구들을 숨기거나 쉿 모드로 바꾸고 대화 모아보기를 열어요. 처음엔 꺼져 있어요.",
+  "en": "Shortcuts: turn them on in the Shortcuts card in Settings to hide your friends, switch hush mode or open the chat roundup with a key combination in any app. Off at first."
+ },
+ {
+  "key": "시즌 뽑기판: 매일 받는 무료 뽑기권으로 종이를 뜯어 시즌 꾸미기·말풍선 색·투척물·의자를 모아요. 결제는 없고, 겹치면 코인으로 바꿔 줘요.",
+  "en": "Season board: peel papers with the free tickets you get every day to collect season items, bubble colors, throwables and chairs. No payments, and duplicates become coins."
+ },
+ {
+  "key": "친구 상주 자리: 근처 친구 설정에서 모니터와 화면 가장자리(아래·위·왼쪽·오른쪽), 길이를 골라요. 창에 매달기를 켜면 친구를 다른 앱 창 위쪽이나 옆에 놓아 고무줄로 매달 수 있어요.",
+  "en": "Friend row place: in nearby friend settings, pick the monitor, the screen edge (bottom, top, left, right) and the length. Turn on hanging on windows to hang a friend on the top or side of another app's window by a rubber band."
+ },
+ {
+  "key": "던지기 놀이: 근처 친구나 원격 모임 설정에서 켜면 친구 캐릭터를 눌러 투척물을 던져요. 10초 안에 5번 맞으면 6초 동안 기절해 모두의 화면에 별이 돌아요. 오른쪽 클릭으로 투척물과 다가가서 겁주기·뽀뽀를 골라요.",
+  "en": "Throw play: turn it on in nearby friend or remote meetup settings, then click a friend's character to throw something. Five hits in 10 seconds knock them out for 6 seconds, with stars on everyone's screen. Right-click to pick the throwable, or walk over to scare or kiss."
+ },
+ {
+  "key": "사진 메시지: 근처 친구 대화창에서 사진을 고르거나 붙여넣으면 작게 줄이고 위치 정보를 지운 뒤 보내요. 원격 모임에서는 보낼 수 없어요.",
+  "en": "Photo messages: choose or paste a photo in a nearby friend's chat; it is shrunk and its location data removed before sending. Not available in the remote meetup."
+ },
+ {
+  "key": "원격 모임: 다른 와이파이에 있는 친구와도 상태·이모트·운세·한마디를 주고받아요. 설정 > 플러그인 > 원격 모임에서 켜고 모임을 만들어 초대 링크를 보내요(최대 12명). 모임 친구도 친구 상주 자리에 캐릭터로 서서 한마디를 머리 위 말풍선으로 띄우고, 쓰는 중이면 점 세 개가 떠요. 내용은 종단간 암호화되고, 친구 캐릭터나 모임 화면이 보이는 동안 3~5초, 아니면 30~60초마다 확인해요. 데스크톱 친구 > 원격 모임에서 바로 보내요.",
+  "en": "Remote meetup: trade status, emotes, fortunes and lines with friends on other Wi-Fi too. Turn it on in Settings > Plugins > Remote meetup, make a meetup and send the invite link (up to 12 people). Meetup friends also stand in the friend row as characters, with their lines in bubbles over their heads and three dots while they type. Everything is end-to-end encrypted and checked every 3 to 5 seconds while a friend's character or the meetup window is showing, otherwise every 30 to 60 seconds. Send right away from Desktop friends > Remote meetup."
+ },
+ {
+  "key": "브라우저 탭도 볼까요?",
+  "en": "Watch browser tabs too?"
+ },
+ {
+  "key": "Safari, Chrome, Edge, Brave, Arc, 웨일, Vivaldi의 맨 앞 탭 주소와 제목을 10초마다 읽어 딴짓인지 판단해요. 맥 밖으로 보내지 않고, 기록에는 사이트 이름만 남겨요. macOS가 브라우저 제어를 물어보면 허용을 눌러 주세요. 허용하지 않은 브라우저는 앱 이름으로만 판단해요.",
+  "en": "Every 10 seconds, reads the address and title of the front tab in Safari, Chrome, Edge, Brave, Arc, Whale or Vivaldi to tell whether you are drifting. Nothing leaves this Mac, and the log keeps only the site name. When macOS asks about controlling the browser, click Allow. Browsers you do not allow are judged by app name only."
+ },
+ {
+  "key": "계속",
+  "en": "Continue"
+ },
+ {
+  "key": "고양이가 딴짓 창을 닫게 할까요?",
+  "en": "Let the cat close drifting windows?"
+ },
+ {
+  "key": "딴짓이 확정되면 고양이가 달려와 앞발을 들어요. 몇 초 안에 고양이를 누르면 그대로 두고, 못 잡으면 브라우저는 그 탭만, 앱은 정상 종료로 닫아요(저장 안 한 문서는 앱이 물어봐요). 강제 종료는 하지 않고, 보호 목록 앱, 통화·화면 공유 중, 재생·녹화 중인 앱은 건드리지 않아요.",
+  "en": "Once drift is confirmed, the cat runs over and lifts its paw. Click the cat within a few seconds and nothing is closed; otherwise it closes just that tab in a browser, or quits the app normally (the app asks about unsaved documents). It never force quits, and never touches protected apps, apps in a call or screen share, or apps that are playing or recording."
+ },
+ {
+  "key": "켜기",
+  "en": "Turn On"
+ },
+ {
+  "key": "고등어",
+  "en": "Mackerel tabby"
+ },
+ {
+  "key": "치즈",
+  "en": "Orange tabby"
+ },
+ {
+  "key": "회색",
+  "en": "Gray"
+ },
+ {
+  "key": "까망이",
+  "en": "Black"
+ },
+ {
+  "key": "중립",
+  "en": "Neutral"
+ },
+ {
+  "key": "딴짓",
+  "en": "Drift"
+ },
+ {
+  "key": "딴짓 지킴이",
+  "en": "Drift Guard"
+ },
+ {
+  "key": "아까 %@ 하던 중이었죠. 돌아갈까요?",
+  "en": "You were working in %@ a moment ago. Head back?"
+ },
+ {
+  "key": "아까 %@ 하던 중이었지. 돌아갈까?",
+  "en": "You were in %@ a moment ago. Head back?"
+ },
+ {
+  "key": "한눈팔고 있는 것 같아. 하던 일로 돌아갈까?",
+  "en": "Looks like you wandered off. Back to what you were doing?"
+ },
+ {
+  "key": "한눈팔고 있는 것 같아요. 하던 일로 돌아갈까요?",
+  "en": "Looks like you wandered off. Back to what you were doing?"
+ },
+ {
+  "key": "잡혔다! 그대로 둘게. 아직 딴짓 중이야?",
+  "en": "Caught! I'll leave it. Still drifting?"
+ },
+ {
+  "key": "잡혔다! 그대로 둘게요. 아직 딴짓 중이에요?",
+  "en": "Caught! I'll leave it open. Still drifting?"
+ },
+ {
+  "key": "%@ 창은 냥펀치로 닫았어. %@ 화면으로 돌아왔어.",
+  "en": "Paw-swatted %1$@ closed. Back to %2$@."
+ },
+ {
+  "key": "%@ 창은 냥펀치로 닫았어요. %@ 화면으로 돌아왔어요.",
+  "en": "I swatted %1$@ closed. You're back in %2$@."
+ },
+ {
+  "key": "%@ 창은 냥펀치로 닫았어.",
+  "en": "Paw-swatted %@ closed."
+ },
+ {
+  "key": "%@ 창은 냥펀치로 닫았어요.",
+  "en": "I swatted %@ closed."
+ },
+ {
+  "key": "10분 쉬기",
+  "en": "Rest 10 min"
+ },
+ {
+  "key": "20분 쉬기",
+  "en": "Rest 20 min"
+ },
+ {
+  "key": "돌아가기",
+  "en": "Go Back"
+ },
+ {
+  "key": "쉬는 중",
+  "en": "Taking a Break"
+ },
+ {
+  "key": "딴짓 아님",
+  "en": "Not Drifting"
+ },
+ {
+  "key": "이 사이트나 앱을 집중 목록에 넣어요",
+  "en": "Adds this site or app to the focus list"
+ },
+ {
+  "key": "네, 계속 봐 줘요",
+  "en": "Yes, Keep Watching"
+ },
+ {
+  "key": "아니요, 일하는 중",
+  "en": "No, I'm Working"
+ },
+ {
+  "key": "알겠어요",
+  "en": "Got It"
+ },
+ {
+  "key": "지금",
+  "en": "Now"
+ },
+ {
+  "key": "오늘 3분 블록 타임라인",
+  "en": "Today's 3-minute block timeline"
+ },
+ {
+  "key": "지금은 안 봐요",
+  "en": "Not watching now"
+ },
+ {
+  "key": "지켜보는 중",
+  "en": "Watching"
+ },
+ {
+  "key": "오늘 집중 %lld분 · 딴짓 %lld분",
+  "en": "Today: focus %lld min · drift %lld min"
+ },
+ {
+  "key": "딴짓이 길어지면 아까 하던 일로 돌아가자고 말해 줘요. 고양이가 대신 닫아 줄 수도 있어요",
+  "en": "When drifting goes on too long, it suggests heading back to what you were doing. The cat can even close it for you"
+ },
+ {
+  "key": "집중 타이머 중엔 자동으로 켜기",
+  "en": "Turn on automatically during focus timer"
+ },
+ {
+  "key": "타이머 중 자동",
+  "en": "During timer"
+ },
+ {
+  "key": "근무 시간",
+  "en": "Work hours"
+ },
+ {
+  "key": "근무 시간에 지켜보기",
+  "en": "Watch during work hours"
+ },
+ {
+  "key": "끝",
+  "en": "End"
+ },
+ {
+  "key": "평일만",
+  "en": "Weekdays only"
+ },
+ {
+  "key": "딴짓 확정",
+  "en": "Confirm drift after"
+ },
+ {
+  "key": "브라우저 탭",
+  "en": "Browser tabs"
+ },
+ {
+  "key": "브라우저 탭 보기",
+  "en": "Watch browser tabs"
+ },
+ {
+  "key": "허용 안 된 브라우저는 앱 이름으로만 봐요. 시스템 설정 > 개인정보 보호 및 보안 > 자동화에서 켤 수 있어요.",
+  "en": "Browsers that are not allowed are seen by app name only. Turn them on in System Settings > Privacy & Security > Automation."
+ },
+ {
+  "key": "업무 프로필",
+  "en": "Work profile"
+ },
+ {
+  "key": "예: 앱 개발자, 영상 편집자",
+  "en": "e.g. app developer, video editor"
+ },
+ {
+  "key": "이 맥 AI",
+  "en": "On-device AI"
+ },
+ {
+  "key": "애매한 건 이 맥 AI에게 묻기",
+  "en": "Ask this Mac's AI about unclear ones"
+ },
+ {
+  "key": "규칙이 모르는 것만, 맥 안에서",
+  "en": "Only what the rules don't know, on this Mac"
+ },
+ {
+  "key": "이 맥에서는 쓸 수 없어요",
+  "en": "Not available on this Mac"
+ },
+ {
+  "key": "집중 %lld분 · 중립 %lld분 · 딴짓 %lld분",
+  "en": "Focus %lld · Neutral %lld · Drift %lld min"
+ },
+ {
+  "key": "판단은 모두 이 맥 안에서 해요. 화면을 녹화하거나 찍지 않고, 기록은 3분마다 사이트나 앱 이름 하나와 집중·중립·딴짓만 7일 동안 남겨요. 회의·화면 공유·녹화 중에는 카드를 미뤄요.",
+  "en": "Everything is judged on this Mac. Nothing is recorded or captured from the screen; the log keeps one site or app name and focus, neutral or drift per 3 minutes, for 7 days. Cards wait during meetings, screen sharing and recording."
+ },
+ {
+  "key": "목록에 넣기",
+  "en": "Add to list"
+ },
+ {
+  "key": "사이트 주소",
+  "en": "Site address"
+ },
+ {
+  "key": "앱…",
+  "en": "App…"
+ },
+ {
+  "key": "집중 목록",
+  "en": "Focus list"
+ },
+ {
+  "key": "딴짓 목록",
+  "en": "Drift list"
+ },
+ {
+  "key": "기본 딴짓: 영상·SNS·쇼핑·커뮤니티·게임·웹툰 사이트와 게임 앱. 업무 프로필에 '영상 편집'처럼 쓰면 그 종류는 딴짓으로 치지 않아요. 카드에서 '딴짓 아님'을 누르면 집중 목록으로 옮겨요.",
+  "en": "Default drift: video, social, shopping, community, game and webtoon sites, and game apps. Write something like 'video editing' in your work profile and that kind no longer counts as drift. Pressing 'Not Drifting' on a card moves it to the focus list."
+ },
+ {
+  "key": "고양이 보이기",
+  "en": "Show cat"
+ },
+ {
+  "key": "평소에는",
+  "en": "When idle"
+ },
+ {
+  "key": "데스크톱에서 놀기",
+  "en": "Play on desktop"
+ },
+ {
+  "key": "숨어 있기",
+  "en": "Stay hidden"
+ },
+ {
+  "key": "발로 닫기",
+  "en": "Paw close"
+ },
+ {
+  "key": "잡을 시간",
+  "en": "Time to catch"
+ },
+ {
+  "key": "%@초",
+  "en": "%@ s"
+ },
+ {
+  "key": "보호할 앱",
+  "en": "Protected apps"
+ },
+ {
+  "key": "기본 보호 %lld개 + 직접 %lld개",
+  "en": "%lld built in + %lld of yours"
+ },
+ {
+  "key": "추가…",
+  "en": "Add…"
+ },
+ {
+  "key": "직접 보호",
+  "en": "Your protected"
+ },
+ {
+  "key": "고양이는 처음엔 꺼져 있어요. 딴짓이 확정되고 발로 닫기가 켜져 있을 때만 달려와 그 창 위에서 앞발을 들어요. 앞발이 내려오기 전에 고양이를 누르면 그대로 두고 다음 카드에서 물어봐요. 못 잡으면 브라우저는 그 탭만, 앱은 정상 종료로 닫고 하던 화면으로 돌아가요.",
+  "en": "The cat starts out off. It runs over only when drift is confirmed and Paw close is on, then raises a paw over that window. Tap it while the paw is up and it lets things be, and the next card checks in. Too slow, and a browser loses just that tab or an app quits normally, then you are taken back to what you were doing."
+ },
+ {
+  "key": "%@ 빼기",
+  "en": "Remove %@"
+ },
+ {
+  "key": "달려오기",
+  "en": "Running in"
+ },
+ {
+  "key": "앞발 들기",
+  "en": "Paw up"
+ },
+ {
+  "key": "내려찍기 직전",
+  "en": "About to swat"
+ },
+ {
+  "key": "잡혔다",
+  "en": "Caught"
+ },
+ {
+  "key": "냥펀치",
+  "en": "Paw swat"
+ },
+ {
+  "key": "딴짓 지킴이: 설정에서 켜면 딴짓이 6분 넘게 이어질 때 하던 일로 돌아가자는 카드가 떠요. 고양이와 발로 닫기는 따로 켜요. 판단은 이 맥 안에서만 하고 화면은 찍지 않아요.",
+  "en": "Drift Guard: turn it on in Settings and a card suggests heading back when drifting lasts over 6 minutes. The cat and Paw close are turned on separately. Everything is judged on this Mac and the screen is never captured."
+ },
+ {
+  "key": "고양이가 앞발을 들었어요. 고양이를 누르면 안 닫아요.",
+  "en": "The cat's paw is up. Click the cat to keep it open."
+ },
+ {
+  "key": "고양이가 앞발을 들었어. 고양이를 누르면 안 닫아.",
+  "en": "The cat's paw is up. Click the cat to keep it open."
  }
 ]

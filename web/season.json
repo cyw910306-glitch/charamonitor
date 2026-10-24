@@ -1,0 +1,6 @@
+{"serial":1,
+ "season":{"id":"first-snow-2026","title":{"ko":"첫눈 시즌","en":"First Snow"},
+  "starts":"2026-11-01","ends":"2027-01-31","cells":16,
+  "items":["s-earmuffs","s-snowcap","s-antlers","s-starglasses","s-checkscarf","s-bell",
+           "s-shirt-snow","s-shirt-pine","s-shirt-berry","bubble-snow","bubble-pine","bubble-berry"],
+  "coins":8,"refund":15,"freePerDay":2,"ticketPrice":40,"buyPerDay":3,"sponsorTickets":1}}

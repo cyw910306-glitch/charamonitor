@@ -1,0 +1,7 @@
+{
+  "description" : "캐릭모니터에서 온 턱시도",
+  "displayName" : "턱시도",
+  "id" : "cat-tuxedo",
+  "spritesheetPath" : "spritesheet.png",
+  "spriteVersionNumber" : 2
+}

@@ -373,6 +373,8 @@ final class HangingFriends {
         var wave: CGFloat = 0
         /// The cursor was on it at the last look: a brush past pokes it once per entry.
         var inside = false
+        /// Takes its clicks (and the moves over it, for a brush past).
+        let hot = HotspotPanel()
 
         init(slot: Int, dangle: Dangle, display: UInt32) { self.slot = slot; self.dangle = dangle; self.display = display }
 
@@ -396,7 +398,6 @@ final class HangingFriends {
     /// 우리 동네 바람 only: re-reads `localWind` now and then.
     private var windTimer: Timer?
     private var bag: Set<AnyCancellable> = []
-    private var monitors: [Any] = []
     private var started = false
     private var asleep = false
     private var still = DesktopKit.reduceMotion
@@ -502,13 +503,8 @@ final class HangingFriends {
         panels.values.forEach { $0.orderOut(nil) }
         panels = keep
 
-        friends.forEach { [$0.body, $0.rope, $0.edge].forEach { $0.removeFromSuperlayer() } }
+        friends.forEach { [$0.body, $0.rope, $0.edge].forEach { $0.removeFromSuperlayer() }; $0.hot.hide() }
         friends = now.slots.enumerated().map { makeFriend($0, $1) }
-        if monitors.isEmpty {
-            let mask: NSEvent.EventTypeMask = [.mouseMoved]
-            if let g = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: { [weak self] _ in self?.hover() }) { monitors.append(g) }
-            if let l = NSEvent.addLocalMonitorForEvents(matching: mask, handler: { [weak self] e in self?.hover(); return e }) { monitors.append(l) }
-        }
         friends.forEach(layout)
     }
 
@@ -553,8 +549,7 @@ final class HangingFriends {
     private func teardown() {
         timer?.invalidate(); timer = nil
         windTimer?.invalidate(); windTimer = nil
-        monitors.forEach(NSEvent.removeMonitor); monitors = []
-        friends.forEach { [$0.body, $0.rope, $0.edge].forEach { $0.removeFromSuperlayer() } }
+        friends.forEach { [$0.body, $0.rope, $0.edge].forEach { $0.removeFromSuperlayer() }; $0.hot.hide() }
         friends = []; pressed = nil; built = nil
         panels.values.forEach { $0.orderOut(nil) }
     }
@@ -565,15 +560,12 @@ final class HangingFriends {
         p.backgroundColor = .clear
         p.hasShadow = false
         if Self.qaHidden { p.alphaValue = 0 }
-        p.ignoresMouseEvents = true   // until the cursor is over a friend (hover)
-        p.acceptsMouseMovedEvents = true
+        p.ignoresMouseEvents = true   // for good: each friend's HotspotPanel takes its clicks
         p.hidesOnDeactivate = false
-        p.becomesKeyOnlyIfNeeded = true
         p.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary]
         p.isExcludedFromWindowsMenu = true
         p.isReleasedWhenClosed = false
-        let v = HangView()
-        v.owner = self
+        let v = NSView()
         v.wantsLayer = true
         p.contentView = v
         // Every strand under every friend: where strings cross in a big swing, none is drawn over a face.
@@ -635,6 +627,7 @@ final class HangingFriends {
         for r in [f.rope, f.edge] { r.contentsScale = scale; r.actions = ["path": NSNull()] }
         attach(f)
         fit(f)
+        f.hot.onMouse = { [weak self, weak f] e in if let self, let f { self.mouse(e, f) } }
         return f
     }
 
@@ -723,8 +716,7 @@ final class HangingFriends {
             } else if !fast, f.frame != 0 { f.frame = 0 }
         }
         if !still, bumpNeighbours() { busy = true }
-        friends.forEach(layout)
-        hover()   // they moved under a still cursor: let the click through where one swung away
+        friends.forEach(layout)   // each hotspot moves with its friend: a click on where one swung away goes through
         // Hanging still, or every panel covered by windows: 0 fps until a touch, the wind, uncovering or a change.
         if !busy || !panels.values.contains(where: { $0.occlusionState.contains(.visible) }) { timer?.invalidate(); timer = nil }
     }
@@ -802,46 +794,65 @@ final class HangingFriends {
         f.rope.path = path
         f.edge.path = path
         CATransaction.commit()
+        place(f, angle: a)
+    }
+
+    /// The friend's hotspot over it, turned with it about the knot: the sprite's pixels and the charm's box.
+    private func place(_ f: Friend, angle a: CGFloat) {
+        guard let level = panels[f.display]?.level, f.frames.indices.contains(f.frame) else { f.hot.hide(); return }
+        let b = f.bodySize, r = ceil(hypot(b.width / 2, b.height)) + 1, at = f.dangle.position
+        var shape = HotspotShape(hit: f.hits[f.frame], drawn: CGRect(x: -f.size.width / 2, y: -b.height, width: f.size.width, height: f.size.height))
+        if f.charmSize != .zero { shape.extra = [CGRect(x: -f.charmSize.width / 2, y: -f.charmSize.height, width: f.charmSize.width, height: f.charmSize.height)] }
+        shape.transform = CGAffineTransform(translationX: r, y: r).rotated(by: a)
+        f.hot.place(CGRect(x: at.x - r, y: at.y - r, width: 2 * r, height: 2 * r), shape, level: level)
     }
 
     // MARK: Mouse
 
-    /// Lets the mouse through everywhere but over a friend.
-    private func hover() {
+    /// Every mouse event on `f`'s hotspot.
+    private func mouse(_ e: NSEvent, _ f: Friend) {
+        switch e.type {
+        case .rightMouseDown: showMenu(e, in: f.hot.contentView ?? NSView())
+        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e, in: f.hot.contentView ?? NSView())
+        case .leftMouseDown: mouseDown(f)
+        case .leftMouseDragged: mouseDragged()
+        case .leftMouseUp: mouseUp()
+        case .mouseEntered: motion = CursorMotion(); motion.feed(NSEvent.mouseLocation, at: e.timestamp); f.inside = false
+        case .mouseMoved: brush(f, at: e.timestamp)
+        case .mouseExited: f.inside = false
+        default: break
+        }
+    }
+
+    /// Brushed past: a push the way the cursor went, once each time it comes onto the friend's drawing. A slow pass
+    /// barely moves it. The speed is from the hotspot's own moves: its entry and the first move onto the drawing.
+    private func brush(_ f: Friend, at t: TimeInterval) {
         guard !friends.contains(where: { $0.dangle.held }) else { return }
         let p = NSEvent.mouseLocation
-        motion.feed(p, at: ProcessInfo.processInfo.systemUptime)
-        // Brushed past: a push the way the cursor went, once each time it comes onto a friend. A slow pass barely moves it.
-        let poke = store.prefs.pokeOnHover && !still
-        for f in friends {
-            let inside = f.hits(p, tilt: !still)
-            if inside, !f.inside, poke, motion.speed > 150 {
-                f.dangle.nudge(CGVector(dx: motion.velocity.dx * 0.6, dy: motion.velocity.dy * 0.6))
-                if motion.speed > 1200, store.prefs.sound { ChimeSound.play(f.slot, volume: store.prefs.volume * 0.6) }
-                wake()
-            }
-            f.inside = inside
+        motion.feed(p, at: t)
+        let inside = f.hits(p, tilt: !still)
+        if inside, !f.inside, store.prefs.pokeOnHover, !still, motion.speed > 150 {
+            f.dangle.nudge(CGVector(dx: motion.velocity.dx * 0.6, dy: motion.velocity.dy * 0.6))
+            if motion.speed > 1200, store.prefs.sound { ChimeSound.play(f.slot, volume: store.prefs.volume * 0.6) }
+            wake()
         }
-        for (id, panel) in panels {
-            let over = panel.frame.contains(p) && friends.contains { $0.display == id && $0.hits(p, tilt: !still) }
-            if panel.ignoresMouseEvents == over { panel.ignoresMouseEvents = !over }
-        }
+        f.inside = inside
     }
 
-    fileprivate func mouseDown() {
+    private func mouseDown(_ f: Friend) {
         let p = NSEvent.mouseLocation, t = ProcessInfo.processInfo.systemUptime
         handle(clicks.mouseDown(p, at: t))
-        pressed = friends.last { $0.hits(p, tilt: !still) }
-        if let f = pressed { grabOffset = CGVector(dx: f.dangle.position.x - p.x, dy: f.dangle.position.y - p.y) }
+        pressed = f   // its own hotspot took the press
+        grabOffset = CGVector(dx: f.dangle.position.x - p.x, dy: f.dangle.position.y - p.y)
     }
 
-    fileprivate func mouseDragged() {
+    private func mouseDragged() {
         let p = NSEvent.mouseLocation, t = ProcessInfo.processInfo.systemUptime
         lastMove = t
         handle(clicks.mouseMoved(p, at: t))
     }
 
-    fileprivate func mouseUp() {
+    private func mouseUp() {
         let p = NSEvent.mouseLocation
         var g = clicks.mouseUp(p, at: ProcessInfo.processInfo.systemUptime)
         // A click rings at once: there is no double-click action to wait for.
@@ -850,8 +861,8 @@ final class HangingFriends {
     }
 
     /// Right click or control click on a friend. The menu swallows the button's release: a friend in the hand is let
-    /// go first and the press ends, so it never stays held (held, the panel would keep eating clicks).
-    fileprivate func showMenu(_ e: NSEvent, in view: NSView) {
+    /// go first and the press ends, so it never stays held.
+    private func showMenu(_ e: NSEvent, in view: NSView) {
         handle(clicks.cancel(at: NSEvent.mouseLocation))
         pressed = nil
         let prefs = store.prefs
@@ -863,7 +874,6 @@ final class HangingFriends {
             FriendMenu.item(L("다른 창보다 위에 두기"), on: prefs.onTop) { HangingStore.shared.prefs.onTop.toggle() },
             FriendMenu.item(L("대롱대롱 친구 치우기")) { HangingStore.shared.prefs.on = false },
         ], with: e, for: view)
-        hover()
     }
 
     private func handle(_ gestures: [ClickRecognizer.Gesture]) {
@@ -965,15 +975,4 @@ final class HangingFriends {
 private final class HangPanel: NSPanel {
     override var canBecomeKey: Bool { false }
     override var canBecomeMain: Bool { false }
-}
-
-private final class HangView: NSView {
-    weak var owner: HangingFriends?
-    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
-    override func mouseDown(with event: NSEvent) {
-        if event.modifierFlags.contains(.control) { owner?.showMenu(event, in: self) } else { owner?.mouseDown() }
-    }
-    override func mouseDragged(with event: NSEvent) { owner?.mouseDragged() }
-    override func mouseUp(with event: NSEvent) { owner?.mouseUp() }
-    override func rightMouseDown(with event: NSEvent) { owner?.showMenu(event, in: self) }
 }

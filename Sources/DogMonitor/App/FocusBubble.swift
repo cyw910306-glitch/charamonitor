@@ -184,7 +184,7 @@ struct TaskPill: View {
 }
 
 /// The widget's capsule buttons (macOS 13 has no capsule bordered style): a soft press, no motion beyond the dim.
-private struct PillButton: ButtonStyle {
+struct PillButton: ButtonStyle {
     var fill: Color
     var text: Color
     var k: CGFloat

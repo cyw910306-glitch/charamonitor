@@ -114,6 +114,21 @@ final class PetModel: ObservableObject {
     }
 
     @discardableResult func buy(_ id: String) -> Bool { state.buy(id) }
+
+    /// 시즌 extras, capped a day (SeasonCenter). The day rolls first, so yesterday's cap never holds today's.
+    @discardableResult
+    func bonus(_ n: Int, cap: Int) -> Int {
+        var s = state
+        var events: [PetEvent] = []
+        s.advance(to: Date(), events: &events)
+        let paid = s.bonus(n, cap: cap)
+        state = s
+        speak(events)
+        return paid
+    }
+
+    func receive(coins n: Int) { state.receive(coins: n) }
+    @discardableResult func spend(_ n: Int) -> Bool { state.spend(n) }
     @discardableResult func place(_ id: String?, slot: Int) -> Bool { state.place(id, slot: slot) }
     @discardableResult func cover(_ id: String) -> Bool { state.cover(id) }
 

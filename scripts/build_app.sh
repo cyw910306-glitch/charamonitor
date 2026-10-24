@@ -42,8 +42,8 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>CFBundleDisplayName</key><string>DogMonitor</string>
     <key>CFBundleExecutable</key><string>DogMonitor</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>3.1</string>
-    <key>CFBundleVersion</key><string>44</string>
+    <key>CFBundleShortVersionString</key><string>3.5</string>
+    <key>CFBundleVersion</key><string>48</string>
     <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>CFBundleDevelopmentRegion</key><string>ko</string>
     <key>CFBundleLocalizations</key><array><string>ko</string><string>en</string></array>
@@ -82,7 +82,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>NSCalendarsFullAccessUsageDescription</key><string>AI 비서가 곧 시작하는 일정을 말풍선으로 알려 드리고, 부탁하면 확인을 받은 뒤 'AI 비서' 캘린더에 일정을 추가해요. 설정에서 켠 경우에만 읽고 써요.</string>
     <key>NSRemindersUsageDescription</key><string>AI 비서가 마감이 다가온 미리 알림을 알려 드리고, 부탁하면 확인을 받은 뒤 'AI 비서' 목록에 미리 알림을 추가해요. 설정에서 켠 경우에만 읽고 써요.</string>
     <key>NSRemindersFullAccessUsageDescription</key><string>AI 비서가 마감이 다가온 미리 알림을 알려 드리고, 부탁하면 확인을 받은 뒤 'AI 비서' 목록에 미리 알림을 추가해요. 설정에서 켠 경우에만 읽고 써요.</string>
-    <key>NSAppleEventsUsageDescription</key><string>AI 비서가 새 메일의 보낸 사람과 제목을 알려 드리려고 Mail에 물어봐요. 메시지와 Mail 앱으로 비서가 확인받은 문자·메일을 보낼 때 써요. 설정에서 켠 경우에만 써요.</string>
+    <key>NSAppleEventsUsageDescription</key><string>AI 비서가 새 메일의 보낸 사람과 제목을 알려 드리려고 Mail에 물어봐요. 메시지와 Mail 앱으로 비서가 확인받은 문자·메일을 보낼 때 써요. 딴짓 지킴이는 브라우저 맨 앞 탭의 주소와 제목을 읽고, 발로 닫기를 켜면 딴짓 탭을 닫아요. 설정에서 켠 경우에만 써요.</string>
     <key>NSContactsUsageDescription</key><string>AI 비서가 문자를 보낸 사람을 연락처 이름으로 알려 드리고, 메일을 부탁할 때 이름으로 주소를 찾아요. 주소는 메일을 보낼 때 메일 서버로만 가고 AI로 보내지 않아요.</string>
     <key>NSLocalNetworkUsageDescription</key><string>같은 와이파이의 친구 맥을 찾고 연결해요. 설정에서 근처 친구를 켠 경우에만 써요.</string>
     <key>NSBonjourServices</key><array><string>_charamonitor._tcp</string></array>

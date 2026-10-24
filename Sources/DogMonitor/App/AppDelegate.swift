@@ -25,6 +25,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         CursorBuddy.shared.start()       // idle unless the 커서 친구 toggle is on
         HangingFriends.shared.start()    // the same for 대롱대롱 친구
         WeatherWindow.shared.start()     // the same for the 날씨 창문; its weather GETs only while it shows
+        Lunch.shared.start()             // the 11:30 점심 뽑기 nudge, only once turned on
         MeadowFriends.shared.start()     // the same for 풀밭 친구들
         FolderFriends.shared.start()     // the same for the 폴더 친구 (no timer while no Finder window is out)
         #if !MAS
@@ -33,6 +34,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         DesktopRug.shared.start()        // the same for the 바탕화면 러그
         ToyBox.shared.start()            // the same for the 장난감 상자 (over the rug; ticks only while a ball rolls)
         DesktopClones.shared.start()     // the same for the 복제 친구 (over the rug)
+        StickyBoard.shared.start()       // 포스트잇: the saved notes back on the desktop (nothing while there are none)
         MacReactions.shared.start(monitor: monitor)   // 맥과 같이 놀기: idle while its three switches are off
         #if !MAS
         SponsorCenter.shared.start()     // 후원 친구: the signed list 90 s in, a look every 5 minutes (rare, polite offers)
@@ -41,8 +43,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         HangingFriends.localWind = { WeatherWindow.shared.on ? WeatherService.shared.current?.wind : nil }
         AssistantCenter.shared.start()   // speech bubble, 먼저 말 걸기, opt-in integrations
         PluginCenter.shared.start()
+        SeasonCenter.shared.start()      // 시즌 뽑기판: nothing until it is turned on (then the signed season.json daily)
         SocialBus.shared.start()
+        TalkLog.shared.start()           // 대화 모아보기: the kept 3 days only when 3일 보관 is on
+        RemoteMeet.shared.start()        // 원격 모임: nothing until it is turned on and a room joined
         OfficeCenter.shared.start()
+        FriendRoom.shared.start()        // 친구 상주: online friends over the Dock while 근처 친구 is on
+        ChairCenter.shared.start()       // 의자: only once one is put out
+        Hotkeys.shared.start()           // 단축키: nothing registered until switched on in 설정
+        #if !MAS
+        DriftCenter.shared.start()       // 딴짓 지킴이: no look until it is switched on (or 타이머 중 자동 with a run)
+        #endif
         NetPlay.shared.start()
         WhatsNew.check()                 // a newer version says its one-liner once
         Tour.startIfNew()                // the first bubbles explain the character, 3 s in

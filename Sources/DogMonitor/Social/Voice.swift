@@ -95,6 +95,8 @@ final class VoiceTalk: ObservableObject {
     /// Keeps counting across talks, so a talk right after the last one is never taken for its old frames.
     private var seq: UInt32 = 0
     private var cutoff: DispatchWorkItem?
+    /// QA: the tone that stands in for the mic.
+    private var tone: Timer?
 
     init() {
         NotificationCenter.default.addObserver(forName: NSApplication.didResignActiveNotification, object: nil, queue: .main) { [weak self] _ in
@@ -109,6 +111,9 @@ final class VoiceTalk: ObservableObject {
     /// The button went down. The first press only asks for the mic.
     func begin(_ friendID: String) {
         guard live == nil, Self.allowed, SocialBus.shared.online.contains(friendID) else { return }
+        #if !MAS
+        if SocialQA.active { openTone(friendID); return }
+        #endif
         switch AVCaptureDevice.authorizationStatus(for: .audio) {
         case .authorized: open(friendID)
         case .notDetermined: AVCaptureDevice.requestAccess(for: .audio) { _ in }
@@ -141,12 +146,34 @@ final class VoiceTalk: ObservableObject {
         }
         do { try engine.start() } catch { input.removeTap(onBus: 0); return }
         self.engine = engine
+        talking(to: friendID)
+    }
+
+    private func talking(to friendID: String) {
         chunker = VoiceChunker()
         live = friendID
         let cut = DispatchWorkItem { [weak self] in self?.end() }
         cutoff = cut
         DispatchQueue.main.asyncAfter(deadline: .now() + Self.maxSeconds, execute: cut)
     }
+
+    #if !MAS
+    /// QA (SocialQA): a quiet 440 Hz tone instead of the mic, made by the clock as a mic would, 20 ms a frame.
+    private func openTone(_ friendID: String) {
+        let t0 = ProcessInfo.processInfo.systemUptime
+        var made = 0
+        let t = Timer(timeInterval: 0.01, repeats: true) { [weak self] _ in
+            let due = Int((ProcessInfo.processInfo.systemUptime - t0) * VoiceCodec.sampleRate)
+            guard due > made else { return }
+            let samples = (made..<due).map { Float(sin(2 * Double.pi * 440 * Double($0) / VoiceCodec.sampleRate) * 0.25) }
+            made = due
+            self?.captured(VoiceCodec.encode(samples))
+        }
+        RunLoop.main.add(t, forMode: .common)
+        tone = t
+        talking(to: friendID)
+    }
+    #endif
 
     private func captured(_ data: Data) {
         guard let id = live else { return }
@@ -159,6 +186,7 @@ final class VoiceTalk: ObservableObject {
     /// Button up, window closed, app in the background, 30 s, or 근처 친구 off: the mic goes off at once.
     func end() {
         cutoff?.cancel(); cutoff = nil
+        tone?.invalidate(); tone = nil
         guard let id = live else { return }
         engine?.inputNode.removeTap(onBus: 0)
         engine?.stop()
@@ -195,7 +223,7 @@ final class VoicePlayer {
         }
         guard pcm.count <= VoiceCodec.frameBytes, pcm.count % 2 == 0 else { return }
         if FriendVisit.quiet() {
-            if noted.insert(id).inserted { SocialChat.shared.append(id, L("회의 중이라 무전을 듣지 않았어요"), mine: false, note: true) }
+            if noted.insert(id).inserted { SocialChat.shared.append(id, FriendVisit.quietMode ? L("쉿 모드라 무전을 듣지 않았어요") : L("회의 중이라 무전을 듣지 않았어요"), mine: false, note: true) }
             return
         }
         if speaking != id {
@@ -207,7 +235,11 @@ final class VoicePlayer {
             _ = FriendVisit.shared.show(id, line: L("🔊 \(name) 말하는 중"), named: false)
         }
         let now = ProcessInfo.processInfo.systemUptime
-        for frame in jitter.push(seq, pcm) where budget.admit(now: now) { play(frame) }
+        let out = jitter.push(seq, pcm).filter { _ in budget.admit(now: now) }
+        out.forEach(play)
+        #if !MAS
+        if SocialQA.active { SocialQA.heard(played: out.count) }
+        #endif
         stopSoon(1)
     }
 
@@ -215,12 +247,18 @@ final class VoicePlayer {
     func gone(_ id: String) { if speaking == id { stop() } }
 
     private func play(_ pcm: Data) {
+        // An output change (another app's audio, a headset) can stop the engine; build it afresh then.
+        if let e = engine, !e.isRunning { player?.stop(); engine = nil; player = nil }
         if engine == nil {
             let e = AVAudioEngine()
             let p = AVAudioPlayerNode()
             e.attach(p)
             e.connect(p, to: e.mainMixerNode, format: format)
-            guard (try? e.start()) != nil else { return }
+            // AVAudioPlayerNode.play() on an engine that is not running raises (an Objective-C exception, the app ends).
+            guard (try? e.start()) != nil, e.isRunning else { return }
+            #if !MAS
+            if SocialQA.active { p.volume = 0 }   // QA runs the whole path without a tone in the room
+            #endif
             p.play()
             engine = e
             player = p

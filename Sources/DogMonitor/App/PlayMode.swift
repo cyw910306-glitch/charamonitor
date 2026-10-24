@@ -443,6 +443,9 @@ final class PlayMode {
     // MARK: Session
 
     private func listen() {
+        #if !MAS
+        if SocialQA.active { return }   // two QA copies on one Mac take the focus from each other; a real friend is another Mac
+        #endif
         let ws = NSWorkspace.shared.notificationCenter
         // A click elsewhere or another app in front: that app keeps the focus.
         NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification)

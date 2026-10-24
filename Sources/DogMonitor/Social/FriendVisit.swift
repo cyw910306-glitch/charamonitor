@@ -3,7 +3,13 @@ import SwiftUI
 
 // A friend's chat as a visit (their character pops up over the Dock with the line), and the friend window.
 
-/// Chat history, in memory only: the last 50 lines per friend, never on disk.
+/// A photo in the chat: the thumbnail, and the photo while it is one of the newest `PhotoRules.keepFull`.
+struct ChatPhoto: Equatable {
+    var thumb: Data
+    var full: Data?
+}
+
+/// Chat history, in memory only: the last 50 lines per friend, never on disk (대화 모아보기 copies them, TalkLog; photos stay in memory).
 final class SocialChat: ObservableObject {
     static let shared = SocialChat()
     static let keep = 50
@@ -14,15 +20,20 @@ final class SocialChat: ObservableObject {
         var text: String
         /// The app's own line in the history (a dropped talk), not the friend's words.
         var note = false
+        var photo: ChatPhoto?
     }
 
     @Published private(set) var log: [String: [Entry]] = [:]
 
-    func append(_ friendID: String, _ text: String, mine: Bool, note: Bool = false) {
+    func append(_ friendID: String, _ text: String, mine: Bool, note: Bool = false, photo: PreparedPhoto? = nil) {
         var lines = log[friendID] ?? []
-        lines.append(Entry(mine: mine, text: text, note: note))
+        lines.append(Entry(mine: mine, text: text, note: note, photo: photo.map { ChatPhoto(thumb: $0.thumb, full: $0.full) }))
         if lines.count > Self.keep { lines.removeFirst(lines.count - Self.keep) }
+        // About 2 MiB each: the older photos keep only their thumbnail.
+        let full = lines.indices.filter { lines[$0].photo?.full != nil }
+        full.dropLast(PhotoRules.keepFull).forEach { lines[$0].photo?.full = nil }
         log[friendID] = lines
+        if self === Self.shared { TalkLog.shared.add(TalkEntry(thread: friendID, name: "", text: text, mine: mine, note: note)) }
     }
 
     func clear(_ friendID: String) { log[friendID] = nil }
@@ -35,14 +46,23 @@ final class FriendVisit {
     private var panel: NSPanel?
     private var hide: DispatchWorkItem?
 
-    /// A call app in front or a screen recorder running: no pop-up (the menu gets an unread dot instead).
-    static func quiet() -> Bool {
-        MeetingMute.inMeeting() || NSWorkspace.shared.runningApplications.contains { $0.bundleIdentifier.map(MeetingMute.recorders.contains) == true }
+    static let quietKey = "quiet.mode"
+    /// 쉿 모드 (the menu bar menu, a 단축키): off at first, kept across launches.
+    static var quietMode: Bool {
+        get { AppDefaults.store.bool(forKey: quietKey) }
+        set { AppDefaults.store.set(newValue, forKey: quietKey) }
     }
 
-    /// Whether it showed. `named` puts "이름: " before the line.
+    /// 쉿 모드, a call app in front or a screen recorder running: no pop-up, bubble, emote or doodle (the menu gets
+    /// an unread dot instead). Everything friendly that might show asks here.
+    static func quiet() -> Bool {
+        quietMode || MeetingMute.inMeeting()
+            || NSWorkspace.shared.runningApplications.contains { $0.bundleIdentifier.map(MeetingMute.recorders.contains) == true }
+    }
+
+    /// Whether it showed. `named` puts "이름: " before the line. `photo` shows under it; a click on the bubble runs `tap`.
     @discardableResult
-    func show(_ friendID: String, line: String, named: Bool = true) -> Bool {
+    func show(_ friendID: String, line: String, named: Bool = true, photo: NSImage? = nil, tap: (() -> Void)? = nil) -> Bool {
         guard let f = SocialBus.shared.friend(friendID), !Self.quiet() else { return false }
         let cache = DogSpriteCache(SpriteLook(friend: f.look), pixelSize: 2)
         let size = cache.imageSize
@@ -66,7 +86,8 @@ final class FriendVisit {
         let text = named ? "\(f.nickname): \(line)" : line
         // 잠시 조용히 (or another held line) keeps the bubble off: then no visit either, the menu shows the unread dot.
         guard SpeechBubbleCenter.shared.say(text: text, source: .system, aloud: false, repeats: true, seconds: Self.seconds,
-                                            anchor: { [weak p] in p.flatMap { $0.isVisible ? CGPoint(x: $0.frame.midX, y: $0.frame.maxY) : nil } })
+                                            anchor: { [weak p] in p.flatMap { $0.isVisible ? CGPoint(x: $0.frame.midX, y: $0.frame.maxY) : nil } },
+                                            photo: photo, tap: tap)
         else { p.orderOut(nil); return false }
         hide?.cancel()
         let w = DispatchWorkItem { [weak p] in p?.orderOut(nil) }
@@ -139,6 +160,8 @@ struct FriendChatView: View {
     @ObservedObject private var chat = SocialChat.shared
     @State private var text = ""
     @State private var lastSent = Date.distantPast
+    @State private var photoNote: String?
+    @State private var dropping = false
 
     private var friend: SocialFriend? { bus.friends.first { $0.id == friendID } }
     private var isOnline: Bool { bus.online.contains(friendID) }
@@ -152,12 +175,16 @@ struct FriendChatView: View {
                         ForEach(chat.log[friendID] ?? []) { line in
                             HStack {
                                 if line.mine { Spacer(minLength: 40) }
-                                Text(verbatim: line.text)
-                                    .font(.system(size: 12))
-                                    .foregroundStyle(line.note ? .secondary : .primary)
-                                    .textSelection(.enabled)
-                                    .padding(.horizontal, 10).padding(.vertical, 6)
-                                    .background(RoundedRectangle(cornerRadius: 10).fill(line.mine ? Color.accentColor.opacity(0.18) : Color.primary.opacity(0.07)))
+                                if let photo = line.photo {
+                                    ChatPhotoView(photo: photo, title: line.mine ? L("나") : friend?.nickname ?? "")
+                                } else {
+                                    Text(verbatim: line.text)
+                                        .font(.system(size: 12))
+                                        .foregroundStyle(line.note ? .secondary : .primary)
+                                        .textSelection(.enabled)
+                                        .padding(.horizontal, 10).padding(.vertical, 6)
+                                        .background(RoundedRectangle(cornerRadius: 10).fill(line.mine ? Color.accentColor.opacity(0.18) : Color.primary.opacity(0.07)))
+                                }
                                 if !line.mine { Spacer(minLength: 40) }
                             }
                             .id(line.id)
@@ -171,6 +198,7 @@ struct FriendChatView: View {
                 TextField(L("메시지"), text: $text).textFieldStyle(.roundedBorder).onSubmit(send)
                 Button(L("보내기"), action: send).disabled(!canSend)
             }
+            ChatPhotoBar(friendID: friendID, note: $photoNote)
             if PluginGate.isOpen(.walkieTalkie), bus.defaults.bool(forKey: "social.voice") {
                 TalkButton(friendID: friendID).disabled(!isOnline)
             }
@@ -188,7 +216,15 @@ struct FriendChatView: View {
         }
         .padding(12)
         .frame(minWidth: 280, minHeight: 320)
+        .overlay { if dropping { RoundedRectangle(cornerRadius: 8).strokeBorder(Color.accentColor, lineWidth: 2).padding(4) } }
+        .onDrop(of: [.fileURL, .image], isTargeted: $dropping) { providers in
+            bus.canPhoto(friendID) && PhotoInput.drop(providers) { photoBar.send($0) }
+        }
+        .onPasteCommand(of: [.fileURL, .png, .jpeg, .tiff]) { _ in if bus.canPhoto(friendID) { photoBar.send(PhotoInput.pasteboard()) } }
     }
+
+    /// Drops and ⌘V (outside the text field) go the same way as the 사진 menu.
+    private var photoBar: ChatPhotoBar { ChatPhotoBar(friendID: friendID, note: $photoNote) }
 
     private var header: some View {
         HStack(spacing: 6) {

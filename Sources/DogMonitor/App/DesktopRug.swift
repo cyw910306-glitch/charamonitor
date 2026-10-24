@@ -123,7 +123,9 @@ final class DesktopRug {
     static let smoothTime: TimeInterval = 0.9
 
     private var panel: NSPanel?
-    private let view = RugView(frame: .zero)
+    private let view = SCNView(frame: .zero)
+    /// Takes the clicks on the cloth.
+    private let hot = HotspotPanel()
     private let node = SCNNode()
     private var cloth: ClothSheet?
     private var texcoords: SCNGeometrySource?
@@ -136,7 +138,6 @@ final class DesktopRug {
     private var lift: (origin: CGPoint, at: CGPoint)?
     private var lastTick = ProcessInfo.processInfo.systemUptime
     private var bag: Set<AnyCancellable> = []
-    private var monitors: [Any] = []
     private var started = false
     private var asleep = false
     private var still = DesktopKit.reduceMotion
@@ -216,20 +217,15 @@ final class DesktopRug {
         cloth?.bend = store.prefs.softness.bend
         retexture()
         p.orderFrontRegardless()
-        if monitors.isEmpty {
-            let mask: NSEvent.EventTypeMask = [.mouseMoved]
-            if let g = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: { [weak self] _ in self?.hover() }) { monitors.append(g) }
-            if let l = NSEvent.addLocalMonitorForEvents(matching: mask, handler: { [weak self] e in self?.hover(); return e }) { monitors.append(l) }
-        }
         render()
         wake()
     }
 
     private func teardown() {
         timer?.invalidate(); timer = nil
-        monitors.forEach(NSEvent.removeMonitor); monitors = []
         smoothing = nil; lift = nil
         panel?.orderOut(nil)
+        hot.hide()
     }
 
     private func makePanel() -> NSPanel {
@@ -238,14 +234,14 @@ final class DesktopRug {
         p.backgroundColor = .clear
         p.hasShadow = false
         if Self.qaHidden { p.alphaValue = 0 }
-        p.ignoresMouseEvents = true   // until the cursor is over the cloth
-        p.acceptsMouseMovedEvents = true
+        p.ignoresMouseEvents = true   // for good: the HotspotPanel over the cloth takes its clicks
         p.hidesOnDeactivate = false
         p.level = NSWindow.Level(Int(CGWindowLevelForKey(.desktopIconWindow)) + 1)
         p.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle]
         p.isExcludedFromWindowsMenu = true
         p.isReleasedWhenClosed = false
-        view.owner = self
+        hot.collectionBehavior = p.collectionBehavior
+        hot.onMouse = { [weak self] in self?.mouse($0) }
         view.backgroundColor = .clear
         view.allowsCameraControl = false
         view.rendersContinuously = false
@@ -326,6 +322,17 @@ final class DesktopRug {
                             elements: elements)
         g.materials = [front, back]
         node.geometry = g
+        place(c)
+    }
+
+    /// The hotspot over the box round the cloth, shaped like the cloth seen from above.
+    private func place(_ c: ClothSheet) {
+        guard let panel, panel.isVisible, !c.points.isEmpty else { hot.hide(); return }
+        let xs = c.points.map { CGFloat($0.x) }, ys = c.points.map { CGFloat($0.y) }
+        let lo = CGPoint(x: floor(xs.min() ?? 0), y: floor(ys.min() ?? 0)), hi = CGPoint(x: ceil(xs.max() ?? 0), y: ceil(ys.max() ?? 0))
+        let o = panel.frame.origin
+        let shape = HotspotShape(outline: c.outline(offset: CGVector(dx: -lo.x, dy: -lo.y)))
+        hot.place(CGRect(x: o.x + lo.x, y: o.y + lo.y, width: max(1, hi.x - lo.x), height: max(1, hi.y - lo.y)), shape, level: panel.level)
     }
 
     private func wake() {
@@ -351,7 +358,6 @@ final class DesktopRug {
         }
         cloth = c
         render()
-        hover()
         if smoothing == nil, lift == nil, still || c.isSettled { timer?.invalidate(); timer = nil }
     }
 
@@ -385,14 +391,8 @@ final class DesktopRug {
         return CGPoint(x: p.x - o.x, y: p.y - o.y)
     }
 
-    private func hover() {
-        guard let panel, let c = cloth, NSEvent.pressedMouseButtons & 1 == 0 else { return }
-        let p = NSEvent.mouseLocation
-        let over = panel.frame.contains(p) && c.covers(local(p))
-        if panel.ignoresMouseEvents == over { panel.ignoresMouseEvents = !over }
-    }
-
-    fileprivate func mouse(_ e: NSEvent) {
+    /// Every mouse event on the cloth's hotspot.
+    private func mouse(_ e: NSEvent) {
         let p = NSEvent.mouseLocation, t = e.timestamp
         switch e.type {
         case .rightMouseDown: showMenu(e)
@@ -459,8 +459,7 @@ final class DesktopRug {
             }),
             .separator(),
             FriendMenu.item(L("러그 치우기")) { RugStore.shared.prefs.on = false },
-        ], with: e, for: view)
-        hover()   // the cursor may have left the cloth while the menu was up
+        ], with: e, for: hot.contentView ?? view)
     }
 }
 
@@ -468,15 +467,6 @@ final class DesktopRug {
 private final class RugPanel: NSPanel {
     override var canBecomeKey: Bool { false }
     override var canBecomeMain: Bool { false }
-}
-
-private final class RugView: SCNView {
-    weak var owner: DesktopRug?
-    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
-    override func mouseDown(with event: NSEvent) { owner?.mouse(event) }
-    override func mouseDragged(with event: NSEvent) { owner?.mouse(event) }
-    override func mouseUp(with event: NSEvent) { owner?.mouse(event) }
-    override func rightMouseDown(with event: NSEvent) { owner?.mouse(event) }
 }
 
 /// The rug's two faces, drawn in code (our own art; the character is the user's own pick, never bundled here).

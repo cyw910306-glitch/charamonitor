@@ -1,9 +1,12 @@
 import AppKit
 import Combine
 
-/// 가상 오피스: what someone is doing, in menu order.
+/// 가상 오피스: what someone is doing, in menu order. 퇴근한 척 is mine only: friends get 퇴근 (`wire`) while I keep working.
 enum OfficeStatus: String, Codable, CaseIterable {
-    case working, away, meal, restroom, meeting, focus, off
+    case working, away, meal, restroom, meeting, focus, off, pretendOff
+
+    /// What goes to friends (and what a friend's status is taken as).
+    var wire: OfficeStatus { self == .pretendOff ? .off : self }
 
     var label: String {
         switch self {
@@ -14,6 +17,7 @@ enum OfficeStatus: String, Codable, CaseIterable {
         case .meeting: return L("회의")
         case .focus: return L("집중")
         case .off: return L("퇴근")
+        case .pretendOff: return L("퇴근한 척")
         }
     }
 
@@ -26,6 +30,7 @@ enum OfficeStatus: String, Codable, CaseIterable {
         case .meeting: return "📞"
         case .focus: return "🎧"
         case .off: return "🌙"
+        case .pretendOff: return "🫥"
         }
     }
 }
@@ -59,6 +64,8 @@ struct FriendLook: Codable, Equatable {
     var colors: [String: RGBColor]?
     var cat: CatProfile?
     var outfit: Outfit?
+    /// The 의자 they sit on (a ChairCatalog id), nil standing. Older builds leave it out and skip it.
+    var seat: String? = nil
 
     static let fallback = FriendLook(character: .dog, id: nil, profile: nil, colors: nil, cat: nil, outfit: nil)
 
@@ -66,7 +73,9 @@ struct FriendLook: Codable, Equatable {
     /// as the plain dog.
     static func received(_ look: FriendLook) -> FriendLook {
         guard look.character != .custom, let d = SocialWire.encode(look), d.count <= 4096 else { return .fallback }
-        return look
+        var l = look
+        l.seat = ChairCatalog.chair(look.seat)?.id   // a chair this build does not draw: standing
+        return l
     }
 }
 
@@ -111,6 +120,20 @@ enum SocialMessage: Codable, Equatable {
     case remoteAsk
     case remoteAnswer(accept: Bool, screenSharingOn: Bool)
     case bye
+    /// 다같이 뽀뽀·똥, or 던지기 (to the one thrown). Version 2: never sent to a friend whose hello said 1.
+    case emote(EmoteKind)
+    /// 오늘 한마디, 운세 and 점심 for the profile card. Version 2 skips it unread, so it goes to 2 and up.
+    case note(FriendNote)
+    /// 낙서 쪽지: shown 5 s over my character, never kept.
+    case doodle(Doodle)
+    /// 그룹 뽑기: items and seed, replayed the same on every Mac. Version 2 skips it unread, so it goes to 2 and up.
+    case draw(DrawShare)
+    /// 던지기 놀이: I hit you with item `item` (a ThrowRules wire number). Version 2 skips it unread.
+    case hit(item: Int)
+    /// 던지기 놀이: I am knocked out for `seconds` (1...10), to every friend. Version 2 skips it unread.
+    case ko(seconds: Int)
+    /// 사진 메시지, one 32 KiB part. Version 3 (PhotoRules.version): never sent to an older friend.
+    case photo(PhotoPart)
 }
 
 /// The one place features talk to 같은 와이파이 친구. Stream 4 fills the bodies in; until then nothing is on and
@@ -139,7 +162,16 @@ final class SocialBus: ObservableObject {
     var node: SocialNode?
     var bag = Set<AnyCancellable>()
     var lastLook: FriendLook?
+    /// Each online friend's protocol version (from their hello), in memory only.
+    var versions: [String: Int] = [:]
+    /// Each friend's last 오늘 한마디·운세·점심, in memory only.
+    @Published var notes: [String: FriendNote] = [:]
+    /// Photos coming in, one per friend, in memory only.
+    var photoParts = PhotoAssembly()
+    /// When I last sent each friend a photo (PhotoRules.sendGap).
+    var photoSentAt: [String: TimeInterval] = [:]
     private var gate: AnyCancellable?
+    private var dayTurn: AnyCancellable?
 
     func start() {
         friends = loadFriends()
@@ -147,6 +179,9 @@ final class SocialBus: ObservableObject {
         // The plugin opening or closing (a signed list moved its day) turns 근처 친구 on or off too; after the change lands.
         gate = PluginCenter.shared.$open.dropFirst().removeDuplicates().receive(on: DispatchQueue.main)
             .sink { [weak self] _ in self?.refresh() }
+        // Cards show a note for its day: a new day's note at midnight (운세 changes, 한마디 and 점심 clear).
+        dayTurn = NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in self?.shareNote() }
     }
 
     func send(_ message: SocialMessage, to friendID: String) { node?.send(message, to: friendID) }

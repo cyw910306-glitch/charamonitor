@@ -117,7 +117,8 @@ final class StarGame {
     private var seed: UInt64?
     private var spawned = 0
     private var names = ["1P", "2P"]
-    private var scores = [0, 0]
+    /// [P1, P2]; in 별 대결 P2 is the friend's score as their Mac sends it.
+    private(set) var scores = [0, 0]
     private var clock: TimeInterval = 0
     private var hud: CATextLayer?
     private var shown = ""
@@ -186,6 +187,9 @@ final class StarGame {
         }
         ChimeSound.play(scores[player], volume: 0.4)
     }
+
+    /// The stars out now, by id (QA, tests).
+    var spots: [(id: Int, spot: StarSpot)] { stars.map { ($0.id, $0.spot) } }
 
     /// P1's score, for the friend's Mac.
     var score: Int { scores[0] }

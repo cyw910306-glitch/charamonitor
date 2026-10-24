@@ -23,6 +23,12 @@ enum SocialWire {
     static func encode<T: Encodable>(_ value: T) -> Data? { try? JSONEncoder().encode(value) }
     static func decode<T: Decodable>(_ type: T.Type, _ data: Data) -> T? { try? JSONDecoder().decode(type, from: data) }
 
+    /// A message this build cannot read but a newer one could: one JSON object with a single key, the way a
+    /// SocialMessage case encodes (an unknown case, or a known one with an unknown kind inside).
+    static func fromNewer(_ body: Data) -> Bool {
+        ((try? JSONSerialization.jsonObject(with: body)) as? [String: Any])?.count == 1
+    }
+
     /// The length a 4-byte header says, nil when it is over the limit (the link closes).
     static func length(_ header: Data) -> Int? {
         guard header.count == 4 else { return nil }
@@ -175,9 +181,10 @@ enum SocialText {
 }
 
 /// Per link: chat 1 a second, voice 60, 같이 놀기 30, a look (or hello, which carries one) 2 in 4 s since each one
-/// rewrites the friend list, everything else 10 a second. Over that the message is dropped.
+/// rewrites the friend list, an emote 3 in 10 s, a 낙서 쪽지 2 in 10 s, a 던지기 hit or 기절 8 in 10 s, a photo's parts (one
+/// photo) in 2 s, everything else 10 a second. Over that the message is dropped.
 struct SocialRateLimit {
-    enum Kind { case chat, voice, play, look, other }
+    enum Kind { case chat, voice, play, look, emote, doodle, hit, photo, other }
     private var window: [Kind: (start: TimeInterval, count: Int)] = [:]
 
     static func kind(_ m: SocialMessage) -> Kind {
@@ -186,6 +193,10 @@ struct SocialRateLimit {
         case .voice: return .voice
         case .play: return .play
         case .look, .hello: return .look
+        case .emote: return .emote
+        case .doodle: return .doodle
+        case .hit, .ko: return .hit
+        case .photo: return .photo
         default: return .other
         }
     }
@@ -196,6 +207,10 @@ struct SocialRateLimit {
         case .voice: return (60, 1)
         case .play: return (30, 1)
         case .look: return (2, 4)
+        case .emote: return (3, 10)
+        case .doodle: return (2, 10)
+        case .hit: return (8, 10)
+        case .photo: return (PhotoRules.maxParts, 2)
         case .other: return (10, 1)
         }
     }
@@ -329,9 +344,10 @@ final class SocialLink {
             if self.isPairing {
                 guard let step = SocialWire.decode(PairStep.self, body) else { self.close(); return }
                 self.onPair(self, step)
-            } else {
-                guard let m = SocialWire.decode(SocialMessage.self, body) else { self.close(); return }   // a bad frame closes the link
+            } else if let m = SocialWire.decode(SocialMessage.self, body) {
                 if self.limit.allow(m, now: ProcessInfo.processInfo.systemUptime) { self.onMessage(self, m) }
+            } else if !SocialWire.fromNewer(body) {
+                self.close(); return   // a bad frame closes the link; a newer version's message is skipped
             }
             self.receive()
         }
@@ -402,7 +418,10 @@ final class SocialNode {
     private var browser: NWBrowser?
     private(set) var links: [String: SocialLink] = [:]
     private var pending: [ObjectIdentifier: SocialLink] = [:]
-    private var dialing: Set<NWEndpoint> = []
+    /// Adverts being dialled now (one link each).
+    private(set) var dialing: Set<NWEndpoint> = []
+    /// Friend dials that failed in a row, for the redial backoff (3, 6, 12 ... 60 s); cleared on a link.
+    private var dialFails: [String: Int] = [:]
     private var results: Set<NWBrowser.Result> = []
     /// This listener's salt (its TXT `s`); new with each listener.
     private(set) var salt = SocialCrypto.newSalt()
@@ -565,6 +584,7 @@ final class SocialNode {
         guard let id = link.friendID else { return }
         pending[ObjectIdentifier(link)] = nil
         dialing.remove(link.conn.endpoint)
+        dialFails[id] = nil
         let old = links[id]
         links[id] = link
         if let old, old !== link { old.onClose = { _, _ in }; old.close() }
@@ -577,10 +597,20 @@ final class SocialNode {
         if joining === link { joining = nil; onPairFailed() }
         if link.role == .dialer { dialing.remove(link.conn.endpoint) }
         guard let id = link.friendID else { return }
-        if links[id] === link {
+        let dropped = links[id] === link
+        if dropped {
             links[id] = nil
             onOnline(id, false)
-            if running { DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in self?.dialFound() } }
+        }
+        // A live link gone: try again soon. A friend dial that never got through: again, backing off up to a minute,
+        // so an advert that stays listed but never answers is not dialled every few seconds forever.
+        guard running else { return }
+        if dropped {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in self?.dialFound() }
+        } else if link.role == .dialer && links[id] == nil {
+            let fails = dialFails[id, default: 0]
+            dialFails[id] = fails + 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + min(60, 3 * pow(2, Double(min(fails, 5))))) { [weak self] in self?.dialFound() }
         }
     }
 
@@ -596,6 +626,11 @@ final class SocialNode {
         wire(link)
         pending[ObjectIdentifier(link)] = link
         link.start()
+        // Resolving an advert can sit in "preparing" for most of a minute (a stale record, a slow resolver): give up
+        // like the listener does, and closed() dials again with what the browser shows then.
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.handshakeSeconds) { [weak link] in
+            if let link, !link.ready { link.close() }
+        }
     }
 
     func send(_ m: SocialMessage, to id: String) { links[id]?.send(m) }

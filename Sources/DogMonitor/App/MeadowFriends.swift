@@ -239,6 +239,7 @@ final class MeadowFriends {
         var react: (r: MeadowReaction, start: TimeInterval)?
         var combo = ClickCombo()
         var shown: NSImage?
+        let hot = HotspotPanel()
 
         init(slot: Int, x: CGFloat) { self.slot = slot; walk = MeadowWalk(x: x) }
 
@@ -264,7 +265,6 @@ final class MeadowFriends {
     private var timer: Timer?
     private var interval: TimeInterval = 0
     private var bag: Set<AnyCancellable> = []
-    private var monitors: [Any] = []
     private var started = false
     private var asleep = false
     private var still = DesktopKit.reduceMotion
@@ -393,17 +393,12 @@ final class MeadowFriends {
         panel = p
         p.setFrame(Self.panelFrame(screen), display: false)
         p.orderFrontRegardless()
-        friends.forEach { $0.layer.removeFromSuperlayer() }
+        friends.forEach { $0.layer.removeFromSuperlayer(); $0.hot.hide() }
         hits = [:]
         dropGames()
         gameAt = ProcessInfo.processInfo.systemUptime + GroupPlay.gap(random: .random(in: 0..<1)) / 2
         let target = screen.frame.height / 8   // about an eighth of the screen tall
         friends = now.slots.enumerated().map { makeFriend($0, $1, width: p.frame.width, target: target, scale: screen.backingScaleFactor) }
-        if monitors.isEmpty {
-            let mask: NSEvent.EventTypeMask = [.mouseMoved]
-            if let g = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: { [weak self] _ in self?.hover() }) { monitors.append(g) }
-            if let l = NSEvent.addLocalMonitorForEvents(matching: mask, handler: { [weak self] e in self?.hover(); return e }) { monitors.append(l) }
-        }
         separate()
         friends.forEach(layout)
     }
@@ -415,8 +410,7 @@ final class MeadowFriends {
 
     private func teardown() {
         timer?.invalidate(); timer = nil; interval = 0
-        monitors.forEach(NSEvent.removeMonitor); monitors = []
-        friends.forEach { $0.layer.removeFromSuperlayer() }
+        friends.forEach { $0.layer.removeFromSuperlayer(); $0.hot.hide() }
         dropGames()
         friends = []; pressed = nil; built = nil
         panel?.orderOut(nil)
@@ -428,14 +422,12 @@ final class MeadowFriends {
         p.backgroundColor = .clear
         p.hasShadow = false
         if Self.qaHidden { p.alphaValue = 0 }
-        p.ignoresMouseEvents = true   // until the cursor is over a friend (hover)
-        p.acceptsMouseMovedEvents = true
+        p.ignoresMouseEvents = true   // for good: each friend's HotspotPanel takes its clicks
         p.hidesOnDeactivate = false
         p.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary]
         p.isExcludedFromWindowsMenu = true
         p.isReleasedWhenClosed = false
-        let v = MeadowView(frame: .zero)
-        v.owner = self
+        let v = NSView(frame: .zero)
         v.wantsLayer = true
         p.contentView = v
         return p
@@ -459,6 +451,7 @@ final class MeadowFriends {
 
     private func makeFriend(_ i: Int, _ slot: HangSlot, width: CGFloat, target: CGFloat, scale: CGFloat) -> Friend {
         let f = Friend(slot: i, x: width * CGFloat(slot.x))
+        f.hot.onMouse = { [weak self, weak f] e in if let self, let f { self.mouse(e, f) } }
         var smooth = false
         if let path = slot.imagePath, let picture = NSImage(contentsOfFile: path) {
             let one = [HangingFriends.framed(picture)]
@@ -535,7 +528,6 @@ final class MeadowFriends {
             if !still, f.clock >= per { f.clock = 0; f.frame += 1 }
             layout(f, now: now)
         }
-        hover()
         // Walking, falling or reacting: 30 fps. Standing about: 2 a second, the pace of its idle frames and of thinking
         // what to do next (the bounce is Core Animation's), and the pace that ends a still pose or a sit under 동작 줄이기.
         // Still with nothing to end, or behind every window: nothing until a change. A game nobody sees ends.
@@ -713,6 +705,20 @@ final class MeadowFriends {
             f.layer.removeAnimation(forKey: "bob")
         }
         CATransaction.commit()
+        place(f)
+    }
+
+    /// The friend's hotspot over its drawing; reacting it may rise off the spot it was clicked on, and that spot keeps
+    /// taking clicks too, so the next one of a combo never falls through to the window below.
+    private func place(_ f: Friend) {
+        guard let panel, panel.isVisible, let image = f.shown else { f.hot.hide(); return }
+        let id = ObjectIdentifier(image)
+        if hits[id] == nil { hits[id] = AlphaHit(image) }
+        let o = panel.frame.origin, drawnY = f.layer.position.y, feet = Self.floor + f.walk.y
+        let low = min(drawnY, feet), top = max(drawnY, f.react != nil ? feet : drawnY) + f.size.height
+        var shape = HotspotShape(hit: hits[id], drawn: CGRect(x: 0, y: drawnY - low, width: f.size.width, height: f.size.height), flipped: f.facingLeft)
+        if f.react != nil { shape.extra = [CGRect(x: 0, y: feet - low, width: f.size.width, height: f.size.height)] }
+        f.hot.place(CGRect(x: o.x + f.walk.x - f.size.width / 2, y: o.y + low, width: f.size.width, height: top - low), shape, level: panel.level)
     }
 
     /// A mark (♥, !, 에취!) rising over `f`'s head (`dx` to one side). Under 동작 줄이기 it does not rise, so it starts above
@@ -791,12 +797,11 @@ final class MeadowFriends {
         }
     }
 
-    /// The mouse moved: the panel takes clicks only over a friend, and rubbing one pets it.
-    fileprivate func hover() {
-        guard let panel, pressed == nil else { return }
+    /// The mouse moved over a hotspot (or off it): rubbing a friend pets it.
+    private func rubbed() {
+        guard pressed == nil else { return }
         let p = NSEvent.mouseLocation
-        let over = panel.frame.contains(p) ? friend(at: p) : nil
-        if panel.ignoresMouseEvents == (over != nil) { panel.ignoresMouseEvents = over == nil }
+        let over = friend(at: p)
         let now = ProcessInfo.processInfo.systemUptime
         if rub.feed(p, over: over.flatMap { f in friends.firstIndex { $0 === f } }, at: now), let f = over, f.react == nil {
             react(f, .pet, now: now, line: LinePick.pick("meadow.pet", MeadowReaction.petLines))
@@ -805,16 +810,19 @@ final class MeadowFriends {
         }
     }
 
-    fileprivate func mouse(_ e: NSEvent) {
+    /// Every mouse event on `f`'s hotspot.
+    private func mouse(_ e: NSEvent, _ f: Friend) {
         let p = NSEvent.mouseLocation, t = ProcessInfo.processInfo.systemUptime
         switch e.type {
-        case .rightMouseDown: showMenu(e, at: p)
-        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e, at: p)
-        case .leftMouseDown where e.modifierFlags.contains(.option): quickAsk(friend(at: p))   // no press: its release finds nothing
+        case .mouseMoved, .mouseExited: rubbed(); return
+        case .mouseEntered: return
+        case .rightMouseDown: showMenu(e, at: p, on: f)
+        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e, at: p, on: f)
+        case .leftMouseDown where e.modifierFlags.contains(.option): quickAsk(f)   // no press: its release finds nothing
         case .leftMouseDown:
             handle(clicks.mouseDown(p, at: t))
-            pressed = friend(at: p)
-            if let f = pressed, let o = panel?.frame.origin {
+            pressed = f   // its own hotspot took the press
+            if let o = panel?.frame.origin {
                 grab = CGVector(dx: o.x + f.walk.x - p.x, dy: o.y + Self.floor + f.walk.y - p.y)
             }
         case .leftMouseDragged: handle(clicks.mouseMoved(p, at: t))
@@ -830,22 +838,20 @@ final class MeadowFriends {
 
     /// 퀵물어보기 over `f`'s head; again while it is open closes it.
     private func quickAsk(_ f: Friend?) {
-        guard let f, let panel, let i = friends.firstIndex(where: { $0 === f }) else { return }
+        guard let f, let i = friends.firstIndex(where: { $0 === f }) else { return }
         MainActor.assumeIsolated {
             let ask = FriendQuickAsk.shared
-            ask.toggle(from: panel, key: i) { [weak self] in self?.head(i) }
+            ask.toggle(from: f.hot, key: i) { [weak self] in self?.head(i) }
         }
     }
 
     /// The menu swallows the button's release: a friend held up is put down first, and the press ends, so it never
-    /// hangs in the air and the panel goes back to letting clicks through.
-    private func showMenu(_ e: NSEvent, at p: CGPoint) {
+    /// hangs in the air.
+    private func showMenu(_ e: NSEvent, at p: CGPoint, on f: Friend) {
         handle(clicks.cancel(at: p))
         pressed = nil
-        guard let v = panel?.contentView else { return }
-        let f = friend(at: p)
-        var own: [NSMenuItem] = []
-        if let f { own.append(FriendMenu.item(L("퀵물어보기")) { [weak self] in self?.quickAsk(f) }) }
+        guard let v = f.hot.contentView else { return }
+        var own = [FriendMenu.item(L("퀵물어보기")) { [weak self] in self?.quickAsk(f) }]
         if store.prefs.jumpRope, friends.count >= 3, !still {
             own.append(FriendMenu.item(L("줄넘기")) { [weak self] in self?.endGames(); self?.startRope(now: ProcessInfo.processInfo.systemUptime); self?.wake() })
         }
@@ -855,7 +861,6 @@ final class MeadowFriends {
             FriendMenu.item(L("풀밭 친구들 치우기")) { MeadowStore.shared.prefs.on = false },
         ]
         FriendMenu.pop(own, with: e, for: v)
-        hover()   // the cursor may have left the friend while the menu was up
     }
 
     private func handle(_ gestures: [ClickRecognizer.Gesture]) {
@@ -876,7 +881,7 @@ final class MeadowFriends {
                 f.walk.drop(from: f.walk.y)   // falls back onto the floor
                 if still { f.walk = MeadowWalk(x: f.walk.x) }
             case .single, .double:   // a double never comes: singles are answered at once
-                // FriendQuickAsk takes a click in its owner (this whole panel) as a toggle, so it stays open: shut it, or
+                // FriendQuickAsk takes a click in its owner (this friend's hotspot) as a toggle, so it stays open: shut it, or
                 // the line's bubble lands on top of it.
                 MainActor.assumeIsolated { if FriendQuickAsk.shared.isOpen { FriendQuickAsk.shared.close() } }
                 let r = MeadowReaction.click(&f.combo, at: now, has: f.has, key: "meadow.react.\(f.slot)")
@@ -921,20 +926,4 @@ final class MeadowFriends {
 private final class MeadowPanel: NSPanel {
     override var canBecomeKey: Bool { false }
     override var canBecomeMain: Bool { false }
-}
-
-private final class MeadowView: NSView {
-    weak var owner: MeadowFriends?
-    override init(frame: NSRect) {
-        super.init(frame: frame)
-        // Moves over a friend reach us even while another app is in front (rubbing one pets it).
-        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseMoved, .activeAlways, .inVisibleRect], owner: self))
-    }
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
-    override func mouseMoved(with event: NSEvent) { owner?.hover() }
-    override func mouseDown(with event: NSEvent) { owner?.mouse(event) }
-    override func mouseDragged(with event: NSEvent) { owner?.mouse(event) }
-    override func mouseUp(with event: NSEvent) { owner?.mouse(event) }
-    override func rightMouseDown(with event: NSEvent) { owner?.mouse(event) }
 }

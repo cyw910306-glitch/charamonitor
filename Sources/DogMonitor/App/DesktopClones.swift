@@ -99,7 +99,7 @@ enum CloneSocial {
 /// after a restart. On their own they stroll, sit, nap and hop; with 어울리기 they greet, chase and follow each other,
 /// turn to the cursor, run over when it rests nearby and sit on the 러그. A click is a Reaction (combos as the buddy),
 /// ⌥ click 퀵물어보기, a drag carries one anywhere and a flick throws it (Fling). 움직이기 off: they stand as put.
-/// One desktop-level panel over the main screen, taking the mouse only over a drawing. 동작 줄이기: they stand still.
+/// One desktop-level panel over the main screen that lets every click through; each clone's HotspotPanel takes its own. 동작 줄이기: they stand still.
 final class DesktopClones {
     static let shared = DesktopClones()
     /// QA renders only: the panel stays see-through (alpha 0).
@@ -128,6 +128,7 @@ final class DesktopClones {
         var following: UUID?
         var frame = 0, clock: TimeInterval = 0
         var shown: NSImage?
+        let hot = HotspotPanel()
 
         init(id: UUID, x: CGFloat, ground: CGFloat) {
             self.id = id; walk = MeadowWalk(x: x); self.ground = ground; groundTarget = ground
@@ -159,7 +160,6 @@ final class DesktopClones {
     private var timer: Timer?
     private var interval: TimeInterval = 0
     private var bag: Set<AnyCancellable> = []
-    private var monitors: [Any] = []
     private var started = false
     private var asleep = false
     private var still = DesktopKit.reduceMotion
@@ -268,6 +268,7 @@ final class DesktopClones {
         c.fling = nil; c.react = nil; c.held = false
         c.walk = MeadowWalk(x: c.walk.x)
         c.layer.isHidden = true
+        c.hot.hide()
         if pressed === c { pressed = nil; clicks = ClickRecognizer() }
         let rect = CGRect(x: p.frame.minX + c.walk.x - c.size.width / 2, y: p.frame.minY + c.ground, width: c.size.width, height: c.size.height)
         return (rect, store.prefs.clones.first { $0.id == id }?.character)
@@ -349,24 +350,19 @@ final class DesktopClones {
         panel = p
         p.setFrame(screen.visibleFrame, display: false)
         p.orderFrontRegardless()
-        clones.forEach { $0.layer.removeFromSuperlayer() }
+        clones.forEach { $0.layer.removeFromSuperlayer(); $0.hot.hide() }
         clones = []
         hits = [:]
         dropGames()
         gameAt = ProcessInfo.processInfo.systemUptime + GroupPlay.gap(random: .random(in: 0..<1)) / 2
         sync(fresh: false)
-        if monitors.isEmpty {
-            let mask: NSEvent.EventTypeMask = [.mouseMoved]
-            if let g = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: { [weak self] _ in self?.moved() }) { monitors.append(g) }
-            if let l = NSEvent.addLocalMonitorForEvents(matching: mask, handler: { [weak self] e in self?.moved(); return e }) { monitors.append(l) }
-        }
     }
 
     /// Who is out follows the saved list: gone ones leave, new ones pop in (`fresh`: with a ✦ and a hop).
     private func sync(fresh: Bool) {
         guard let panel else { return }
         let spots = store.prefs.clones, ids = Set(spots.map(\.id))
-        for c in clones where !ids.contains(c.id) { c.layer.removeFromSuperlayer() }
+        for c in clones where !ids.contains(c.id) { c.layer.removeFromSuperlayer(); c.hot.hide() }
         if clones.contains(where: { !ids.contains($0.id) }) { hits = [:] }   // keyed by image: a freed one's address may come back
         clones.removeAll { !ids.contains($0.id) }
         if let p = pressed, !clones.contains(where: { $0 === p }) { pressed = nil; clicks = ClickRecognizer() }
@@ -384,8 +380,7 @@ final class DesktopClones {
     private func teardown() {
         saveAll()
         timer?.invalidate(); timer = nil; interval = 0
-        monitors.forEach(NSEvent.removeMonitor); monitors = []
-        clones.forEach { $0.layer.removeFromSuperlayer() }
+        clones.forEach { $0.layer.removeFromSuperlayer(); $0.hot.hide() }
         dropGames()
         clones = []; pressed = nil; built = nil; hovered = nil
         panel?.orderOut(nil)
@@ -397,15 +392,13 @@ final class DesktopClones {
         p.backgroundColor = .clear
         p.hasShadow = false
         if Self.qaHidden { p.alphaValue = 0 }
-        p.ignoresMouseEvents = true   // until the cursor is over a clone (hover)
-        p.acceptsMouseMovedEvents = true
+        p.ignoresMouseEvents = true   // for good: each clone's HotspotPanel takes its clicks
         p.hidesOnDeactivate = false
         p.level = NSWindow.Level(Int(CGWindowLevelForKey(.desktopIconWindow)) + 2)   // over the 러그 (+1), so they sit on it
         p.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary]
         p.isExcludedFromWindowsMenu = true
         p.isReleasedWhenClosed = false
-        let v = CloneView()
-        v.owner = self
+        let v = NSView()
         v.wantsLayer = true
         p.contentView = v
         return p
@@ -427,6 +420,7 @@ final class DesktopClones {
         c.think = now + .random(in: 1...5)
         c.touched = now
         c.facingLeft = Bool.random()
+        c.hot.onMouse = { [weak self, weak c] e in if let self, let c { self.mouse(e, c) } }
         panel?.contentView?.layer?.addSublayer(c.layer)
         return c
     }
@@ -546,7 +540,6 @@ final class DesktopClones {
             itMark.position = CGPoint(x: it.walk.x, y: it.ground + it.walk.y + it.size.height + 10)
             CATransaction.commit()
         }
-        hover()
         // Walking, flying, reacting or held: 30 fps. Standing about: 2 a second (the bob is Core Animation's). Still, or
         // 움직이기 off, or behind every window: nothing until a change.
         if !moves && !busy && pressed == nil || !visible && !busy { timer?.invalidate(); timer = nil; interval = 0; return }
@@ -924,6 +917,21 @@ final class DesktopClones {
             c.layer.removeAnimation(forKey: "bob")
         }
         CATransaction.commit()
+        place(c)
+    }
+
+    /// The clone's hotspot over its drawing; hopping or reacting it rises off the spot it was clicked on, and that spot
+    /// keeps taking clicks too, so the next one of a combo never falls through to the window below.
+    private func place(_ c: Clone) {
+        guard let panel, panel.isVisible, !c.lent, let image = c.shown else { c.hot.hide(); return }
+        let id = ObjectIdentifier(image)
+        if hits[id] == nil { hits[id] = AlphaHit(image) }
+        let o = panel.frame.origin, drawnY = c.layer.position.y
+        let low = min(drawnY, c.ground), rise = c.react != nil || c.walk.airborne
+        let top = max(drawnY, rise ? c.ground : drawnY) + c.size.height
+        var shape = HotspotShape(hit: hits[id], drawn: CGRect(x: 0, y: drawnY - low, width: c.size.width, height: c.size.height), flipped: c.facingLeft)
+        if rise { shape.extra = [CGRect(x: 0, y: c.ground - low, width: c.size.width, height: c.size.height)] }
+        c.hot.place(CGRect(x: o.x + c.walk.x - c.size.width / 2, y: o.y + low, width: c.size.width, height: top - low), shape, level: panel.level)
     }
 
     private func pop(_ text: String, _ color: NSColor, over c: Clone) {
@@ -950,35 +958,18 @@ final class DesktopClones {
         }
     }
 
-    /// The mouse moved anywhere: only near a clone does it wake the tick, so moving elsewhere costs nothing.
-    private func moved() {
-        guard let panel else { return }
-        let p = NSEvent.mouseLocation, o = panel.frame.origin
-        let near = clones.contains { c in
-            let dx = p.x - o.x - c.walk.x, dy = p.y - o.y - c.ground
-            return dx * dx + dy * dy < 300 * 300
-        }
-        if near { hover(); wake() } else if !panel.ignoresMouseEvents { hover() }
-    }
-
-    private func hover() {
-        guard let panel, pressed == nil else { return }
-        let p = NSEvent.mouseLocation
-        let over = panel.frame.contains(p) && clone(at: p) != nil
-        if panel.ignoresMouseEvents == over { panel.ignoresMouseEvents = !over }
-    }
-
-    fileprivate func mouse(_ e: NSEvent) {
+    /// Every mouse event on `c`'s hotspot. The cursor coming onto it wakes the tick (its ♥ and hop).
+    private func mouse(_ e: NSEvent, _ c: Clone) {
         let p = NSEvent.mouseLocation, t = ProcessInfo.processInfo.systemUptime
         switch e.type {
-        case .rightMouseDown: showMenu(e, at: p)
-        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e, at: p)
-        case .leftMouseDown where e.modifierFlags.contains(.option): quickAsk(clone(at: p))
+        case .rightMouseDown: showMenu(e, at: p, on: c)
+        case .leftMouseDown where e.modifierFlags.contains(.control): showMenu(e, at: p, on: c)
+        case .leftMouseDown where e.modifierFlags.contains(.option): quickAsk(c)
         case .leftMouseDown:
             handle(clicks.mouseDown(p, at: t))
-            pressed = clone(at: p)
+            pressed = c   // its own hotspot took the press
             pressStart = t
-            if let c = pressed, let o = panel?.frame.origin {
+            if let o = panel?.frame.origin {
                 grab = CGVector(dx: o.x + c.walk.x - p.x, dy: o.y + c.ground + c.walk.y - p.y)
             }
         case .leftMouseDragged: handle(clicks.mouseMoved(p, at: t))
@@ -992,27 +983,22 @@ final class DesktopClones {
         wake()
     }
 
-    private func quickAsk(_ c: Clone?) {
-        guard let c, let panel else { return }
+    private func quickAsk(_ c: Clone) {
         let id = c.id
         MainActor.assumeIsolated {
             let ask = FriendQuickAsk.shared
-            ask.toggle(from: panel, key: id) { [weak self] in self?.head(id) }
+            ask.toggle(from: c.hot, key: id) { [weak self] in self?.head(id) }
         }
     }
 
-    /// The menu swallows the button's release: a clone held up is put down first and the press ends, so the panel goes
-    /// back to letting clicks through.
-    private func showMenu(_ e: NSEvent, at p: CGPoint) {
+    /// The menu swallows the button's release: a clone held up is put down first and the press ends.
+    private func showMenu(_ e: NSEvent, at p: CGPoint, on c: Clone) {
         handle(clicks.cancel(at: p))
         pressed = nil
-        guard let v = panel?.contentView else { return }
-        let id = clone(at: p)?.id
-        var own: [NSMenuItem] = []
-        if let id {
-            own.append(FriendMenu.item(L("이 친구 치우기")) { [weak self] in self?.remove([id]) })
-            own.append(FriendMenu.submenu(L("놀이"), StarGame.menuItems(.clone(id))))
-        }
+        guard let v = c.hot.contentView else { return }
+        let id = c.id
+        var own = [FriendMenu.item(L("이 친구 치우기")) { [weak self] in self?.remove([id]) },
+                   FriendMenu.submenu(L("놀이"), StarGame.menuItems(.clone(id)))]
         if social, store.prefs.tag { own.append(FriendMenu.item(L("술래잡기")) { [weak self] in self?.startGame(tag: true) }) }
         if social, store.prefs.train { own.append(FriendMenu.item(L("기차놀이")) { [weak self] in self?.startGame(tag: false) }) }
         own += [
@@ -1020,7 +1006,6 @@ final class DesktopClones {
             FriendMenu.item(L("움직이기"), on: store.prefs.moves) { CloneStore.shared.prefs.moves.toggle() },
         ]
         FriendMenu.pop(own, with: e, for: v)
-        hover()   // the cursor may have left the clone while the menu was up
     }
 
     private func handle(_ gestures: [ClickRecognizer.Gesture]) {
@@ -1087,13 +1072,4 @@ final class DesktopClones {
 private final class ClonePanel: NSPanel {
     override var canBecomeKey: Bool { false }
     override var canBecomeMain: Bool { false }
-}
-
-private final class CloneView: NSView {
-    weak var owner: DesktopClones?
-    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
-    override func mouseDown(with event: NSEvent) { owner?.mouse(event) }
-    override func mouseDragged(with event: NSEvent) { owner?.mouse(event) }
-    override func mouseUp(with event: NSEvent) { owner?.mouse(event) }
-    override func rightMouseDown(with event: NSEvent) { owner?.mouse(event) }
 }

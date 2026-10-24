@@ -60,15 +60,52 @@ details p, details ul{margin:8px 0 2px}
 kbd{font:600 13px/1 -apple-system,BlinkMacSystemFont,sans-serif; background:var(--soft); border:1px solid var(--line); border-bottom-width:2px; border-radius:6px; padding:3px 7px}
 </style>
 <script>
-(function(){var t=new URLSearchParams(location.search).get('theme'); if(t==='dark'||t==='light') document.documentElement.classList.add(t);})();
+(function(){var t=new URLSearchParams(location.search).get('theme'); if(t==='dark'||t==='light'){document.documentElement.classList.add(t);document.documentElement.setAttribute('data-theme',t);}})();
 </script>
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer></script>
 </head>
-<body>
+<body data-hashlang="1">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-folder" viewBox="0 0 72 72"><path d="M7 19a4 4 0 0 1 4-4h15.5l5 5H61a4 4 0 0 1 4 4v3H7z" style="fill:var(--folder-tab)"/><rect x="7" y="24" width="58" height="37" rx="4" style="fill:var(--folder)"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 72 72"><path d="M19 8h24l12 12v41a3 3 0 0 1-3 3H19a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3z" style="fill:var(--card);stroke:var(--hair);stroke-width:1.5"/><path d="M43 8v9a3 3 0 0 0 3 3h9" style="fill:none;stroke:var(--hair);stroke-width:1.5"/><path d="M23 27h22M23 33h26M23 39h18" style="stroke:var(--hair);stroke-width:2;stroke-linecap:round"/></symbol>
+</svg>
+<header class="mb i18n">
+  <div class="in">
+    <a class="logo" href="./"><img src="favicon.png" width="16" height="16" alt=""><span lang="ko">캐릭모니터</span><span lang="en">CharaMonitor</span></a>
+    <nav aria-label="사이트" data-label-en="Site">
+      <a href="features.html"><span lang="ko">기능 소개</span><span lang="en">Features</span></a>
+      <a href="./#install"><span lang="ko">설치</span><span lang="en">Install</span></a>
+      <a href="./#iphone"><span lang="ko">아이폰</span><span lang="en">iPhone</span></a>
+      <a href="https://github.com/cyw910306-glitch/charamonitor">GitHub</a>
+    </nav>
+    <div class="st">
+      <button class="pet" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="대시보드 미리보기 열기 (예시)" data-label-en="Open the dashboard preview (example)"><canvas width="64" height="24" aria-hidden="true"></canvas></button>
+      <span class="cpu" role="img" aria-label="CPU 12% (예시)" title="예시" data-title-en="Example">CPU 12%</span>
+      <span class="lang"><a href="#ko" hreflang="ko">KO</a><span aria-hidden="true">|</span><a href="#en" hreflang="en">EN</a></span>
+      <span class="clock" aria-hidden="true">00:00</span>
+      <a class="dl-pill" href="./#install"><span lang="ko">다운로드</span><span lang="en">Download</span></a>
+      <details class="menu">
+        <summary><span lang="ko">메뉴</span><span lang="en">Menu</span></summary>
+        <div class="mb-sheet">
+          <a href="features.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">기능 소개</span><span lang="en">Features</span></a>
+          <a href="./#install"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">설치 방법</span><span lang="en">How to install</span></a>
+          <a href="./#iphone"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">아이폰 웹 앱</span><span lang="en">iPhone web app</span></a>
+          <a href="my-setup.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">내 설정 받기</span><span lang="en">Get my setup</span></a>
+          <a href="gpt-pet.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">ChatGPT 펫</span><span lang="en">ChatGPT pet</span></a>
+          <a href="meet.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">원격 모임</span><span lang="en">Remote meetups</span></a>
+          <a href="sponsor.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">후원·광고 문의</span><span lang="en">Sponsorship</span></a>
+          <a href="https://github.com/cyw910306-glitch/charamonitor"><svg aria-hidden="true"><use href="#i-doc"/></svg>README (GitHub)</a>
+          <a href="support.html"><svg aria-hidden="true"><use href="#i-doc"/></svg><span lang="ko">지원</span><span lang="en">Support</span></a>
+          <a href="privacy.html"><svg aria-hidden="true"><use href="#i-doc"/></svg><span lang="ko">개인정보 처리방침</span><span lang="en">Privacy</span></a>
+          <div class="lang"><a href="#ko">한국어</a><a href="#en">English</a></div>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
 <div class="wrap">
-  <nav class="top" aria-label="사이트">
-    <a class="home" href="./"><img src="favicon.png" alt="" width="28" height="28">캐릭모니터</a>
-    <span class="lang"><a href="#ko" lang="ko">한국어</a><a href="#en" lang="en">English</a></span>
-  </nav>
 
   <div id="ko">
   <header class="page">
@@ -127,10 +164,16 @@ kbd{font:600 13px/1 -apple-system,BlinkMacSystemFont,sans-serif; background:var(
     <p>Email <a href="mailto:cyw910306@gmail.com?subject=CharaMonitor%20Sponsor%20Friend">cyw910306@gmail.com</a> with your brand, the link and the period you have in mind.</p>
   </section>
   </div>
-
-  <footer>
-    <a href="./">캐릭모니터</a>·<a href="support.html">지원 · Support</a>·<a href="privacy.html">개인정보 처리방침 · Privacy</a>
-  </footer>
 </div>
+<footer class="sfoot i18n"><div class="wrapc"><p class="links">
+      <a href="features.html"><span lang="ko">기능 소개</span><span lang="en">Features</span></a>
+      <a href="support.html"><span lang="ko">지원</span><span lang="en">Support</span></a>
+      <a href="privacy.html"><span lang="ko">개인정보 처리방침</span><span lang="en">Privacy</span></a>
+      <a href="https://github.com/cyw910306-glitch/charamonitor">GitHub</a>
+      <a href="sponsor.html"><span lang="ko">후원·광고 문의</span><span lang="en">Sponsorship</span></a>
+      <a href="my-setup.html"><span lang="ko">내 설정 받기</span><span lang="en">Get my setup</span></a>
+      <a href="gpt-pet.html"><span lang="ko">ChatGPT 펫 만들기</span><span lang="en">Make a ChatGPT pet</span></a>
+      <a href="meet.html"><span lang="ko">원격 모임 안내</span><span lang="en">Remote meetups</span></a>
+    </p></div></footer>
 </body>
 </html>

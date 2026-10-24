@@ -264,6 +264,9 @@ struct AssistantSettingsView: View {
             Divider()
             workHoursRows
             Divider()
+            switchRow(L("아침에 오늘의 운세 알려 주기"), $a.fortuneMorning)
+            note(L("오전에 처음 켜져 있을 때 한 번 말해 줘요. 회의나 화면 녹화 중이면 건너뛰어요."))
+            Divider()
             HStack {
                 if a.isMuted() {
                     Text("\(a.mutedUntil!.formatted(date: .omitted, time: .shortened))까지 조용히 있어요").font(.system(size: 12))

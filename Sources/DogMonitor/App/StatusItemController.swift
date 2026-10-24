@@ -448,6 +448,11 @@ final class StatusItemController: NSObject, NSPopoverDelegate, NSMenuDelegate {
         ]
         for (i, (title, sel, key)) in items.enumerated() {
             if i == 2 {
+                quietItem.target = self
+                menu.addItem(quietItem)
+                let recent = NSMenuItem(title: L("대화 모아보기…"), action: #selector(menuRecent), keyEquivalent: "")
+                recent.target = self
+                menu.addItem(recent)
                 let desktop = NSMenuItem(title: L("데스크톱 친구"), action: nil, keyEquivalent: "")
                 desktop.submenu = desktopMenu
                 desktopMenu.delegate = self
@@ -459,6 +464,9 @@ final class StatusItemController: NSObject, NSPopoverDelegate, NSMenuDelegate {
             menu.addItem(item)
         }
     }
+
+    /// 쉿 모드 (FriendVisit.quietMode), its check set each time the menu opens.
+    private let quietItem = NSMenuItem(title: L("쉿 모드"), action: #selector(menuQuiet), keyEquivalent: "")
 
     /// Quick on/off for each 데스크톱 친구 (DesktopFriends.toggles), rebuilt each time it opens so the checks are current.
     private let desktopMenu = NSMenu()
@@ -472,6 +480,7 @@ final class StatusItemController: NSObject, NSPopoverDelegate, NSMenuDelegate {
     private func showMenu() {
         guard let button = statusItem.button else { return }
         closePopover()
+        quietItem.state = FriendVisit.quietMode ? .on : .off
         menu.popUp(positioning: nil, at: NSPoint(x: 0, y: button.bounds.height + 4), in: button)
     }
 
@@ -481,6 +490,9 @@ final class StatusItemController: NSObject, NSPopoverDelegate, NSMenuDelegate {
         let url = URL(fileURLWithPath: "/System/Applications/Utilities/Activity Monitor.app")
         NSWorkspace.shared.openApplication(at: url, configuration: NSWorkspace.OpenConfiguration())
     }
+
+    @objc private func menuQuiet() { FriendVisit.quietMode.toggle() }
+    @objc private func menuRecent() { RecentLog.open() }
 
     @objc private func menuQuit() { NSApp.terminate(nil) }
 }

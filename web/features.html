@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기능 소개 · 캐릭모니터</title>
+<meta name="description" content="메뉴바에서 시작해서 바탕화면, 옆자리 친구 맥까지. 캐릭모니터의 기능을 직접 눌러 보세요.">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#221B17" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://charamonitor.vercel.app/features.html">
+<meta property="og:title" content="캐릭모니터 기능 소개">
+<meta property="og:image" content="https://charamonitor.vercel.app/icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-256.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="site.css">
+<script>
+(function(d){var q=new URLSearchParams(location.search),t=q.get('theme'),l=q.get('lang'),s=null;
+if(t==='dark'||t==='light')d.setAttribute('data-theme',t);
+try{s=localStorage.getItem('cm.lang')}catch(e){}
+if(location.hash==='#en')l='en';else if(location.hash==='#ko')l='ko';
+l=l||s||(/^ko/i.test(navigator.language||'ko')?'ko':'en');
+if(l==='en'){d.classList.add('en');d.lang='en'}
+d.classList.add('js');
+})(document.documentElement);
+</script>
+<script src="site.js" defer></script>
+</head>
+<body class="site i18n" data-title-en="Features · CharaMonitor">
+<a class="skip" href="#main"><span lang="ko">본문으로 건너뛰기</span><span lang="en">Skip to content</span></a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-folder" viewBox="0 0 72 72"><path d="M7 19a4 4 0 0 1 4-4h15.5l5 5H61a4 4 0 0 1 4 4v3H7z" style="fill:var(--folder-tab)"/><rect x="7" y="24" width="58" height="37" rx="4" style="fill:var(--folder)"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 72 72"><path d="M19 8h24l12 12v41a3 3 0 0 1-3 3H19a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3z" style="fill:var(--card);stroke:var(--hair);stroke-width:1.5"/><path d="M43 8v9a3 3 0 0 0 3 3h9" style="fill:none;stroke:var(--hair);stroke-width:1.5"/><path d="M23 27h22M23 33h26M23 39h18" style="stroke:var(--hair);stroke-width:2;stroke-linecap:round"/></symbol>
+</svg>
+
+<header class="mb">
+  <div class="in">
+    <a class="logo" href="./"><img src="favicon.png" width="16" height="16" alt=""><span lang="ko">캐릭모니터</span><span lang="en">CharaMonitor</span></a>
+    <nav aria-label="사이트" data-label-en="Site">
+      <a href="features.html" aria-current="page"><span lang="ko">기능 소개</span><span lang="en">Features</span></a>
+      <a href="./#install"><span lang="ko">설치</span><span lang="en">Install</span></a>
+      <a href="./#iphone"><span lang="ko">아이폰</span><span lang="en">iPhone</span></a>
+      <a href="https://github.com/cyw910306-glitch/charamonitor">GitHub</a>
+    </nav>
+    <div class="st">
+      <button class="pet" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="대시보드 미리보기 열기 (예시)" data-label-en="Open the dashboard preview (example)"><canvas width="64" height="24" aria-hidden="true"></canvas></button>
+      <span class="cpu" role="img" aria-label="CPU 12% (예시)" title="예시" data-title-en="Example">CPU 12%</span>
+      <span class="lang" role="group" aria-label="언어" data-label-en="Language"><button type="button" data-lang="ko" aria-pressed="true">KO</button><span aria-hidden="true">|</span><button type="button" data-lang="en" aria-pressed="false">EN</button></span>
+      <span class="clock" aria-hidden="true">00:00</span>
+      <a class="dl-pill" href="./#install"><span lang="ko">다운로드</span><span lang="en">Download</span></a>
+      <details class="menu">
+        <summary><span lang="ko">메뉴</span><span lang="en">Menu</span></summary>
+        <div class="mb-sheet">
+          <a href="features.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">기능 소개</span><span lang="en">Features</span></a>
+          <a href="./#install"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">설치 방법</span><span lang="en">How to install</span></a>
+          <a href="./#iphone"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">아이폰 웹 앱</span><span lang="en">iPhone web app</span></a>
+          <a href="my-setup.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">내 설정 받기</span><span lang="en">Get my setup</span></a>
+          <a href="gpt-pet.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">ChatGPT 펫</span><span lang="en">ChatGPT pet</span></a>
+          <a href="meet.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">원격 모임</span><span lang="en">Remote meetups</span></a>
+          <a href="sponsor.html"><svg aria-hidden="true"><use href="#i-folder"/></svg><span lang="ko">후원·광고 문의</span><span lang="en">Sponsorship</span></a>
+          <a href="https://github.com/cyw910306-glitch/charamonitor"><svg aria-hidden="true"><use href="#i-doc"/></svg>README (GitHub)</a>
+          <a href="support.html"><svg aria-hidden="true"><use href="#i-doc"/></svg><span lang="ko">지원</span><span lang="en">Support</span></a>
+          <a href="privacy.html"><svg aria-hidden="true"><use href="#i-doc"/></svg><span lang="ko">개인정보 처리방침</span><span lang="en">Privacy</span></a>
+          <div class="lang"><button type="button" data-lang="ko" aria-pressed="true">한국어</button><button type="button" data-lang="en" aria-pressed="false">English</button></div>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrapc fhead">
+  <h1><span lang="ko">기능 소개</span><span lang="en">Features</span></h1>
+  <p><span lang="ko">메뉴바에서 시작해서 바탕화면, 옆자리 친구 맥까지 가요.</span><span lang="en">It starts in your menu bar, then moves onto your desktop and over to the Mac next to you.</span></p>
+</div>
+<nav class="chips" aria-label="챕터" data-label-en="Chapters">
+  <div class="wrapc">
+    <a href="#menubar"><span lang="ko">메뉴바</span><span lang="en">Menu bar</span></a>
+    <a href="#desktop"><span lang="ko">바탕화면 친구</span><span lang="en">Desktop friends</span></a>
+    <a href="#break"><span lang="ko">쉬는 시간</span><span lang="en">Breaks</span></a>
+    <a href="#drift"><span lang="ko">딴짓 지킴이</span><span lang="en">Drift Guard</span></a>
+    <a href="#nearby"><span lang="ko">근처 친구</span><span lang="en">Nearby friends</span></a>
+    <a href="#ai">AI</a>
+    <a href="#mine"><span lang="ko">나만의 캐릭터</span><span lang="en">Your character</span></a>
+    <a href="#iphone"><span lang="ko">아이폰</span><span lang="en">iPhone</span></a>
+  </div>
+</nav>
+
+<!-- ============ 메뉴바 ============ -->
+<section class="chapter" id="menubar" aria-labelledby="c-menubar"><div class="wrapc">
+  <h2 id="c-menubar"><span lang="ko">메뉴바</span><span lang="en">Menu bar</span></h2>
+
+  <div class="feat reveal" id="cpu">
+    <div class="txt">
+      <p class="over">MENU BAR</p>
+      <h3><span lang="ko">CPU 따라 뛰는 캐릭터</span><span lang="en">A character that runs with your CPU</span></h3>
+      <p class="desc"><span lang="ko">메뉴바에 사는 도트 캐릭터가 맥이 한가하면 눕고, 바빠질수록 걷다가 달리고, 너무 바쁘면 지쳐요. 자세는 7가지예요.</span><span lang="en">A pixel character lives in your menu bar. When your Mac is idle it lies down; as it gets busier it walks, then runs, and when it's swamped it wears out. Seven paces in all.</span></p>
+      <p class="note"><span lang="ko">메모리·발열에 따라서도 바뀌어요. 평소 CPU 0.3% 정도로 가볍게 돌아가요.</span><span lang="en">Memory and heat change it too. It runs light, at about 0.3% CPU.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="cpu">
+        <canvas class="spr" width="136" height="80" role="img" aria-label="캐릭터 미리보기" data-label-en="Character preview"></canvas>
+        <div class="slider" style="margin:0">
+          <label for="d-cpu"><span>CPU <output id="d-cpu-out">42</output>% <span lang="ko">(예시)</span><span lang="en">(example)</span></span><span id="d-cpu-pose" aria-live="polite"></span></label>
+          <input id="d-cpu" type="range" min="0" max="100" value="42">
+        </div>
+        <div class="chipset" role="group" aria-label="캐릭터" data-label-en="Character">
+          <button type="button" class="chipb" data-ch="dog-jelly" aria-pressed="true"><span lang="ko">젤리</span><span lang="en">Jelly</span></button>
+          <button type="button" class="chipb" data-ch="dog-shiba" aria-pressed="false"><span lang="ko">시바</span><span lang="en">Shiba</span></button>
+          <button type="button" class="chipb" data-ch="cat-cheese-tabby" aria-pressed="false"><span lang="ko">치즈냥</span><span lang="en">Orange tabby</span></button>
+          <button type="button" class="chipb" data-ch="cat-tuxedo" aria-pressed="false"><span lang="ko">턱시도</span><span lang="en">Tuxedo</span></button>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">슬라이더를 움직여 보세요. 수치는 예시예요.</span><span lang="en">Move the slider. The numbers are examples.</span></p></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="dashboard">
+    <div class="txt">
+      <p class="over">DASHBOARD</p>
+      <h3><span lang="ko">대시보드와 인터넷 속도</span><span lang="en">Dashboard and internet speed</span></h3>
+      <p class="desc"><span lang="ko">캐릭터를 클릭하면 CPU·메모리·저장 용량·배터리·네트워크를 한눈에 봐요. 버튼 하나로 인터넷 속도(Mbps)도 재요.</span><span lang="en">Click the character to see CPU, memory, storage, battery and network at a glance. One button measures your internet speed in Mbps.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="dash">
+        <div class="mini-pop">
+          <ul class="bars" data-bars></ul>
+          <div class="speed"><span><span lang="ko">인터넷 속도</span><span lang="en">Internet speed</span></span><b data-speed aria-live="polite">-</b></div>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">예시 화면이에요. 실제 측정 아님.</span><span lang="en">Example screen. Not a real measurement.</span></p><button type="button" class="act" data-act="speed"><span lang="ko">속도 재기</span><span lang="en">Test speed</span></button></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="cleaner">
+    <div class="txt">
+      <p class="over">CLEANER</p>
+      <h3><span lang="ko">클리너와 보안 검사</span><span lang="en">Cleaner and security check</span></h3>
+      <p class="desc"><span lang="ko">안 쓰는 앱·폭주 프로세스 종료, 로그·앱 캐시·개발자 캐시(npm·Homebrew)·오래된 node_modules 정리, 로그인 항목 관리, 재시동 권장까지 골라 두고 한 번에 정리해요. 저장 안 한 작업은 지켜요.</span><span lang="en">It lines up unused apps and runaway processes to quit, logs, app caches, developer caches (npm, Homebrew) and old node_modules to clear, login items to manage and a restart hint, then cleans in one go. Unsaved work stays safe.</span></p>
+      <p class="note"><span lang="ko">보안 검사: macOS 기본 보호(악성코드 차단·방화벽·암호화)와 수상한 자동 실행 항목을 점검하고, 되돌릴 수 있는 조치만 해요.</span><span lang="en">Security check: looks over macOS's built-in protection (malware blocking, firewall, encryption) and suspicious auto-start items, with fixes you can undo.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="clean">
+        <canvas class="spr" width="102" height="60" aria-hidden="true"></canvas>
+        <div class="clean" data-list></div>
+        <p class="toast" data-toast hidden role="status"></p>
+      </div>
+      <div class="demo-foot"><p class="cap" data-total aria-live="polite"></p><button type="button" class="act" data-act="clean"><span lang="ko">정리하기</span><span lang="en">Clean up</span></button></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="situation">
+    <div class="txt">
+      <p class="over">REACTIONS</p>
+      <h3><span lang="ko">상황 반응</span><span lang="en">Reacts to your Mac</span></h3>
+      <p class="desc"><span lang="ko">배터리가 부족하면 배고파하고, 충전 중이면 냠냠 먹고, 바쁠 때는 특별한 동작을 해요. 얼마나 자주 할지 설정에서 골라요.</span><span lang="en">Low battery makes it hungry, charging means snack time, and when things get busy it does its special move. Choose how often in Settings.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="situ">
+        <canvas class="spr" width="136" height="80" role="img" aria-label="상황 반응 자세" data-label-en="Reaction pose"></canvas>
+        <div class="chipset" role="group" aria-label="상황" data-label-en="Situation">
+          <button type="button" class="chipb" data-pose="hungry" aria-pressed="true"><span lang="ko">배터리 부족</span><span lang="en">Low battery</span></button>
+          <button type="button" class="chipb" data-pose="eat" aria-pressed="false"><span lang="ko">충전 중</span><span lang="en">Charging</span></button>
+          <button type="button" class="chipb" data-pose="special" aria-pressed="false"><span lang="ko">바쁠 때</span><span lang="en">When busy</span></button>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">칩을 눌러 보세요.</span><span lang="en">Tap a chip.</span></p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 바탕화면 친구 ============ -->
+<section class="chapter" id="desktop" aria-labelledby="c-desktop"><div class="wrapc">
+  <h2 id="c-desktop"><span lang="ko">바탕화면 친구</span><span lang="en">Desktop friends</span></h2>
+
+  <div class="feat reveal" id="meadow">
+    <div class="txt">
+      <p class="over">MEADOW</p>
+      <h3><span lang="ko">풀밭 친구들</span><span lang="en">Meadow friends</span></h3>
+      <p class="desc"><span lang="ko">화면 아래 풀밭에서 친구들이 걷고 쉬어요. 누르면 반응하고, 연달아 누르면 어지러워하다가 삐쳐요.</span><span lang="en">Friends stroll and rest on a meadow along the bottom of your screen. Click one and it reacts; keep clicking and it gets dizzy, then sulks.</span></p>
+      <p class="note"><span lang="ko"><kbd>⌥</kbd> 클릭하면 퀵물어보기로 AI 비서에게 바로 물어봐요.</span><span lang="en"><kbd>⌥</kbd>-click for Quick Ask to the AI assistant.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="meadow" style="background:var(--grass)">
+        <p class="say" data-say aria-live="polite"></p>
+        <canvas class="spr" width="136" height="80" role="img" aria-label="풀밭 친구" data-label-en="Meadow friend" style="cursor:pointer"></canvas>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">빠르게 3번, 5번 눌러 보세요.</span><span lang="en">Try 3 quick taps, then 5.</span></p><button type="button" class="act" data-act="tap"><span lang="ko">톡 누르기</span><span lang="en">Tap</span></button></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="hanging">
+    <div class="txt">
+      <p class="over">HANGING · CURSOR</p>
+      <h3><span lang="ko">대롱대롱 · 커서 친구</span><span lang="en">Hanging friend · cursor buddy</span></h3>
+      <p class="desc"><span lang="ko">메뉴바 아래에 매달려 대롱대롱 흔들리는 친구, 마우스 커서를 졸졸 따라 걷는 친구가 있어요.</span><span lang="en">One friend dangles and sways under the menu bar, another follows your mouse cursor around.</span></p>
+      <p class="note"><span lang="ko">복제 친구로 최대 8명까지 늘릴 수 있어요.</span><span lang="en">With clone friends you can have up to 8.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo hang" data-demo="hang" tabindex="0" role="application" aria-label="커서 친구 데모. 방향키로 움직여요" data-label-en="Cursor buddy demo. Use the arrow keys">
+        <div class="strip" aria-hidden="true"><span data-clock>00:00</span></div>
+        <div class="rope" aria-hidden="true"><i></i><canvas class="spr" width="68" height="40" data-hang></canvas></div>
+        <canvas class="spr walker" width="102" height="60" aria-hidden="true" data-walk></canvas>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">카드 위에서 포인터를 움직이거나, 카드를 누르고 ← → 키를 써 보세요.</span><span lang="en">Move your pointer over the card, or focus it and use ← →.</span></p>
+        <span class="pad"><button type="button" data-act="left" aria-label="왼쪽으로" data-label-en="Left">←</button><button type="button" data-act="right" aria-label="오른쪽으로" data-label-en="Right">→</button></span></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="folders">
+    <div class="txt">
+      <p class="over">FOLDER FRIENDS</p>
+      <h3><span lang="ko">폴더 친구</span><span lang="en">Folder friends</span></h3>
+      <p class="desc"><span lang="ko">고른 캐릭터가 바탕화면 폴더 아이콘 위에 올라앉아요. 켜면 바탕화면 폴더에 바로 입혀지고, 끄면 원래대로.</span><span lang="en">Your character sits on your desktop folder icons. Turn it on and the folders wear it right away; turn it off and they go back to normal.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="folder">
+        <div class="fold">
+          <canvas class="back" width="102" height="60" aria-hidden="true"></canvas>
+          <svg viewBox="0 0 72 72" role="img" aria-label="폴더 아이콘" data-label-en="Folder icon"><use href="#i-folder"/></svg>
+          <canvas class="front" width="102" height="60" aria-hidden="true"></canvas>
+        </div>
+        <div class="chipset" role="group" aria-label="모양" data-label-en="Look">
+          <button type="button" class="chipb" data-look="stand" aria-pressed="true"><span lang="ko">서 있기</span><span lang="en">Standing</span></button>
+          <button type="button" class="chipb" data-look="peek" aria-pressed="false"><span lang="ko">얼굴만 빼꼼</span><span lang="en">Peeking out</span></button>
+          <button type="button" class="chipb" data-look="nap" aria-pressed="false"><span lang="ko">누워서 낮잠</span><span lang="en">Napping</span></button>
+          <button type="button" class="chipb" data-look="sticker" aria-pressed="false"><span lang="ko">스티커</span><span lang="en">Sticker</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="rug">
+    <div class="txt">
+      <p class="over">RUG</p>
+      <h3><span lang="ko">바탕화면 러그</span><span lang="en">Desktop rug</span></h3>
+      <p class="desc"><span lang="ko">창들 뒤 바탕화면에 러그를 깔아 두면 친구들이 와서 쉬어요. 크기·무늬·색을 골라요.</span><span lang="en">Lay a rug on the desktop behind your windows and friends come over to rest. Pick its size, pattern and color.</span></p>
+      <p class="note"><span lang="ko">날씨 창문과 집중 타이머 위젯도 바탕화면에 둘 수 있어요.</span><span lang="en">You can also put a weather window and a focus timer widget on the desktop.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="rug">
+        <div class="rug" data-rug><canvas class="spr" width="102" height="60" aria-hidden="true"></canvas></div>
+        <div class="seg" role="group" aria-label="러그 크기" data-label-en="Rug size">
+          <button type="button" data-size="40" aria-pressed="false"><span lang="ko">작게</span><span lang="en">Small</span></button><button type="button" data-size="55" aria-pressed="true"><span lang="ko">보통</span><span lang="en">Normal</span></button><button type="button" data-size="70" aria-pressed="false"><span lang="ko">크게</span><span lang="en">Large</span></button><button type="button" data-size="85" aria-pressed="false"><span lang="ko">아주 크게</span><span lang="en">Extra large</span></button>
+        </div>
+        <div class="chipset" role="group" aria-label="러그 그림" data-label-en="Rug pattern">
+          <button type="button" class="chipb" data-pat="character" aria-pressed="true"><span lang="ko">캐릭터</span><span lang="en">Character</span></button>
+          <button type="button" class="chipb" data-pat="stripes" aria-pressed="false"><span lang="ko">줄무늬</span><span lang="en">Stripes</span></button>
+          <button type="button" class="chipb" data-pat="checks" aria-pressed="false"><span lang="ko">체크</span><span lang="en">Checks</span></button>
+          <button type="button" class="chipb" data-pat="diamonds" aria-pressed="false"><span lang="ko">마름모</span><span lang="en">Diamonds</span></button>
+          <button type="button" class="chipb" data-pat="dots" aria-pressed="false"><span lang="ko">물방울</span><span lang="en">Dots</span></button>
+        </div>
+        <div class="colors" role="group" aria-label="러그 색" data-label-en="Rug color">
+          <button type="button" data-col="#F6C9C2" aria-pressed="true" aria-label="분홍" data-label-en="Pink" style="background:#F6C9C2"></button>
+          <button type="button" data-col="#C9E4C5" aria-pressed="false" aria-label="연두" data-label-en="Green" style="background:#C9E4C5"></button>
+          <button type="button" data-col="#C7DDF2" aria-pressed="false" aria-label="하늘" data-label-en="Sky" style="background:#C7DDF2"></button>
+          <button type="button" data-col="#E2D3F0" aria-pressed="false" aria-label="라벤더" data-label-en="Lavender" style="background:#E2D3F0"></button>
+          <button type="button" data-col="#F5E3B5" aria-pressed="false" aria-label="크림" data-label-en="Cream" style="background:#F5E3B5"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="playmode">
+    <div class="txt">
+      <p class="over">PLAY MODE</p>
+      <h3><span lang="ko">놀이 모드</span><span lang="en">Play mode</span></h3>
+      <p class="desc"><span lang="ko">커서 친구나 복제 친구를 골라 키보드로 움직여요. ← →로 걷고 ↑로 점프, 공중에서 한 번 더 누르면 2단 점프. 창 위쪽 끝에 올라설 수도 있어요.</span><span lang="en">Pick your cursor buddy or a clone and steer it with the keyboard. ← → to walk, ↑ to jump, press again in the air for a double jump. It can even stand on top of windows.</span></p>
+      <p class="note"><span lang="ko">별 줍기·2인 대결, 숨바꼭질·공놀이·두더지잡기, 장난감 상자도 있어요. 소리는 기본으로 꺼져 있어요.</span><span lang="en">There's star catching and a 2-player match, hide-and-seek, ball and whack-a-mole, plus a toy box. Sound is off by default.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="play" style="padding:0">
+        <canvas class="playc" width="480" height="360" tabindex="0" role="img" aria-label="별 줍기 데모. 누르고 ← → 와 스페이스로 놀아요" data-label-en="Star catching demo. Focus it, then use ← → and Space"></canvas>
+      </div>
+      <div class="demo-foot"><p class="cap" data-score aria-live="polite"></p>
+        <span class="pad"><button type="button" data-k="left" aria-label="왼쪽" data-label-en="Left">←</button><button type="button" data-k="jump" aria-label="점프" data-label-en="Jump">⤒</button><button type="button" data-k="right" aria-label="오른쪽" data-label-en="Right">→</button></span></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="hotkeys">
+    <div class="txt">
+      <p class="over">SHORTCUTS · HUSH</p>
+      <h3><span lang="ko">단축키 · 쉿 모드 · 대화 모아보기</span><span lang="en">Shortcuts · hush mode · chat roundup</span> <span class="badge new"><span lang="ko">3.4 새 기능</span><span lang="en">New in 3.4</span></span></h3>
+      <p class="desc"><span lang="ko">어떤 앱을 쓰고 있어도 키 조합 한 번으로 친구들을 숨기거나, 쉿 모드로 조용히 시키거나, 지난 대화를 한 창에 모아 봐요. 쉿 모드에서 온 메시지는 메뉴에 점으로 남아요.</span><span lang="en">Whatever app you're in, one key combination hides your friends, quiets them with hush mode, or gathers recent chat in one window. Messages that arrive in hush mode stay as a dot in the menu.</span></p>
+      <p class="note"><span lang="ko">처음엔 꺼져 있어요. 설정의 단축키 카드에서 켜고, 기본 조합은 <kbd>⌃</kbd><kbd>⌥</kbd><kbd>⇧</kbd>와 글자예요. 친구 상주 자리를 위·아래·왼쪽·오른쪽으로 옮기는 키도 있어요.</span><span lang="en">Off at first. Turn them on in the Shortcuts card in Settings. The defaults are <kbd>⌃</kbd><kbd>⌥</kbd><kbd>⇧</kbd> plus a letter, and there are keys to move the friend row to the top, bottom, left or right.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="hotkeys">
+        <div class="scr hk" tabindex="0" role="group" aria-label="단축키 데모 화면" data-label-en="Shortcut demo screen">
+          <div class="strip" aria-hidden="true"><span class="dot" data-dot hidden></span><span data-clock>00:00</span></div>
+          <div class="log" data-log hidden></div>
+          <div class="friends" data-friends>
+            <div><p class="say" data-say="0"></p><canvas width="68" height="40" aria-hidden="true"></canvas></div>
+            <div><p class="say" data-say="1"></p><canvas width="68" height="40" aria-hidden="true"></canvas></div>
+          </div>
+        </div>
+        <div class="keys">
+          <button type="button" data-hk="friends" aria-pressed="false"><span><span lang="ko">친구 숨기기/보이기</span><span lang="en">Hide/show friends</span></span><kbd>⌃⌥⇧D</kbd></button>
+          <button type="button" data-hk="quiet" aria-pressed="false"><span><span lang="ko">쉿 모드</span><span lang="en">Hush mode</span></span><kbd>⌃⌥⇧Q</kbd></button>
+          <button type="button" data-hk="recent" aria-pressed="false"><span><span lang="ko">대화 모아보기</span><span lang="en">Chat roundup</span></span><kbd>⌃⌥⇧L</kbd></button>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">버튼을 누르거나, 화면을 누른 뒤 키 조합을 눌러 보세요.</span><span lang="en">Press a button, or focus the screen and press the keys.</span></p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 쉬는 시간 ============ -->
+<section class="chapter" id="break" aria-labelledby="c-break"><div class="wrapc">
+  <h2 id="c-break"><span lang="ko">쉬는 시간</span><span lang="en">Breaks</span></h2>
+
+  <div class="feat reveal" id="fortune">
+    <div class="txt">
+      <p class="over">FORTUNE</p>
+      <h3><span lang="ko">오늘의 운세</span><span lang="en">Today's fortune</span> <span class="badge new"><span lang="ko">3.3 새 기능</span><span lang="en">New in 3.3</span></span></h3>
+      <p class="desc"><span lang="ko">하루 한 번 업무·돈·사람·간식 운과 행운의 물건·색을 알려 줘요. 운세는 늘 좋은 말만 해요. 다시 뽑기는 하루 한 번.</span><span lang="en">Once a day you get work, money, people and snack luck, plus a lucky item and color. It only ever says nice things. One redraw a day.</span></p>
+      <p class="note"><span lang="ko">아침 운세 알림은 설정에서 켜요.</span><span lang="en">Turn on the morning fortune in Settings.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="fortune">
+        <div class="fcard" data-card aria-live="polite"></div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">앱 안의 실제 문구예요.</span><span lang="en">These lines come straight from the app.</span></p><button type="button" class="act" data-act="redraw"><span lang="ko">다시 뽑기</span><span lang="en">Draw again</span></button></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="lunch">
+    <div class="txt">
+      <p class="over">LUNCH</p>
+      <h3><span lang="ko">점심 뽑기</span><span lang="en">Lunch picker</span> <span class="badge new"><span lang="ko">3.3 새 기능</span><span lang="en">New in 3.3</span></span></h3>
+      <p class="desc"><span lang="ko">레버를 당기면 릴이 돌다가 오늘 점심이 나와요. 한식·중식·일식 같은 종류를 고르고, 최근 3일 나온 메뉴는 빼 줘요.</span><span lang="en">Pull the lever and the reel spins until today's lunch comes up. Pick cuisines, and it skips what came up in the last 3 days.</span></p>
+      <p class="note"><span lang="ko">자주 가는 곳은 "내 메뉴"에 넣어요. 11:30 알림은 켜야 와요.</span><span lang="en">Add your regular spots under "My menus". The 11:30 reminder comes only if you turn it on.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="lunch">
+        <p class="say" data-say aria-live="polite"></p>
+        <div class="lunch">
+          <div class="machine"><div class="win2" data-reel>?</div><canvas class="spr" width="68" height="40" aria-hidden="true" style="margin:8px auto 0"></canvas></div>
+          <button type="button" class="lever" data-act="pull" aria-label="레버 당기기" data-label-en="Pull the lever"><span class="arm"></span><span class="knob"></span><span class="base"></span></button>
+        </div>
+        <div class="chipset" role="group" aria-label="어떤 메뉴에서 뽑을까요?" data-label-en="Which menus should it pick from?" data-cats></div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">빨간 손잡이를 누르세요.</span><span lang="en">Press the red knob.</span></p></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="breath">
+    <div class="txt">
+      <p class="over">BREATHER</p>
+      <h3><span lang="ko">30초 숨 고르기</span><span lang="en">30-second breathing break</span> <span class="badge new"><span lang="ko">3.3 새 기능</span><span lang="en">New in 3.3</span></span></h3>
+      <p class="desc"><span lang="ko">원이 커지면 들이쉬고, 작아지면 내쉬어요. 장면은 퇴근길 노을, 새벽 두 시 사무실, 비 오는 숲 중에서 골라요.</span><span lang="en">Breathe in as the circle grows and out as it shrinks. Choose a scene: sunset on the way home, the office at 2 a.m., or a rainy forest.</span></p>
+      <p class="note"><span lang="ko">집중 타이머가 끝나면 숨 고르기를 권해요. 싱잉볼 소리는 설정에서 켜요.</span><span lang="en">When a focus timer ends it suggests a breather. Turn on the singing bowl sound in Settings.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo breath" data-demo="breath" style="background:#F6D2BC">
+        <div class="ring"><span data-word></span></div>
+        <p class="msg" data-msg aria-live="polite"></p>
+        <div class="chipset" role="group" aria-label="장면" data-label-en="Scene">
+          <button type="button" class="chipb" data-scene="sunset" aria-pressed="true"><span lang="ko">퇴근길 노을</span><span lang="en">Sunset on the way home</span></button>
+          <button type="button" class="chipb" data-scene="night" aria-pressed="false"><span lang="ko">새벽 두 시 사무실</span><span lang="en">The office at 2 a.m.</span></button>
+          <button type="button" class="chipb" data-scene="forest" aria-pressed="false"><span lang="ko">비 오는 숲</span><span lang="en">Rainy forest</span></button>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">30초 동안 진행돼요.</span><span lang="en">Runs for 30 seconds.</span></p><button type="button" class="act" data-act="breath"><span lang="ko">시작</span><span lang="en">Start</span></button></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="stickies">
+    <div class="txt">
+      <p class="over">STICKY NOTES</p>
+      <h3><span lang="ko">포스트잇</span><span lang="en">Sticky notes</span> <span class="badge new"><span lang="ko">3.3 새 기능</span><span lang="en">New in 3.3</span></span></h3>
+      <p class="desc"><span lang="ko">바탕화면에 메모를 붙여요. 색은 레몬·복숭아·민트·하늘·라일락. 메모를 쓰는 동안 캐릭터도 옆에서 같이 바빠져요.</span><span lang="en">Stick notes on your desktop in lemon, peach, mint, sky or lilac. While you type, your character gets busy right beside you.</span></p>
+      <p class="note"><span lang="ko">접어 두면 첫 줄만 보여요.</span><span lang="en">Fold a note to show just its first line.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo note-demo" data-demo="sticky">
+        <canvas class="spr" width="102" height="60" aria-hidden="true"></canvas>
+        <div class="pnote"><div class="bar" aria-hidden="true"></div><textarea aria-label="메모" data-label-en="Note" placeholder="여기에 써 보세요" data-ph-en="Type here" maxlength="200"></textarea></div>
+        <div class="colors" role="group" aria-label="메모 색" data-label-en="Note color">
+          <button type="button" data-col="#FFF1A8" aria-pressed="true" aria-label="레몬" data-label-en="Lemon" style="background:#FFF1A8"></button>
+          <button type="button" data-col="#FFD6C4" aria-pressed="false" aria-label="복숭아" data-label-en="Peach" style="background:#FFD6C4"></button>
+          <button type="button" data-col="#CDF2DC" aria-pressed="false" aria-label="민트" data-label-en="Mint" style="background:#CDF2DC"></button>
+          <button type="button" data-col="#CFE6FF" aria-pressed="false" aria-label="하늘" data-label-en="Sky" style="background:#CFE6FF"></button>
+          <button type="button" data-col="#E4D9FF" aria-pressed="false" aria-label="라일락" data-label-en="Lilac" style="background:#E4D9FF"></button>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">쓴 내용은 저장하지 않아요.</span><span lang="en">Nothing you type is saved.</span></p></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="draw">
+    <div class="txt">
+      <p class="over">GROUP DRAW</p>
+      <h3><span lang="ko">룰렛 · 사다리 · 제비뽑기</span><span lang="en">Roulette · ladder · lots</span> <span class="badge new"><span lang="ko">3.4 새 기능</span><span lang="en">New in 3.4</span></span></h3>
+      <p class="desc"><span lang="ko">놀이 메뉴에서 뽑는 방법을 고르고 항목을 넣어 뽑아요. 커피 살 사람, 발표 순서, 오늘 메뉴처럼 정하기 애매할 때 써요.</span><span lang="en">Pick a way to draw in the play menu, add items and draw. Handy for who buys coffee, who presents first, or what to eat.</span></p>
+      <p class="note"><span lang="ko">혼자서도 쓰고, 근처 친구와 원격 모임에서는 모두에게 같은 결과로 보여요.</span><span lang="en">Use it alone, or with nearby friends and the remote meetup, where everyone sees the same result.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="draw">
+        <p class="say" data-say aria-live="polite"></p>
+        <div class="dlist" data-list></div>
+        <div class="seg" role="group" aria-label="뽑는 방법" data-label-en="How to draw">
+          <button type="button" data-mode="roulette" aria-pressed="true"><span lang="ko">룰렛</span><span lang="en">Roulette</span></button><button type="button" data-mode="ladder" aria-pressed="false"><span lang="ko">사다리</span><span lang="en">Ladder</span></button><button type="button" data-mode="lots" aria-pressed="false"><span lang="ko">제비뽑기</span><span lang="en">Lots</span></button>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">커피 살 사람 뽑기 (예시).</span><span lang="en">Who buys coffee (example).</span></p><button type="button" class="act" data-act="draw"><span lang="ko">뽑기</span><span lang="en">Draw</span></button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 딴짓 지킴이 ============ -->
+<section class="chapter" id="drift" aria-labelledby="c-drift"><div class="wrapc">
+  <h2 id="c-drift"><span lang="ko">딴짓 지킴이</span><span lang="en">Drift Guard</span></h2>
+
+  <div class="feat reveal" id="drift-guard">
+    <div class="txt">
+      <p class="over">DRIFT GUARD</p>
+      <h3><span lang="ko">딴짓하면 고양이가 달려와요</span><span lang="en">Drift off and the cat comes running</span> <span class="badge new"><span lang="ko">3.5 새 기능</span><span lang="en">New in 3.5</span></span></h3>
+      <p class="desc"><span lang="ko">10초마다 맨 앞 앱을 보고 3분씩 집중·중립·딴짓으로 묶어요. 딴짓이 기본 6분(3~12분) 이어지면 "하던 일로 돌아갈까요?" 카드가 떠요. 돌아가기, 쉬는 중(10분·20분), 딴짓 아님 중에서 골라요.</span><span lang="en">Every 10 seconds it looks at the front app and sorts each 3 minutes into focus, neutral or drift. After 6 minutes of drift (the default; 3 to 12) a card asks if you want to go back to what you were doing: Go Back, Taking a Break (10 or 20 min), or Not Drifting.</span></p>
+      <p class="note"><span lang="ko">고양이와 발로 닫기는 기본으로 꺼져 있고 따로 켜요. 켜 두면 딴짓이 확정됐을 때만 고양이가 그 창으로 달려가 앞발을 들어요. 앞발이 내려오기 전(기본 3초, 2~6초)에 고양이를 누르면 그대로 두고, 못 잡으면 브라우저는 그 탭만, 앱은 정상 종료로 닫아요. 강제 종료는 하지 않고, 보호 목록 앱과 통화·화면 공유·재생·녹화 중인 앱은 건드리지 않아요. 고양이는 고등어·치즈·삼색이 등 기본 고양이 털색에서 골라요.</span><span lang="en">Want a stricter guard? Switch on the cat, then Paw close. When a drift card goes up, the cat dashes over to that window and raises a paw. Tap the cat while the paw is up (3 seconds unless you change it, anywhere from 2 to 6) and it lets the tab be. Too slow, and it swats: one browser tab, or a normal quit for an app, which still asks about unsaved work. It never force quits, and it skips protected apps and anything in a call, a screen share, playback or a recording. Pick its coat from the built-in cats.</span></p>
+      <p class="note"><span lang="ko">판단은 모두 이 맥 안에서 해요. 화면을 찍지 않고, 기록은 3분마다 사이트나 앱 이름 하나와 집중·중립·딴짓만 7일 동안 남겨요. 브라우저 탭 보기도 직접 켜야 하고, 맥에서 직접 받은 버전에만 있어요.</span><span lang="en">Every decision happens on this Mac. It never captures the screen, and the log keeps only one site or app name and focus, neutral or drift per 3 minutes, for 7 days. Reading browser tabs is also something you turn on, and the feature is only in the version you download directly for the Mac.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo drift" data-demo="drift">
+        <div class="dcard idle" data-card aria-live="polite"></div>
+        <div class="scr" data-scr>
+          <div class="strip" aria-hidden="true"><span data-clock>00:00</span></div>
+          <div class="fwin doc" data-doc aria-hidden="true"><div class="bar"><i></i><i></i><i></i><span data-doct></span></div><div class="ln" style="width:70%"></div><div class="ln"></div><div class="ln" style="width:82%"></div><div class="ln" style="width:55%"></div></div>
+          <div class="fwin vid front" data-vid aria-hidden="true"><div class="bar"><i></i><i></i><i></i><span data-vidt></span></div><div class="play"></div></div>
+          <button type="button" class="dcat" data-cat disabled aria-label="고양이 잡기" data-label-en="Catch the cat"><canvas width="102" height="60" aria-hidden="true"></canvas><span class="paw" aria-hidden="true"></span><span class="bang" aria-hidden="true">!</span><span class="ptime" aria-hidden="true"><i></i></span></button>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">앞발이 올라가면 3초 안에 고양이를 눌러 보세요. 가짜 창이라 아무것도 닫히지 않아요.</span><span lang="en">When the paw goes up, click the cat within 3 seconds. These are fake windows; nothing really closes.</span></p><button type="button" class="act" data-act="drift"><span lang="ko">딴짓 6분 (예시)</span><span lang="en">6 minutes of drift (example)</span></button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 근처 친구 ============ -->
+<section class="chapter" id="nearby" aria-labelledby="c-nearby"><div class="wrapc">
+  <h2 id="c-nearby"><span lang="ko">근처 친구</span><span lang="en">Nearby friends</span></h2>
+
+  <div class="feat reveal" id="friends">
+    <div class="txt">
+      <p class="over">NEARBY</p>
+      <h3><span lang="ko">친구 상주 · 다같이 이모트 · 한마디</span><span lang="en">Friends on screen · group emotes · line of the day</span> <span class="badge plug"><span lang="ko">플러그인 · 11/13 공개</span><span lang="en">Plug-in · opens Nov 13</span></span> <span class="badge new"><span lang="ko">3.3 새 기능</span><span lang="en">New in 3.3</span></span></h3>
+      <p class="desc"><span lang="ko">같은 와이파이의 친구 맥과 확인 숫자로 짝을 지으면, 친구 캐릭터가 내 화면에 함께 살아요. 다같이 뽀뽀·똥·던지기를 하고, 오늘 한마디는 프로필 카드에 남아요.</span><span lang="en">Pair with a friend's Mac on the same Wi-Fi by matching a code, and their character lives on your screen too. Do group kisses, poops and tosses, and your line of the day stays on your profile card.</span></p>
+      <p class="note"><span lang="ko">채팅, 무전기, 같이 놀기, 낙서 쪽지(5초 뒤 사라짐), 퇴근한 척도 있어요. 플러그인은 매주 금요일 하나씩 열려요: 근처 친구 11/13, 같이 놀기 11/20, 무전기 11/27. 인스타 코드로 미리 열 수도 있어요.</span><span lang="en">There's also chat, walkie-talkie, play together, doodle notes (gone after 5 seconds) and "pretend I left". Plug-ins open one each Friday: Nearby friends on Nov 13, Play together on Nov 20, Walkie-talkie on Nov 27. An Instagram code opens one early.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="nearby">
+        <div class="pair">
+          <div class="who"><p class="say" data-say="me"></p><canvas class="spr fly" width="102" height="60" data-me aria-hidden="true"></canvas><small><span lang="ko">내 맥</span><span lang="en">My Mac</span></small></div>
+          <div class="who"><p class="say" data-say="you"></p><canvas class="spr fly" width="102" height="60" data-you aria-hidden="true"></canvas><small><span lang="ko">친구 맥</span><span lang="en">Friend's Mac</span></small></div>
+        </div>
+        <div class="chipset">
+          <button type="button" class="chipb" data-emote="kiss"><span lang="ko">다같이 뽀뽀</span><span lang="en">Group kiss</span></button>
+          <button type="button" class="chipb" data-emote="poop"><span lang="ko">다같이 똥</span><span lang="en">Group poop</span></button>
+          <button type="button" class="chipb" data-emote="toss"><span lang="ko">던지기</span><span lang="en">Toss</span></button>
+        </div>
+        <div class="line-in">
+          <input type="text" maxlength="40" aria-label="오늘 한마디" data-label-en="Line of the day" placeholder="오늘 한마디 (40자까지)" data-ph-en="Line of the day" data-line>
+          <button type="button" class="act ghost" data-act="line"><span lang="ko">저장</span><span lang="en">Save</span></button>
+        </div>
+        <button type="button" class="pcard" data-pcard aria-pressed="false" aria-label="프로필 카드 뒤집기" data-label-en="Flip the profile card">
+          <span class="in">
+            <span class="face"><b><span lang="ko">젤리</span><span lang="en">Jelly</span></b><span class="muted"><span lang="ko">오늘 한마디</span><span lang="en">Line of the day</span></span><span data-pline></span></span>
+            <span class="face back"><b><span lang="ko">프로필 카드</span><span lang="en">Profile card</span></b><span><span lang="ko">오늘 운세: 좋은 하루</span><span lang="en">Today's fortune: a good day</span></span><span><span lang="ko">오늘 점심: 아직 몰라요</span><span lang="en">Today's lunch: Not yet</span></span></span>
+          </span>
+        </button>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">두 맥이 같은 순간에 반응해요 (데모).</span><span lang="en">Both Macs react at the same moment (demo).</span></p></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="throw">
+    <div class="txt">
+      <p class="over">THROW PLAY</p>
+      <h3><span lang="ko">던지기 놀이와 기절</span><span lang="en">Throw play and knockouts</span> <span class="badge new"><span lang="ko">3.4 새 기능</span><span lang="en">New in 3.4</span></span></h3>
+      <p class="desc"><span lang="ko">친구 캐릭터를 누르면 투척물이 포물선을 그리며 날아가요. 10초 안에 다섯 번 맞으면 6초 동안 기절하고, 모두의 화면에 별이 돌아요.</span><span lang="en">Click a friend's character and a throwable flies over in an arc. Five hits in 10 seconds knock them out for 6 seconds, with stars spinning on everyone's screen.</span></p>
+      <p class="note"><span lang="ko">근처 친구나 원격 모임 설정에서 켜요. 오른쪽 클릭으로 귤·베개·양말·종이 뭉치 같은 투척물을 고르거나, 다가가서 겁주기·뽀뽀도 해요.</span><span lang="en">Turn it on in nearby friend or remote meetup settings. Right-click to pick a throwable like a tangerine, pillow, sock or paper ball, or walk over to scare or kiss.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="throw">
+        <p class="say" data-say aria-live="polite"></p>
+        <div class="throw" data-stage>
+          <canvas class="me" width="102" height="60" aria-hidden="true"></canvas>
+          <span class="item" data-item aria-hidden="true"></span>
+          <span class="stars" aria-hidden="true">★★★</span>
+          <canvas class="you" width="102" height="60" role="img" aria-label="친구 캐릭터" data-label-en="Friend's character"></canvas>
+        </div>
+        <div class="hits" data-hits aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="chipset" role="group" aria-label="투척물" data-label-en="Throwable" data-items></div>
+      </div>
+      <div class="demo-foot"><p class="cap" data-cap aria-live="polite"></p><button type="button" class="act" data-act="throw"><span lang="ko">던지기</span><span lang="en">Throw</span></button></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="seats">
+    <div class="txt">
+      <p class="over">FRIEND ROW · CHAIRS</p>
+      <h3><span lang="ko">친구 자리 · 창에 매달기 · 의자</span><span lang="en">Friend row · window hanging · chairs</span> <span class="badge new"><span lang="ko">3.4 새 기능</span><span lang="en">New in 3.4</span></span></h3>
+      <p class="desc"><span lang="ko">친구들이 서 있는 자리를 모니터와 화면 가장자리(아래·위·왼쪽·오른쪽), 길이까지 골라요. 창에 매달기를 켜면 친구를 다른 앱 창 위쪽이나 옆에 고무줄로 매달아요.</span><span lang="en">Choose where friends stand: the monitor, the screen edge (bottom, top, left, right) and the length. Turn on window hanging to hang a friend from the top or side of another app's window by a rubber band.</span></p>
+      <p class="note"><span lang="ko">의자는 설정 &gt; 데스크톱 친구의 의자 카드에서 바탕화면에 두고, 오른쪽 클릭으로 앉아요. 친구 화면의 내 캐릭터도 같이 앉아요.</span><span lang="en">Put a chair on the desktop from the Chair card in Settings &gt; Desktop friends and right-click to sit. Your character on your friends' screens sits too.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="seats">
+        <div class="scr seats" data-scr data-edge="bottom">
+          <div class="strip" aria-hidden="true"><span data-clock>00:00</span></div>
+          <div class="fwin hwin" data-hang hidden aria-hidden="true"><div class="bar"><i></i><i></i><i></i></div><div class="ln" style="width:60%"></div><div class="ln"></div></div>
+          <span class="band" data-hang hidden aria-hidden="true"></span>
+          <canvas class="hang" width="68" height="40" data-hang hidden aria-hidden="true"></canvas>
+          <div class="chair" data-chair hidden aria-hidden="true"><i class="bk"></i><i class="st"></i><i class="lg"></i><canvas width="68" height="40"></canvas></div>
+          <div class="row" aria-hidden="true"><canvas width="68" height="40"></canvas><canvas width="68" height="40"></canvas><canvas width="68" height="40"></canvas></div>
+        </div>
+        <div class="seg" role="group" aria-label="화면 가장자리" data-label-en="Screen edge">
+          <button type="button" data-edge="bottom" aria-pressed="true"><span lang="ko">아래</span><span lang="en">Bottom</span></button><button type="button" data-edge="top" aria-pressed="false"><span lang="ko">위</span><span lang="en">Top</span></button><button type="button" data-edge="left" aria-pressed="false"><span lang="ko">왼쪽</span><span lang="en">Left</span></button><button type="button" data-edge="right" aria-pressed="false"><span lang="ko">오른쪽</span><span lang="en">Right</span></button>
+        </div>
+        <div class="chipset">
+          <button type="button" class="chipb" data-tog="hang" aria-pressed="false"><span lang="ko">창에 매달기</span><span lang="en">Hang on a window</span></button>
+          <button type="button" class="chipb" data-tog="chair" aria-pressed="false"><span lang="ko">의자</span><span lang="en">Chair</span></button>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">가장자리와 칩을 눌러 보세요.</span><span lang="en">Try an edge and the chips.</span></p></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="office">
+    <div class="txt">
+      <p class="over">VIRTUAL OFFICE</p>
+      <h3><span lang="ko">가상 오피스</span><span lang="en">Virtual office</span> <span class="badge plug"><span lang="ko">플러그인 · 12/4 공개</span><span lang="en">Plug-in · opens Dec 4</span></span></h3>
+      <p class="desc"><span lang="ko">모임 친구들의 자리를 한 판에 모아 봐요. 근무 중·회의·집중·자리 비움·식사·퇴근 같은 상태가 보이고, 누르면 프로필 카드가 열려요. AI 팀원 자리도 있어요.</span><span lang="en">See your group's desks on one board: working, meeting, focus, away, meal, off work. Click a desk for the profile card. There's a seat for an AI teammate, too.</span></p>
+      <p class="note"><span lang="ko">12/4 금요일에 열려요. 인스타 코드로 미리 열 수도 있어요.</span><span lang="en">Opens Friday, Dec 4. An Instagram code opens it early.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="office"><div class="desks" data-desks></div></div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">자리를 눌러 보세요.</span><span lang="en">Click a desk.</span></p></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="meetup">
+    <div class="txt">
+      <p class="over">REMOTE MEETUPS</p>
+      <h3><span lang="ko">원격 모임</span><span lang="en">Remote meetups</span> <span class="badge new"><span lang="ko">3.4 새 기능</span><span lang="en">New in 3.4</span></span></h3>
+      <p class="desc"><span lang="ko">와이파이가 달라도 초대 코드로 모여요(최대 12명). 모임 친구도 친구 자리에 캐릭터로 서서, 한마디를 머리 위 말풍선으로 띄우고 쓰는 중이면 점 세 개가 떠요.</span><span lang="en">Meet up with an invite code even on different Wi-Fi (up to 12 people). Meetup friends stand in the friend row as characters too, with their lines in bubbles over their heads and three dots while they type.</span></p>
+      <p class="note"><span lang="ko">설정 &gt; 플러그인 &gt; 원격 모임에서 켜요. 코드는 링크의 # 뒤에만 있어서 서버로 가지 않고, 내용은 종단간 암호화돼요. 사진 메시지는 근처 친구에서만 보내요.</span><span lang="en">Turn it on in Settings &gt; Plugins &gt; Remote meetup. The code lives only after the # in the link so it never reaches the server, and everything is end-to-end encrypted. Photo messages are for nearby friends only.</span> <a href="meet.html"><span lang="ko">원격 모임 안내 보기</span><span lang="en">About remote meetups</span></a></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="meet">
+        <div class="meetrow">
+          <div><p class="say" data-say="0"></p><canvas width="68" height="40" aria-hidden="true"></canvas></div>
+          <div><p class="say" data-say="1"><span class="typing" role="img" aria-label="쓰는 중" data-label-en="Typing"><i></i><i></i><i></i></span></p><canvas width="68" height="40" aria-hidden="true"></canvas></div>
+          <div><p class="say" data-say="2"></p><canvas width="68" height="40" aria-hidden="true"></canvas></div>
+        </div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">다른 와이파이의 모임 친구들이에요 (예시).</span><span lang="en">Meetup friends on other Wi-Fi (example).</span></p><a class="act ghost" href="meet.html"><span lang="ko">원격 모임 안내</span><span lang="en">Remote meetups</span></a></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ AI ============ -->
+<section class="chapter" id="ai" aria-labelledby="c-ai"><div class="wrapc">
+  <h2 id="c-ai">AI</h2>
+
+  <div class="feat reveal" id="assistant">
+    <div class="txt">
+      <p class="over">AI ASSISTANT</p>
+      <h3><span lang="ko">AI 비서</span><span lang="en">AI assistant</span></h3>
+      <p class="desc"><span lang="ko">이 맥 안의 AI나 내 AI(Claude · ChatGPT · Gemini, 내 키나 내 구독)로 캐릭터와 대화해요. 부탁한 일은 카드로 확인받고 나서 실행해요.</span><span lang="en">Talk with your character using the AI on this Mac or your own AI (Claude, ChatGPT, Gemini with your key or subscription). Anything you ask it to do waits for your OK on a card.</span></p>
+      <p class="note"><span lang="ko">캐릭터를 오른쪽 클릭한 메뉴에서도 불러요.</span><span lang="en">Call it from the character's right-click menu too.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="ai">
+        <div class="chat" data-chat aria-live="polite"></div>
+        <div class="chipset" data-qs></div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">미리 써 둔 답이에요. 실제 AI 아님.</span><span lang="en">Pre-written answers. Not a real AI.</span></p></div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="gpt-pet">
+    <div class="txt">
+      <p class="over">CHATGPT PET</p>
+      <h3><span lang="ko">ChatGPT 펫</span><span lang="en">ChatGPT pets</span></h3>
+      <p class="desc"><span lang="ko">ChatGPT(Codex)용 펫 시트를 가져와 메뉴바 캐릭터로 쓰고, 내 캐릭터를 펫으로 내보내요. Codex에 바로 설치할 수도 있어요.</span><span lang="en">Import a ChatGPT (Codex) pet sheet as your menu bar character, or export your character as a pet. You can install it straight into Codex too.</span></p>
+      <p class="note"><a href="gpt-pet.html"><span lang="ko">ChatGPT 펫 만들기 안내</span><span lang="en">How to make a ChatGPT pet</span></a></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="gpets"><div class="gpets" data-gpets></div></div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">캐릭모니터 오리지널 5종을 펫 시트로 뽑아 뒀어요.</span><span lang="en">Five CharaMonitor originals, ready as pet sheets.</span></p><a class="act" href="gpt-pet.html"><span lang="ko">펫 받기</span><span lang="en">Get the pets</span></a></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 나만의 캐릭터 ============ -->
+<section class="chapter" id="mine" aria-labelledby="c-mine"><div class="wrapc">
+  <h2 id="c-mine"><span lang="ko">나만의 캐릭터</span><span lang="en">Your character</span></h2>
+
+  <div class="feat reveal" id="choose">
+    <div class="txt">
+      <p class="over">CHARACTERS</p>
+      <h3><span lang="ko">캐릭터 고르기</span><span lang="en">Choose a character</span></h3>
+      <p class="desc"><span lang="ko">오리지널 캐릭터 36종 중에서 고르고, 꾸미기에서 색과 모양을 바꿔요. 사진 한 장으로 나만의 캐릭터도 만들어요. 기본은 실사라 잘라낸 사진이 그대로 움직이고, 이 맥에 ChatGPT로 로그인된 Codex가 있으면 빈 모습은 AI가 자동으로 그려요.</span><span lang="en">Choose from 36 original characters and change colors and looks in Customize. Make your own from one photo: by default the cut-out photo itself moves, and if this Mac has Codex signed in with ChatGPT, AI draws the missing poses for you.</span></p>
+      <p class="note"><span lang="ko">옷 입히기는 플러그인이에요(11/6 공개). 팩 만드는 법은 저장소의 <code>docs/PACKS.md</code>. 설정을 다른 맥으로 옮기려면 앱의 설정 &gt; <b>내 설정 내보내기</b>, 받은 설정 파일이 있다면 <a href="my-setup.html">내 설정 받기</a>.</span><span lang="en">Dress-up is a plug-in (opens Nov 6). How to make a pack: <code>docs/PACKS.md</code> in the repository. To move your setup to another Mac, use Settings &gt; <b>Export my setup</b> in the app. Got a shared setup file? <a href="my-setup.html">Get my setup</a>.</span> <span class="badge plug"><span lang="ko">플러그인 · 11/6 공개</span><span lang="en">Plug-in · opens Nov 6</span></span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo mine" data-demo="choose">
+        <canvas class="spr" width="136" height="80" role="img" aria-label="고른 캐릭터" data-label-en="Chosen character" data-big></canvas>
+        <p class="cap" data-name aria-live="polite" style="margin:0"></p>
+        <div class="grid36" role="group" aria-label="캐릭터 36종" data-label-en="36 characters" data-grid></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat reveal" id="season">
+    <div class="txt">
+      <p class="over">SEASON BOARD</p>
+      <h3><span lang="ko">시즌 뽑기판</span><span lang="en">Season board</span> <span class="badge new"><span lang="ko">3.4 새 기능</span><span lang="en">New in 3.4</span></span></h3>
+      <p class="desc"><span lang="ko">매일 받는 무료 뽑기권으로 종이를 한 장씩 뜯어 시즌 꾸미기, 말풍선 색, 투척물, 의자를 모아요. 이미 가진 꾸미기가 나오면 코인으로 바꿔 줘요.</span><span lang="en">Peel one paper at a time with the free tickets you get every day to collect season items, bubble colors, throwables and chairs. Duplicates turn into coins.</span></p>
+      <p class="note"><span lang="ko">결제는 없어요. 뽑기권은 매일 2장, 후원 친구 카드를 끝까지 보면 1장 더 와요. 첫 시즌 "첫눈"은 11/1에 열려요.</span><span lang="en">No payments. You get 2 tickets a day, plus 1 more for watching a sponsor friend card to the end. The first season, First Snow, opens Nov 1.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo" data-demo="season">
+        <p class="cap" data-tickets aria-live="polite" style="margin:0"></p>
+        <div class="sboard" data-board></div>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">종이를 눌러 뜯어요. 판은 예시예요.</span><span lang="en">Click a paper to peel it. The board is an example.</span></p><button type="button" class="act ghost" data-act="season"><span lang="ko">새 판</span><span lang="en">New board</span></button></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 아이폰 ============ -->
+<section class="chapter" id="iphone" aria-labelledby="c-iphone"><div class="wrapc">
+  <h2 id="c-iphone"><span lang="ko">아이폰</span><span lang="en">iPhone</span></h2>
+
+  <div class="feat reveal" id="webapp">
+    <div class="txt">
+      <p class="over">WEB APP</p>
+      <h3><span lang="ko">아이폰 웹 앱</span><span lang="en">iPhone web app</span></h3>
+      <p class="desc"><span lang="ko">설치 없이 사파리에서 열고 홈 화면에 추가하면 앱처럼 써요. 톡 누르면 반응하고, 꾹 누르면 쓰다듬고, 끌어서 던져요. 별 줍기, 두더지잡기, 집중 타이머도 있어요.</span><span lang="en">No install: open it in Safari and add it to your Home Screen. Tap to get a reaction, press and hold to pet, drag to toss. Star catching, whack-a-mole and a focus timer too.</span></p>
+      <p class="note"><span lang="ko">인터넷이 없어도 돌아가고, 아무것도 밖으로 보내지 않아요.</span><span lang="en">Works offline and sends nothing out.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo">
+        <img src="app-qr.svg" width="168" height="168" loading="lazy" class="qr" style="border-radius:12px; background:#fff; padding:6px" alt="웹 앱 주소 charamonitor.vercel.app/app/ 로 가는 QR 코드" data-alt-en="QR code for the web app at charamonitor.vercel.app/app/">
+        <a class="act" href="app/"><span lang="ko">웹 앱 열기</span><span lang="en">Open the web app</span></a>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="more-h"><span lang="ko">그리고 더</span><span lang="en">And more</span></h2>
+  <div class="moreg">
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v9H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><p><b><span lang="ko">펫 키우기</span><span lang="en">Pet care</span></b><span><span lang="ko">도트 방 꾸미기, 코인으로 사는 가구, 일일 미션, 집중 타이머 펫.</span><span lang="en">Decorate a pixel room, buy furniture with coins, daily missions, a focus timer pet.</span></span></p></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9v4l3 2M9 2h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p><b><span lang="ko">집중 타이머</span><span lang="en">Focus timer</span></b><span><span lang="ko">바탕화면 위젯으로 집중 시간을 재요.</span><span lang="en">A desktop widget that times your focus.</span></span></p></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="2"/></svg><p><b><span lang="ko">날씨 창문</span><span lang="en">Weather window</span></b><span><span lang="ko">바탕화면에 바깥 날씨가 보이는 창문을 달아요.</span><span lang="en">A desktop window that shows the weather outside.</span></span></p></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18a8 8 0 0 1 16 0M12 18l4-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p><b><span lang="ko">인터넷 속도</span><span lang="en">Internet speed</span></b><span><span lang="ko">버튼 하나로 Mbps를 재요.</span><span lang="en">Measure Mbps with one button.</span></span></p></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><p><b><span lang="ko">보안 검사</span><span lang="en">Security check</span></b><span><span lang="ko">기본 보호와 수상한 자동 실행 항목을 점검해요.</span><span lang="en">Checks built-in protection and suspicious auto-start items.</span></span></p></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v6h4l5 4V5L9 9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><p><b><span lang="ko">누르면 소리</span><span lang="en">Sounds on click</span></b><span><span lang="ko">캐릭터를 누르면 울음소리를 내요. 설정에서 끌 수 있어요.</span><span lang="en">Click your character and it makes its sound. Turn it off in Settings.</span></span></p></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 16l5-5 4 4 3-3 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><p><b><span lang="ko">사진 메시지</span><span lang="en">Photo messages</span></b><span><span lang="ko">근처 친구 대화창에 사진을 붙여넣으면 작게 줄이고 위치 정보를 지운 뒤 보내요.</span><span lang="en">Paste a photo into a nearby friend's chat; it's shrunk and its location data removed before sending.</span></span></p></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9v11M3 9h18M12 9c-2-4-6-4-6-1s6 1 6 1 6 2 6-1-4-3-6 1" fill="none" stroke="currentColor" stroke-width="2"/></svg><p><b><span lang="ko">후원 친구 선물</span><span lang="en">Sponsor friend gifts</span></b><span><span lang="ko">후원 친구를 끝까지 보면 꾸미기 선물 8가지가 하나씩 열려요.</span><span lang="en">Watch a sponsor friend to the end and the 8 dress-up gifts unlock one at a time.</span></span></p></div>
+  </div>
+
+  <div class="endband">
+    <a class="act ghost" href="./"><span lang="ko">처음으로</span><span lang="en">Back to start</span></a>
+    <a class="act" href="./#install"><span lang="ko">맥에 설치하기</span><span lang="en">Install on your Mac</span></a>
+  </div>
+</div></section>
+</main>
+
+<footer class="sfoot">
+  <div class="wrapc">
+    <p class="brand"><img src="favicon.png" alt="" width="20" height="20"><span><span lang="ko">캐릭모니터</span><span lang="en">CharaMonitor</span> <span id="ver">3.4</span></span></p>
+    <p><span lang="ko">파일이 온전한지 확인하고 싶다면 <a href="SHA256SUMS">SHA-256 체크섬</a>과 비교해 보세요 (<code>shasum -a 256 JellyMonitor.dmg</code>).</span><span lang="en">To check a file is intact, compare it with the <a href="SHA256SUMS">SHA-256 checksums</a> (<code>shasum -a 256 JellyMonitor.dmg</code>).</span></p>
+    <p class="links">
+      <a href="features.html"><span lang="ko">기능 소개</span><span lang="en">Features</span></a>
+      <a href="support.html"><span lang="ko">지원</span><span lang="en">Support</span></a>
+      <a href="privacy.html"><span lang="ko">개인정보 처리방침</span><span lang="en">Privacy</span></a>
+      <a href="https://github.com/cyw910306-glitch/charamonitor">GitHub</a>
+      <a href="sponsor.html"><span lang="ko">후원·광고 문의</span><span lang="en">Sponsorship</span></a>
+      <a href="my-setup.html"><span lang="ko">내 설정 받기</span><span lang="en">Get my setup</span></a>
+      <a href="gpt-pet.html"><span lang="ko">ChatGPT 펫 만들기</span><span lang="en">Make a ChatGPT pet</span></a>
+      <a href="meet.html"><span lang="ko">원격 모임 안내</span><span lang="en">Remote meetups</span></a>
+      <span class="lang"><button type="button" data-lang="ko" aria-pressed="true">KO</button><button type="button" data-lang="en" aria-pressed="false">EN</button></span>
+    </p>
+    <p><span lang="ko">PolyForm Noncommercial 1.0.0 · 비영리 오픈 소스</span><span lang="en">PolyForm Noncommercial 1.0.0 · noncommercial open source</span></p>
+  </div>
+</footer>
+</body>
+</html>

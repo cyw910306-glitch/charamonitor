@@ -4,7 +4,7 @@ import SwiftUI
 
 /// Every content feature as a 플러그인. The first group is installed (always open); the rest drip out weekly.
 enum PluginID: String, CaseIterable, Codable {
-    case cursor, clones, hanging, meadow, folder, play, toys, mac, rug, weather, focus, quickAsk, sponsor
+    case cursor, clones, hanging, meadow, folder, play, toys, mac, rug, weather, focus, quickAsk, sponsor, remoteMeet, season
     case playMoves, wardrobe, nearby, netPlay, walkieTalkie, office, remoteHelp
 
     /// The new ones, in the order they open (one a week; 근처 친구 before the four that need a paired friend).
@@ -37,6 +37,8 @@ enum PluginID: String, CaseIterable, Codable {
         case .focus: return "⏰"
         case .quickAsk: return "💬"
         case .sponsor: return "🎀"
+        case .remoteMeet: return "🌏"
+        case .season: return "🎟️"
         case .playMoves: return "🦘"
         case .wardrobe: return "👒"
         case .nearby: return "📡"
@@ -63,6 +65,8 @@ enum PluginID: String, CaseIterable, Codable {
         case .focus: return L("집중 타이머")
         case .quickAsk: return L("퀵물어보기")
         case .sponsor: return L("후원 친구")
+        case .remoteMeet: return L("원격 모임")
+        case .season: return L("시즌 뽑기판")
         case .playMoves: return L("놀이 기술")
         case .wardrobe: return L("옷 입히기")
         case .nearby: return L("근처 친구")
@@ -88,6 +92,8 @@ enum PluginID: String, CaseIterable, Codable {
         case .focus: return L("친구랑 같이 집중해요")
         case .quickAsk: return L("머리 위 말풍선이 바로 답해 줘요")
         case .sponsor: return L("가끔 제작자 서비스를 소개하고 꾸미기 선물을 줘요")
+        case .remoteMeet: return L("와이파이 밖 친구와 상태·이모트·한마디")
+        case .season: return L("무료 뽑기권으로 종이를 뜯어 시즌 꾸미기를 모아요")
         case .playMoves: return L("하늘날기·높이 점프·빠른 대시")
         case .wardrobe: return L("모자·리본·안경·목도리·셔츠")
         case .nearby: return L("같은 와이파이 맥끼리 친구 맺고 대화")
@@ -98,6 +104,9 @@ enum PluginID: String, CaseIterable, Codable {
         }
     }
 
+    /// An installed one whose tile opens its own settings (it has its own on switch there).
+    var hasSettings: Bool { self == .remoteMeet || self == .season }
+
     /// The 데스크톱 친구 switch this installed one shares, if it has one.
     var desktopToggle: DesktopToggle? {
         isInstalled ? DesktopFriends.toggles.first { $0.title == name } : nil
@@ -106,7 +115,12 @@ enum PluginID: String, CaseIterable, Codable {
 
 enum PluginGate {
     /// Whether `id` may be used (installed, its day came, or its Instagram code was typed).
-    static func isOpen(_ id: PluginID) -> Bool { id.isInstalled || PluginCenter.shared.open.contains(id) }
+    static func isOpen(_ id: PluginID) -> Bool {
+        #if !MAS
+        if SocialQA.active { return true }   // QA runs (--qa-defaults) only: every plugin open, whatever its day
+        #endif
+        return id.isInstalled || PluginCenter.shared.open.contains(id)
+    }
 }
 
 // MARK: The list
@@ -433,6 +447,8 @@ struct PluginsSection: View {
     @ObservedObject private var folder = FolderStore.shared
     @ObservedObject private var rug = RugStore.shared
     @ObservedObject private var clones = CloneStore.shared
+    @ObservedObject private var meet = RemoteMeet.shared
+    @ObservedObject private var season = SeasonCenter.shared
     @State private var selected: PluginID?
     @State private var code = ""
     @State private var note: String?
@@ -488,12 +504,14 @@ struct PluginsSection: View {
         .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous)
             .strokeBorder(chosen ? accent : open ? accent.opacity(0.35) : Color.primary.opacity(0.08), lineWidth: chosen ? 2 : 1))
         .contentShape(RoundedRectangle(cornerRadius: 10))
-        .onTapGesture { if !id.isInstalled { selected = chosen ? nil : id } }
+        .onTapGesture { if !id.isInstalled || id.hasSettings { selected = chosen ? nil : id } }
         .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(id.isInstalled ? [] : .isButton)
+        .accessibilityAddTraits(id.isInstalled && !id.hasSettings ? [] : .isButton)
     }
 
     private func state(_ id: PluginID) -> String {
+        if id == .remoteMeet { return meet.isOn ? L("켜짐 · 눌러서 설정") : L("꺼짐 · 눌러서 켜기") }
+        if id == .season { return season.isOn ? L("켜짐 · 눌러서 설정") : L("꺼짐 · 눌러서 켜기") }
         if id.isInstalled { return L("설치됨") }
         if PluginGate.isOpen(id) { return L("열림 · 눌러서 설정") }
         return "🔒 " + (center.dayText(id).map { L("곧 공개 · \($0)") } ?? L("곧 공개"))
@@ -514,6 +532,8 @@ struct PluginsSection: View {
                 case .wardrobe: WardrobeSettings()
                 case .nearby, .walkieTalkie, .remoteHelp: NearbySettings(part: id)
                 case .office: OfficeSettings()
+                case .remoteMeet: RemoteMeetSettings()
+                case .season: SeasonSettings()
                 case .playMoves:
                     Toggle("놀이 기술 쓰기", isOn: $playMoves).toggleStyle(.switch).controlSize(.small).tint(accent)
                     Text("놀이 모드에서 ↑를 꾹 누르면 하늘을 날고, ↑를 빠르게 두 번 누르면 높이 점프해요. ← →를 빠르게 두 번 누르면 대시해요. 둘이 놀기의 친구는 W·A·D로 똑같이 해요.")

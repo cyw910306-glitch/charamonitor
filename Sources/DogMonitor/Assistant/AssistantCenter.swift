@@ -73,6 +73,7 @@ final class AssistantCenter: NSObject {
         if settings.reminders { CalendarLink.shared.dueReminders { [weak self] in $0.forEach { self?.handle($0) } } }
         if settings.reminders { checkProgress() }
         checkWorkHours(now: Date())
+        Fortune.morningCheck()
         #if !MAS   // no per-process CPU in the App Store build
         if minute % 5 == 0 { checkRunaway() }
         #endif
@@ -212,6 +213,8 @@ final class AssistantCenter: NSObject {
     /// charamonitor://say?text=... (Shortcuts' "URL 열기"). Shows only when 단축어로 말 시키기 is on,
     /// spaced out (URLSayLimiter), marked as coming from outside, never read aloud. Any web page can open the link.
     @objc private func handleURL(_ event: NSAppleEventDescriptor, reply: NSAppleEventDescriptor) {
+        if let s = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: s),
+           url.host == "meet" { return RemoteMeet.shared.openLink(url) }   // 원격 모임 invite; it asks first
         guard let s = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: s),
               let text = AssistantURL.sayText(url), settings.urlSay, urlLimiter.allow(now: Date()) else { return }
         SpeechBubbleCenter.shared.say(text: AssistantURL.prefix + text, source: .assistant, aloud: false)

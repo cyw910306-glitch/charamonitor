@@ -65,7 +65,7 @@ public enum SetupFile {
         "focus.goal": .number, "focus.sound": .bool,
         // 비서: how it talks only
         "assistant.persona": .string, "assistant.voice": .bool, "assistant.nudges": .string, "assistant.aiNudges": .bool,
-        "assistant.lines": .stringMap, "assistant.workHours": .data,
+        "assistant.lines": .stringMap, "assistant.workHours": .data, "assistant.fortuneMorning": .bool,
         "assistant.calendarLeads": .ints,
         // the rest (후원 선물 that are open; 후원 친구's counters and on/off stay on each Mac)
         "petState": .data, "sponsor.gifts": .data,

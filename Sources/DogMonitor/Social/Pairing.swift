@@ -9,6 +9,12 @@ extension FriendLook {
     /// How I look to a friend: my built-in character by id with its 꾸미기. A custom or photo character goes out as
     /// the plain dog with my DogProfile; no art crosses the network.
     static func mine(_ settings: AppSettings = .shared) -> FriendLook {
+        var l = drawn(settings)
+        l.seat = ChairCenter.shared.seat
+        return l
+    }
+
+    private static func drawn(_ settings: AppSettings) -> FriendLook {
         let look = SpriteLook(settings)
         var profile = settings.profile
         profile.name = ""
@@ -24,7 +30,8 @@ extension FriendLook {
 }
 
 extension SocialBus {
-    static let version = 1
+    /// 2: `.emote`, and a message of a case this build does not know is skipped instead of closing the link. 3: `.photo`.
+    static let version = 3
 
     /// A random id made once for this install; nothing from the Mac.
     var installID: String {
@@ -79,7 +86,7 @@ extension SocialBus {
         node = n
         setOn(true)
         n.start()
-        $myStatus.dropFirst().removeDuplicates().sink { [weak self] s in self?.broadcast(.status(s)) }.store(in: &bag)
+        $myStatus.dropFirst().removeDuplicates().sink { [weak self] s in self?.broadcast(.status(s.wire)) }.store(in: &bag)
         // A changed character, colour or outfit goes out 2 s later (only when it really changed).
         AppSettings.shared.objectWillChange.debounce(for: .seconds(2), scheduler: RunLoop.main)
             .sink { [weak self] _ in self?.sendLookIfChanged() }.store(in: &bag)
@@ -96,7 +103,8 @@ extension SocialBus {
         setOn(false)
     }
 
-    private func sendLookIfChanged() {
+    /// Also called by ChairCenter when I sit or get up.
+    func sendLookIfChanged() {
         let look = FriendLook.mine()
         guard look != lastLook else { return }
         lastLook = look
@@ -108,13 +116,15 @@ extension SocialBus {
         if on { o.insert(id) } else { o.remove(id) }
         setOnline(o)
         guard on else {
+            versions[id] = nil
+            photoParts.drop(id)
             VoicePlayer.shared.gone(id)
             if VoiceTalk.shared.live == id { VoiceTalk.shared.end() }
             return
         }
         let look = FriendLook.mine()
         lastLook = look
-        send(.hello(nickname: nickname, look: look, status: myStatus, version: Self.version), to: id)
+        send(.hello(nickname: nickname, look: look, status: myStatus.wire, version: Self.version), to: id)
     }
 
     private func update(_ id: String, _ change: (inout SocialFriend) -> Void) {
@@ -128,12 +138,15 @@ extension SocialBus {
     func received(_ m: SocialMessage, from id: String) {
         guard friend(id) != nil else { return }
         switch m {
-        case let .hello(nick, look, status, _):
-            update(id) { $0.nickname = SocialText.nickname(nick); $0.look = FriendLook.received(look); $0.status = status }
+        case let .hello(nick, look, status, version):
+            // A first hello (or a newer build) from a friend that reads notes: my card goes back.
+            if versions[id] != version, RoomRules.canEmote(version: version) { send(.note(myNote()), to: id) }
+            versions[id] = version
+            update(id) { $0.nickname = SocialText.nickname(nick); $0.look = FriendLook.received(look); $0.status = status.wire }
         case .look(let look):
             update(id) { $0.look = FriendLook.received(look) }
         case .status(let s):
-            update(id) { $0.status = s }
+            update(id) { $0.status = s.wire }
         case .chat(let raw):
             let text = SocialText.clean(raw)
             guard !text.isEmpty else { break }
@@ -145,6 +158,22 @@ extension SocialBus {
             RemoteHelp.shared.receive(m, from: id)
         case .bye:
             forget(id, tell: false)
+        case .emote(let kind):
+            FriendRoom.shared.received(kind, from: id)
+            SeasonCenter.shared.emoted()
+        case .note(let n):
+            notes[id] = FriendNote.received(n)
+        case .doodle(let d):
+            guard let d = Doodle.received(d) else { break }
+            DoodleCenter.received(d, from: friend(id)?.nickname ?? L("친구"), seat: id)
+        case .draw(let s):
+            GroupDraw.shared.received(s, from: friend(id)?.nickname ?? L("친구"), sender: "f:" + id, bubble: true)
+        case .hit(let item):
+            ThrowCenter.shared.hit(item, by: friend(id)?.nickname ?? L("친구"))
+        case .ko(let seconds):
+            FriendRoom.shared.knockedOut(id, seconds: seconds)
+        case .photo(let part):
+            receivedPhoto(part, from: id)
         default:
             break
         }
@@ -204,7 +233,11 @@ extension SocialBus {
     func friendMenu() -> [NSMenuItem] {
         var items: [NSMenuItem] = friends.map { f in
             let title = (unread.contains(f.id) ? "• " : "") + f.nickname + (f.isOnline ? " ●" : "")
-            var sub = [FriendMenu.item(L("대화하기")) { FriendWindow.open(f.id) }]
+            var sub = [FriendMenu.item(L("대화하기")) { FriendWindow.open(f.id) },
+                       FriendMenu.item(L("프로필 카드")) { [weak self] in self?.card(f.id).map(FriendCardPanel.show) }]
+            if f.isOnline, RoomRules.canEmote(version: versions[f.id]) {
+                sub.append(FriendMenu.item(L("낙서 쪽지 보내기…")) { DoodleCenter.open(.friend(f.id), name: f.nickname) })
+            }
             if f.isOnline, NetPlay.ready, PluginGate.isOpen(.netPlay) {
                 sub.append(FriendMenu.item(L("같이 뛰기")) { NetPlay.shared.invite(f.id, .play) })
                 sub.append(FriendMenu.item(L("별 대결")) { NetPlay.shared.invite(f.id, .starDuel) })
@@ -212,9 +245,15 @@ extension SocialBus {
             if f.isOnline, PluginGate.isOpen(.remoteHelp) {
                 sub.append(FriendMenu.item(L("원격 지원 요청")) { RemoteHelp.shared.ask(f.id) })
             }
+            if FriendRoom.shared.seatIDs.contains(f.id) {
+                sub.append(FriendMenu.item(L("던지기")) { FriendRoom.shared.toss(f.id) })
+            }
             return FriendMenu.submenu(title, sub)
         }
         if !items.isEmpty { items.append(.separator()) }
+        items += FriendRoom.shared.groupItems()
+        items.append(GroupDraw.menuItem())
+        items.append(FriendMenu.item(L("오늘 한마디…")) { [weak self] in self?.askLine() })
         items.append(FriendMenu.item(L("친구 추가…")) { NearbyWindow.open() })
         return [.separator(), FriendMenu.submenu((unread.isEmpty ? "" : "• ") + L("친구"), items)]
     }
@@ -225,7 +264,7 @@ enum SocialAlerts {
     /// Both Macs ask this with the same 확인 숫자; a different number means another Mac sits in between.
     static func confirmPair(_ nickname: String, check: String) -> Bool {
         #if !MAS
-        if SocialQA.active { return true }
+        if SocialQA.active { SocialQA.log("check \(check)"); return true }
         #endif
         return ask(L("\(nickname)와 친구가 될까요?"),
                    L("확인 숫자 \(check)\n친구 맥에도 같은 숫자가 보일 때만 친구 하기를 눌러 주세요. 다르면 다른 맥이 끼어든 거예요."),

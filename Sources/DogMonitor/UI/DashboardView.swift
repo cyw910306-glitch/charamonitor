@@ -19,6 +19,7 @@ struct DashboardView: View {
     #if !MAS   // the App Store build has no 보안 점검 and no self-updater (docs/appstore/review-notes.md)
     @ObservedObject private var security = SecurityCenter.shared
     @ObservedObject private var updater = Updater.shared
+    @ObservedObject private var drift = DriftCenter.shared
     #endif
 
     init(monitor: SystemMonitor, settings: AppSettings, onQuit: @escaping () -> Void) {
@@ -89,6 +90,7 @@ struct DashboardView: View {
             if let m = updater.available { updateLine(m) }
             if security.report?.needsAttention == true { securityLine }
             if isBusy { busyBanner }
+            if drift.on || drift.withTimer { DriftSummaryRow() }
             #endif
             HStack(alignment: .top, spacing: 10) {
                 statsPanel

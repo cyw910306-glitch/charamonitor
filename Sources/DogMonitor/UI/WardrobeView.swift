@@ -4,6 +4,7 @@ import SwiftUI
 /// AppSettings.outfits; every place that draws that character wears it.
 struct WardrobeSettings: View {
     @ObservedObject var settings: AppSettings = .shared
+    @ObservedObject private var season = SeasonCenter.shared
     /// Wardrobe.key of the character being dressed; nil = the menu bar's.
     @State private var picked: String?
     @State private var nudging = false
@@ -46,7 +47,9 @@ struct WardrobeSettings: View {
             HStack(spacing: 6) {
                 Text("셔츠").font(.system(size: 12)).foregroundStyle(.secondary).frame(width: 34, alignment: .leading)
                 dot(nil, L("없음"))
-                ForEach(Wardrobe.items(.shirt), id: \.id) { dot($0.hex, $0.name) }
+                ForEach(offered(.shirt, worn: Wardrobe.items(.shirt).first { $0.hex == outfit.wrappedValue.shirt }?.id), id: \.id) {
+                    dot($0.hex, $0.name)
+                }
             }
             DisclosureGroup("위치 조정", isExpanded: $nudging) {
                 VStack(alignment: .leading, spacing: 4) {
@@ -73,12 +76,18 @@ struct WardrobeSettings: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 4) {
                     chip(L("없음"), on: outfit.wrappedValue[keyPath: path] == nil) { outfit.wrappedValue[keyPath: path] = nil }
-                    ForEach(Wardrobe.items(slot), id: \.id) { it in
+                    ForEach(offered(slot, worn: outfit.wrappedValue[keyPath: path]), id: \.id) { it in
                         chip(it.name, on: outfit.wrappedValue[keyPath: path] == it.id) { outfit.wrappedValue[keyPath: path] = it.id }
                     }
                 }
             }
         }
+    }
+
+    /// The slot's items: the usual ones, 시즌 prizes once owned, and whatever is worn now.
+    private func offered(_ slot: Wardrobe.Slot, worn: String?) -> [Wardrobe.Item] {
+        let owned = Set(season.state.owned)
+        return Wardrobe.items(slot).filter { !$0.season || owned.contains($0.id) || $0.id == worn }
     }
 
     private func chip(_ title: String, on: Bool, _ action: @escaping () -> Void) -> some View {

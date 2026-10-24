@@ -1,0 +1,7 @@
+{
+  "description" : "캐릭모니터에서 온 치즈 태비",
+  "displayName" : "치즈 태비",
+  "id" : "cat-cheese-tabby",
+  "spritesheetPath" : "spritesheet.png",
+  "spriteVersionNumber" : 2
+}

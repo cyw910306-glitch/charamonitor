@@ -6,6 +6,8 @@
 transparent PNG of exactly 34N x 20N pixels (N = `density`), facing right, feet on the bottom row. Put the folder in
 `~/Library/Application Support/DogMonitor/Packs/` and relaunch the app. Fields and limits are below.
 
+ChatGPT·Codex 펫 시트(1536x2288 또는 1536x1872, 펫 폴더, zip)는 **캐릭터 선택 > ChatGPT 펫 > 가져오기** 가 이 형식의 HD 팩(`pack-gpt-<이름>`, `smooth`, density 8)으로 바꿔 넣어요. 반대로 내장 캐릭터와 나만의 캐릭터는 같은 자리의 **내보내기**(또는 `DogMonitor --export-gpt-pet <id> <폴더>`)로 펫 시트와 `pet.json` 을 만들 수 있어요. 안내: `web/gpt-pet.html`.
+
 직접 권리를 가진 그림만 쓰세요. 남의 캐릭터를 그린 팩을 나누거나 팔면 안 돼요.
 
 ## 어디에 넣나요

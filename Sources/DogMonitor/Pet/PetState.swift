@@ -104,6 +104,8 @@ struct PetDay: Codable, Equatable {
     var done: Set<PetMissionKind> = []
     var coins = 0
     var levelUps = 0
+    /// Coins from the 시즌 extras (숨 고르기, 이모트) today, held under their cap.
+    var bonus = 0
 
     subscript(_ kind: PetMissionKind) -> Int { counts[kind] ?? 0 }
     var missions: [PetMissionKind] { PetMissionKind.missions(forDay: day) }
@@ -388,6 +390,25 @@ struct PetState: Codable, Equatable {
         if counts { today.coins += n }
     }
 
+    /// 시즌 extras: `n` coins, at most up to `cap` of them a day in all. Returns what was paid.
+    @discardableResult
+    mutating func bonus(_ n: Int, cap: Int) -> Int {
+        let pay = max(0, min(n, cap - today.bonus))
+        today.bonus += pay
+        earn(pay, today: true)
+        return pay
+    }
+
+    /// Coins a 시즌 뽑기판 cell gave (bounded by the 뽑기권 behind it).
+    mutating func receive(coins n: Int) { earn(max(0, n), today: true) }
+
+    /// Pays `n` coins (a 뽑기권). False, and nothing taken, when there are not enough.
+    mutating func spend(_ n: Int) -> Bool {
+        guard n >= 0, coins >= n else { return false }
+        coins -= n
+        return true
+    }
+
     /// Counts one thing for today and pays any mission it completes (each mission once a day).
     mutating func count(_ kind: PetMissionKind, events: inout [PetEvent]) {
         today.counts[kind, default: 0] += 1
@@ -487,13 +508,14 @@ struct PetState: Codable, Equatable {
 /// Saved pets load whatever a newer or older version wrote: a missing field takes its default, an unknown mission or
 /// focus mode is dropped, the room always has `slotCount` slots. A pet is never reset because one field changed.
 extension PetDay {
-    private enum Keys: String, CodingKey { case day, counts, done, coins, levelUps }
+    private enum Keys: String, CodingKey { case day, counts, done, coins, levelUps, bonus }
 
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: Keys.self)
         day = try c.decodeIfPresent(Int.self, forKey: .day) ?? 0
         coins = (try? c.decodeIfPresent(Int.self, forKey: .coins)) ?? 0
         levelUps = (try? c.decodeIfPresent(Int.self, forKey: .levelUps)) ?? 0
+        bonus = (try? c.decodeIfPresent(Int.self, forKey: .bonus)) ?? 0
         done = Set(((try? c.decodeIfPresent([String].self, forKey: .done)) ?? []).compactMap(PetMissionKind.init(rawValue:)))
         // A dictionary with enum keys is saved as [key, value, key, value, ...].
         var counts: [PetMissionKind: Int] = [:]

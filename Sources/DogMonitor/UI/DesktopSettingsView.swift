@@ -31,8 +31,8 @@ enum DesktopFriends {
 }
 
 /// "데스크톱 친구" in 설정: the friend saying hi, 꾸미기, then one sticker card per friend; changes show at once.
-/// Sections in order: 꾸미기 / 커서 친구 / 복제 친구 / 대롱대롱 친구 / 풀밭 친구들 / 폴더 친구 / 놀이 / 장난감 상자 / 맥과 같이 놀기 /
-/// 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 퀵물어보기 / 후원 친구 (the direct build).
+/// Sections in order: 꾸미기 / 플러그인 / 단축키 / 커서 친구 / 복제 친구 / 대롱대롱 친구 / 풀밭 친구들 / 폴더 친구 / 놀이 / 장난감 상자 / 맥과 같이 놀기 /
+/// 바탕화면 러그 / 날씨 창문 / 집중 타이머 / 딴짓 지킴이 (the direct build) / 퀵물어보기 / 후원 친구 (the direct build).
 struct DesktopSettingsView: View {
     @ObservedObject var store: MotionStore = .shared
     @ObservedObject var hanging: HangingStore = .shared
@@ -43,11 +43,13 @@ struct DesktopSettingsView: View {
     @ObservedObject var clones: CloneStore = .shared
     @ObservedObject var toys: ToyStore = .shared
     @ObservedObject var focus: FocusCenter = .shared
+    @ObservedObject var breath: BreathCenter = .shared
     @ObservedObject var settings: AppSettings = .shared
     @AppStorage(PlayMode.twoPlayerKey, store: AppDefaults.store) private var twoPlayer = false
     @AppStorage(StarRules.bestKey, store: AppDefaults.store) private var bestStars = 0
     @ObservedObject var games: ClickGames = .shared
     @AppStorage(GroupDance.key, store: AppDefaults.store) private var groupDance = false
+    @ObservedObject var lunch: Lunch = .shared
     @StateObject private var quickSample = FriendQuickAsk.sample()
     /// 후원 선물 that are open show up in the pickers below.
     @ObservedObject var gifts: SponsorGifts = .shared
@@ -56,6 +58,9 @@ struct DesktopSettingsView: View {
     /// QA renders only: just the 후원 친구 card.
     var sponsorOnly = false
     #endif
+    @ObservedObject var stickies: StickyStore = .shared
+    /// QA renders only: just the 포스트잇 card.
+    var stickyOnly = false
     /// The card that just said hi (a friend switched on) and whose badge is hopping.
     @State private var hello: DesktopTool?
     @State private var hop: DesktopTool?
@@ -63,9 +68,9 @@ struct DesktopSettingsView: View {
 
     var body: some View {
         #if !MAS
-        if sponsorOnly { sponsorSection } else { cards }
+        if stickyOnly { stickySection } else if sponsorOnly { sponsorSection } else { cards }
         #else
-        cards
+        if stickyOnly { stickySection } else { cards }
         #endif
     }
 
@@ -74,6 +79,7 @@ struct DesktopSettingsView: View {
             hero
             decorSection
             PluginsSection()
+            HotkeysSection()
             cursorSection
             clonesSection
             hangingSection
@@ -81,10 +87,15 @@ struct DesktopSettingsView: View {
             folderSection
             playSection
             toysSection
+            stickySection
             macSection
             rugSection
+            Panel { ChairSettings() }
             weatherSection
             focusSection
+            #if !MAS
+            DriftSection()
+            #endif
             quickAskSection
             #if !MAS
             sponsorSection
@@ -466,6 +477,11 @@ struct DesktopSettingsView: View {
                     "공놀이: 공을 끌어서 던지면 친구가 달려가 물어 와요. 한 번 누르면 공을 톡 차올려요. 바탕화면 러그 위에 공이 멈추면 골이에요.",
                     "두더지잡기: 30초 동안 독 위로 튀어나오는 친구를 눌러요. 풀밭 친구들이 켜져 있으면 그 친구들이 나와요. 최고 점수를 기억해요.",
                     "게임 조각을 오른쪽 클릭해서 그만할 수 있어요. 마우스로만 놀아서 키보드를 받지 않아요.")
+            row("점심 뽑기") {
+                Button("레버 열기") { Lunch.shared.show() }.controlSize(.small)
+                Text("11:30 알림").font(f(12)).foregroundStyle(.secondary)
+                onOff("11:30 알림", $lunch.nudge, .play)
+            }
         }
     }
 
@@ -508,6 +524,26 @@ struct DesktopSettingsView: View {
                         "커서 친구와 복제 친구가 가끔 놀러 와서 트램펄린에서 뛰고, 공을 차고 쫓아가고, 쿠션에서 낮잠을 자고, 미끄럼틀을 타요. 복제 친구는 어울리기가 켜져 있을 때 놀러 와요.",
                         "놀이 모드에서는 장난감 위에도 올라설 수 있어요. 트램펄린은 아주 높이 튕겨 주고, 쿠션은 폭신하게 받아 주고, 미끄럼틀은 아래로 태워 줘요.")
             }
+        }
+    }
+
+    // MARK: 포스트잇
+
+    /// No switch: notes are out while there are any. 붙이기 adds one, up to 20.
+    private var stickySection: some View {
+        let n = stickies.notes.count
+        return Panel(tint: tint(.sticky, on: n > 0)) {
+            badge("📝", "포스트잇", .sticky)
+            tagline("바탕화면에 메모를 붙여 두면, 쓰는 동안 커서 친구가 옆에 와서 같이 타자를 쳐요")
+            row("몇 장") {
+                HStack(spacing: 8) {
+                    Text(verbatim: "\(n)/\(StickyFile.maxNotes)").font(f(12)).monospacedDigit()
+                    Button(L("붙이기")) { StickyBoard.shared.addNote() }.controlSize(.small).disabled(!stickies.canAdd)
+                }
+            }
+            details("위쪽 띠를 끌어서 옮기고, ▾로 접어 띠만 남겨요. 동그라미로 색을 바꾸고, 휴지통으로 떼어요. 쓴 게 있으면 한 번 더 물어봐요.",
+                    "메모는 이 맥에만 저장돼요. 내 설정 파일에도 담기지 않고, 화면 공유나 녹화에도 보이지 않아요.",
+                    "회의 중이거나 화면을 공유·녹화하는 동안에는 커서 친구가 타자 치러 오지 않아요.")
         }
     }
 
@@ -651,8 +687,17 @@ struct DesktopSettingsView: View {
                 row("달성 소리") { onOff("목표 달성 소리", $focus.sound, .focus) }
                 row("메뉴바 시간") { onOff("메뉴바에 시간 보이기", $focus.showInMenuBar, .focus) }
                 row("시간 옆 이모지") { onOff("메뉴바 시간에 이모지 붙이기", $focus.menuEmoji, .focus).disabled(!focus.showInMenuBar) }
+                row("숨 고르기") {
+                    HStack(spacing: 8) {
+                        Button("30초 숨 고르기") { breath.open() }.controlSize(.small)
+                        if breath.todayCount > 0 { Text("오늘 \(breath.todayCount)번").font(f(11)).foregroundStyle(.secondary) }
+                    }
+                }
+                row("끝나면 제안") { onOff("집중이 끝나면 숨 고르기 제안", $breath.offerAfterFocus, .focus) }
+                row("싱잉볼 소리") { onOff("숨 고르기 싱잉볼 소리", $breath.sound, .focus) }
             }
-            details("집중하는 동안 친구 머리 위에 시간이 올라가고, 친구는 책상에 앉아 공부해요. 오늘 할 일이 있으면 첫 번째 일을 '진행 중'으로 보여 주고, 체크하면 미리알림에서도 끝낸 일로 바꿔요. 메뉴바 메뉴나 AI 비서에게 '집중 시작'이라고 해도 돼요.")
+            details("집중하는 동안 친구 머리 위에 시간이 올라가고, 친구는 책상에 앉아 공부해요. 오늘 할 일이 있으면 첫 번째 일을 '진행 중'으로 보여 주고, 체크하면 미리알림에서도 끝낸 일로 바꿔요. 메뉴바 메뉴나 AI 비서에게 '집중 시작'이라고 해도 돼요.",
+                    "30초 숨 고르기: 노을, 새벽 사무실, 비 오는 숲 중 한 곳에서 친구가 눈을 감고 쉬는 동안 원을 따라 4초 들이쉬고 4초 내쉬어요. 싱잉볼 소리는 앱이 직접 만들어요. 끝나면 오늘 몇 번 했는지 알려 줘요.")
         }
     }
 
@@ -1040,7 +1085,7 @@ private struct Details: View {
 
 /// One 데스크톱 친구 card, for its colour (AppPalette.tint) and its hello.
 enum DesktopTool: Int, CaseIterable {
-    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones, folder, play, toys, mac, sponsor
+    case cursor, hanging, meadow, rug, weather, focus, quickAsk, clones, folder, play, toys, mac, sponsor, sticky, drift
 }
 
 /// 꾸미기 > 색 테마 (AppSettings.palette). Raw values are saved; never rename one. 딸기우유 is the sticker book (a
@@ -1079,9 +1124,9 @@ enum AppPalette: String, CaseIterable {
     }
 
     /// 딸기우유's card colours in DesktopTool order: peach, lavender, mint, pink, sky, lemon, coral, aqua, folder blue, grape,
-    /// caramel, teal, bubblegum.
+    /// caramel, teal, bubblegum, sticky-note yellow, leaf green.
     static let stickers = ["#FF9F6B", "#A88BF0", "#4FC98E", "#FF7EB3", "#5AAEF5", "#F2C230", "#FF8577", "#5EC4DE", "#6FA8F0", "#B57BE0",
-                           "#E0A458", "#3FB8A9", "#F5A3C7"]
+                           "#E0A458", "#3FB8A9", "#F5A3C7", "#F5D547", "#8CC152"]
 }
 
 

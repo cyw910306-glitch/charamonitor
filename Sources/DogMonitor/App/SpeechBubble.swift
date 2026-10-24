@@ -46,11 +46,19 @@ struct SpeechLine: Equatable, Identifiable {
     var closable = false
     /// A picture card under the words (리액션 스티커).
     var card: PoseCard?
+    /// 오늘의 운세: its card under the words.
+    var fortune: FortuneReading?
     /// Where it points: the top middle of a desktop friend (screen points), followed while it shows; nil when that
     /// friend is gone. No anchor: the menu bar icon (or the cursor friend).
     var anchor: (() -> CGPoint?)?
+    /// Hangs under `anchor` (a friend's feet along the top of the screen), its tail up.
+    var under = false
     /// Under the menu bar icon even while the 커서 친구 is on (the tour).
     var atIcon = false
+    /// A friend's photo thumbnail under the words (사진 메시지).
+    var photo: NSImage?
+    /// What a click does before the bubble closes (a photo opens big).
+    var tap: (() -> Void)?
 
     static func == (a: SpeechLine, b: SpeechLine) -> Bool { a.id == b.id }
 
@@ -132,8 +140,8 @@ final class SpeechBubbleCenter: ObservableObject {
 
     @Published private(set) var current: SpeechLine?
     private var gate = BubbleGate()
-    /// QA and tests: what counts as muted (default: 잠시 조용히 or a call app in front).
-    var isMuted: () -> Bool = { AssistantSettings.shared.isMuted() || MeetingMute.inMeeting() }
+    /// QA and tests: what counts as muted (default: 잠시 조용히, 쉿 모드 or a call app in front).
+    var isMuted: () -> Bool = { AssistantSettings.shared.isMuted() || FriendVisit.quietMode || MeetingMute.inMeeting() }
 
     /// Safe from any thread. Blank text is ignored; long text is cut at `maxLength` characters. `aloud` false never
     /// reads it out (lines from outside the app). Returns whether the line showed; from another thread it is posted
@@ -142,8 +150,8 @@ final class SpeechBubbleCenter: ObservableObject {
     /// `closable`: news, drawn with a close mark (SpeechLine.closable).
     @discardableResult
     func say(text: String, source: SpeechSource, aloud: Bool = true, repeats: Bool = false, hold: Bool = false,
-             seconds: TimeInterval? = nil, closable: Bool = false, card: PoseCard? = nil, anchor: (() -> CGPoint?)? = nil,
-             atIcon: Bool = false, asked: Bool = false) -> Bool {
+             seconds: TimeInterval? = nil, closable: Bool = false, card: PoseCard? = nil, fortune: FortuneReading? = nil, anchor: (() -> CGPoint?)? = nil,
+             under: Bool = false, atIcon: Bool = false, asked: Bool = false, photo: NSImage? = nil, tap: (() -> Void)? = nil) -> Bool {
         // Long dashes out of every line, the agent's and goals' model text included (AssistantPrompt.undash).
         let line = String(AssistantPrompt.undash(text).trimmingCharacters(in: .whitespacesAndNewlines).prefix(Self.maxLength))
         guard !line.isEmpty else { return false }
@@ -152,7 +160,7 @@ final class SpeechBubbleCenter: ObservableObject {
             guard self.current?.yields(hold: hold, now: now) ?? true,
                   self.gate.allow(line, source: source, muted: !asked && self.isMuted(), now: now, repeats: repeats) else { return false }
             self.current = SpeechLine(text: line, source: source, date: now, hold: hold, seconds: seconds, closable: closable,
-                                      card: card, anchor: anchor, atIcon: atIcon)
+                                      card: card, fortune: fortune, anchor: anchor, under: under, atIcon: atIcon, photo: photo, tap: tap)
             if aloud && AssistantSettings.shared.voice { AssistantVoice.shared.speak(line) }
             return true
         }
@@ -204,14 +212,17 @@ final class SpeechBubbleWindow {
         let byCursor = MotionStore.shared.cursorBuddy && !line.atIcon
         let anchor = line.anchor.flatMap { $0() }
         let art = line.card?.art
-        let host = NSHostingView(rootView: SpeechBubbleView(text: line.text, tailUp: anchor == nil && !byCursor, closable: line.closable,
-                                                            tailDown: anchor != nil, card: line.card, art: art?.image, smooth: art?.smooth ?? false,
-                                                            still: DesktopKit.reduceMotion))
+        let host = NSHostingView(rootView: SpeechBubbleView(text: line.text, tailUp: anchor == nil && !byCursor || line.under,
+                                                            closable: line.closable, tailDown: anchor != nil && !line.under, card: line.card, art: art?.image, smooth: art?.smooth ?? false, fortune: line.fortune,
+                                                            photo: line.photo, still: DesktopKit.reduceMotion))
         let size = host.fittingSize
         let click = BubbleClickView(frame: NSRect(origin: .zero, size: size))
         host.frame = click.bounds
         click.addSubview(host)
-        click.onClick = { if !Tour.advance(line.text) { SpeechBubbleCenter.shared.dismiss() } }
+        click.onClick = {
+            line.tap?()
+            if line.tap != nil || !Tour.advance(line.text) { SpeechBubbleCenter.shared.dismiss() }
+        }
         click.onHover = { [weak self] on in
             self?.deadline?.hover(on, now: Date())
             if !on { self?.arm() }
@@ -225,12 +236,13 @@ final class SpeechBubbleWindow {
         p.contentView = click
         p.setContentSize(size)
         p.alphaValue = 1
-        p.setFrameOrigin(anchor.map { Self.above($0, size: size, lift: FocusBubble.shared.lift(over: $0)) } ?? origin(size: size, byCursor: byCursor))
+        let place = { (a: CGPoint, size: CGSize) in line.under ? Self.below(a, size: size) : Self.above(a, size: size, lift: FocusBubble.shared.lift(over: a)) }
+        p.setFrameOrigin(anchor.map { place($0, size) } ?? origin(size: size, byCursor: byCursor))
         p.orderFrontRegardless()
         if let follow = line.anchor, anchor != nil {
             let t = Timer(timeInterval: 1.0 / 20, repeats: true) { [weak p] _ in
                 guard let p, let a = follow() else { return }
-                let o = Self.above(a, size: p.frame.size, lift: FocusBubble.shared.lift(over: a))
+                let o = place(a, p.frame.size)
                 if o != p.frame.origin { p.setFrameOrigin(o) }
             }
             RunLoop.main.add(t, forMode: .common)
@@ -274,6 +286,12 @@ final class SpeechBubbleWindow {
     static func above(_ point: CGPoint, size: CGSize, lift: CGFloat = 0) -> CGPoint {
         let screen = NSScreen.screens.first { NSMouseInRect(point, $0.frame, false) } ?? NSScreen.main
         return BuddyMath.clamp(CGPoint(x: point.x - size.width / 2, y: point.y - 4 + lift), size: size, in: screen?.visibleFrame ?? .zero)
+    }
+
+    /// Its tail on `point` from under (a friend's feet along the top), kept on that screen.
+    static func below(_ point: CGPoint, size: CGSize) -> CGPoint {
+        let screen = NSScreen.screens.first { NSMouseInRect(point, $0.frame, false) } ?? NSScreen.main
+        return BuddyMath.clamp(CGPoint(x: point.x - size.width / 2, y: point.y + 4 - size.height), size: size, in: screen?.visibleFrame ?? .zero)
     }
 
     /// Our status item lives in an NSStatusBarWindow; the app has exactly one.
@@ -348,13 +366,21 @@ struct SpeechBubbleView: View {
     var card: PoseCard?
     var art: NSImage?
     var smooth = false
+    var fortune: FortuneReading?
+    var photo: NSImage?
     /// 동작 줄이기: the card fades in, no pop.
     var still = false
     @State private var popped = false
+    /// The 시즌 말풍선 색 when one is worn (pale, so its text is dark in both appearances).
+    private let tint = SeasonCenter.shared.bubbleHex.map { hex in
+        let c = RGBColor(hex: hex)
+        return Color(red: Double(c.r) / 255, green: Double(c.g) / 255, blue: Double(c.b) / 255)
+    }
+    private var paper: Color { tint ?? Color(nsColor: .windowBackgroundColor) }
 
     var body: some View {
         VStack(spacing: 0) {
-            if tailUp { Tail().fill(Color(nsColor: .windowBackgroundColor)).frame(width: 14, height: 7) }
+            if tailUp { Tail().fill(paper).frame(width: 14, height: 7) }
             words
             if let card, let art {
                 PoseCardView(image: art, smooth: smooth, glows: card.glows).padding(.top, 6)
@@ -362,7 +388,17 @@ struct SpeechBubbleView: View {
                     .opacity(popped ? 1 : 0)
                     .onAppear { withAnimation(still ? .easeOut(duration: 0.2) : .spring(response: 0.35, dampingFraction: 0.55)) { popped = true } }
             }
-            if tailDown { Tail().fill(Color(nsColor: .windowBackgroundColor)).frame(width: 14, height: 7).rotationEffect(.degrees(180)) }
+            if let fortune { FortuneCardView(reading: fortune).padding(.top, 4) }
+            if let photo {
+                let s = PhotoZoomView.fit(photo.size, in: CGSize(width: 160, height: 160))
+                Image(nsImage: photo).resizable().interpolation(.high)
+                    .frame(width: s.width, height: s.height)
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(Color.white, lineWidth: 3))
+                    .padding(.top, 6)
+                    .accessibilityLabel(L("사진, 눌러서 크게 보기"))
+            }
+            if tailDown { Tail().fill(paper).frame(width: 14, height: 7).rotationEffect(.degrees(180)) }
         }
         .compositingGroup()
         .shadow(color: .black.opacity(0.22), radius: 6, y: 2)
@@ -374,13 +410,13 @@ struct SpeechBubbleView: View {
         VStack(spacing: 0) {
             Text(text)
                 .font(.system(size: 12))
-                .foregroundStyle(.primary)
+                .foregroundStyle(tint == nil ? Color.primary : Color(white: 0.12))
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(width: Self.width(text), alignment: .leading)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 9)
-                .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color(nsColor: .windowBackgroundColor)))
+                .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(paper))
                 .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(Color.primary.opacity(0.12), lineWidth: 0.5))
                 .overlay(alignment: .topTrailing) {
                     if closable {

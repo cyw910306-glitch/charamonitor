@@ -77,24 +77,25 @@ final class DesktopTests: XCTestCase {
         XCTAssertEqual(r.poll(at: 2), [])
     }
 
-    /// Every friend's menu: its own items, then 데스크톱 친구 ▸ and 설정 열기; a fresh submenu each time.
+    /// Every friend's menu: its own items, then 오늘의 운세 ▸, 데스크톱 친구 ▸ and 설정 열기; a fresh submenu each time.
     func testFriendMenuEndsWithTheSharedItems() {
         var ran = false, settings = false
         FriendMenu.openSettings = { settings = true }
         defer { FriendMenu.openSettings = nil }
         let a = FriendMenu.build([FriendMenu.item("own") { ran = true }])
-        XCTAssertEqual(a.items.map(\.title), ["own", "", L("데스크톱 친구"), L("설정 열기")])
-        XCTAssertEqual(a.items[2].submenu?.items.count, DesktopFriends.toggles.count + 4)   // toggles, separator, 후원 친구 지금 보기, 집중, 놀이 ▸
+        XCTAssertEqual(a.items.map(\.title), ["own", "", L("오늘의 운세"), L("데스크톱 친구"), L("설정 열기")])
+        XCTAssertEqual(a.items[2].submenu?.items.count, 2)   // 오늘 운세 보기, 다시 뽑기
+        XCTAssertEqual(a.items[3].submenu?.items.count, DesktopFriends.toggles.count + 6)   // toggles, separator, 후원 친구 지금 보기, 집중, 숨 고르기, 놀이 ▸, 포스트잇 붙이기
         a.performActionForItem(at: 0)
-        a.performActionForItem(at: 3)
+        a.performActionForItem(at: 4)
         XCTAssertFalse(ran)   // runs once the menu has let go
         RunLoop.main.run(until: Date().addingTimeInterval(0.05))
         XCTAssertTrue(ran)
         XCTAssertTrue(settings)
         XCTAssertFalse(FriendMenu.isOpen)
         let b = FriendMenu.build([])
-        XCTAssertEqual(b.items.map(\.title), [L("데스크톱 친구"), L("설정 열기")])
-        XCTAssertFalse(a.items[2].submenu === b.items[0].submenu)
+        XCTAssertEqual(b.items.map(\.title), [L("오늘의 운세"), L("데스크톱 친구"), L("설정 열기")])
+        XCTAssertFalse(a.items[3].submenu === b.items[1].submenu)
     }
 
     func testClickRecognizerDragAndThrow() {

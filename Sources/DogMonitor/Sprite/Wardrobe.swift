@@ -17,13 +17,16 @@ enum Wardrobe {
         let pin: Int
         /// A shirt's "#RRGGBB".
         var hex: String? = nil
+        /// A 시즌 뽑기판 prize: offered once owned (SeasonCenter), drawn whenever worn (a friend's too).
+        var season = false
     }
 
-    private static let ink: [Character: PixelColor] = [
+    static let ink: [Character: PixelColor] = [
         "R": PixelColor(hex: "#E2384D"), "r": PixelColor(hex: "#A3243A"), "W": PixelColor(hex: "#FFFFFF"),
         "K": PixelColor(hex: "#2B2B2B"), "Y": PixelColor(hex: "#F2C230"), "y": PixelColor(hex: "#B88A00"),
         "P": PixelColor(hex: "#FF7EA8"), "G": PixelColor(hex: "#3EC48F"), "B": PixelColor(hex: "#5AAEF5"),
         "b": PixelColor(hex: "#2A72B0"), "L": PixelColor(hex: "#9D86EE"), "c": PixelColor(hex: "#CDEBFF"),
+        "n": PixelColor(hex: "#8A5A3B"), "g": PixelColor(hex: "#2F7D5B"),
     ]
 
     static let items: [Item] = [
@@ -46,6 +49,16 @@ enum Wardrobe {
         Item(id: "shirt-sky", slot: .shirt, name: L("하늘"), art: [], pin: 0, hex: "#5AAEF5"),
         Item(id: "shirt-white", slot: .shirt, name: L("흰"), art: [], pin: 0, hex: "#FFFFFF"),
         Item(id: "shirt-black", slot: .shirt, name: L("검정"), art: [], pin: 0, hex: "#333333"),
+        // 첫눈 시즌 (web/season.json)
+        Item(id: "s-earmuffs", slot: .head, name: L("귀마개"), art: [".KKKKKKK.", "K.......K", "PP.....PP", "PP.....PP"], pin: 1, season: true),
+        Item(id: "s-snowcap", slot: .head, name: L("눈송이 털모자"), art: ["...W...", "..BBB..", ".BWBWB.", "BBBBBBB", "WWWWWWW"], pin: 4, season: true),
+        Item(id: "s-antlers", slot: .head, name: L("사슴뿔"), art: ["n.n...n.n", ".nn...nn.", "..n...n.."], pin: 2, season: true),
+        Item(id: "s-starglasses", slot: .eyes, name: L("별 안경"), art: [".Y...Y.", "YYYKYYY", ".Y...Y."], pin: 1, season: true),
+        Item(id: "s-checkscarf", slot: .neck, name: L("체크 목도리"), art: ["gWgWgWg", "WgWgWgW", "....gW.", "....Wg."], pin: 0, season: true),
+        Item(id: "s-bell", slot: .neck, name: L("방울 목걸이"), art: ["R.....R", ".RRRRR.", "...Y...", "...y..."], pin: 1, season: true),
+        Item(id: "s-shirt-snow", slot: .shirt, name: L("눈꽃"), art: [], pin: 0, hex: "#E4F1FF", season: true),
+        Item(id: "s-shirt-pine", slot: .shirt, name: L("솔잎"), art: [], pin: 0, hex: "#2F7D5B", season: true),
+        Item(id: "s-shirt-berry", slot: .shirt, name: L("산딸기"), art: [], pin: 0, hex: "#B8325A", season: true),
     ]
 
     static func item(_ id: String?) -> Item? { id.flatMap { id in items.first { $0.id == id } } }

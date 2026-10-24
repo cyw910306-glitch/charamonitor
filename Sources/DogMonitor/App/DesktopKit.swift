@@ -148,8 +148,159 @@ struct ClickRecognizer {
     }
 }
 
-/// The right click (or control click) on every 데스크톱 친구: the friend's own items, then 데스크톱 친구 ▸ (the quick
-/// on/off, 집중) and 설정 열기. Built fresh each time, so no menu is popped from two places or hung under two parents.
+/// What a friend's hotspot takes clicks on, in the hotspot's own points (y up): the frame's drawn pixels where it is
+/// drawn (the whole box with no mask), or a free `outline`, plus `extra` boxes, all moved by `transform`.
+struct HotspotShape: Equatable {
+    var hit: AlphaHit?
+    var drawn: CGRect = .zero
+    /// Facing left: the frame drawn mirrored.
+    var flipped = false
+    var outline: CGPath?
+    var extra: [CGRect] = []
+    var transform = CGAffineTransform.identity
+
+    /// One rect per run of drawn pixels in a row: the same pixels `AlphaHit.hits` says yes to.
+    var path: CGPath {
+        let p = CGMutablePath()
+        if let outline {
+            p.addPath(outline, transform: transform)
+        } else if let hit, hit.width > 0, hit.height > 0 {
+            let cw = drawn.width / CGFloat(hit.width), ch = drawn.height / CGFloat(hit.height)
+            let on = UInt8(min(255, (AlphaHit.threshold * 255).rounded(.up)))
+            for y in 0..<hit.height {
+                var x = 0
+                while x < hit.width {
+                    guard hit.alpha[y * hit.width + x] >= on else { x += 1; continue }
+                    let start = x
+                    while x < hit.width, hit.alpha[y * hit.width + x] >= on { x += 1 }
+                    let lo = flipped ? hit.width - x : start
+                    p.addRect(CGRect(x: drawn.minX + CGFloat(lo) * cw, y: drawn.maxY - CGFloat(y + 1) * ch,
+                                     width: CGFloat(x - start) * cw, height: ch), transform: transform)
+                }
+            }
+        } else if !drawn.isEmpty {
+            p.addRect(drawn, transform: transform)
+        }
+        for r in extra { p.addRect(r, transform: transform) }
+        return p
+    }
+}
+
+/// A friend's own little see-through window that takes its clicks, the way a real element takes its own click. The
+/// drawing panels let every click through for good (`ignoresMouseEvents` set once, never toggled, no hover watching):
+/// this one sits over the friend, moved with it each time it is drawn, and fills only its `HotspotShape` at alpha 1/255.
+/// Its `ignoresMouseEvents` is never set, so the window server sends a click on a clear pixel on to the window below.
+/// A drag past `growAfter` grows it over the whole screen one level up, so the press never slips off a friend that
+/// moves under the cursor; the release (or a menu that took it) puts it back.
+final class HotspotPanel: NSPanel {
+    /// Points the press moves before the hotspot covers the screen.
+    static let growAfter: CGFloat = 5
+    /// Low enough to be invisible, enough for the window server to count the pixel as the window's.
+    static let alpha: CGFloat = 1.0 / 255
+    /// QA renders and tests: hotspots are never put on the screen, so none takes a real click.
+    static var qaInert = false
+
+    /// Every press, drag, release, right click and move over it, as AppKit sends them.
+    var onMouse: ((NSEvent) -> Void)?
+    private(set) var grown = false
+    private(set) var shape: HotspotShape?
+    private let fill = CAShapeLayer()
+    private var home = (frame: CGRect.zero, level: NSWindow.Level.floating)
+    private var downAt: CGPoint?
+
+    init() {
+        super.init(contentRect: .zero, styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: true)
+        isOpaque = false
+        backgroundColor = .clear
+        hasShadow = false
+        hidesOnDeactivate = false
+        collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary]
+        isExcludedFromWindowsMenu = true
+        isReleasedWhenClosed = false
+        sharingType = .none   // nothing to see
+        let v = HotspotView()
+        v.wantsLayer = true
+        fill.fillColor = NSColor(white: 1, alpha: Self.alpha).cgColor
+        fill.actions = ["path": NSNull(), "hidden": NSNull()]
+        v.layer?.addSublayer(fill)
+        contentView = v
+    }
+
+    override var canBecomeKey: Bool { false }
+    override var canBecomeMain: Bool { false }
+
+    /// Over the friend now: `frame` in screen points, `shape` in its own. Only what changed is sent on, and nothing
+    /// moves while it is grown for a drag. Shown again, it comes in front of its level, or just over window `above`.
+    func place(_ frame: CGRect, _ shape: HotspotShape, level: NSWindow.Level, above: Int? = nil) {
+        home = (frame, level)
+        if grown, NSEvent.pressedMouseButtons & 1 == 0 { shrink() }   // a release it never saw
+        guard !grown else { return }
+        if self.frame != frame { setFrame(frame, display: false) }
+        if self.level != level { self.level = level }
+        if shape != self.shape { self.shape = shape; fill.path = shape.path }
+        if !isVisible, !Self.qaInert { if let above { order(.above, relativeTo: above) } else { orderFrontRegardless() } }
+    }
+
+    /// The friend is gone or hidden: nothing left to click.
+    func hide() {
+        shrink()
+        downAt = nil
+        if isVisible { orderOut(nil) }
+    }
+
+    /// A press moved far enough from where it went down to grow.
+    static func grows(from a: CGPoint, to b: CGPoint) -> Bool { hypot(b.x - a.x, b.y - a.y) >= growAfter }
+
+    override func sendEvent(_ e: NSEvent) {
+        let at = convertPoint(toScreen: e.locationInWindow)
+        switch e.type {
+        case .leftMouseDown: downAt = at
+        case .leftMouseDragged: if !grown, let d = downAt, Self.grows(from: d, to: at) { grow(at: at) }
+        default: break
+        }
+        switch e.type {
+        case .leftMouseDown, .leftMouseDragged, .leftMouseUp, .rightMouseDown, .mouseMoved, .mouseEntered, .mouseExited: onMouse?(e)
+        default: super.sendEvent(e)
+        }
+        switch e.type {
+        case .leftMouseUp, .rightMouseDown: downAt = nil; shrink()
+        case .leftMouseDown where NSEvent.pressedMouseButtons & 1 == 0 && e.modifierFlags.contains(.control):
+            downAt = nil; shrink()   // control click: its menu took the release
+        default: break
+        }
+    }
+
+    private func grow(at p: CGPoint) {
+        guard let screen = NSScreen.screens.first(where: { NSMouseInRect(p, $0.frame, false) }) ?? self.screen else { return }
+        grown = true
+        fill.isHidden = true
+        contentView?.layer?.backgroundColor = NSColor(white: 1, alpha: Self.alpha).cgColor
+        level = NSWindow.Level(home.level.rawValue + 1)
+        setFrame(screen.visibleFrame, display: false)
+    }
+
+    private func shrink() {
+        guard grown else { return }
+        grown = false
+        contentView?.layer?.backgroundColor = nil
+        fill.isHidden = false
+        level = home.level
+        setFrame(home.frame, display: false)
+    }
+}
+
+/// Takes the first click (the panel never becomes key) and the moves while over it; the panel hands them on.
+private final class HotspotView: NSView {
+    override init(frame: NSRect) {
+        super.init(frame: frame)
+        addTrackingArea(NSTrackingArea(rect: .zero, options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self))
+    }
+    required init?(coder: NSCoder) { fatalError("not used") }
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+}
+
+/// The right click (or control click) on every 데스크톱 친구: the friend's own items, then 오늘의 운세 ▸, 데스크톱 친구 ▸
+/// (the quick on/off, 집중) and 설정 열기. Built fresh each time, so no menu is popped from two places or hung under two parents.
 enum FriendMenu {
     /// Opens the dashboard on 설정. Set by StatusItemController.
     static var openSettings: (() -> Void)?
@@ -181,8 +332,10 @@ enum FriendMenu {
             .separator(),
         ] + sponsorItems + [
             item(focus.running ? L("집중 그만하기") : L("집중 시작")) { if focus.running { focus.stop() } else { focus.start() } },
+            item(L("숨 고르기 (30초)")) { BreathCenter.shared.open() },
             submenu(L("놀이"), playItems()),
-        ] + SocialBus.menuItems() + OfficeCenter.menuItems()
+            item(L("포스트잇 붙이기")) { StickyBoard.shared.addNote() },
+        ] + SocialBus.menuItems() + RemoteMeet.menuItems() + OfficeCenter.menuItems()
     }
 
     /// 후원 친구 지금 보기 (the direct build only).
@@ -201,13 +354,14 @@ enum FriendMenu {
         },
          item(L("별 줍기")) { StarGame.shared.start(duel: false) },
          item(L("2인 대결")) { StarGame.shared.start(duel: true) },
-         .separator()] + ClickGames.menuItems()
+         .separator()] + ClickGames.menuItems() + [.separator(), Lunch.menuItem(), GroupDraw.menuItem()] + SeasonPanel.menuItems()
     }
 
     static func build(_ own: [NSMenuItem]) -> NSMenu {
         let menu = NSMenu()
         own.forEach(menu.addItem)
         if !own.isEmpty { menu.addItem(.separator()) }
+        menu.addItem(submenu(L("오늘의 운세"), Fortune.menuItems()))
         menu.addItem(submenu(L("데스크톱 친구"), desktopItems()))
         menu.addItem(item(L("설정 열기")) { openSettings?() })
         return menu
@@ -409,6 +563,93 @@ struct Fling {
         velocity.dx *= friction
         velocity.dy = -velocity.dy * restitution
         if velocity.dy < Self.rest { velocity.dy = 0 } else { bounces += 1 }
+    }
+}
+
+/// 창에 매달기: a friend tied by a rubber band to a spot on another app's window. Within `length` the band is slack and
+/// the friend falls, or stands on the window's top edge (`floor`); past it the band pulls back, so a friend pulled away
+/// and let go springs back and bounces. `position` is the bottom middle of the drawing, like Fling's. Fixed steps.
+struct RubberBand {
+    static let length: CGFloat = 48
+    static let step: TimeInterval = 1.0 / 60
+    /// At most this much time is caught up per call (a stall does not fire it off).
+    static let maxLag: TimeInterval = 0.125
+    static let maxSpeed: CGFloat = 2400
+    /// Share of the speed kept bouncing off the window's top edge.
+    static let bounce: CGFloat = 0.7
+    /// A let-go is held to this much speed each way.
+    static let release = CGVector(dx: 650, dy: 850)
+    /// Pulled farther than `length` × this, the band lets go.
+    static let snapAt: CGFloat = 4
+
+    // The knobs to tune by hand: the band's pull per point past `length`, its damping while stretched, gravity.
+    var stiffness: CGFloat = 80
+    var damping: CGFloat = 4
+    var gravity: CGFloat = 2400
+
+    var anchor: CGPoint
+    /// The window's top edge it stands on; nil hanging by a side.
+    var floor: (minX: CGFloat, maxX: CGFloat, y: CGFloat)?
+    var position: CGPoint
+    var velocity = CGVector.zero
+    private var lag: TimeInterval = 0
+    /// Hits on the floor that bounced it back up.
+    private(set) var bounces = 0
+
+    init(anchor: CGPoint, floor: (minX: CGFloat, maxX: CGFloat, y: CGFloat)?, position: CGPoint) {
+        self.anchor = anchor; self.floor = floor; self.position = position
+    }
+
+    private var distance: CGFloat { hypot(position.x - anchor.x, position.y - anchor.y) }
+    var stretch: CGFloat { max(0, distance - Self.length) }
+    var snapped: Bool { distance > Self.length * Self.snapAt }
+    /// On the window's top edge, not going up.
+    var standing: Bool {
+        guard let f = floor else { return false }
+        return position.y == f.y && position.x >= f.minX && position.x <= f.maxX && velocity.dy <= 0
+    }
+    /// Still: standing, or hanging where the band holds it up.
+    var isSettled: Bool {
+        hypot(velocity.dx, velocity.dy) < 8 && (standing || abs(stretch - gravity / stiffness) < 3)
+    }
+
+    /// Let go with `v`, held to `release`.
+    mutating func release(_ v: CGVector) {
+        velocity = CGVector(dx: min(max(v.dx, -Self.release.dx), Self.release.dx), dy: min(max(v.dy, -Self.release.dy), Self.release.dy))
+        lag = 0
+    }
+
+    /// The window moved: everything moves with it.
+    mutating func follow(_ a: CGPoint, floor f: (minX: CGFloat, maxX: CGFloat, y: CGFloat)?) {
+        position.x += a.x - anchor.x; position.y += a.y - anchor.y
+        anchor = a
+        floor = f
+    }
+
+    mutating func step(dt: TimeInterval) {
+        lag = min(Self.maxLag, lag + max(0, dt))
+        while lag >= Self.step - 1e-9 {
+            lag -= Self.step
+            let h = CGFloat(Self.step), on = standing
+            if !on { velocity.dy -= gravity * h }
+            let dx = position.x - anchor.x, dy = position.y - anchor.y, d = hypot(dx, dy)
+            if d > Self.length {
+                let pull = stiffness * (d - Self.length) * h, k = exp(-damping * h)
+                velocity.dx = (velocity.dx - dx / d * pull) * k
+                velocity.dy = (velocity.dy - dy / d * pull) * k
+            }
+            if on { velocity.dx *= exp(-8 * h); velocity.dy = max(0, velocity.dy) }
+            let s = hypot(velocity.dx, velocity.dy)
+            if s > Self.maxSpeed { velocity.dx *= Self.maxSpeed / s; velocity.dy *= Self.maxSpeed / s }
+            let was = position
+            position.x += velocity.dx * h
+            position.y += velocity.dy * h
+            if let f = floor, velocity.dy < 0, was.y >= f.y, position.y < f.y, position.x >= f.minX, position.x <= f.maxX {
+                position.y = f.y
+                velocity.dy = -velocity.dy * Self.bounce
+                if velocity.dy < 60 { velocity.dy = 0 } else { bounces += 1 }
+            }
+        }
     }
 }
 

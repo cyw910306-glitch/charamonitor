@@ -77,6 +77,8 @@ final class NetPlay {
     static let shared = NetPlay()
     static let ready = true
     private var link = NetPlayLink()
+    /// The game on now, if any.
+    var session: NetPlayLink.Game? { link.session }
     private var bag = Set<AnyCancellable>()
     private var asking = false
     private var ghost: NetGhost?
@@ -141,7 +143,12 @@ final class NetPlay {
         DispatchQueue.main.async { [self] in
             let n = name(id)
             let title = game == .play ? L("\(n)이(가) 같이 뛰자고 해요") : L("\(n)이(가) 별 대결 하자고 해요")
+            #if MAS
             let yes = SocialAlerts.ask(title, "", [L("수락"), L("거절")], timeout: NetPlayLink.inviteLife, safe: 1) == .alertFirstButtonReturn
+            #else
+            let yes = SocialQA.active ? SocialQA.decide("invite")
+                : SocialAlerts.ask(title, "", [L("수락"), L("거절")], timeout: NetPlayLink.inviteLife, safe: 1) == .alertFirstButtonReturn
+            #endif
             asking = false
             let ok = yes && SocialBus.shared.online.contains(id) && !PlayMode.shared.isPlaying && link.session == nil
             SocialBus.shared.send(.inviteAnswer(accept: ok), to: id)

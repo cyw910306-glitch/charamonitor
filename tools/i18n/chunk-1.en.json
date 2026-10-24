@@ -1976,8 +1976,8 @@
   "en": "(4/4) Talk to me in AI Assistant on the dashboard."
  },
  {
-  "key": "플러그인이 생겼어요. 매주 하나씩 열려요: 하늘날기, 옷 입히기, 같은 와이파이 친구, 같이 놀기, 무전기, 가상 오피스, 원격 지원. 설정 > 데스크톱 친구 > 플러그인에서 봐요.",
-  "en": "Plugins are here. One opens each week: flying, dress-up, same Wi-Fi friends, play together, walkie-talkie, virtual office, remote help. See Settings > Desktop Friends > Plugins."
+  "key": "딴짓 지킴이가 왔어요. 딴짓이 길어지면 하던 일로 돌아가자고 알려 주고, 원하면 고양이가 앞발로 탭을 닫아요. 설정 > 데스크톱 친구에서 켜요.",
+  "en": "Drift Guard is here. When drifting runs long it nudges you back to your work, and if you like, a cat paws the tab closed. Turn it on in Settings > Desktop Friends."
  },
  {
   "key": "업데이트됐어요! ",
@@ -2874,5 +2874,1033 @@
  {
   "key": "이 맥 안의 Apple Intelligence로 답해요. 대화는 맥 밖으로 나가지 않아요.",
   "en": "Answering with Apple Intelligence on this Mac. Your chat never leaves your Mac."
+ },
+ {
+  "key": "퇴근길 노을",
+  "en": "Sunset on the way home"
+ },
+ {
+  "key": "새벽 두 시 사무실",
+  "en": "The office at 2 a.m."
+ },
+ {
+  "key": "비 오는 숲",
+  "en": "Rainy forest"
+ },
+ {
+  "key": "숨 한 번 잘 골랐어. 어깨가 조금 내려갔지?",
+  "en": "Nice breath. Shoulders a little lower now, right?"
+ },
+ {
+  "key": "숨 한 번 잘 골랐어요. 어깨가 조금 내려갔죠?",
+  "en": "Nice breath. Shoulders a little lower now, right?"
+ },
+ {
+  "key": "오늘 두 번째야. 아까보다 편해 보여.",
+  "en": "That's two today. You look easier than before."
+ },
+ {
+  "key": "오늘 두 번째예요. 아까보다 편해 보여요.",
+  "en": "That's two today. You look easier than before."
+ },
+ {
+  "key": "오늘 %lld번째 숨 고르기. 나를 잘 챙기고 있네!",
+  "en": "Breathing break number %lld today. You're taking good care of yourself!"
+ },
+ {
+  "key": "오늘 %lld번째 숨 고르기. 나를 잘 챙기고 있어요!",
+  "en": "Breathing break number %lld today. You're taking good care of yourself!"
+ },
+ {
+  "key": "내쉬어요",
+  "en": "Breathe out"
+ },
+ {
+  "key": "들이쉬어요",
+  "en": "Breathe in"
+ },
+ {
+  "key": "눈을 감고 원을 따라 숨 쉬어요",
+  "en": "Close your eyes and breathe with the circle"
+ },
+ {
+  "key": "오늘 숨 고르기 %lld번",
+  "en": "Breathing breaks today: %lld"
+ },
+ {
+  "key": "30초 숨 고르기",
+  "en": "30-second breathing break"
+ },
+ {
+  "key": "집중 끝! 30초 숨 고르기 할래?",
+  "en": "Focus done! Take a 30-second breather?"
+ },
+ {
+  "key": "집중 끝! 30초 숨 고르기 할래요?",
+  "en": "Focus done! Take a 30-second breather?"
+ },
+ {
+  "key": "싱잉볼 소리",
+  "en": "Singing bowl sound"
+ },
+ {
+  "key": "오늘 %lld번",
+  "en": "%lld today"
+ },
+ {
+  "key": "괜찮아요",
+  "en": "No thanks"
+ },
+ {
+  "key": "시작",
+  "en": "Start"
+ },
+ {
+  "key": "할래요",
+  "en": "Sure"
+ },
+ {
+  "key": "숨 고르기 (30초)",
+  "en": "Breathing break (30 s)"
+ },
+ {
+  "key": "포스트잇 붙이기",
+  "en": "Add a sticky note"
+ },
+ {
+  "key": "오늘의 운세",
+  "en": "Today's fortune"
+ },
+ {
+  "key": "오늘은 메일 답장이 술술 써지는 날이에요.",
+  "en": "Emails will practically write themselves today."
+ },
+ {
+  "key": "회의가 예정보다 5분 일찍 끝날 기운이 보여요.",
+  "en": "Your meeting looks set to end five minutes early."
+ },
+ {
+  "key": "오늘 한 일은 내일의 내가 고마워할 거예요.",
+  "en": "Tomorrow's you will thank you for today's work."
+ },
+ {
+  "key": "커피가 유난히 맛있게 내려지는 하루예요.",
+  "en": "Your coffee will taste unusually good today."
+ },
+ {
+  "key": "미뤄 둔 일 하나가 생각보다 금방 끝나요.",
+  "en": "That task you put off will be done sooner than you think."
+ },
+ {
+  "key": "퇴근 시간이 평소보다 가깝게 느껴지는 날이에요.",
+  "en": "Clocking-out time feels closer than usual today."
+ },
+ {
+  "key": "엘리베이터 운이 좋아요. 기다리면 바로 와요.",
+  "en": "Elevator luck is on your side. It comes right away."
+ },
+ {
+  "key": "작은 칭찬 하나가 하루를 데워 줄 거예요.",
+  "en": "One small compliment will warm up your day."
+ },
+ {
+  "key": "점심 메뉴 고민이 3초 만에 끝나는 날이에요.",
+  "en": "Lunch will be decided in three seconds today."
+ },
+ {
+  "key": "키보드가 손에 착 붙는 날이에요. 오타도 적어요.",
+  "en": "The keyboard feels just right today. Fewer typos, too."
+ },
+ {
+  "key": "오늘의 나는 생각보다 일을 잘해요.",
+  "en": "You're better at your job today than you think."
+ },
+ {
+  "key": "할 일 목록에 체크 표시가 늘어나는 기운이 있어요.",
+  "en": "Your to-do list is about to fill up with check marks."
+ },
+ {
+  "key": "느긋하게 시작해도 결국 다 해내는 날이에요.",
+  "en": "Start slow, still finish everything today."
+ },
+ {
+  "key": "와이파이도 나도 오늘은 신호가 좋아요.",
+  "en": "The Wi-Fi and you both have a strong signal today."
+ },
+ {
+  "key": "누군가 내 자리에 간식을 두고 갈지도 몰라요.",
+  "en": "Someone might leave a snack on your desk."
+ },
+ {
+  "key": "첫 메일 하나만 보내면 나머지는 따라와요.",
+  "en": "Send the first email and the rest will follow."
+ },
+ {
+  "key": "회의록은 내가 쓰면 칭찬받아요.",
+  "en": "Write the meeting notes and you'll get the credit."
+ },
+ {
+  "key": "어려운 일은 오전에, 쉬운 일은 오후에.",
+  "en": "Hard work in the morning, easy work in the afternoon."
+ },
+ {
+  "key": "파일 이름을 잘 지어 두면 오후가 편해요.",
+  "en": "Name your files well and the afternoon goes easy."
+ },
+ {
+  "key": "오늘 고친 문제는 다시 안 나와요.",
+  "en": "The bug you fix today won't come back."
+ },
+ {
+  "key": "저장 버튼을 자주 누르면 행운이 따라요.",
+  "en": "Hit save often and luck follows."
+ },
+ {
+  "key": "슬라이드 한 장을 덜면 발표가 가벼워져요.",
+  "en": "Drop one slide and the talk gets lighter."
+ },
+ {
+  "key": "질문 하나가 한 시간을 아껴 줘요.",
+  "en": "One question saves an hour."
+ },
+ {
+  "key": "답장은 짧게, 인사는 다정하게.",
+  "en": "Keep replies short and greetings warm."
+ },
+ {
+  "key": "탭을 몇 개 닫으면 머리도 맑아져요.",
+  "en": "Close a few tabs and your head clears too."
+ },
+ {
+  "key": "미뤄 둔 그 일, 10분만 해 보면 반은 끝나요.",
+  "en": "That task you put off: ten minutes and it's half done."
+ },
+ {
+  "key": "오늘 정한 마감은 여유 있게 지켜져요.",
+  "en": "Today's deadline will be met with room to spare."
+ },
+ {
+  "key": "장바구니는 하루 묵히면 더 현명해져요.",
+  "en": "Let the shopping cart sit a day and you'll shop smarter."
+ },
+ {
+  "key": "커피 쿠폰 도장이 하나 더 찍히는 날이에요.",
+  "en": "One more stamp on your coffee card today."
+ },
+ {
+  "key": "오늘의 지출은 나를 위한 작은 투자예요.",
+  "en": "Today's spending is a small investment in you."
+ },
+ {
+  "key": "잊고 있던 포인트를 발견할 수 있어요.",
+  "en": "You may find points you forgot you had."
+ },
+ {
+  "key": "무료 배송 기준을 딱 맞출 운이에요.",
+  "en": "You'll hit the free shipping minimum just right."
+ },
+ {
+  "key": "주머니에서 반가운 동전이 나와요.",
+  "en": "A welcome coin turns up in your pocket."
+ },
+ {
+  "key": "구독 하나를 점검하면 지갑이 웃어요.",
+  "en": "Check one subscription and your wallet smiles."
+ },
+ {
+  "key": "할인 알림이 반가운 소식을 가져와요.",
+  "en": "A sale alert brings good news."
+ },
+ {
+  "key": "영수증을 챙기면 나중에 도움이 돼요.",
+  "en": "Keep your receipts. They'll help later."
+ },
+ {
+  "key": "오늘은 사는 것보다 아끼는 게 더 신나요.",
+  "en": "Saving is more fun than buying today."
+ },
+ {
+  "key": "먼저 건넨 인사가 좋은 대화로 이어져요.",
+  "en": "A hello you start turns into a good chat."
+ },
+ {
+  "key": "옆자리 동료와 웃을 일이 생겨요.",
+  "en": "You'll share a laugh with the person next to you."
+ },
+ {
+  "key": "고맙다는 말 한마디가 두 배로 돌아와요.",
+  "en": "A thank-you comes back twice as big."
+ },
+ {
+  "key": "오랜만에 연락 온 사람이 반가운 소식을 줘요.",
+  "en": "Someone you haven't heard from in a while brings good news."
+ },
+ {
+  "key": "오늘은 들어 주는 쪽이 이기는 날이에요.",
+  "en": "Today the listener wins."
+ },
+ {
+  "key": "이모티콘 하나로 분위기가 풀려요.",
+  "en": "One emoji lightens the mood."
+ },
+ {
+  "key": "부탁할 일이 있다면 오늘이 좋아요.",
+  "en": "If you need a favor, today is a good day to ask."
+ },
+ {
+  "key": "점심을 같이 먹는 사람과 더 친해져요.",
+  "en": "You'll get closer to whoever you have lunch with."
+ },
+ {
+  "key": "단톡방에서 내 농담이 통해요.",
+  "en": "Your joke lands in the group chat."
+ },
+ {
+  "key": "칭찬은 구체적으로 하면 효과가 커요.",
+  "en": "Specific praise works best."
+ },
+ {
+  "key": "따뜻한 차 한 잔이 머리를 맑게 해요.",
+  "en": "A cup of warm tea clears your head."
+ },
+ {
+  "key": "오후 3시의 초콜릿 한 조각이 기운을 줘요.",
+  "en": "A square of chocolate at 3 p.m. gives you a boost."
+ },
+ {
+  "key": "바삭한 과자가 회의 뒤 피로를 씻어 줘요.",
+  "en": "A crunchy snack washes away post-meeting fatigue."
+ },
+ {
+  "key": "오늘은 과일 간식이 행운을 불러요.",
+  "en": "Fruit snacks bring luck today."
+ },
+ {
+  "key": "물을 한 잔 더 마시면 컨디션이 올라가요.",
+  "en": "One more glass of water lifts your mood."
+ },
+ {
+  "key": "편의점 신상 간식이 성공할 확률이 높아요.",
+  "en": "The new convenience store snack is likely a hit."
+ },
+ {
+  "key": "달콤한 빵은 반만 먹고 반은 나눠 주세요.",
+  "en": "Eat half the sweet bread and share the other half."
+ },
+ {
+  "key": "아이스보다 따뜻한 음료가 잘 맞아요.",
+  "en": "A warm drink suits you better than an iced one."
+ },
+ {
+  "key": "간식 서랍을 정리하면 숨은 보물이 나와요.",
+  "en": "Tidy the snack drawer and find hidden treasure."
+ },
+ {
+  "key": "견과류 한 줌이 오후를 버티게 해 줘요.",
+  "en": "A handful of nuts gets you through the afternoon."
+ },
+ {
+  "key": "노란 포스트잇",
+  "en": "Yellow sticky note"
+ },
+ {
+  "key": "머그컵",
+  "en": "Mug"
+ },
+ {
+  "key": "무선 이어폰",
+  "en": "Wireless earbuds"
+ },
+ {
+  "key": "파란 볼펜",
+  "en": "Blue ballpoint pen"
+ },
+ {
+  "key": "핸드크림",
+  "en": "Hand cream"
+ },
+ {
+  "key": "형광펜",
+  "en": "Highlighter"
+ },
+ {
+  "key": "귤",
+  "en": "Tangerine"
+ },
+ {
+  "key": "보조 배터리",
+  "en": "Power bank"
+ },
+ {
+  "key": "사원증 줄",
+  "en": "Lanyard"
+ },
+ {
+  "key": "스테이플러",
+  "en": "Stapler"
+ },
+ {
+  "key": "작은 화분",
+  "en": "Small plant"
+ },
+ {
+  "key": "텀블러",
+  "en": "Tumbler"
+ },
+ {
+  "key": "귤색",
+  "en": "Tangerine"
+ },
+ {
+  "key": "남색",
+  "en": "Navy"
+ },
+ {
+  "key": "레몬색",
+  "en": "Lemon"
+ },
+ {
+  "key": "버건디",
+  "en": "Burgundy"
+ },
+ {
+  "key": "살구색",
+  "en": "Apricot"
+ },
+ {
+  "key": "연두",
+  "en": "Lime green"
+ },
+ {
+  "key": "크림색",
+  "en": "Cream"
+ },
+ {
+  "key": "하늘색",
+  "en": "Sky blue"
+ },
+ {
+  "key": "간식",
+  "en": "Snacks"
+ },
+ {
+  "key": "돈",
+  "en": "Money"
+ },
+ {
+  "key": "사람",
+  "en": "People"
+ },
+ {
+  "key": "다시 뽑기 (하루 한 번)",
+  "en": "Draw again (once a day)"
+ },
+ {
+  "key": "다시 뽑기는 내일 또 돼요",
+  "en": "You can draw again tomorrow"
+ },
+ {
+  "key": "오늘 운세 보기",
+  "en": "See today's fortune"
+ },
+ {
+  "key": "다시 뽑은 운세",
+  "en": "Your new fortune"
+ },
+ {
+  "key": "별 %lld개",
+  "en": "%lld stars"
+ },
+ {
+  "key": "행운의 물건: %@ · 행운의 색: %@",
+  "en": "Lucky item: %1$@ · Lucky color: %2$@"
+ },
+ {
+  "key": "한식",
+  "en": "Korean"
+ },
+ {
+  "key": "중식",
+  "en": "Chinese"
+ },
+ {
+  "key": "일식",
+  "en": "Japanese"
+ },
+ {
+  "key": "양식",
+  "en": "Western"
+ },
+ {
+  "key": "분식",
+  "en": "Street food"
+ },
+ {
+  "key": "아시안",
+  "en": "Asian"
+ },
+ {
+  "key": "샐러드",
+  "en": "Salad"
+ },
+ {
+  "key": "내 메뉴",
+  "en": "My menus"
+ },
+ {
+  "key": "오늘 점심은 %@! 맛있게 드세요",
+  "en": "Today's lunch is %@! Enjoy"
+ },
+ {
+  "key": "오늘 점심은 %@! 맛있게 먹자",
+  "en": "Today's lunch is %@! Let's eat"
+ },
+ {
+  "key": "점심 뽑기",
+  "en": "Lunch picker"
+ },
+ {
+  "key": "곧 점심이야! 메뉴 고민되면 점심 뽑기 레버를 당겨 봐",
+  "en": "Almost lunchtime! Can't decide? Pull the lunch lever"
+ },
+ {
+  "key": "곧 점심이에요! 메뉴 고민되면 점심 뽑기 레버를 당겨 보세요",
+  "en": "Almost lunchtime! Can't decide? Pull the lunch lever"
+ },
+ {
+  "key": "최근 3일 나온 메뉴 빼기",
+  "en": "Skip menus from the last 3 days"
+ },
+ {
+  "key": "11:30에 점심 알림 (평일)",
+  "en": "Lunch reminder at 11:30 (weekdays)"
+ },
+ {
+  "key": "돌아가는 중…",
+  "en": "Spinning…"
+ },
+ {
+  "key": "레버 당기기",
+  "en": "Pull the lever"
+ },
+ {
+  "key": "뭐 먹지?",
+  "en": "What to eat?"
+ },
+ {
+  "key": "아직 안 뽑았어요",
+  "en": "Not drawn yet"
+ },
+ {
+  "key": "오늘 점심: %@",
+  "en": "Today's lunch: %@"
+ },
+ {
+  "key": "어떤 메뉴에서 뽑을까요?",
+  "en": "Which menus should it pick from?"
+ },
+ {
+  "key": "예: 회사 앞 국수집",
+  "en": "e.g. Noodle place by the office"
+ },
+ {
+  "key": "추가",
+  "en": "Add"
+ },
+ {
+  "key": "자주 가는 곳을 넣으면 \"내 메뉴\"에서 함께 나와요",
+  "en": "Add your regular spots and they come up under \"My menus\""
+ },
+ {
+  "key": "%@ 지우기",
+  "en": "Remove %@"
+ },
+ {
+  "key": "모임 %lld명이 꽉 찼어요!",
+  "en": "The %lld-person meetup is full!"
+ },
+ {
+  "key": "눌러서 프로필 카드 보기",
+  "en": "Click to see their profile card"
+ },
+ {
+  "key": "눌러서 친구 추가",
+  "en": "Click to add a friend"
+ },
+ {
+  "key": "모임 정원",
+  "en": "Meetup size"
+ },
+ {
+  "key": "%lld명",
+  "en": "%lld people"
+ },
+ {
+  "key": "지금 %lld명, 정원 %lld명",
+  "en": "%1$lld here now, room for %2$lld"
+ },
+ {
+  "key": "빈자리",
+  "en": "Empty seat"
+ },
+ {
+  "key": "초대 대기",
+  "en": "Waiting for invite"
+ },
+ {
+  "key": "빈자리, 초대 대기",
+  "en": "Empty seat, waiting for invite"
+ },
+ {
+  "key": "모임이 꽉 찼어요!",
+  "en": "The meetup is full!"
+ },
+ {
+  "key": "원격 모임",
+  "en": "Remote meetup"
+ },
+ {
+  "key": "와이파이 밖 친구와 상태·이모트·한마디",
+  "en": "Status, emotes and lines with friends beyond your Wi-Fi"
+ },
+ {
+  "key": "꺼짐 · 눌러서 켜기",
+  "en": "Off · click to turn on"
+ },
+ {
+  "key": "켜짐 · 눌러서 설정",
+  "en": "On · click for settings"
+ },
+ {
+  "key": "라일락",
+  "en": "Lilac"
+ },
+ {
+  "key": "이 메모를 지울까요?",
+  "en": "Delete this note?"
+ },
+ {
+  "key": "지우면 되돌릴 수 없어요.",
+  "en": "This can't be undone."
+ },
+ {
+  "key": "접기",
+  "en": "Fold"
+ },
+ {
+  "key": "메모 지우기",
+  "en": "Delete note"
+ },
+ {
+  "key": "빈 메모",
+  "en": "Empty note"
+ },
+ {
+  "key": "나무 의자",
+  "en": "Wooden chair"
+ },
+ {
+  "key": "쿠션 소파",
+  "en": "Cushion sofa"
+ },
+ {
+  "key": "말랑 빈백",
+  "en": "Squishy beanbag"
+ },
+ {
+  "key": "의자에 앉기",
+  "en": "Sit on the chair"
+ },
+ {
+  "key": "앉기",
+  "en": "Sit"
+ },
+ {
+  "key": "일어나기",
+  "en": "Stand up"
+ },
+ {
+  "key": "의자 바꾸기",
+  "en": "Change chair"
+ },
+ {
+  "key": "의자 치우기",
+  "en": "Put the chair away"
+ },
+ {
+  "key": "의자",
+  "en": "Chair"
+ },
+ {
+  "key": "바탕화면 아래에 의자를 두고 오른쪽 클릭으로 앉아요. 앉아 있으면 친구 화면의 내 캐릭터도 같은 의자에 앉아요. 나무 의자 말고는 시즌 뽑기판에서 모아요.",
+  "en": "Put a chair at the bottom of the desktop and right-click to sit. While you sit, your character on your friends' screens sits on the same chair. Chairs other than the wooden one come from the season board."
+ },
+ {
+  "key": "시즌 뽑기판에서 모아요",
+  "en": "Collect it on the season board"
+ },
+ {
+  "key": "룰렛",
+  "en": "Roulette"
+ },
+ {
+  "key": "사다리",
+  "en": "Ladder"
+ },
+ {
+  "key": "제비뽑기",
+  "en": "Draw lots"
+ },
+ {
+  "key": "항목을 2개 이상 넣어 주세요",
+  "en": "Add at least 2 items"
+ },
+ {
+  "key": "동시에 %lld개까지예요. 기록에서 하나를 끝내 주세요",
+  "en": "Up to %lld at once. End one in the history first"
+ },
+ {
+  "key": "한 시간에 %lld개까지 뽑을 수 있어요",
+  "en": "You can draw up to %lld times an hour"
+ },
+ {
+  "key": "%@ %@의 %@: 👑 %@",
+  "en": "%1$@ %2$@'s %3$@: 👑 %4$@"
+ },
+ {
+  "key": "그룹 뽑기",
+  "en": "Group draw"
+ },
+ {
+  "key": "그룹 뽑기…",
+  "en": "Group draw…"
+ },
+ {
+  "key": "게임",
+  "en": "Game"
+ },
+ {
+  "key": "제목 (선택, 15자)",
+  "en": "Title (optional, 15 characters)"
+ },
+ {
+  "key": "항목을 넣고 뽑기를 누르면 모두에게 같은 결과가 나와요",
+  "en": "Add items and press Draw: everyone sees the same result"
+ },
+ {
+  "key": "항목 (15자)",
+  "en": "Item (15 characters)"
+ },
+ {
+  "key": "나와 지금 접속한 친구 이름을 넣어요",
+  "en": "Adds your name and the friends online now"
+ },
+ {
+  "key": "참가자 넣기",
+  "en": "Add people"
+ },
+ {
+  "key": "근처 친구 %lld명",
+  "en": "%lld nearby friends"
+ },
+ {
+  "key": "혼자 뽑아요",
+  "en": "Just for me"
+ },
+ {
+  "key": "친구에게도 보여주기",
+  "en": "Show friends too"
+ },
+ {
+  "key": "뽑기",
+  "en": "Draw"
+ },
+ {
+  "key": "오늘 기록 (24시간)",
+  "en": "Today's draws (24 hours)"
+ },
+ {
+  "key": "다시 보기",
+  "en": "Replay"
+ },
+ {
+  "key": "끝내기",
+  "en": "End"
+ },
+ {
+  "key": "기록 지우기",
+  "en": "Clear history"
+ },
+ {
+  "key": "데스크톱 친구 숨기기/보이기",
+  "en": "Hide/show desktop friends"
+ },
+ {
+  "key": "쉿 모드",
+  "en": "Hush mode"
+ },
+ {
+  "key": "한마디·메시지 쓰기",
+  "en": "Write a line or message"
+ },
+ {
+  "key": "대화 모아보기",
+  "en": "Chat roundup"
+ },
+ {
+  "key": "친구 상주 위로",
+  "en": "Friend row to the top"
+ },
+ {
+  "key": "친구 상주 아래로",
+  "en": "Friend row to the bottom"
+ },
+ {
+  "key": "친구 상주 왼쪽으로",
+  "en": "Friend row to the left"
+ },
+ {
+  "key": "친구 상주 오른쪽으로",
+  "en": "Friend row to the right"
+ },
+ {
+  "key": "⌃, ⌥, ⌘ 중 하나 이상과 같이 눌러 주세요",
+  "en": "Press it with at least one of ⌃, ⌥ or ⌘"
+ },
+ {
+  "key": "영문, 숫자, 방향키만 쓸 수 있어요",
+  "en": "Only letters, numbers and arrow keys"
+ },
+ {
+  "key": "이미 '%@'에 쓰고 있어요",
+  "en": "Already used for '%@'"
+ },
+ {
+  "key": "다른 앱이 이미 쓰는 조합이에요. 원래 단축키를 그대로 둘게요",
+  "en": "Another app already uses this combination. Your old shortcut stays"
+ },
+ {
+  "key": "데스크톱 친구들을 숨겼어요",
+  "en": "Desktop friends are hidden"
+ },
+ {
+  "key": "데스크톱 친구들이 돌아왔어요",
+  "en": "Desktop friends are back"
+ },
+ {
+  "key": "쉿 모드를 껐어요",
+  "en": "Hush mode is off"
+ },
+ {
+  "key": "쉿 모드를 켰어요. 읽지 않은 메시지는 메뉴에 점으로 남아요",
+  "en": "Hush mode is on. Unread messages stay as a dot in the menu"
+ },
+ {
+  "key": "친구 상주를 위로 옮겼어요",
+  "en": "Moved the friend row to the top"
+ },
+ {
+  "key": "친구 상주를 아래로 옮겼어요",
+  "en": "Moved the friend row to the bottom"
+ },
+ {
+  "key": "친구 상주를 왼쪽으로 옮겼어요",
+  "en": "Moved the friend row to the left"
+ },
+ {
+  "key": "친구 상주를 오른쪽으로 옮겼어요",
+  "en": "Moved the friend row to the right"
+ },
+ {
+  "key": "원격 모임에 들어가 있거나 근처 친구가 접속해 있을 때 쓸 수 있어요",
+  "en": "Works while you are in a remote meetup or a nearby friend is online"
+ },
+ {
+  "key": "단축키",
+  "en": "Shortcuts"
+ },
+ {
+  "key": "어떤 앱을 쓰고 있어도 키 조합 한 번으로 친구들을 숨기거나 조용히 시켜요",
+  "en": "One key combination hides or quiets your friends in any app"
+ },
+ {
+  "key": "단축키 처음대로",
+  "en": "Reset shortcuts"
+ },
+ {
+  "key": "기본은 ⌃⌥⇧(control·option·shift)와 글자예요. 다른 앱이 이미 쓰는 조합이면 빨간 표시가 나고, 바꿀 때 막히면 원래 것을 그대로 둬요. 손쉬운 사용 권한은 필요 없어요.",
+  "en": "The defaults are ⌃⌥⇧ (control, option, shift) and a letter. A combination another app already uses shows in red, and if a change is blocked the old one stays. No Accessibility permission needed."
+ },
+ {
+  "key": "다른 앱이 사용 중",
+  "en": "Used by another app"
+ },
+ {
+  "key": "키를 누르세요 (esc 취소)",
+  "en": "Press keys (esc to cancel)"
+ },
+ {
+  "key": "눌러서 새 조합을 녹화해요",
+  "en": "Click to record a new combination"
+ },
+ {
+  "key": "시즌 뽑기판",
+  "en": "Season board"
+ },
+ {
+  "key": "무료 뽑기권으로 종이를 뜯어 시즌 꾸미기를 모아요",
+  "en": "Peel papers with free tickets to collect season items"
+ },
+ {
+  "key": "눈빛 말풍선",
+  "en": "Snow bubble"
+ },
+ {
+  "key": "솔잎 말풍선",
+  "en": "Pine bubble"
+ },
+ {
+  "key": "산딸기 말풍선",
+  "en": "Raspberry bubble"
+ },
+ {
+  "key": "코인",
+  "en": "Coins"
+ },
+ {
+  "key": "뽑기권 %lld장",
+  "en": "%lld tickets"
+ },
+ {
+  "key": "코인 %lld",
+  "en": "%lld coins"
+ },
+ {
+  "key": "오픈까지 %lld일",
+  "en": "Opens in %lld days"
+ },
+ {
+  "key": "시즌이 끝났어요",
+  "en": "The season is over"
+ },
+ {
+  "key": "%lld일 남음",
+  "en": "%lld days left"
+ },
+ {
+  "key": "오늘 마지막 날",
+  "en": "Last day today"
+ },
+ {
+  "key": "판 구성: %lld칸 · 꾸미기 %lld개 · 코인 %lld칸(%lld개씩)",
+  "en": "Board: %lld spots · %lld items · %lld coin spots (%lld each)"
+ },
+ {
+  "key": "판을 다 열면 전부 가져요. 이미 가진 꾸미기는 코인 %lld개로 바꿔 줘요.",
+  "en": "Open the whole board and you get everything. Items you already have become %lld coins."
+ },
+ {
+  "key": "남은 칸 %lld/%lld",
+  "en": "Spots left %lld/%lld"
+ },
+ {
+  "key": "%lld번 종이",
+  "en": "Paper %lld"
+ },
+ {
+  "key": "판을 다 열었어요! 새 판 받기",
+  "en": "Board cleared! Get a new board"
+ },
+ {
+  "key": "한 장 뜯기 · 뽑기권 1장",
+  "en": "Tear one · 1 ticket"
+ },
+ {
+  "key": "시즌이 열리면 판이 나와요. 뽑기권은 그대로 남아요.",
+  "en": "The board shows when the season opens. Your tickets stay."
+ },
+ {
+  "key": "이번 시즌은 끝났어요. 남은 뽑기권은 다음 시즌에 써요.",
+  "en": "This season is over. Use your tickets next season."
+ },
+ {
+  "key": "%lld번 종이, 모서리를 아래로 끌어 뜯어요",
+  "en": "Paper %lld: drag the corner down to peel"
+ },
+ {
+  "key": "바로 뜯기",
+  "en": "Peel now"
+ },
+ {
+  "key": "오른쪽 위 모서리를 왼쪽 아래로 끌어 뜯어요",
+  "en": "Drag the top right corner to the bottom left to peel"
+ },
+ {
+  "key": "뽑기권 사기 · 코인 %lld",
+  "en": "Buy a ticket · %lld coins"
+ },
+ {
+  "key": "오늘 %lld/%lld",
+  "en": "Today %lld/%lld"
+ },
+ {
+  "key": "뽑기권은 무료예요. 매일 %lld장이 오고, 후원 친구 카드를 끝까지 보면 1장 더 와요. 돈은 받지 않아요.",
+  "en": "Tickets are free. %lld come every day, and one more when you watch a sponsor card to the end. No money involved."
+ },
+ {
+  "key": "코인은 미션·집중·숨 고르기·친구와 이모트로 모여요(숨 고르기·이모트는 하루 %lld개까지).",
+  "en": "Coins come from missions, focus, breathing and emotes with friends (breathing and emotes up to %lld a day)."
+ },
+ {
+  "key": "데스크톱 친구 설정의 의자에서 골라요",
+  "en": "Pick it under Chair in desktop friend settings"
+ },
+ {
+  "key": "시즌 뽑기판 설정에서 골라요",
+  "en": "Pick it in season board settings"
+ },
+ {
+  "key": "던지기 놀이에서 골라요",
+  "en": "Pick it in throw play"
+ },
+ {
+  "key": "옷 입히기에서 입혀요",
+  "en": "Wear it in Dress up"
+ },
+ {
+  "key": "새 꾸미기: %@",
+  "en": "New item: %@"
+ },
+ {
+  "key": "%@은(는) 이미 있어서 코인 %lld개로 바꿨어요",
+  "en": "You already have %1$@, so it became %2$lld coins"
+ },
+ {
+  "key": "코인 %lld개",
+  "en": "%lld coins"
+ },
+ {
+  "key": "시즌 뽑기판 쓰기",
+  "en": "Use the season board"
+ },
+ {
+  "key": "무료 뽑기권으로 종이를 뜯어 이번 시즌 꾸미기를 모아요. 판 구성은 다 보여 주고, 판을 다 열면 전부 가져요. 결제는 없어요.",
+  "en": "Peel papers with free tickets to collect this season's items. The whole board is shown, and opening all of it gets you everything. No payments."
+ },
+ {
+  "key": "뽑기권 %lld장 · 모은 꾸미기 %lld개",
+  "en": "%1$lld tickets · %2$lld items collected"
+ },
+ {
+  "key": "뽑기판 열기",
+  "en": "Open the board"
+ },
+ {
+  "key": "말풍선 색",
+  "en": "Bubble color"
+ },
+ {
+  "key": "말풍선 색도 시즌 꾸미기예요",
+  "en": "Bubble colors are season items too"
  }
 ]

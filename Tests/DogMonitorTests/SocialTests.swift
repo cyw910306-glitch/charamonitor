@@ -138,6 +138,16 @@ final class SocialTests: XCTestCase {
         XCTAssertFalse(l.answered("c", now: 95, final: true))     // 90 s from the ask, however many answers came
     }
 
+    /// The owner's side (RemoteHelp.incoming): once the owner answered, the friend may ask again at once, as the
+    /// friend's own limit lets it; unanswered, a second ask stays silent for 90 s.
+    func testOwnerAnswerFreesTheNextAsk() {
+        var incoming = RemoteAskLimit()
+        XCTAssertTrue(incoming.ask("f", now: 0))
+        XCTAssertFalse(incoming.ask("f", now: 5))                 // the alert is still up
+        XCTAssertTrue(incoming.answered("f", now: 6, final: true))   // the owner said no
+        XCTAssertTrue(incoming.ask("f", now: 7))                  // asked again: a new alert
+    }
+
     func testVNCAddress() {
         XCTAssertEqual(RemoteHelp.vncURL(.ipv4(IPv4Address("192.168.0.7")!))?.absoluteString, "vnc://192.168.0.7")
         let v6 = RemoteHelp.vncURL(.ipv6(IPv6Address("fe80::1")!))?.absoluteString
@@ -219,6 +229,24 @@ final class SocialTests: XCTestCase {
         a.onOnline = { id, on in if !on { XCTAssertEqual(id, "B-id"); off.fulfill() } }
         b.stop()
         wait(for: [off], timeout: 10)
+    }
+
+    /// A friend's advert that never resolves (the dial sat in "preparing" for most of a minute on a real network)
+    /// is given up after the handshake time, so the browser may dial it again.
+    func testStuckDialGivesUp() {
+        let b = node("B-id", friends: { ["A-id"] })
+        defer { b.stop() }
+        _ = b.keys.save(Data(repeating: 7, count: 32), "A-id")
+        b.start()
+        let nowhere = NWEndpoint.service(name: "nobody-\(UUID().uuidString.prefix(6))", type: SocialNode.serviceType, domain: "local.", interface: nil)
+        b.dial("A-id", at: nowhere, salt: "00")
+        XCTAssertEqual(b.dialing, [nowhere])
+        let gone = expectation(description: "given up")
+        DispatchQueue.main.asyncAfter(deadline: .now() + SocialNode.handshakeSeconds + 0.5) {
+            XCTAssertTrue(b.dialing.isEmpty)
+            gone.fulfill()
+        }
+        wait(for: [gone], timeout: SocialNode.handshakeSeconds + 5)
     }
 
     func testWrongCodeFailsAndThreeTriesMakeANewCode() {

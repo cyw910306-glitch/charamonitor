@@ -121,6 +121,11 @@ final class OnDeviceEngine: ChatEngine {
         try await respond(instructions: persona.nudgeInstructions(situation), prompt: "한 문장으로 말해 줘.", persona: nil, maxTokens: 80)
     }
 
+    /// One word for 딴짓 지킴이 (DriftRules.aiPrompt), the same each time it is asked.
+    func word(_ prompt: String) async throws -> String {
+        try await respond(instructions: "주어진 화면을 집중, 중립, 딴짓 중 하나로만 답한다.", prompt: prompt, persona: nil, maxTokens: 8, temperature: 0)
+    }
+
     private func respond(instructions: String, prompt: String, persona: Persona?, maxTokens: Int, temperature: Double = 0.3) async throws -> String {
         #if canImport(FoundationModels)
         if #available(macOS 26, *) {

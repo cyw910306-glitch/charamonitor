@@ -172,7 +172,7 @@ enum Cleaner {
     }
 
     /// Pids holding an assertion that keeps the Mac or its display awake (video, calls, recordings, renders).
-    private static func awakePids() -> Set<pid_t> {
+    static func awakePids() -> Set<pid_t> {
         var ref: Unmanaged<CFDictionary>?
         guard IOPMCopyAssertionsByProcess(&ref) == kIOReturnSuccess,
               let byPid = ref?.takeRetainedValue() as? [NSNumber: [[String: Any]]] else { return [] }

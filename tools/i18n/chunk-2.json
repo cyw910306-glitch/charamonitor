@@ -1,5 +1,1405 @@
 [
  {
+  "key": "선물이 열렸어요: %@ %@",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 699
+ },
+ {
+  "key": "내일 또 열려요. 끝까지 봐 줘서 고마워요",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 701
+ },
+ {
+  "key": "오늘 선물은 다 받았어요",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 701
+ },
+ {
+  "key": "새 선물은 다음 버전에서 또 와요",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 703
+ },
+ {
+  "key": "선물을 다 모았어요. 고마워요!",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 703
+ },
+ {
+  "key": "시즌 뽑기권도 1장 받았어요",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 705
+ },
+ {
+  "key": "열어 보기",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 711
+ },
+ {
+  "key": "오늘은 그만",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 712
+ },
+ {
+  "key": "후원 친구 끄기",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 713
+ },
+ {
+  "key": "하트 러그",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 24
+ },
+ {
+  "key": "복숭아 색",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 25
+ },
+ {
+  "key": "구름 쿠션",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 26
+ },
+ {
+  "key": "빵빠레 반응",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 27
+ },
+ {
+  "key": "리본 폴더",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 28
+ },
+ {
+  "key": "별빛 러그",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 29
+ },
+ {
+  "key": "코코아 색",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 30
+ },
+ {
+  "key": "무지개 러그",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 31
+ },
+ {
+  "key": "러그·위젯 색",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 39
+ },
+ {
+  "key": "친구 누르기",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 41
+ },
+ {
+  "key": "폴더 모양",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 42
+ },
+ {
+  "key": "바탕화면 러그의 그림에서 골라요",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 49
+ },
+ {
+  "key": "러그 색과 집중 위젯 색에서 골라요",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 50
+ },
+ {
+  "key": "장난감 상자에서 꺼내요",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 51
+ },
+ {
+  "key": "친구를 누르면 가끔 나와요",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 52
+ },
+ {
+  "key": "폴더 친구의 모양에서 골라요",
+  "file": "Sources/DogMonitor/App/SponsorGifts.swift",
+  "line": 53
+ },
+ {
+  "key": "눌러서 열어 보기",
+  "file": "Sources/DogMonitor/App/SponsorStage.swift",
+  "line": 344
+ },
+ {
+  "key": "광고 · 후원 친구",
+  "file": "Sources/DogMonitor/App/SponsorStage.swift",
+  "line": 469
+ },
+ {
+  "key": "잠깐 멈췄어요. 다시 보면 이어져요",
+  "file": "Sources/DogMonitor/App/SponsorStage.swift",
+  "line": 469
+ },
+ {
+  "key": "후원 친구 · 제작자 서비스 소개",
+  "file": "Sources/DogMonitor/App/SponsorStage.swift",
+  "line": 469
+ },
+ {
+  "key": "선물까지 %lld초",
+  "file": "Sources/DogMonitor/App/SponsorStage.swift",
+  "line": 509
+ },
+ {
+  "key": "선물을 받았어요",
+  "file": "Sources/DogMonitor/App/SponsorStage.swift",
+  "line": 509
+ },
+ {
+  "key": "최고 %lld",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 252
+ },
+ {
+  "key": "비겼다! %lld 대 %lld",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 277
+ },
+ {
+  "key": "비겼어요! %lld 대 %lld",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 277
+ },
+ {
+  "key": "%@가 이겼다! %lld 대 %lld",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 278
+ },
+ {
+  "key": "%@가 이겼어요! %lld 대 %lld",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 278
+ },
+ {
+  "key": "새 기록이다! 별 %lld개 🎉",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 281
+ },
+ {
+  "key": "새 기록이에요! 별 %lld개 🎉",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 281
+ },
+ {
+  "key": "별을 %lld개 모았어!",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 284
+ },
+ {
+  "key": "별을 %lld개 모았어요!",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 284
+ },
+ {
+  "key": "별을 못 모았네. 다음엔 꼭 모아 보자!",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 286
+ },
+ {
+  "key": "별을 못 모았어요. 다음엔 꼭 모아 봐요!",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 286
+ },
+ {
+  "key": "놀이 모드",
+  "file": "Sources/DogMonitor/App/StarGame.swift",
+  "line": 297
+ },
+ {
+  "key": " · 메모리 %lld%%",
+  "file": "Sources/DogMonitor/App/StatusItemController.swift",
+  "line": 227
+ },
+ {
+  "key": " (압력 %lld%%)",
+  "file": "Sources/DogMonitor/App/StatusItemController.swift",
+  "line": 228
+ },
+ {
+  "key": "대시보드 열기",
+  "file": "Sources/DogMonitor/App/StatusItemController.swift",
+  "line": 445
+ },
+ {
+  "key": "활성 상태 보기",
+  "file": "Sources/DogMonitor/App/StatusItemController.swift",
+  "line": 446
+ },
+ {
+  "key": "종료",
+  "file": "Sources/DogMonitor/App/StatusItemController.swift",
+  "line": 447
+ },
+ {
+  "key": "대화 모아보기…",
+  "file": "Sources/DogMonitor/App/StatusItemController.swift",
+  "line": 453
+ },
+ {
+  "key": "라일락",
+  "file": "Sources/DogMonitor/App/StickyNotes.swift",
+  "line": 15
+ },
+ {
+  "key": "이 메모를 지울까요?",
+  "file": "Sources/DogMonitor/App/StickyNotes.swift",
+  "line": 263
+ },
+ {
+  "key": "지우면 되돌릴 수 없어요.",
+  "file": "Sources/DogMonitor/App/StickyNotes.swift",
+  "line": 264
+ },
+ {
+  "key": "지우기",
+  "file": "Sources/DogMonitor/App/StickyNotes.swift",
+  "line": 265
+ },
+ {
+  "key": "접기",
+  "file": "Sources/DogMonitor/App/StickyNotes.swift",
+  "line": 317
+ },
+ {
+  "key": "펼치기",
+  "file": "Sources/DogMonitor/App/StickyNotes.swift",
+  "line": 317
+ },
+ {
+  "key": "메모 지우기",
+  "file": "Sources/DogMonitor/App/StickyNotes.swift",
+  "line": 339
+ },
+ {
+  "key": "빈 메모",
+  "file": "Sources/DogMonitor/App/StickyNotes.swift",
+  "line": 351
+ },
+ {
+  "key": "종이 뭉치",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 28
+ },
+ {
+  "key": "탱탱볼",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 29
+ },
+ {
+  "key": "베개",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 30
+ },
+ {
+  "key": "양말",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 32
+ },
+ {
+  "key": "지우개",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 33
+ },
+ {
+  "key": "도토리",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 34
+ },
+ {
+  "key": "눈뭉치",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 36
+ },
+ {
+  "key": "솔방울",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 37
+ },
+ {
+  "key": "다가가서 겁주기",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 211
+ },
+ {
+  "key": "다가가서 뽀뽀",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 211
+ },
+ {
+  "key": "%@%@ 뽀뽀했어!",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 248
+ },
+ {
+  "key": "%@에게 맞아서 기절!",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 258
+ },
+ {
+  "key": "투척물",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 268
+ },
+ {
+  "key": "던지기 놀이 (명중·기절)",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 444
+ },
+ {
+  "key": "친구 캐릭터를 누르면 투척물을 던져요. 10초 안에 다섯 번 맞으면 6초 동안 기절하고, 모두의 화면에 별이 돌아요. 친구가 친구에게 날아가 부딪혀도 맞아요.",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 445
+ },
+ {
+  "key": "눈뭉치·솔방울은 시즌 뽑기판에서 모아요.",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 456
+ },
+ {
+  "key": "누르면",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 457
+ },
+ {
+  "key": "투척물 던지기",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 458
+ },
+ {
+  "key": "던지기 가드",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 462
+ },
+ {
+  "key": "켜면 평소엔 눌러도 대화창이 열리고, 친구 캐릭터 오른쪽 클릭 > 던질 준비 뒤 10초 동안만 던져요.",
+  "file": "Sources/DogMonitor/App/Throwables.swift",
+  "line": 463
+ },
+ {
+  "key": "(1/4) 맥이 바쁘면 내가 뛰고, 한가하면 쉬어. 말풍선을 누르면 다음 이야기야.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 20
+ },
+ {
+  "key": "(1/4) 맥이 바쁘면 제가 뛰고, 한가하면 쉬어요. 말풍선을 누르면 다음 이야기예요.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 21
+ },
+ {
+  "key": "(2/4) 메뉴바의 나를 누르면 대시보드가 열려.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 22
+ },
+ {
+  "key": "(2/4) 메뉴바의 저를 누르면 대시보드가 열려요.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 22
+ },
+ {
+  "key": "(3/4) 캐릭터는 대시보드의 캐릭터 선택에서 바꿀 수 있어.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 23
+ },
+ {
+  "key": "(3/4) 캐릭터는 대시보드의 캐릭터 선택에서 바꿀 수 있어요.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 23
+ },
+ {
+  "key": "(4/4) 대시보드의 AI 비서에서 나한테 말 걸어 봐.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 24
+ },
+ {
+  "key": "(4/4) 대시보드의 AI 비서에서 저한테 말 걸어 보세요.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 24
+ },
+ {
+  "key": "딴짓 지킴이가 왔어요. 딴짓이 길어지면 하던 일로 돌아가자고 알려 주고, 원하면 고양이가 앞발로 탭을 닫아요. 설정 > 데스크톱 친구에서 켜요.",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 67
+ },
+ {
+  "key": "업데이트됐어요! ",
+  "file": "Sources/DogMonitor/App/Tour.swift",
+  "line": 93
+ },
+ {
+  "key": "트램펄린",
+  "file": "Sources/DogMonitor/App/ToyBox.swift",
+  "line": 13
+ },
+ {
+  "key": "공",
+  "file": "Sources/DogMonitor/App/ToyBox.swift",
+  "line": 14
+ },
+ {
+  "key": "쿠션",
+  "file": "Sources/DogMonitor/App/ToyBox.swift",
+  "line": 15
+ },
+ {
+  "key": "미끄럼틀",
+  "file": "Sources/DogMonitor/App/ToyBox.swift",
+  "line": 16
+ },
+ {
+  "key": "치우기",
+  "file": "Sources/DogMonitor/App/ToyBox.swift",
+  "line": 374
+ },
+ {
+  "key": "장난감 모두 정리하기",
+  "file": "Sources/DogMonitor/App/ToyBox.swift",
+  "line": 375
+ },
+ {
+  "key": "업데이트 주소가 캐릭모니터 사이트가 아니에요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 22
+ },
+ {
+  "key": "업데이트 서명이 맞지 않아요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 23
+ },
+ {
+  "key": "업데이트 정보를 읽지 못했어요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 24
+ },
+ {
+  "key": "업데이트 서버에 연결하지 못했어요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 25
+ },
+ {
+  "key": "받은 파일이 손상됐어요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 26
+ },
+ {
+  "key": "받은 파일을 풀지 못했어요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 27
+ },
+ {
+  "key": "받은 앱이 예상한 버전이 아니에요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 28
+ },
+ {
+  "key": "받은 앱의 코드 서명이 맞지 않아요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 29
+ },
+ {
+  "key": "앱 번들에서 실행 중일 때만 스스로 업데이트할 수 있어요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 30
+ },
+ {
+  "key": "앱이 있는 폴더에 쓸 수 없어요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 31
+ },
+ {
+  "key": "앱을 바꿔 끼우지 못했어요. 지금 앱은 그대로예요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 32
+ },
+ {
+  "key": "앱을 바꿔 끼우다 멈췄어요. 이전 앱은 휴지통이 아니라 앱 폴더에 숨겨져 있어요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 33
+ },
+ {
+  "key": "새 버전 %@ 받는 중…",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 232
+ },
+ {
+  "key": "받은 파일을 확인하는 중…",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 240
+ },
+ {
+  "key": "업데이트를 확인하는 중…",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 294
+ },
+ {
+  "key": "최신 버전이에요 (%@)",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 301
+ },
+ {
+  "key": "새 버전 %@ · macOS %@ 이상이 필요해요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 306
+ },
+ {
+  "key": "새 버전으로 바꾸는 중…",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 347
+ },
+ {
+  "key": "새 버전으로 다시 켜는 중…",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 354
+ },
+ {
+  "key": "%@ 사이트에서 새 버전을 받아 주세요.",
+  "file": "Sources/DogMonitor/App/Updater.swift",
+  "line": 364
+ },
+ {
+  "key": "꼬마",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 19
+ },
+ {
+  "key": "도시 바꾸기 (%@)",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 279
+ },
+ {
+  "key": "다른 도시 검색…",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 281
+ },
+ {
+  "key": "날씨 미리보기",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 282
+ },
+ {
+  "key": "실제 날씨",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 283
+ },
+ {
+  "key": "밤으로 보기",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 285
+ },
+ {
+  "key": "받침 색",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 287
+ },
+ {
+  "key": "온도 보이기",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 288
+ },
+ {
+  "key": "창 크기",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 289
+ },
+ {
+  "key": "항상 위에 두기",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 290
+ },
+ {
+  "key": "위치 초기화",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 291
+ },
+ {
+  "key": "날씨 창문 닫기",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 293
+ },
+ {
+  "key": "어느 도시의 날씨를 볼까요?",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 301
+ },
+ {
+  "key": "도시 이름을 한글이나 영어로 적어 주세요.",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 302
+ },
+ {
+  "key": "예: 춘천, Tokyo, Paris",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 304
+ },
+ {
+  "key": "찾기",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 306
+ },
+ {
+  "key": "'%@' 도시를 찾지 못했어요.",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 317
+ },
+ {
+  "key": "시나 군 이름, 또는 영어 이름으로 다시 찾아보세요.",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 318
+ },
+ {
+  "key": "날씨 창문: %@",
+  "file": "Sources/DogMonitor/App/WeatherWindow.swift",
+  "line": 351
+ },
+ {
+  "key": "캘린더 접근이 꺼져 있어서 일정 알림을 껐어요. 비서 설정에서 다시 켜 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantCenter.swift",
+  "line": 65
+ },
+ {
+  "key": "미리알림 접근이 꺼져 있어서 미리알림 알림을 껐어요. 비서 설정에서 다시 켜 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantCenter.swift",
+  "line": 68
+ },
+ {
+  "key": "캐릭모니터 · %@",
+  "file": "Sources/DogMonitor/Assistant/AssistantCenter.swift",
+  "line": 204
+ },
+ {
+  "key": "Pushover 사용자 키와 앱 토큰을 넣어 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 53
+ },
+ {
+  "key": "보내지 못했어요 (응답 %lld).",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 57
+ },
+ {
+  "key": "보내지 못했어요. 인터넷 연결을 확인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 59
+ },
+ {
+  "key": "단축어: ",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 82
+ },
+ {
+  "key": "미리알림",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 133
+ },
+ {
+  "key": "캘린더",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 133
+ },
+ {
+  "key": "이 빌드에서는 %@을 연결할 수 없어요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 134
+ },
+ {
+  "key": "시스템 설정 > 개인정보 보호 및 보안 > %@에서 캐릭모니터를 허용해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 142
+ },
+ {
+  "key": "할 일",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 187
+ },
+ {
+  "key": "오늘 일정 %lld개",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 222
+ },
+ {
+  "key": "첫 일정 %@ '%@'",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 223
+ },
+ {
+  "key": "오늘 일정 없음",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 225
+ },
+ {
+  "key": "미리알림 %lld개",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 228
+ },
+ {
+  "key": "한국어 음성이 없어요. 시스템 설정 > 손쉬운 사용 > 읽기 및 말하기 > 시스템 음성에서 한국어 음성(유나 등)을 받아 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantIntegrations.swift",
+  "line": 408
+ },
+ {
+  "key": "이 맥",
+  "file": "Sources/DogMonitor/Assistant/AssistantModel.swift",
+  "line": 59
+ },
+ {
+  "key": "자리를 비운 사이 맡긴 일이 남긴 카드예요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantModel.swift",
+  "line": 90
+ },
+ {
+  "key": "확인 기다리는 일이에요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantModel.swift",
+  "line": 90
+ },
+ {
+  "key": "(연락처에서 한 명을 고름)",
+  "file": "Sources/DogMonitor/Assistant/AssistantModel.swift",
+  "line": 106
+ },
+ {
+  "key": "(이 맥 안에서만 답한 내용이라 기록하지 않음)",
+  "file": "Sources/DogMonitor/Assistant/AssistantModel.swift",
+  "line": 130
+ },
+ {
+  "key": "비서 설정에서 '비서가 행동하기'를 켜면 메일·일정·쇼핑·항공권을 대신 준비해 줄 수 있어요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantModel.swift",
+  "line": 174
+ },
+ {
+  "key": "처럼 이어져.",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 326
+ },
+ {
+  "key": "처럼 이어져요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 326
+ },
+ {
+  "key": "클리너 열기",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 676
+ },
+ {
+  "key": "활성 상태 보기 열기",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 677
+ },
+ {
+  "key": "보안 점검 열기",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 678
+ },
+ {
+  "key": "메모리",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 718
+ },
+ {
+  "key": "발열",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 718
+ },
+ {
+  "key": "배터리",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 718
+ },
+ {
+  "key": "저장 공간",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 718
+ },
+ {
+  "key": "네트워크",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 719
+ },
+ {
+  "key": "바쁜 앱",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 719
+ },
+ {
+  "key": "켜진 지",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 719
+ },
+ {
+  "key": "뜨거움",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 720
+ },
+ {
+  "key": "아주 뜨거움",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 720
+ },
+ {
+  "key": "조금 따뜻함",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 720
+ },
+ {
+  "key": "남음",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 721
+ },
+ {
+  "key": "다운로드",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 721
+ },
+ {
+  "key": "업로드",
+  "file": "Sources/DogMonitor/Assistant/AssistantPrompt.swift",
+  "line": 721
+ },
+ {
+  "key": "끄기",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 9
+ },
+ {
+  "key": "자주",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 12
+ },
+ {
+  "key": "Pushover (내 키)",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 29
+ },
+ {
+  "key": "ntfy (무료)",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 29
+ },
+ {
+  "key": "배터리 10%",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 38
+ },
+ {
+  "key": "맥이 뜨거울 때",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 39
+ },
+ {
+  "key": "오래 걸린 작업이 끝났을 때",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 40
+ },
+ {
+  "key": "펫이 부를 때",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 41
+ },
+ {
+  "key": "%@분 전",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 91
+ },
+ {
+  "key": "배터리 부족",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 164
+ },
+ {
+  "key": "오래 걸린 작업 끝",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 164
+ },
+ {
+  "key": "약 먹기",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 165
+ },
+ {
+  "key": "일정 알림",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 165
+ },
+ {
+  "key": "팀 회의",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 165
+ },
+ {
+  "key": "집중 끝",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 168
+ },
+ {
+  "key": "펫이 돌아왔을 때",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 168
+ },
+ {
+  "key": "펫이 배고플 때",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 168
+ },
+ {
+  "key": "눈 쉬기",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 169
+ },
+ {
+  "key": "쉬는 시간 끝",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 169
+ },
+ {
+  "key": "장소: %@",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 279
+ },
+ {
+  "key": "배터리가 %lld%% 남았어요. 충전기를 꽂아 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 289
+ },
+ {
+  "key": "배터리가 %lld%%밖에 안 남았어. 충전기 꽂아 줘!",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 289
+ },
+ {
+  "key": "배터리 %lld%% 남았어. 꺼지기 전에 충전해 줘!",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 290
+ },
+ {
+  "key": "배터리가 %lld%%뿐이에요. 꺼지기 전에 충전해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 290
+ },
+ {
+  "key": "배터리가 %lld%%야. 충전기 어디 있어?",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 291
+ },
+ {
+  "key": "배터리가 %lld%%예요. 충전기를 연결해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 291
+ },
+ {
+  "key": "맥이 뜨거워. 무거운 일은 잠깐 쉬어 가자.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 293
+ },
+ {
+  "key": "맥이 뜨거워요. 무거운 작업은 잠깐 쉬어 가요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 293
+ },
+ {
+  "key": "맥이 많이 뜨거워요. 창 몇 개를 닫아 보는 건 어때요?",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 294
+ },
+ {
+  "key": "맥이 후끈후끈해. 창 몇 개 닫아 볼까?",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 294
+ },
+ {
+  "key": "열이 나서 맥이 속도를 줄였어. 잠깐 쉬게 해 주자.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 295
+ },
+ {
+  "key": "열이 나서 맥이 속도를 줄였어요. 잠깐 쉬게 해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 295
+ },
+ {
+  "key": "%lld분 동안 바빴던 일이 끝난 것 같아.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 297
+ },
+ {
+  "key": "%lld분 동안 바빴던 작업이 끝난 것 같아요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 297
+ },
+ {
+  "key": "%lld분 동안 돌던 일, 끝난 것 같아. 확인해 봐!",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 298
+ },
+ {
+  "key": "%lld분 동안 돌던 작업이 끝난 것 같아요. 확인해 보세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 298
+ },
+ {
+  "key": "맥이 이제 조용해졌어. %lld분 걸린 일이 끝났나 봐.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 299
+ },
+ {
+  "key": "맥이 이제 조용해졌어요. %lld분 걸린 작업이 끝났나 봐요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 299
+ },
+ {
+  "key": "%@이(가) 몇 분째 CPU를 많이 써. 클리너에서 볼래?",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 301
+ },
+ {
+  "key": "%@이(가) 몇 분째 CPU를 많이 써요. 클리너에서 확인해 보세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 301
+ },
+ {
+  "key": "%lld분 뒤에 '%@' 일정이 있어요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 303
+ },
+ {
+  "key": "%lld분 뒤에 '%@' 있어.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 303
+ },
+ {
+  "key": "'%@'까지 %lld분 남았어. 준비하자!",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 304
+ },
+ {
+  "key": "'%@'까지 %lld분 남았어요. 준비해요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 304
+ },
+ {
+  "key": "곧 '%@' 시간이야. %lld분 뒤에 시작해.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 305
+ },
+ {
+  "key": "곧 '%@' 시간이에요. %lld분 뒤에 시작해요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 305
+ },
+ {
+  "key": "곧 '%@' 할 시간이야.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 307
+ },
+ {
+  "key": "곧 '%@' 할 시간이에요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 307
+ },
+ {
+  "key": "'%@' 잊지 마!",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 308
+ },
+ {
+  "key": "'%@' 잊지 마세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 308
+ },
+ {
+  "key": "미리알림이야: '%@'",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 309
+ },
+ {
+  "key": "미리알림이에요: '%@'",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 309
+ },
+ {
+  "key": "새 메일 %lld통 왔어.%@",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 312
+ },
+ {
+  "key": "새 메일이 %lld통 왔어요.%@",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 312
+ },
+ {
+  "key": "메일 %lld통 도착!%@",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 313
+ },
+ {
+  "key": "메일이 %lld통 도착했어요.%@",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 313
+ },
+ {
+  "key": "메일함에 새 메일 %lld통 있어.%@",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 314
+ },
+ {
+  "key": "메일함에 새 메일이 %lld통 있어요.%@",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 314
+ },
+ {
+  "key": "좋은 아침! 오늘도 같이 힘내자.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 316
+ },
+ {
+  "key": "좋은 아침이에요. 오늘도 같이 힘내요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 316
+ },
+ {
+  "key": "출근하셨네요. 오늘 하루도 잘 부탁드려요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 317
+ },
+ {
+  "key": "출근했구나! 오늘 하루도 잘 부탁해.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 317
+ },
+ {
+  "key": "오셨어요? 물 한 잔 마시고 시작해요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 318
+ },
+ {
+  "key": "왔구나! 물 한 잔 마시고 시작하자.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 318
+ },
+ {
+  "key": "점심시간이야! 맛있는 거 먹고 와.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 320
+ },
+ {
+  "key": "점심시간이에요. 맛있는 거 드시고 오세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 320
+ },
+ {
+  "key": "배고프시죠? 식사하고 하세요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 321
+ },
+ {
+  "key": "배고프지? 밥 먹고 하자!",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 321
+ },
+ {
+  "key": "냠냠, 점심 드실 시간이에요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 322
+ },
+ {
+  "key": "냠냠, 점심 먹을 시간이야.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 322
+ },
+ {
+  "key": "%lld분 뒤면 퇴근이야! 조금만 더 힘내.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 324
+ },
+ {
+  "key": "%lld분 뒤면 퇴근이에요. 조금만 더 힘내요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 324
+ },
+ {
+  "key": "퇴근까지 %lld분 남았어. 마무리하자!",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 325
+ },
+ {
+  "key": "퇴근까지 %lld분 남았어요. 마무리해요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 325
+ },
+ {
+  "key": "곧 퇴근이야. %lld분만 더 버티자!",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 326
+ },
+ {
+  "key": "곧 퇴근이에요. %lld분만 더 힘내요.",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 326
+ },
+ {
+  "key": "출근 인사",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 442
+ },
+ {
+  "key": "점심시간 알림",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 443
+ },
+ {
+  "key": "퇴근 10분 전 알림",
+  "file": "Sources/DogMonitor/Assistant/AssistantSettings.swift",
+  "line": 444
+ },
+ {
+  "key": "%@에서 대화용 모델을 찾지 못했어요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 136
+ },
+ {
+  "key": "%@가 너무 오래 걸려요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 238
+ },
+ {
+  "key": "연결은 됐어요. ",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 301
+ },
+ {
+  "key": "연결은 됐어요. 잠깐 요청이 많았어요. 조금 뒤 연결 확인을 다시 해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 302
+ },
+ {
+  "key": "%@ 크레딧이 부족해요. %@ 콘솔에서 결제를 확인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 335
+ },
+ {
+  "key": "%@ API 키가 맞지 않거나 권한이 없어요. 키를 다시 확인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 337
+ },
+ {
+  "key": "OpenAI 크레딧이 없어요. ChatGPT 구독과 API 요금은 따로예요. OpenAI 콘솔에서 결제를 확인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 339
+ },
+ {
+  "key": "오늘 무료 사용 한도를 다 썼어요. 무료 키는 모델마다 하루 횟수가 정해져 있어요. 내일 다시 해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 341
+ },
+ {
+  "key": "%@ 요청 한도에 잠깐 걸렸어요. 잠시 뒤 다시 물어봐 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 342
+ },
+ {
+  "key": "%@에서 이 모델을 찾지 못했어요. 비서 설정에서 연결 확인을 다시 해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 343
+ },
+ {
+  "key": "%@ 서버가 붐벼요. 잠시 뒤 다시 물어봐 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 344
+ },
+ {
+  "key": "%@ 서버가 잠시 응답하지 않아요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 345
+ },
+ {
+  "key": "%@가 답하지 못했어요 (%lld).",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 349
+ },
+ {
+  "key": "이 맥의 AI 프로그램이 준비되지 않았어요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 402
+ },
+ {
+  "key": "ChatGPT가 답하지 못했어요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 436
+ },
+ {
+  "key": "Gemini 사용 한도에 도달했어요. 잠시 뒤 다시 해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 442
+ },
+ {
+  "key": "이 맥의 Gemini CLI에 Google 계정으로 로그인되어 있지 않아요. 터미널에서 gemini 를 열어 로그인해 주세요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 444
+ },
+ {
+  "key": "Gemini가 답하지 못했어요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 446
+ },
+ {
+  "key": "%@ 프로그램을 실행하지 못했어요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 461
+ },
+ {
+  "key": "구독 계정",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 542
+ },
+ {
+  "key": "내 API 키",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 542
+ },
+ {
+  "key": "%@(%@)로 답해요. 질문과 필요한 맥 숫자만 보내요.",
+  "file": "Sources/DogMonitor/Assistant/BYOEngine.swift",
+  "line": 543
+ },
+ {
+  "key": "그 이야기는 답하기 어려워요. 다른 걸 물어봐 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 40
+ },
+ {
+  "key": "AI가 잠깐 쉬는 중이에요. 조금 뒤에 다시 물어봐 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 41
+ },
+ {
+  "key": "대화가 길어져서 앞부분을 정리했어요. 다시 물어봐 주세요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 42
+ },
+ {
+  "key": "앞 질문의 답을 만드는 중이에요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 43
+ },
+ {
+  "key": "이 맥의 AI가 이 언어를 아직 못 알아들어요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 44
+ },
+ {
+  "key": "인터넷에 연결하지 못했어요.",
+  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
+  "line": 45
+ },
+ {
   "key": "답을 만들지 못했어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
   "line": 47
@@ -37,952 +1437,952 @@
  {
   "key": "기본 답변이에요. 숫자로 지금 상태를 알려 드려요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 204
+  "line": 209
  },
  {
   "key": "일정은 내가 직접 못 만들어. 캘린더 앱에서 추가해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 218
+  "line": 223
  },
  {
   "key": "일정은 제가 직접 만들 수 없어요. 캘린더 앱에서 추가해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 218
+  "line": 223
  },
  {
   "key": "알람은 내가 못 맞춰. 시계 앱이나 Siri에게 부탁해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 219
+  "line": 224
  },
  {
   "key": "알람은 제가 맞출 수 없어요. 시계 앱이나 Siri에게 부탁해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 219
+  "line": 224
  },
  {
   "key": "메시지는 내가 직접 못 보내. 메일이나 메시지 앱에서 보내 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 220
+  "line": 225
  },
  {
   "key": "메시지는 제가 직접 보낼 수 없어요. 메일이나 메시지 앱에서 보내 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 220
+  "line": 225
  },
  {
   "key": "파일은 내가 직접 못 지워. Finder에서 정리해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 223
+  "line": 228
  },
  {
   "key": "파일은 제가 직접 지울 수 없어요. Finder에서 정리해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 223
+  "line": 228
  },
  {
   "key": "파일은 내가 직접 못 지워. 클리너에서 확인하고 정리할 수 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 225
+  "line": 230
  },
  {
   "key": "파일은 제가 직접 지울 수 없어요. 클리너에서 확인하고 정리할 수 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 225
+  "line": 230
  },
  {
   "key": "앱을 열거나 끄는 건 내가 직접 못 해. 활성 상태 보기에서 확인할 수 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 227
+  "line": 232
  },
  {
   "key": "앱을 열거나 끄는 건 제가 직접 못 해요. 활성 상태 보기에서 확인할 수 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 227
+  "line": 232
  },
  {
   "key": "그건 내가 직접 할 수 없어. 하는 방법이 궁금하면 물어봐 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 228
+  "line": 233
  },
  {
   "key": "그건 제가 직접 할 수 없어요. 하는 방법이 궁금하면 물어봐 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 228
+  "line": 233
  },
  {
   "key": "지금은 %@이야.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 237
+  "line": 242
  },
  {
   "key": "지금은 %@이에요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 237
+  "line": 242
  },
  {
   "key": "그저께는",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 244
+  "line": 249
  },
  {
   "key": "글피는",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 244
+  "line": 249
  },
  {
   "key": "내일은",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 244
+  "line": 249
  },
  {
   "key": "모레는",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 244
+  "line": 249
  },
  {
   "key": "어제는",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 244
+  "line": 249
  },
  {
   "key": "오늘은",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 244
+  "line": 249
  },
  {
   "key": "%@ %@이야.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 245
+  "line": 250
  },
  {
   "key": "%@ %@이었어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 245
+  "line": 250
  },
  {
   "key": "%@ %@이었어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 245
+  "line": 250
  },
  {
   "key": "%@ %@이에요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 245
+  "line": 250
  },
  {
   "key": "환율이나 시세는 실시간 정보라 지금 알 수 없어. 은행이나 증권 앱에서 확인해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 246
+  "line": 251
  },
  {
   "key": "환율이나 시세는 실시간 정보라 지금 알 수 없어요. 은행이나 증권 앱에서 확인해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 246
+  "line": 251
  },
  {
   "key": "날씨는 실시간 정보라 지금 알 수 없어. 날씨 앱에서 확인해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 249
+  "line": 254
  },
  {
   "key": "날씨는 실시간 정보라 지금 알 수 없어요. 날씨 앱에서 확인해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 249
+  "line": 254
  },
  {
   "key": "뉴스는 실시간 정보라 지금 알 수 없어. 뉴스 앱이나 검색으로 확인해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 250
+  "line": 255
  },
  {
   "key": "뉴스는 실시간 정보라 지금 알 수 없어요. 뉴스 앱이나 검색으로 확인해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 250
+  "line": 255
  },
  {
   "key": "경기 결과는 실시간 정보라 지금 알 수 없어. 스포츠 앱에서 확인해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 251
+  "line": 256
  },
  {
   "key": "경기 결과는 실시간 정보라 지금 알 수 없어요. 스포츠 앱에서 확인해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 251
+  "line": 256
  },
  {
   "key": "문제 하나 낼게. %@ 정답은 %@.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 255
+  "line": 260
  },
  {
   "key": "문제 하나 낼게요. %@ 정답은 %@.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 255
+  "line": 260
  },
  {
   "key": "어떤 걸 말씀하시는 건지 조금만 더 알려 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 260
+  "line": 265
  },
  {
   "key": "어떤 걸 말하는 건지 조금만 더 알려 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 260
+  "line": 265
  },
  {
   "key": "캘린더 연동이 꺼져 있어서 일정을 볼 수 없어. 비서 설정에서 켜 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 266
+  "line": 271
  },
  {
   "key": "캘린더 연동이 꺼져 있어서 일정을 볼 수 없어요. 비서 설정에서 켜 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 266
+  "line": 271
  },
  {
   "key": "원",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 278
+  "line": 283
  },
  {
   "key": "천만에, 또 필요하면 불러 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 281
+  "line": 286
  },
  {
   "key": "천만에요, 또 필요하면 불러 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 281
+  "line": 286
  },
  {
   "key": "안녕! 궁금한 거 있으면 언제든 물어봐.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 285
+  "line": 290
  },
  {
   "key": "안녕하세요! 궁금한 거 있으면 언제든 물어봐 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 285
+  "line": 290
  },
  {
   "key": "%@ %@%@ %@ 어때?",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 288
+  "line": 293
  },
  {
   "key": "%@ %@%@ %@ 어때요?",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 288
+  "line": 293
  },
  {
   "key": "야식으로",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 337
+  "line": 342
  },
  {
   "key": "오늘 %@은",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 337
+  "line": 342
  },
  {
   "key": "%@%@ 이미 시작했어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 363
+  "line": 368
  },
  {
   "key": "%@%@ 이미 시작했어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 364
+  "line": 369
  },
  {
   "key": "오늘 남은 %@%@ 없어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 365
+  "line": 370
  },
  {
   "key": "오늘 남은 %@%@ 없어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 365
+  "line": 370
  },
  {
   "key": "다음 일정은 %@%@.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 371
+  "line": 376
  },
  {
   "key": "할 일은 %@%@ 남았어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 376
+  "line": 381
  },
  {
   "key": "할 일은 %@%@ 남았어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 376
+  "line": 381
  },
  {
   "key": "캘린더 연동은 꺼져 있어서 일정은 볼 수 없어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 381
+  "line": 386
  },
  {
   "key": "캘린더 연동은 꺼져 있어서 일정은 볼 수 없어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 381
+  "line": 386
  },
  {
   "key": "다음 %@%@",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 388
+  "line": 393
  },
  {
   "key": "그 전에 %@도 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 391
+  "line": 396
  },
  {
   "key": "그 전에 %@도 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 391
+  "line": 396
  },
  {
   "key": "%@에는 일정이 없어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 409
+  "line": 414
  },
  {
   "key": "%@에는 일정이 없어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 409
+  "line": 414
  },
  {
   "key": "%@에는 %@%@ 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 412
+  "line": 417
  },
  {
   "key": "%@에는 %@%@ 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 412
+  "line": 417
  },
  {
   "key": "오늘 %@%@ %@%@ 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 421
+  "line": 426
  },
  {
   "key": "오늘 %@%@ %@%@ 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 421
+  "line": 426
  },
  {
   "key": "오늘 남은 일정은 %@%@.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 425
+  "line": 430
  },
  {
   "key": "퇴근 시간을 아직 몰라요. 비서 설정에서 퇴근 10분 전 알림을 켜고 시간을 정해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 444
+  "line": 449
  },
  {
   "key": "퇴근 시간을 아직 몰라. 비서 설정에서 퇴근 10분 전 알림을 켜고 시간을 정해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 445
+  "line": 450
  },
  {
   "key": "퇴근 시간(%@)이 지났어. 오늘도 수고했어!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 449
+  "line": 454
  },
  {
   "key": "퇴근 시간(%@)이 지났어요. 오늘도 수고하셨어요!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 449
+  "line": 454
  },
  {
   "key": "%lld분",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 450
+  "line": 455
  },
  {
   "key": "%lld시간",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 450
+  "line": 455
  },
  {
   "key": "%lld시간 %lld분",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 450
+  "line": 455
  },
  {
   "key": "퇴근(%@)까지 %@ 남았어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 451
+  "line": 456
  },
  {
   "key": "퇴근(%@)까지 %@ 남았어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 451
+  "line": 456
  },
  {
   "key": "오늘 남은 할 일은 없어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 461
+  "line": 466
  },
  {
   "key": "오늘 남은 할 일은 없어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 461
+  "line": 466
  },
  {
   "key": "미리알림 연동이 꺼져 있어서 할 일을 볼 수 없어요. 비서 설정에서 켜 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 462
+  "line": 467
  },
  {
   "key": "미리알림 연동이 꺼져 있어서 할 일을 볼 수 없어. 비서 설정에서 켜 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 463
+  "line": 468
  },
  {
   "key": "좋아, 춤 간다! 하나 둘, 하나 둘!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 485
+  "line": 490
  },
  {
   "key": "좋아요, 춤 갑니다! 하나 둘, 하나 둘!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 485
+  "line": 490
  },
  {
   "key": "빙글빙글~ 내 춤 어때?",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 486
+  "line": 491
  },
  {
   "key": "빙글빙글~ 제 춤 어때요?",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 486
+  "line": 491
  },
  {
   "key": "음악 없어도 출 수 있어. 둠칫둠칫!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 487
+  "line": 492
  },
  {
   "key": "음악 없어도 출 수 있어요. 둠칫둠칫!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 487
+  "line": 492
  },
  {
   "key": "신나요! 같이 어깨 들썩여 봐요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 488
+  "line": 493
  },
  {
   "key": "신난다! 너도 같이 어깨 들썩여 봐.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 488
+  "line": 493
  },
  {
   "key": "넌 잘하고 있어. 내가 옆에서 응원할게!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 491
+  "line": 496
  },
  {
   "key": "잘하고 계세요. 제가 옆에서 응원할게요!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 491
+  "line": 496
  },
  {
   "key": "영차영차! 조금만 더 가 보자. 힘내!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 492
+  "line": 497
  },
  {
   "key": "영차영차! 조금만 더 가 봐요. 힘내세요!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 492
+  "line": 497
  },
  {
   "key": "오늘도 여기까지 오신 거 대단해요. 파이팅!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 493
+  "line": 498
  },
  {
   "key": "오늘도 여기까지 온 거 대단해. 파이팅!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 493
+  "line": 498
  },
  {
   "key": "힘들면 잠깐 쉬어 가셔도 돼요. 저는 계속 응원할게요!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 494
+  "line": 499
  },
  {
   "key": "힘들면 잠깐 쉬어도 돼. 난 계속 네 편이야!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 494
+  "line": 499
  },
  {
   "key": "그건 지금 기본 답변으로는 답하기 어려워요. 맥 상태, 일정, 메일, 계산은 물어봐 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 509
+  "line": 514
  },
  {
   "key": "그건 지금 기본 답변으로는 답하기 어려워. 맥 상태, 일정, 메일, 계산은 물어봐 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 510
+  "line": 515
  },
  {
   "key": "네트워크는 %@%@.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 571
+  "line": 576
  },
  {
   "key": "CPU가 %@로 많이 바빠.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 580
+  "line": 585
  },
  {
   "key": "CPU가 %@로 많이 바빠요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 580
+  "line": 585
  },
  {
   "key": "CPU는 %@로 조금 바쁘지만 괜찮아.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 581
+  "line": 586
  },
  {
   "key": "CPU는 %@로 조금 바쁘지만 괜찮아요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 581
+  "line": 586
  },
  {
   "key": "CPU는 %@라 여유 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 582
+  "line": 587
  },
  {
   "key": "CPU는 %@라 여유 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 582
+  "line": 587
  },
  {
   "key": "어떤 앱인지는 활성 상태 보기에서 확인해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 585
+  "line": 590
  },
  {
   "key": "어떤 앱인지는 활성 상태 보기에서 확인해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 585
+  "line": 590
  },
  {
   "key": "지금은 눈에 띄게 CPU를 많이 쓰는 앱이 없어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 593
+  "line": 598
  },
  {
   "key": "지금은 눈에 띄게 CPU를 많이 쓰는 앱이 없어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 593
+  "line": 598
  },
  {
   "key": "CPU를 제일 많이 쓰는 앱은 %@%@.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 594
+  "line": 599
  },
  {
   "key": "CPU를 많이 쓰는 앱은 %@ 순이야.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 595
+  "line": 600
  },
  {
   "key": "CPU를 많이 쓰는 앱은 %@ 순이에요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 595
+  "line": 600
  },
  {
   "key": "앱별 사용량은 지금 내가 못 읽어서, 어떤 앱인지는 활성 상태 보기에서 확인해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 600
+  "line": 605
  },
  {
   "key": "앱별 사용량은 지금 제가 못 읽어서, 어떤 앱인지는 활성 상태 보기에서 확인해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 601
+  "line": 606
  },
  {
   "key": "전체로는 CPU %@, 메모리 %@를 쓰는 중이라 빠듯해.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 604
+  "line": 609
  },
  {
   "key": "전체로는 CPU %@, 메모리 %@를 쓰는 중이라 빠듯해요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 604
+  "line": 609
  },
  {
   "key": "전체로는 CPU %@, 메모리 %@를 쓰는 중이라 여유 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 605
+  "line": 610
  },
  {
   "key": "전체로는 CPU %@, 메모리 %@를 쓰는 중이라 여유 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 605
+  "line": 610
  },
  {
   "key": "메모리는 %@ 중 %@를 쓰고 있어서 %@(%@)가 남았어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 617
+  "line": 622
  },
  {
   "key": "메모리는 %@ 중 %@를 쓰고 있어서 %@(%@)가 남았어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 618
+  "line": 623
  },
  {
   "key": "메모리는 %@를 쓰고 있어서 %@가 남았어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 620
+  "line": 625
  },
  {
   "key": "메모리는 %@를 쓰고 있어서 %@가 남았어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 620
+  "line": 625
  },
  {
   "key": "압력이 보통이라 아직 넉넉해.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 623
+  "line": 628
  },
  {
   "key": "압력이 보통이라 아직 넉넉해요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 623
+  "line": 628
  },
  {
   "key": "압력이 높아서 부족해지는 중이야. 안 쓰는 앱을 닫아 봐.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 624
+  "line": 629
  },
  {
   "key": "압력이 높아서 부족해지는 중이에요. 안 쓰는 앱을 닫아 보세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 624
+  "line": 629
  },
  {
   "key": "압력이 매우 높아서 많이 부족해. 안 쓰는 앱을 닫아 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 625
+  "line": 630
  },
  {
   "key": "압력이 매우 높아서 많이 부족해요. 안 쓰는 앱을 닫아 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 625
+  "line": 630
  },
  {
   "key": "전체 %@ 중 ",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 633
+  "line": 638
  },
  {
   "key": "저장 공간은 %@%@만 남아서 거의 꽉 찼어. 정리가 필요해.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 635
+  "line": 640
  },
  {
   "key": "저장 공간은 %@%@만 남아서 거의 꽉 찼어요. 정리가 필요해요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 635
+  "line": 640
  },
  {
   "key": "저장 공간은 %@%@ 남아서 조금 빠듯해.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 636
+  "line": 641
  },
  {
   "key": "저장 공간은 %@%@ 남아서 조금 빠듯해요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 636
+  "line": 641
  },
  {
   "key": "저장 공간은 %@%@ 남아서 넉넉해.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 637
+  "line": 642
  },
  {
   "key": "저장 공간은 %@%@ 남아서 넉넉해요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 637
+  "line": 642
  },
  {
   "key": "이 맥은 배터리가 없어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 642
+  "line": 647
  },
  {
   "key": "이 맥은 배터리가 없어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 642
+  "line": 647
  },
  {
   "key": "배터리는 %@고 충전 중이야.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 643
+  "line": 648
  },
  {
   "key": "배터리는 %@이고 충전 중이에요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 643
+  "line": 648
  },
  {
   "key": "네, 지금 충전해 주세요. 배터리가 %@밖에 안 남아서 곧 꺼질 수 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 647
+  "line": 652
  },
  {
   "key": "응, 지금 충전해 줘. 배터리가 %@밖에 안 남아서 곧 꺼질 수 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 647
+  "line": 652
  },
  {
   "key": "네, 지금 충전해 두시는 게 좋아요. 배터리가 %@ 남았어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 648
+  "line": 653
  },
  {
   "key": "응, 지금 충전해 두는 게 좋아. 배터리가 %@ 남았어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 648
+  "line": 653
  },
  {
   "key": "아직 충전 안 하셔도 돼요. 배터리가 %@ 남았어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 649
+  "line": 654
  },
  {
   "key": "아직 충전 안 해도 돼. 배터리가 %@ 남았어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 649
+  "line": 654
  },
  {
   "key": "배터리는 %@고 전원에 연결돼 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 651
+  "line": 656
  },
  {
   "key": "배터리는 %@이고 전원에 연결돼 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 651
+  "line": 656
  },
  {
   "key": "배터리는 %@ 남았어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 652
+  "line": 657
  },
  {
   "key": "배터리는 %@ 남았어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 652
+  "line": 657
  },
  {
   "key": "곧 꺼질 수 있으니 충전해 주세요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 654
+  "line": 659
  },
  {
   "key": "곧 꺼질 수 있으니 충전해 줘.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 654
+  "line": 659
  },
  {
   "key": "여유 있을 때 충전해 두면 좋아.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 655
+  "line": 660
  },
  {
   "key": "여유 있을 때 충전해 두시면 좋아요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 655
+  "line": 660
  },
  {
   "key": "아직 충전 안 하셔도 돼요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 656
+  "line": 661
  },
  {
   "key": "아직 충전 안 해도 돼.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 656
+  "line": 661
  },
  {
   "key": "맥이 뜨거워서 스스로 속도를 낮추는 중이야.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 662
+  "line": 667
  },
  {
   "key": "맥이 뜨거워서 스스로 속도를 낮추는 중이에요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 662
+  "line": 667
  },
  {
   "key": "조금 따뜻하지만 걱정할 정도는 아니야.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 663
+  "line": 668
  },
  {
   "key": "조금 따뜻하지만 걱정할 정도는 아니에요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 663
+  "line": 668
  },
  {
   "key": "발열은 보통이라 괜찮아.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 664
+  "line": 669
  },
  {
   "key": "발열은 보통이라 괜찮아요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 664
+  "line": 669
  },
  {
   "key": "켜진 지 %@ 됐어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 673
+  "line": 678
  },
  {
   "key": "켜진 지 %@ 됐어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 673
+  "line": 678
  },
  {
   "key": "네, 한 번 재시동하시는 게 좋아요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 674
+  "line": 679
  },
  {
   "key": "응, 한 번 재시동하는 게 좋아.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 674
+  "line": 679
  },
  {
   "key": "네, 메모리가 빠듯해서 재시동하시면 나아질 거예요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 675
+  "line": 680
  },
  {
   "key": "응, 메모리가 빠듯해서 재시동하면 나아질 거야.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 675
+  "line": 680
  },
  {
   "key": "아직 재시동은 안 하셔도 돼요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 676
+  "line": 681
  },
  {
   "key": "아직 재시동은 안 해도 돼.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 676
+  "line": 681
  },
  {
   "key": "오래 켜 두셨으니 한 번 재시동하시면 좋아요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 679
+  "line": 684
  },
  {
   "key": "오래 켜 뒀으니 한 번 재시동하면 좋아.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 679
+  "line": 684
  },
  {
   "key": "메모리가 빠듯하니 재시동하면 나아질 거야.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 680
+  "line": 685
  },
  {
   "key": "메모리가 빠듯하니 재시동하시면 나아질 거예요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 680
+  "line": 685
  },
  {
   "key": "배터리가 %@밖에 안 남아서 충전이 필요해.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 701
+  "line": 706
  },
  {
   "key": "배터리가 %@밖에 안 남아서 충전이 필요해요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 701
+  "line": 706
  },
  {
   "key": "다만 켜진 지 %@%@ 재시동하면 나아질 수 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 709
+  "line": 714
  },
  {
   "key": "다만 켜진 지 %@%@ 재시동하면 나아질 수 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 709
+  "line": 714
  },
  {
   "key": "켜진 지 %@%@ 재시동하면 나아질 수 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 710
+  "line": 715
  },
  {
   "key": "켜진 지 %@%@ 재시동하면 나아질 수 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 710
+  "line": 715
  },
  {
   "key": "지금 숫자로는 느릴 뚜렷한 이유가 없어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 717
+  "line": 722
  },
  {
   "key": "지금 숫자로는 느릴 뚜렷한 이유가 없어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 717
+  "line": 722
  },
  {
   "key": "CPU는 %@, 메모리는 %@를 쓰는 중이라 둘 다 여유 있어.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 719
+  "line": 724
  },
  {
   "key": "CPU는 %@, 메모리는 %@를 쓰는 중이라 둘 다 여유 있어요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 719
+  "line": 724
  },
  {
   "key": "지금 전체적으로 괜찮아.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 728
+  "line": 733
  },
  {
   "key": "지금 전체적으로 괜찮아요.",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 728
+  "line": 733
  },
  {
   "key": "메모리 %@",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 731
+  "line": 736
  },
  {
   "key": "남은 저장 공간 %@",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 732
+  "line": 737
  },
  {
   "key": "배터리 %@",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 733
+  "line": 738
  },
  {
   "key": "오늘",
@@ -2870,194 +4270,159 @@
   "line": 389
  },
  {
-  "key": "쿨쿨 자는 중",
-  "file": "Sources/DogMonitor/Models.swift",
-  "line": 100
- },
- {
-  "key": "어슬렁어슬렁",
-  "file": "Sources/DogMonitor/Models.swift",
-  "line": 101
- },
- {
-  "key": "산책 중",
-  "file": "Sources/DogMonitor/Models.swift",
-  "line": 102
- },
- {
-  "key": "총총총",
-  "file": "Sources/DogMonitor/Models.swift",
-  "line": 103
- },
- {
-  "key": "달리는 중",
-  "file": "Sources/DogMonitor/Models.swift",
-  "line": 104
- },
- {
-  "key": "전속력 질주!",
-  "file": "Sources/DogMonitor/Models.swift",
-  "line": 105
- },
- {
-  "key": "헉헉 땀 뻘뻘",
-  "file": "Sources/DogMonitor/Models.swift",
-  "line": 106
- },
- {
   "key": "내 캐릭터",
   "file": "Sources/DogMonitor/Models.swift",
-  "line": 215
+  "line": 145
  },
  {
   "key": "밥 먹을 시간 지난 것 같아요. 밥 주세요!",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 162
+  "line": 177
  },
  {
   "key": "배고파요. 밥 주세요!",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 162
+  "line": 177
  },
  {
   "key": "배에서 꼬르륵 소리가 나요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 162
+  "line": 177
  },
  {
   "key": "배가 너무 고파서 산책 나갔어요. 편지를 남겼어요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 163
+  "line": 178
  },
  {
   "key": "다녀왔어요! 밥 고마워요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 164
+  "line": 179
  },
  {
   "key": "돌아왔어요! 배부르니까 기분 좋아요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 164
+  "line": 179
  },
  {
   "key": "역시 집이 최고예요. 밥 고마워요!",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 164
+  "line": 179
  },
  {
   "key": "출석 %lld일째! 코인 %lld개 받았어요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 165
+  "line": 180
  },
  {
   "key": "레벨 %lld까지 컸어요!",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 166
+  "line": 181
  },
  {
   "key": "%@을 얻었어요!",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 167
+  "line": 182
  },
  {
   "key": "미션 완료: %@. 코인 %lld개 받았어요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 168
+  "line": 183
  },
  {
   "key": "25분 집중 끝! 코인 %lld개 받았어요. 5분 쉬어요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 170
+  "line": 185
  },
  {
   "key": "집중 한 번 해냈어요! 코인 %lld개 받았어요. 5분만 쉬어요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 170
+  "line": 185
  },
  {
   "key": "25분 잘 버텼어요. 코인 %lld개! 이제 5분 쉬어요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 171
+  "line": 186
  },
  {
   "key": "5분 다 쉬었어요. 다시 해 볼까요?",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 172
+  "line": 187
  },
  {
   "key": "쉬는 시간 끝. 다시 집중해 볼까요?",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 172
+  "line": 187
  },
  {
   "key": "충전 완료! 다음 25분 시작해 볼까요?",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 172
+  "line": 187
  },
  {
   "key": "20분 지났어요. 20초 동안 6미터 먼 곳을 바라봐요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 174
+  "line": 189
  },
  {
   "key": "눈 쉴 시간이에요. 20초만 창밖을 봐요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 174
+  "line": 189
  },
  {
   "key": "20분 동안 화면만 봤어요. 먼 곳을 20초 바라봐요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 175
+  "line": 190
  },
  {
   "key": "화면에서 잠깐 눈을 떼요. 6미터 먼 곳을 20초 동안 봐요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 175
+  "line": 190
  },
  {
   "key": "미션을 다 해냈어요! 오늘 정말 최고예요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 184
+  "line": 199
  },
  {
   "key": "오늘 미션 완주! 내일도 같이 해요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 184
+  "line": 199
  },
  {
   "key": "오늘 미션 전부 끝! 축하 춤 출게요.",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 184
+  "line": 199
  },
  {
   "key": "펫이 산책 나갔어요",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 216
+  "line": 231
  },
  {
   "key": "펫이 배고파요",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 217
+  "line": 232
  },
  {
   "key": "펫이 졸려요",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 218
+  "line": 233
  },
  {
   "key": "펫을 씻겨 주세요",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 219
+  "line": 234
  },
  {
   "key": "쉬는 중 · %lld분",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 228
+  "line": 243
  },
  {
   "key": "집중 중 · %lld분 남음",
   "file": "Sources/DogMonitor/Pet/PetModel.swift",
-  "line": 228
+  "line": 243
  },
  {
   "key": "배부름",
@@ -3132,486 +4497,611 @@
  {
   "key": "밥 %lld번",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 280
+  "line": 282
  },
  {
   "key": "목욕 %lld번",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 282
+  "line": 284
  },
  {
   "key": "집중 %lld번",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 283
+  "line": 285
  },
  {
   "key": "쉬는 시간 %lld번",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 284
+  "line": 286
  },
  {
   "key": "청소 %lld번",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 285
+  "line": 287
  },
  {
   "key": "조용한 하루였어요.",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 286
+  "line": 288
  },
  {
   "key": " 미션 %lld개 완료.",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 287
+  "line": 289
  },
  {
   "key": " 레벨 %lld까지 컸어요.",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 288
+  "line": 290
  },
  {
   "key": " 코인 %lld개.",
   "file": "Sources/DogMonitor/Pet/PetState.swift",
-  "line": 289
+  "line": 291
  },
  {
-  "key": "코리안 숏헤어(고등어)",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 42
- },
- {
-  "key": "치즈 태비",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 43
- },
- {
-  "key": "삼색이",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 44
- },
- {
-  "key": "턱시도",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 45
- },
- {
-  "key": "러시안 블루",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 46
- },
- {
-  "key": "페르시안",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 48
- },
- {
-  "key": "샴",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 50
- },
- {
-  "key": "먼치킨",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 51
- },
- {
-  "key": "스코티시 폴드",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 52
- },
- {
-  "key": "노르웨이 숲",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 53
- },
- {
-  "key": "브리티시 숏헤어",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 55
- },
- {
-  "key": "검은 고양이",
-  "file": "Sources/DogMonitor/Sprite/CatProfile.swift",
-  "line": 57
- },
- {
-  "key": "모자색",
-  "file": "Sources/DogMonitor/Sprite/CharacterColors.swift",
-  "line": 21
- },
- {
-  "key": "털색",
-  "file": "Sources/DogMonitor/Sprite/CharacterColors.swift",
-  "line": 21
- },
- {
-  "key": "후드티색",
-  "file": "Sources/DogMonitor/Sprite/CharacterColors.swift",
-  "line": 21
- },
- {
-  "key": "바지색",
-  "file": "Sources/DogMonitor/Sprite/CharacterColors.swift",
-  "line": 22
- },
- {
-  "key": "보드색",
-  "file": "Sources/DogMonitor/Sprite/CharacterColors.swift",
-  "line": 22
- },
- {
-  "key": "배고파서 먹을 걸 찾는 중",
-  "file": "Sources/DogMonitor/Sprite/CharacterKit.swift",
-  "line": 57
- },
- {
-  "key": "충전하며 냠냠",
-  "file": "Sources/DogMonitor/Sprite/CharacterKit.swift",
-  "line": 58
- },
- {
-  "key": "특수 기술!",
-  "file": "Sources/DogMonitor/Sprite/CharacterKit.swift",
-  "line": 59
- },
- {
-  "key": "코리안 숏헤어",
-  "file": "Sources/DogMonitor/Sprite/CharacterKit.swift",
-  "line": 71
- },
- {
-  "key": "나만의 캐릭터",
-  "file": "Sources/DogMonitor/Sprite/CustomCharacterStore.swift",
-  "line": 24
- },
- {
-  "key": "쉴 때",
-  "file": "Sources/DogMonitor/Sprite/CustomSprite.swift",
-  "line": 11
- },
- {
-  "key": "평소",
-  "file": "Sources/DogMonitor/Sprite/CustomSprite.swift",
-  "line": 12
- },
- {
-  "key": "젤리",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 12
- },
- {
-  "key": "골든 리트리버",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 18
- },
- {
-  "key": "시바견",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 19
- },
- {
-  "key": "시베리안 허스키",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 20
- },
- {
-  "key": "래브라도 리트리버",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 21
- },
- {
-  "key": "푸들",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 22
- },
- {
-  "key": "토이 푸들",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 23
- },
- {
-  "key": "말티푸",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 24
- },
- {
-  "key": "비글",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 25
- },
- {
-  "key": "닥스훈트",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 26
- },
- {
-  "key": "불독",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 27
- },
- {
-  "key": "보더콜리",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 28
- },
- {
-  "key": "치와와",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 29
- },
- {
-  "key": "포메라니안",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 30
- },
- {
-  "key": "웰시코기",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 31
- },
- {
-  "key": "저먼 셰퍼드",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 32
- },
- {
-  "key": "도베르만",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 33
- },
- {
-  "key": "잭 러셀 테리어",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 34
- },
- {
-  "key": "말티즈",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 35
- },
- {
-  "key": "비숑 프리제",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 36
- },
- {
-  "key": "사모예드",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 37
- },
- {
-  "key": "진돗개",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 38
- },
- {
-  "key": "프렌치 불독",
-  "file": "Sources/DogMonitor/Sprite/DogPresets.swift",
-  "line": 39
- },
- {
-  "key": "frames.json을 읽지 못했어요",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 25
- },
- {
-  "key": "palette 또는 poses가 없어요",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 28
- },
- {
-  "key": "색 '%@'가 #RRGGBB 형식이 아니에요",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 34
- },
- {
-  "key": "색이 하나도 없어요",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 38
- },
- {
-  "key": "색이 %lld개예요 (%lld개까지)",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 39
- },
- {
-  "key": "테두리용 어두운 색이 없어요",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 40
- },
- {
-  "key": "'%@' 동작의 그림 수가 맞지 않아요",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 46
- },
- {
-  "key": "'%@' 그림이 %lld줄 × %lld칸이 아니에요",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 55
- },
- {
-  "key": "'%@' 그림이 비어 있어요",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 66
- },
- {
-  "key": "Claude가 그린 그림이 규칙에 맞지 않아요 (%@). 다시 그려 주세요.",
-  "file": "Sources/DogMonitor/Sprite/FrameArt.swift",
-  "line": 73
- },
- {
-  "key": "킥플립",
-  "file": "Sources/DogMonitor/Sprite/OriginalCharacterSet2.swift",
-  "line": 33
- },
- {
-  "key": "태닝 고양이",
-  "file": "Sources/DogMonitor/Sprite/OriginalCharacterSet2.swift",
-  "line": 33
- },
- {
-  "key": "햇볕에 그을린 스케이터 고양이. 킥플립 한 방에 윙크까지 해요.",
-  "file": "Sources/DogMonitor/Sprite/OriginalCharacterSet2.swift",
-  "line": 34
- },
- {
-  "key": "창문",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 21
- },
- {
-  "key": "꽃 액자",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 35
- },
- {
-  "key": "벽시계",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 49
- },
- {
-  "key": "화분 선반",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 62
- },
- {
-  "key": "깃발 가랜드",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 73
- },
- {
-  "key": "폭신 침대",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 79
- },
- {
-  "key": "큰 화분",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
+  "key": "오늘 한마디",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
   "line": 91
  },
  {
-  "key": "책상과 스탠드",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 108
+  "key": "친구에게만 보여요. 오늘 하루 동안 프로필 카드에 남아요.",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 92
  },
  {
-  "key": "라벤더 소파",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 125
+  "key": "40자까지",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 94
  },
  {
-  "key": "책장",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 137
+  "key": "저장",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 97
  },
  {
-  "key": "장난감 상자",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 156
+  "key": "%@에게 낙서 쪽지",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 177
  },
  {
-  "key": "스탠드 조명",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 170
+  "key": "%@의 낙서 쪽지",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 276
  },
  {
-  "key": "어항",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 179
+  "key": "낙서 칸",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 312
  },
  {
-  "key": "크림 줄무늬",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 197
+  "key": "보내기",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 317
  },
  {
-  "key": "민트 물방울",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 198
+  "key": "5초 동안 친구 화면에 떴다가 사라져요. 저장하지 않아요.",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 321
  },
  {
-  "key": "딸기 체크",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 199
+  "key": "지금은 못 보내요. 잠깐 뒤에 다시 해 주세요.",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 321
  },
  {
-  "key": "밤하늘 별",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 200
+  "key": "프로필 카드",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 336
  },
  {
-  "key": "원목 마루",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 201
+  "key": "오늘 한마디가 아직 없어요",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 363
  },
  {
-  "key": "체크 타일",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 202
+  "key": "오늘 운세",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 368
  },
  {
-  "key": "하늘 카펫",
-  "file": "Sources/DogMonitor/Sprite/PetRoomArt.swift",
-  "line": 203
+  "key": "오늘 점심",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 372
  },
  {
-  "key": "도트",
-  "file": "Sources/DogMonitor/Sprite/RealSprite.swift",
-  "line": 11
+  "key": "아직 몰라요",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 383
  },
  {
-  "key": "실사",
-  "file": "Sources/DogMonitor/Sprite/RealSprite.swift",
-  "line": 11
+  "key": "오늘은 칼퇴 각, 다들 화이팅",
+  "file": "Sources/DogMonitor/Social/FriendNotes.swift",
+  "line": 400
  },
  {
-  "key": "얇게",
-  "file": "Sources/DogMonitor/Sprite/RealSprite.swift",
-  "line": 38
+  "key": "다같이 뽀뽀",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 19
  },
  {
-  "key": "진하게",
-  "file": "Sources/DogMonitor/Sprite/RealSprite.swift",
-  "line": 39
- },
- {
-  "key": "일러스트",
-  "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
-  "line": 14
- },
- {
-  "key": "캐릭터마다 그려진 그대로 보여 줘요",
-  "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
+  "key": "다같이 똥",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
   "line": 20
  },
  {
-  "key": "모든 캐릭터를 또렷한 도트로 보여 줘요",
-  "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
+  "key": "던지기",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
   "line": 21
  },
  {
-  "key": "도트 그림은 매끈하게, 사진 캐릭터는 실사로 보여 줘요",
-  "file": "Sources/DogMonitor/Sprite/RenderStyle.swift",
-  "line": 22
+  "key": "다같이 뽀뽀!",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 28
+ },
+ {
+  "key": "다같이 똥!",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 29
+ },
+ {
+  "key": "날아왔어!",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 30
+ },
+ {
+  "key": "친구 캐릭터 화면에서 치우기",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 383
+ },
+ {
+  "key": "원격 모임에 한마디…",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 386
+ },
+ {
+  "key": "창에서 내려오기",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 390
+ },
+ {
+  "key": "대화하기",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 393
+ },
+ {
+  "key": "낙서 쪽지 보내기…",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 395
+ },
+ {
+  "key": "다같이",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 406
+ },
+ {
+  "key": "%@ 던지기",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 413
+ },
+ {
+  "key": "던질 준비 (10초)",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 415
+ },
+ {
+  "key": "왁!",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 535
+ },
+ {
+  "key": "%@%@ 던져서 날아왔어!",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 784
+ },
+ {
+  "key": "입력 중",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 924
+ },
+ {
+  "key": "퇴근",
+  "file": "Sources/DogMonitor/Social/FriendRoom.swift",
+  "line": 1014
+ },
+ {
+  "key": "메시지",
+  "file": "Sources/DogMonitor/Social/FriendVisit.swift",
+  "line": 198
+ },
+ {
+  "key": "같이 뛰기",
+  "file": "Sources/DogMonitor/Social/FriendVisit.swift",
+  "line": 207
+ },
+ {
+  "key": "별 대결",
+  "file": "Sources/DogMonitor/Social/FriendVisit.swift",
+  "line": 208
+ },
+ {
+  "key": "원격 지원 요청",
+  "file": "Sources/DogMonitor/Social/FriendVisit.swift",
+  "line": 211
+ },
+ {
+  "key": "온라인",
+  "file": "Sources/DogMonitor/Social/FriendVisit.swift",
+  "line": 233
+ },
+ {
+  "key": "누르고 있는 동안 말하기",
+  "file": "Sources/DogMonitor/Social/FriendVisit.swift",
+  "line": 264
+ },
+ {
+  "key": "말하는 중",
+  "file": "Sources/DogMonitor/Social/FriendVisit.swift",
+  "line": 264
+ },
+ {
+  "key": "누르고 있는 동안 친구에게 목소리를 보내요",
+  "file": "Sources/DogMonitor/Social/FriendVisit.swift",
+  "line": 275
+ },
+ {
+  "key": "친구 맺기가 안 됐어요. 코드를 확인하고 다시 해 주세요.",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 80
+ },
+ {
+  "key": "다른 맥이 코드를 맞추려 했어요. 친구 추가를 멈췄어요.",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 82
+ },
+ {
+  "key": "이미 친구인 맥이에요. 다시 맺으려면 친구 목록에서 먼저 삭제해 주세요.",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 201
+ },
+ {
+  "key": "%@와 친구가 됐어요",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 209
+ },
+ {
+  "key": "오늘 한마디…",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 256
+ },
+ {
+  "key": "친구 추가…",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 257
+ },
+ {
+  "key": "%@와 친구가 될까요?",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 269
+ },
+ {
+  "key": "확인 숫자 %@\n친구 맥에도 같은 숫자가 보일 때만 친구 하기를 눌러 주세요. 다르면 다른 맥이 끼어든 거예요.",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 270
+ },
+ {
+  "key": "친구 하기",
+  "file": "Sources/DogMonitor/Social/Pairing.swift",
+  "line": 271
+ },
+ {
+  "key": "사진이 너무 커요. 20MB, 한 변 2만 픽셀까지 보낼 수 있어요.",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 211
+ },
+ {
+  "key": "사진 파일만 보낼 수 있어요.",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 212
+ },
+ {
+  "key": "사진을 줄이지 못했어요. 다른 사진으로 해 주세요.",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 213
+ },
+ {
+  "key": "친구가 지금 사진을 받을 수 없어요.",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 224
+ },
+ {
+  "key": "잠깐 뒤에 다시 보내 주세요.",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 225
+ },
+ {
+  "key": "사진",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 236
+ },
+ {
+  "key": "사진을 보냈어요",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 250
+ },
+ {
+  "key": "받은 사진",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 282
+ },
+ {
+  "key": "눌러서 크게 보기",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 308
+ },
+ {
+  "key": "파일에서 고르기…",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 322
+ },
+ {
+  "key": "복사한 사진 붙여넣기",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 323
+ },
+ {
+  "key": "친구가 온라인일 때 사진을 보낼 수 있어요.",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 334
+ },
+ {
+  "key": "친구 앱을 업데이트하면 사진을 주고받을 수 있어요.",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 335
+ },
+ {
+  "key": "끌어다 놓거나 붙여넣어도 돼요. 위치 정보는 지우고 보내요.",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 336
+ },
+ {
+  "key": "사진을 보내는 중…",
+  "file": "Sources/DogMonitor/Social/PhotoMessage.swift",
+  "line": 344
+ },
+ {
+  "key": "원격 지원 요청은 잠시 뒤에 다시 보내 주세요.",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 51
+ },
+ {
+  "key": "%@에게 원격 지원을 요청했어요.",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 53
+ },
+ {
+  "key": "%@가 내 화면을 보고 도와주려 해요.",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 79
+ },
+ {
+  "key": "수락하면 %@의 맥에서 화면 공유가 열리고, 이 맥이 한 번 더 허락을 물어요.",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 80
+ },
+ {
+  "key": "시스템 설정 > 일반 > 공유 > 화면 공유를 켜 주세요. 켠 다음 다시 보내기를 누르면 친구 맥에서 열려요.",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 103
+ },
+ {
+  "key": "화면 공유가 꺼져 있어요",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 103
+ },
+ {
+  "key": "다시 보내기",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 104
+ },
+ {
+  "key": "시스템 설정 열기",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 104
+ },
+ {
+  "key": "%@가 지금은 원격 지원을 받지 않아요.",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 141
+ },
+ {
+  "key": "상대 맥에서 화면 공유가 꺼져 있어요, 켜는 방법을 보냈어요",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 142
+ },
+ {
+  "key": "%@ 맥의 주소를 찾지 못했어요",
+  "file": "Sources/DogMonitor/Social/RemoteHelp.swift",
+  "line": 143
+ },
+ {
+  "key": "모임에서 나갔어요",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 186
+ },
+ {
+  "key": "입력 중…",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 189
+ },
+ {
+  "key": "오늘의 운세: %@",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 190
+ },
+ {
+  "key": "✏️ 낙서 쪽지",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 192
+ },
+ {
+  "key": "💕 뽀뽀했어요",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 197
+ },
+ {
+  "key": "💫 기절했어요",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 199
+ },
+ {
+  "key": "꺼짐",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 366
+ },
+ {
+  "key": "아직 모임이 없어요",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 367
+ },
+ {
+  "key": "연결 중",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 368
+ },
+ {
+  "key": "연결됨 · %lld명",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 369
+ },
+ {
+  "key": "모임이 꽉 찼어요 (12명)",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 370
+ },
+ {
+  "key": " (외 %lld개)",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 752
+ },
+ {
+  "key": "원격 모임은 설정 > 플러그인에서 먼저 켜 주세요",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 768
+ },
+ {
+  "key": "원격 모임에 들어갈까요?",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 774
+ },
+ {
+  "key": "코드 %@ 모임에 들어가요. 지금 모임이 있으면 거기서는 나가요.",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 775
+ },
+ {
+  "key": "들어가기",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 776
+ },
+ {
+  "key": "원격 모임에 한마디",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 785
+ },
+ {
+  "key": "200자까지",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 787
+ },
+ {
+  "key": "오늘 운세 보내기",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 806
+ },
+ {
+  "key": "한마디 보내기…",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 807
+ },
+ {
+  "key": "원격 모임 켜기",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 853
+ },
+ {
+  "key": "켜면 상태·이모트·운세·한마디·입력 중 표시·캐릭터 모습·프로필·낙서 쪽지만 종단간 암호화해서 중계 서버를 거쳐 보내요. 서버는 내용을 읽지 못하고 모임의 마지막 활동 24시간 뒤 지워요. 모임 친구는 친구 상주 자리에 캐릭터로 서고, 한마디는 머리 위 말풍선으로 떠요.",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 854
+ },
+ {
+  "key": "상태",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 857
+ },
+ {
+  "key": "같이 놀기와 무전기는 계속 같은 와이파이에서만 돼요.",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 862
+ },
+ {
+  "key": "새 모임 만들기",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 876
+ },
+ {
+  "key": "받은 코드나 링크",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 878
+ },
+ {
+  "key": "최대 12명까지 함께해요. 초대 링크나 코드를 친구에게 보내 주세요.",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 881
+ },
+ {
+  "key": "모임 코드",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 894
+ },
+ {
+  "key": "복사했어요",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 897
+ },
+ {
+  "key": "초대 링크 복사",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 897
+ },
+ {
+  "key": "나가기",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 902
+ },
+ {
+  "key": "한마디 (200자까지)",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 910
+ },
+ {
+  "key": "낙서 쪽지",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 924
+ },
+ {
+  "key": "사진은 근처 친구 대화에서만 보낼 수 있어요. 원격 모임은 중계 서버를 거치고 한 번에 2KB까지라 사진을 싣지 않아요.",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 927
+ },
+ {
+  "key": "프로필",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 931
+ },
+ {
+  "key": "오늘 저녁 7시 게임 어때?",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 968
  }
 ]

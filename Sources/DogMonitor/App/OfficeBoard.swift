@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 import SwiftUI
 
 /// 가상 오피스: when the status sets itself. Pure, tested (OfficeTests).
@@ -20,6 +21,29 @@ enum OfficeRules {
     static func atDesk(_ s: OfficeStatus) -> Bool { s == .working || s == .meeting || s == .focus }
 }
 
+/// 모임 정원: 2, 4 or 8 seats for me and my friends; the empty ones wait for an invite, and filling up is a party.
+/// Pure, tested (OfficeTests).
+struct Gathering: Equatable {
+    static let sizes = [2, 4, 8]
+    static let key = "office.capacity"
+
+    /// A saved size, 4 when it is none of the three.
+    static func capacity(_ saved: Int) -> Int { sizes.contains(saved) ? saved : 4 }
+    /// 초대 대기 seats after me and every paired friend.
+    static func waiting(capacity: Int, friends: Int) -> Int { max(0, capacity - 1 - friends) }
+    /// Me and the online friends fill every seat.
+    static func isFull(capacity: Int, online: Int) -> Bool { 1 + online >= capacity }
+
+    private(set) var full = false
+
+    /// True once, as the group fills up; it can fill up again after someone leaves.
+    mutating func update(capacity: Int, online: Int) -> Bool {
+        let now = Self.isFull(capacity: capacity, online: online)
+        defer { full = now }
+        return now && !full
+    }
+}
+
 /// 가상 오피스 (플러그인, `office.on`, off by default): my status for paired friends (SocialBus sends it), set from the
 /// menu, my seat or the 30 s auto check, and a floating board of seats. Off: no timer, no panel, no menu items.
 final class OfficeCenter: ObservableObject {
@@ -27,6 +51,10 @@ final class OfficeCenter: ObservableObject {
     static let onKey = "office.on"
 
     @Published private(set) var on = false
+    /// The 모임 just filled up: confetti on the board for a few seconds.
+    @Published private(set) var celebrating = false
+    private var gathering = Gathering()
+    private var onlineSub: AnyCancellable?
     /// The status came from the check (or the launch default), not a pick.
     private(set) var autoSet = true
     private let defaults: UserDefaults
@@ -43,7 +71,9 @@ final class OfficeCenter: ObservableObject {
         // Whoever flips `office.on` (the plugin card, a QA script) or opens the plugin writes defaults; no polling.
         observers.append(NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
             self?.refresh()
+            self?.checkFull()
         })
+        onlineSub = SocialBus.shared.$online.receive(on: DispatchQueue.main).sink { [weak self] _ in self?.checkFull() }
         observers.append(NotificationCenter.default.addObserver(forName: .NSCalendarDayChanged, object: nil, queue: .main) { [weak self] _ in
             self?.refresh()
         })
@@ -82,6 +112,23 @@ final class OfficeCenter: ObservableObject {
         autoSet = true
         if bus.myStatus != s { bus.myStatus = s }
     }
+
+    var capacity: Int { Gathering.capacity(defaults.integer(forKey: Gathering.key)) }
+
+    /// The party when the 모임 fills up: confetti on the board, the room's friends cheer, one line.
+    private func checkFull() {
+        guard on else { gathering = Gathering(); return }
+        guard gathering.update(capacity: capacity, online: SocialBus.shared.online.count) else { return }
+        celebrating = true
+        FriendRoom.shared.play(.party)
+        if !FriendVisit.quiet() {
+            SpeechBubbleCenter.shared.say(text: L("모임 \(capacity)명이 꽉 찼어요!"), source: .system, aloud: false, repeats: true)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in self?.celebrating = false }
+    }
+
+    /// QA renders: the board as it looks mid-party.
+    func qaCelebrate(_ on: Bool) { celebrating = on }
 
     /// A pick from the menu or my seat.
     func set(_ s: OfficeStatus) {
@@ -158,33 +205,71 @@ final class OfficeCenter: ObservableObject {
 
 /// The board: my seat, the AI 팀원, then every paired friend (offline ones greyed).
 struct OfficeBoardView: View {
-    let center: OfficeCenter
+    @ObservedObject var center: OfficeCenter
     @ObservedObject private var bus = SocialBus.shared
+    @AppStorage(Gathering.key, store: AppDefaults.store) private var saved = 4
     @ObservedObject private var settings = AppSettings.shared
     @ObservedObject private var byo = BYOSettings.shared
+    @ObservedObject private var draws = GroupDraw.shared
 
     var body: some View {
+        let cap = Gathering.capacity(saved)
+        let online = bus.friends.filter { bus.online.contains($0.id) }.count
+        // 그룹 뽑기 winners (items named after people) wear 👑 for a while; re-read whenever the board redraws.
+        let crowns = draws.crowns()
+        let crowned = { (name: String, shown: String) in crowns.contains(name) ? "👑 " + shown : shown }
         ScrollView {
+            gatheringBar(cap, online: online)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 8)], spacing: 10) {
                 Button { center.popStatusMenu() } label: {
-                    SeatView(name: L("나"), status: bus.myStatus, chip: nil, cache: center.sprite(SpriteLook(settings)), dim: false)
+                    SeatView(name: crowned(bus.nickname, L("나")), status: bus.myStatus, chip: nil, cache: center.sprite(SpriteLook(settings)), dim: false)
                 }
                 .buttonStyle(.plain)
                 .help(L("눌러서 내 상태 바꾸기"))
                 aiSeat
                 ForEach(bus.friends) { f in
                     let online = bus.online.contains(f.id)
-                    SeatView(name: f.nickname, status: online ? f.status : nil, chip: online ? nil : L("오프라인"),
-                             cache: center.sprite(SpriteLook(friend: f.look)), dim: !online)
+                    Button { bus.card(f.id).map(FriendCardPanel.show) } label: {
+                        SeatView(name: crowned(f.nickname, f.nickname), status: online ? f.status : nil, chip: online ? nil : L("오프라인"),
+                                 cache: center.sprite(SpriteLook(friend: f.look)), dim: !online)
+                    }
+                    .buttonStyle(.plain)
+                    .help(L("눌러서 프로필 카드 보기"))
+                }
+                ForEach(0..<Gathering.waiting(capacity: cap, friends: bus.friends.count), id: \.self) { _ in
+                    Button { NearbyWindow.open() } label: { WaitingSeatView() }
+                        .buttonStyle(.plain)
+                        .help(L("눌러서 친구 추가"))
                 }
             }
-            .padding(12)
+            .padding(.horizontal, 12).padding(.bottom, 12)
             if bus.friends.isEmpty {
                 Text("플러그인 > 근처 친구에서 친구를 맺으면 친구 자리가 생겨요.")
                     .font(.system(size: 11)).foregroundStyle(.secondary).padding(.horizontal, 12).padding(.bottom, 10)
             }
         }
         .frame(minWidth: 240, minHeight: 180)
+        .overlay { if center.celebrating { PartyView().allowsHitTesting(false) } }
+    }
+
+    /// 모임 정원 2·4·8 and how many are here now.
+    private func gatheringBar(_ cap: Int, online: Int) -> some View {
+        HStack(spacing: 8) {
+            Text(L("모임 정원")).font(.system(size: 11, weight: .semibold)).lineLimit(1).minimumScaleFactor(0.75)
+            Picker(L("모임 정원"), selection: Binding(get: { cap }, set: { saved = $0 })) {
+                ForEach(Gathering.sizes, id: \.self) { Text(L("\($0)명")).tag($0) }
+            }
+            .pickerStyle(.segmented).labelsHidden().fixedSize().controlSize(.small)
+            Spacer()
+            Button { GroupDraw.shared.show() } label: { Text(verbatim: "🎲") }.buttonStyle(.borderless).help(L("그룹 뽑기"))
+            Text(verbatim: "\(min(1 + online, cap))/\(cap)" + (Gathering.isFull(capacity: cap, online: online) ? " 🎉" : ""))
+                .font(.system(size: 11, weight: .semibold).monospacedDigit())
+                .padding(.horizontal, 7).padding(.vertical, 2)
+                .background(Capsule().fill(Color.primary.opacity(0.08)))
+                .fixedSize()   // English is wider: the label shrinks first, the count never wraps
+                .accessibilityLabel(Text(L("지금 \(1 + online)명, 정원 \(cap)명")))
+        }
+        .padding(.horizontal, 12).padding(.top, 12)
     }
 
     /// 근무 중 while an AI 엔진 is connected (비서 설정 > AI 엔진), else 연결 안 됨, which opens 설정.
@@ -262,6 +347,60 @@ struct SeatView: View {
                 .frame(width: 18, height: 12).offset(x: -6, y: -10)
         }
         .frame(width: 92, height: 14)
+    }
+}
+
+/// An empty seat of the 모임: a dashed chair waiting for an invite (a click opens 친구 추가).
+struct WaitingSeatView: View {
+    var body: some View {
+        VStack(spacing: 4) {
+            ZStack(alignment: .bottom) {
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Color.secondary.opacity(0.6), style: StrokeStyle(lineWidth: 1.2, dash: [4, 3]))
+                    .frame(width: 44, height: 38)
+                    .overlay(Image(systemName: "person.badge.plus").font(.system(size: 15)).foregroundStyle(.secondary))
+                    .padding(.bottom, 14)
+                RoundedRectangle(cornerRadius: 3).fill(Color(red: 0.72, green: 0.55, blue: 0.40).opacity(0.45))
+                    .frame(width: 92, height: 14)
+            }
+            .frame(width: 96, height: 60)
+            Text(L("빈자리")).font(.system(size: 11, weight: .semibold)).foregroundStyle(.secondary).lineLimit(1)
+            Text(L("초대 대기"))
+                .font(.system(size: 10))
+                .padding(.horizontal, 7).padding(.vertical, 2)
+                .background(Capsule().strokeBorder(Color.secondary.opacity(0.5), style: StrokeStyle(lineWidth: 1, dash: [3, 2])))
+        }
+        .padding(6)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.primary.opacity(0.02)))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(L("빈자리, 초대 대기")))
+    }
+}
+
+/// The 모임 filled up: confetti over the board and one banner.
+struct PartyView: View {
+    var body: some View {
+        GeometryReader { g in
+            let colors: [Color] = [.pink, .yellow, .mint, .orange, .purple, .cyan]
+            ZStack {
+                ForEach(0..<36, id: \.self) { i in
+                    // A fixed scatter: the same confetti every time, no randomness to test around.
+                    let x = CGFloat((i * 37) % 100) / 100, y = CGFloat((i * 53) % 100) / 100
+                    RoundedRectangle(cornerRadius: 1.5)
+                        .fill(colors[i % colors.count])
+                        .frame(width: 5, height: 9)
+                        .rotationEffect(.degrees(Double(i * 29)))
+                        .position(x: x * g.size.width, y: y * g.size.height * 0.85)
+                }
+                Text(verbatim: "🎉 " + L("모임이 꽉 찼어요!"))
+                    .font(.system(size: 13, weight: .bold))
+                    .padding(.horizontal, 12).padding(.vertical, 6)
+                    .background(Capsule().fill(Color(nsColor: .windowBackgroundColor)))
+                    .overlay(Capsule().stroke(Color.pink.opacity(0.6), lineWidth: 1.5))
+                    .position(x: g.size.width / 2, y: g.size.height / 2)
+            }
+        }
+        .transition(.opacity)
     }
 }
 

@@ -3,6 +3,7 @@
 #   JellyMonitor.dmg, JellyMonitor.zip, SHA256SUMS, version.txt, update.json + update.json.sig (signed, for the in-app updater),
 #   sponsors.json.sig (the 후원 친구 list, signed the same way)
 #   plugins.json.sig (the 플러그인 days and code hashes, signed the same way)
+#   season.json.sig (the 시즌 뽑기판 days, items and numbers, signed the same way)
 # Usage: [UPDATE_NOTES="한 줄 요약"] scripts/package.sh
 set -euo pipefail
 
@@ -56,5 +57,11 @@ echo "==> 플러그인 목록 (plugins.json, 서명)"
 swift "$ROOT/tools/update/sign_manifest.swift" "$WEB/plugins.json"
 "$APP/Contents/MacOS/DogMonitor" --check-plugins "$WEB"
 
+echo "==> 시즌 뽑기판 (season.json, 서명)"
+# web/season.json is edited by hand: the season's days, its items (ids the app draws itself) and numbers. Raise "serial"
+# with every change; a new "id" deals everyone a new board.
+swift "$ROOT/tools/update/sign_manifest.swift" "$WEB/season.json"
+"$APP/Contents/MacOS/DogMonitor" --check-season "$WEB"
+
 echo "==> 만든 파일 ($WEB)"
-(cd "$WEB" && ls -lh JellyMonitor.dmg JellyMonitor.zip SHA256SUMS version.txt update.json update.json.sig sponsors.json sponsors.json.sig plugins.json plugins.json.sig && cat SHA256SUMS version.txt update.json)
+(cd "$WEB" && ls -lh JellyMonitor.dmg JellyMonitor.zip SHA256SUMS version.txt update.json update.json.sig sponsors.json sponsors.json.sig plugins.json plugins.json.sig season.json season.json.sig && cat SHA256SUMS version.txt update.json)

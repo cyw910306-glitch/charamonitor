@@ -185,6 +185,7 @@ struct DogPickerView: View {
             createCell
         }
         packRow
+        GPTPetRow(store: store, onImported: onPreview)
     }
 
     /// Characters from the user's own image files (docs/PACKS.md): the folder they go in, read at the next launch.

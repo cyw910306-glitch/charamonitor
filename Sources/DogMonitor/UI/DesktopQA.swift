@@ -14,6 +14,7 @@ enum DesktopQA {
                                                to: dir.appendingPathComponent("desktop-settings-\(name)-\(suffix).png"))
             }
         }
+        HotspotPanel.qaInert = true   // the friends below go out on the real screen: their hotspots stay off it
         try settings("off")
         MotionStore.shared.cursorBuddy = true
         HangingStore.shared.prefs.on = true
@@ -216,6 +217,24 @@ enum DesktopQA {
         SocialChat.shared.append("qa-a", "점심 먹으러 가요!", mine: false)
         SocialChat.shared.append("qa-a", "맛있게 먹고 와요", mine: true)
         try shot("chat", width: 340, FriendChatView(friendID: "qa-a").frame(height: 320))
+        // 모임 정원: 8 seats (4 of them 초대 대기), then 2 seats full mid-party.
+        AppDefaults.store.set(8, forKey: Gathering.key)
+        try shot("office-gathering", width: 360, OfficeBoardView(center: OfficeCenter.shared).frame(height: 420))
+        AppDefaults.store.set(2, forKey: Gathering.key)
+        OfficeCenter.shared.qaCelebrate(true)
+        try shot("office-party", width: 360, OfficeBoardView(center: OfficeCenter.shared).frame(height: 300))
+        OfficeCenter.shared.qaCelebrate(false)
+        AppDefaults.store.removeObject(forKey: Gathering.key)
+        // 친구 상주 over a Dock-coloured floor: hearts, the 똥 and a friend off work with the sign, each mid-effect.
+        let seats = bus.friends.map(RoomSeat.init)
+        seats[2].off = true
+        for (s, e) in zip(seats, [RoomEffect.hearts, .poop, .party]) { s.effect = e }
+        try shot("room", width: 420, HStack(alignment: .bottom, spacing: 8) {
+            ForEach(seats.indices, id: \.self) { RoomFriendView(seat: seats[$0], t: 0.45) }
+        }
+        .padding(.horizontal, 16).padding(.top, 8)
+        .background(LinearGradient(colors: [Color(red: 0.80, green: 0.86, blue: 0.93), Color(red: 0.55, green: 0.72, blue: 0.48)],
+                                   startPoint: .top, endPoint: .bottom)))
         bus.setOn(false)
         bus.setFriends([])
         bus.setOnline([])
@@ -372,6 +391,68 @@ enum DesktopQA {
     }
 
     /// `layer` (or its `crop` part) drawn at `scale` over `background` (the floating windows are clear; this stands in for the desktop).
+    /// --render-hotspot: what each kind of hotspot takes clicks on (red) over the drawing, in its box (blue): standing,
+    /// facing left, reacting (with the spot it rose off), hanging turned about the knot with its charm, and the rug.
+    @MainActor
+    static func renderHotspots(to dir: URL) throws {
+        HotspotPanel.qaInert = true
+        let cache = DogSpriteCache(SpriteLook(AppSettings.shared), pixelSize: 4)
+        guard let image = cache.frames(for: .walk).first, let hit = AlphaHit(image) else { throw CocoaError(.fileReadCorruptFile) }
+        let s = cache.imageSize
+        var cases: [(String, CGRect, HotspotShape, (CGContext) -> Void)] = []
+        func sprite(_ r: CGRect, flipped: Bool = false) -> (CGContext) -> Void {
+            { ctx in
+                ctx.saveGState()
+                if flipped { ctx.translateBy(x: r.midX * 2, y: 0); ctx.scaleBy(x: -1, y: 1) }
+                if let cg = image.cgImage(forProposedRect: nil, context: nil, hints: nil) { ctx.interpolationQuality = .none; ctx.draw(cg, in: r) }
+                ctx.restoreGState()
+            }
+        }
+        let box = CGRect(origin: .zero, size: s)
+        cases.append(("stand", box, HotspotShape(hit: hit, drawn: box), sprite(box)))
+        cases.append(("left", box, HotspotShape(hit: hit, drawn: box, flipped: true), sprite(box, flipped: true)))
+        let up = CGRect(x: 0, y: s.height * 0.6, width: s.width, height: s.height)
+        var rise = HotspotShape(hit: hit, drawn: up)
+        rise.extra = [box]
+        cases.append(("react", CGRect(x: 0, y: 0, width: s.width, height: up.maxY), rise, sprite(up)))
+        let r = ceil(hypot(s.width / 2, s.height)) + 1, a: CGFloat = 0.5
+        var hang = HotspotShape(hit: hit, drawn: CGRect(x: -s.width / 2, y: -s.height, width: s.width, height: s.height))
+        hang.extra = [CGRect(x: -6, y: -12, width: 12, height: 12)]
+        hang.transform = CGAffineTransform(translationX: r, y: r).rotated(by: a)
+        cases.append(("hang", CGRect(x: 0, y: 0, width: 2 * r, height: 2 * r), hang, { ctx in
+            ctx.saveGState(); ctx.concatenate(hang.transform)
+            sprite(CGRect(x: -s.width / 2, y: -s.height, width: s.width, height: s.height))(ctx)
+            ctx.restoreGState()
+        }))
+        var cloth = ClothSheet(cols: 8, rows: 6, spacing: 14, origin: CGPoint(x: 20, y: 20), walls: CGRect(x: 0, y: 0, width: 400, height: 300))
+        _ = cloth.grab(at: CGPoint(x: 20, y: 20)); cloth.drag(to: CGPoint(x: 60, y: 90))
+        for _ in 0..<40 { cloth.step(dt: 1.0 / 60) }
+        let xs = cloth.points.map { CGFloat($0.x) }, ys = cloth.points.map { CGFloat($0.y) }
+        let lo = CGPoint(x: floor(xs.min() ?? 0), y: floor(ys.min() ?? 0))
+        let rug = HotspotShape(outline: cloth.outline(offset: CGVector(dx: -lo.x, dy: -lo.y)))
+        cases.append(("rug", CGRect(x: 0, y: 0, width: ceil((xs.max() ?? 0) - lo.x), height: ceil((ys.max() ?? 0) - lo.y)), rug, { _ in }))
+        for (name, frame, shape, draw) in cases {
+            let pad: CGFloat = 8, scale: CGFloat = 2
+            let size = CGSize(width: frame.width + 2 * pad, height: frame.height + 2 * pad)
+            guard let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: Int(size.width * scale), pixelsHigh: Int(size.height * scale),
+                                             bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+                                             colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0),
+                  let ctx = NSGraphicsContext(bitmapImageRep: rep)?.cgContext else { throw CocoaError(.fileWriteUnknown) }
+            ctx.scaleBy(x: scale, y: scale)
+            ctx.setFillColor(NSColor(red: 0.80, green: 0.86, blue: 0.93, alpha: 1).cgColor)
+            ctx.fill(CGRect(origin: .zero, size: size))
+            ctx.translateBy(x: pad, y: pad)
+            draw(ctx)
+            ctx.addPath(shape.path)
+            ctx.setFillColor(NSColor(red: 0.95, green: 0.2, blue: 0.2, alpha: 0.45).cgColor)
+            ctx.fillPath()
+            ctx.setStrokeColor(NSColor(red: 0.2, green: 0.35, blue: 0.9, alpha: 1).cgColor)
+            ctx.stroke(CGRect(origin: .zero, size: frame.size).insetBy(dx: 0.5, dy: 0.5), width: 1)
+            guard let data = rep.representation(using: .png, properties: [:]) else { throw CocoaError(.fileWriteUnknown) }
+            try data.write(to: dir.appendingPathComponent("hotspot-\(name).png"))
+        }
+    }
+
     private static func png(_ layer: CALayer, background: NSColor, scale: CGFloat = 2, crop: CGRect? = nil, to url: URL) throws {
         let size = crop?.size ?? layer.bounds.size
         guard size.width > 0, size.height > 0,

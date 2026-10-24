@@ -204,6 +204,27 @@ struct ClothSheet {
         return false
     }
 
+    /// What `covers` says yes to, as a path (y up, moved by `offset`): every triangle wound counter-clockwise, so a fold
+    /// lying face down adds to the shape under the nonzero rule instead of cutting a hole in it.
+    func outline(offset: CGVector = .zero) -> CGPath {
+        let path = CGMutablePath()
+        func tri(_ a: Int, _ b: Int, _ c: Int) {
+            var q = [a, b, c].map { CGPoint(x: CGFloat(points[$0].x) + offset.dx, y: CGFloat(points[$0].y) + offset.dy) }
+            let area = (q[1].x - q[0].x) * (q[2].y - q[0].y) - (q[2].x - q[0].x) * (q[1].y - q[0].y)
+            if area < 0 { q.swapAt(1, 2) }
+            path.addLines(between: q)
+            path.closeSubpath()
+        }
+        for y in 0..<(rows - 1) {
+            for x in 0..<(cols - 1) {
+                let i = index(x, y)
+                tri(i, i + 1, i + cols + 1)
+                tri(i, i + cols + 1, i + cols)
+            }
+        }
+        return path
+    }
+
     /// Triangles as point indices, counter-clockwise from above for the flat sheet.
     var triangles: [Int32] {
         var t: [Int32] = []
