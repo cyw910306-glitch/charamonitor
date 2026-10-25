@@ -199,6 +199,8 @@ final class HotspotPanel: NSPanel {
     static let alpha: CGFloat = 1.0 / 255
     /// QA renders and tests: hotspots are never put on the screen, so none takes a real click.
     static var qaInert = false
+    /// Real-screen QA (`--qa-defaults`): every press and release a hotspot takes, so a script can tell it from the window below.
+    static var qaLog: ((String) -> Void)?
 
     /// Every press, drag, release, right click and move over it, as AppKit sends them.
     var onMouse: ((NSEvent) -> Void)?
@@ -253,6 +255,9 @@ final class HotspotPanel: NSPanel {
 
     override func sendEvent(_ e: NSEvent) {
         let at = convertPoint(toScreen: e.locationInWindow)
+        if let log = Self.qaLog, [.leftMouseDown, .leftMouseUp].contains(e.type) {
+            log("hot \(e.type == .leftMouseDown ? "down" : "up") \(Int(at.x)) \(Int(at.y)) grown \(grown)")
+        }
         switch e.type {
         case .leftMouseDown: downAt = at
         case .leftMouseDragged: if !grown, let d = downAt, Self.grows(from: d, to: at) { grow(at: at) }

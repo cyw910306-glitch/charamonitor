@@ -3254,5 +3254,9 @@
  {
   "key": "사진을 보내는 중…",
   "en": "Sending the photo…"
+ },
+ {
+  "key": "원격 모임 서버가 오늘 쓸 양을 다 써서 잠시 쉬어요. 하루 안에 다시 이어져요",
+  "en": "The remote meetup server used up today's share and is resting. It picks up again within a day"
  }
 ]

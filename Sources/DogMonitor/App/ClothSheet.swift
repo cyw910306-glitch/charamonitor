@@ -242,3 +242,134 @@ struct ClothSheet {
         links.filter { !$0.bend }.map { simd_length(points[$0.b] - points[$0.a]) / $0.length }.max() ?? 1
     }
 }
+
+/// 캐릭터 모양 러그's cut-out across the flat rug: u and v run 0...1 over it, v up like the cloth's rows. Made from the
+/// character's drawn pixels (`silhouette`, true where it is): fattened into a rounded mat so the pixel stairs and a
+/// 1 px tail or whisker melt into the outline, holes filled, then softened. The texture's alpha and the hotspot both
+/// read it, so the cut follows the cloth however it folds. Pure.
+struct RugMask: Equatable {
+    let cols: Int, rows: Int
+    /// Coverage 0...1 per cell, row by row from the bottom.
+    let cells: [Float]
+    /// The rim's inside edge: the same mat one cell in. Between the two lies the dark outline.
+    let inner: [Float]
+
+    /// `grow`: how many cells the mat reaches past the character. `thin`: features this many cells wide or less (one
+    /// art pixel) are pruned before growing.
+    init(silhouette on: [Bool], cols: Int, rows: Int, grow: Int = 3, thin: Int = 2) {
+        self.cols = cols; self.rows = rows
+        let r = max(0, thin / 2)
+        let grown = Self.dilate(Self.dilate(Self.erode(on, cols, rows, r), cols, rows, r), cols, rows, grow)
+        let mat = Self.filled(grown, cols, rows)
+        cells = Self.soften(mat, cols, rows)
+        inner = Self.soften(Self.erode(mat, cols, rows, 1), cols, rows)
+    }
+
+    var isEmpty: Bool { !cells.contains { $0 >= 0.5 } }
+
+    /// The coverage at (u, v), bilinear between cell centres; nothing outside the rug.
+    func value(u: Double, v: Double, inner useInner: Bool = false) -> Float {
+        let g = useInner ? inner : cells
+        let x = u * Double(cols) - 0.5, y = v * Double(rows) - 0.5
+        let x0 = Int(x.rounded(.down)), y0 = Int(y.rounded(.down)), fx = Float(x - Double(x0)), fy = Float(y - Double(y0))
+        func at(_ i: Int, _ j: Int) -> Float { i < 0 || j < 0 || i >= cols || j >= rows ? 0 : g[j * cols + i] }
+        let a = at(x0, y0) + (at(x0 + 1, y0) - at(x0, y0)) * fx, b = at(x0, y0 + 1) + (at(x0 + 1, y0 + 1) - at(x0, y0 + 1)) * fx
+        return a + (b - a) * fy
+    }
+
+    func covers(u: Double, v: Double) -> Bool { value(u: u, v: v) >= 0.5 }
+
+    /// What the mat covers as the cloth lies now, seen from above (y up, moved by `offset`), on the coarse grid.
+    func outline(_ c: ClothSheet, split: Int = 4, offset: CGVector = .zero) -> CGPath {
+        Self.outline(self, (c.points, c.cols, c.rows), split: split, offset: offset)
+    }
+
+    /// What `mask` (nil: the whole rug) covers on `grid` (the cloth's points, or the drawn mesh's denser ones, row by
+    /// row from the bottom): each grid cell split `split` by `split`, the covered bits of a row joined, mapped through
+    /// the cell's four corners (so the cut bends with the cloth), every piece wound counter-clockwise like
+    /// ClothSheet.outline. A hair past the 0.5 contour still counts (the fur's stray hairs are drawn there).
+    static func outline(_ mask: RugMask?, _ grid: (points: [ClothSheet.P], cols: Int, rows: Int), split: Int, offset: CGVector = .zero) -> CGPath {
+        let path = CGMutablePath(), n = max(1, split), (pts, cols, rows) = grid, w = Double(cols - 1), h = Double(rows - 1)
+        for y in 0..<(rows - 1) {
+            for x in 0..<(cols - 1) {
+                let p00 = pts[y * cols + x], p10 = pts[y * cols + x + 1], p01 = pts[(y + 1) * cols + x], p11 = pts[(y + 1) * cols + x + 1]
+                func at(_ s: Double, _ t: Double) -> CGPoint {
+                    let q = (p00 * (1 - s) + p10 * s) * (1 - t) + (p01 * (1 - s) + p11 * s) * t
+                    return CGPoint(x: CGFloat(q.x) + offset.dx, y: CGFloat(q.y) + offset.dy)
+                }
+                for b in 0..<n {
+                    var a = 0
+                    while a < n {
+                        func on(_ a: Int) -> Bool {
+                            guard let mask else { return true }
+                            return mask.value(u: (Double(x) + (Double(a) + 0.5) / Double(n)) / w, v: (Double(y) + (Double(b) + 0.5) / Double(n)) / h) >= 0.42
+                        }
+                        guard on(a) else { a += 1; continue }
+                        let start = a
+                        while a < n, on(a) { a += 1 }
+                        let s0 = Double(start) / Double(n), s1 = Double(a) / Double(n), t0 = Double(b) / Double(n), t1 = Double(b + 1) / Double(n)
+                        var q = [at(s0, t0), at(s1, t0), at(s1, t1), at(s0, t1)]
+                        let area = zip(q, q.dropFirst() + [q[0]]).reduce(CGFloat(0)) { $0 + $1.0.x * $1.1.y - $1.1.x * $1.0.y }
+                        if area < 0 { q.reverse() }
+                        path.addLines(between: q)
+                        path.closeSubpath()
+                    }
+                }
+            }
+        }
+        return path
+    }
+
+    // MARK: Grid steps (true is the mat; off the grid is empty)
+
+    /// Every cell within `r` (a disk) of a set one.
+    static func dilate(_ g: [Bool], _ w: Int, _ h: Int, _ r: Int) -> [Bool] {
+        guard r > 0 else { return g }
+        var disk: [(Int, Int)] = []
+        for dy in -r...r { for dx in -r...r where dx * dx + dy * dy <= r * r { disk.append((dx, dy)) } }
+        var out = g
+        for y in 0..<h { for x in 0..<w where g[y * w + x] {
+            for (dx, dy) in disk { let i = x + dx, j = y + dy; if i >= 0, j >= 0, i < w, j < h { out[j * w + i] = true } }
+        } }
+        return out
+    }
+
+    /// Only the cells whose whole disk of `r` is set.
+    static func erode(_ g: [Bool], _ w: Int, _ h: Int, _ r: Int) -> [Bool] {
+        guard r > 0 else { return g }
+        var pad = g.map { !$0 }   // the grid's outside counts as empty
+        pad = dilate(pad, w, h, r)
+        for y in 0..<h { for x in 0..<w where min(x, y, w - 1 - x, h - 1 - y) < r { pad[y * w + x] = true } }
+        return pad.map { !$0 }
+    }
+
+    /// Fills every hole: what the outside cannot reach (4-way) from the border becomes mat.
+    static func filled(_ g: [Bool], _ w: Int, _ h: Int) -> [Bool] {
+        var out = Array(repeating: true, count: g.count), stack: [Int] = []
+        for x in 0..<w { stack += [x, (h - 1) * w + x] }
+        for y in 0..<h { stack += [y * w, y * w + w - 1] }
+        while let i = stack.popLast() {
+            guard !g[i], out[i] else { continue }
+            out[i] = false
+            let x = i % w, y = i / w
+            if x > 0 { stack.append(i - 1) }; if x < w - 1 { stack.append(i + 1) }
+            if y > 0 { stack.append(i - w) }; if y < h - 1 { stack.append(i + w) }
+        }
+        return out
+    }
+
+    /// Two 3 by 3 box blurs: the stairs round off and a 0.5 contour runs smooth between cells.
+    static func soften(_ g: [Bool], _ w: Int, _ h: Int) -> [Float] {
+        var v = g.map { $0 ? Float(1) : 0 }
+        for _ in 0..<2 {
+            var o = v
+            for y in 0..<h { for x in 0..<w {
+                var s: Float = 0
+                for j in max(0, y - 1)...min(h - 1, y + 1) { for i in max(0, x - 1)...min(w - 1, x + 1) { s += v[j * w + i] } }
+                o[y * w + x] = s / 9
+            } }
+            v = o
+        }
+        return v
+    }
+}

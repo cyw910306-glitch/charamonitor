@@ -896,6 +896,24 @@
 "그만 눌러요, 흥!" = "Stop poking me, hmph!";
 /* Sources/DogMonitor/App/CursorBuddy.swift:1193 */
 "똑같은 친구가 바탕화면에 생겼어요" = "A copy friend appeared on your desktop";
+/* Sources/DogMonitor/App/DayRecord.swift:92 */
+"제목에" = "title has";
+/* Sources/DogMonitor/App/DayRecord.swift:332 */
+"고침" = "Fixed";
+/* Sources/DogMonitor/App/DayRecord.swift:332 */
+"대표" = "Top";
+/* Sources/DogMonitor/App/DayRecord.swift:332 */
+"앱" = "App";
+/* Sources/DogMonitor/App/DayRecord.swift:332 */
+"판정" = "Label";
+/* Sources/DogMonitor/App/DayRecord.swift:334 */
+"자리 비움" = "Away";
+/* Sources/DogMonitor/App/DayRecord.swift:349 */
+"%lld분" = "%lld min";
+/* Sources/DogMonitor/App/DayRecord.swift:349 */
+"%lld시간" = "%lldh";
+/* Sources/DogMonitor/App/DayRecord.swift:349 */
+"%lld시간 %lld분" = "%lldh %lldm";
 /* Sources/DogMonitor/App/DesktopClones.swift:203 */
 "술래" = "It";
 /* Sources/DogMonitor/App/DesktopClones.swift:256 */
@@ -920,105 +938,155 @@
 "잔잔하게" = "Calm";
 /* Sources/DogMonitor/App/DesktopKit.swift:37 */
 "통통" = "Bouncy";
-/* Sources/DogMonitor/App/DesktopKit.swift:334 */
+/* Sources/DogMonitor/App/DesktopKit.swift:339 */
 "집중 그만하기" = "Stop Focus";
-/* Sources/DogMonitor/App/DesktopKit.swift:334 */
+/* Sources/DogMonitor/App/DesktopKit.swift:339 */
 "집중 시작" = "Start focus";
-/* Sources/DogMonitor/App/DesktopKit.swift:335 */
+/* Sources/DogMonitor/App/DesktopKit.swift:340 */
 "숨 고르기 (30초)" = "Breathing break (30 s)";
-/* Sources/DogMonitor/App/DesktopKit.swift:337 */
+/* Sources/DogMonitor/App/DesktopKit.swift:342 */
 "포스트잇 붙이기" = "Add a sticky note";
-/* Sources/DogMonitor/App/DesktopKit.swift:346 */
+/* Sources/DogMonitor/App/DesktopKit.swift:351 */
 "후원 친구 지금 보기" = "Show Sponsor Friend now";
-/* Sources/DogMonitor/App/DesktopKit.swift:352 */
+/* Sources/DogMonitor/App/DesktopKit.swift:357 */
 "놀이 그만하기" = "Stop playing";
-/* Sources/DogMonitor/App/DesktopKit.swift:352 */
+/* Sources/DogMonitor/App/DesktopKit.swift:357 */
 "놀이 모드 시작" = "Start play mode";
-/* Sources/DogMonitor/App/DesktopKit.swift:355 */
+/* Sources/DogMonitor/App/DesktopKit.swift:360 */
 "별 줍기" = "Star catch";
-/* Sources/DogMonitor/App/DesktopKit.swift:356 */
+/* Sources/DogMonitor/App/DesktopKit.swift:361 */
 "2인 대결" = "Two-player match";
-/* Sources/DogMonitor/App/DesktopKit.swift:364 */
+/* Sources/DogMonitor/App/DesktopKit.swift:369 */
 "오늘의 운세" = "Today's fortune";
-/* Sources/DogMonitor/App/DesktopKit.swift:365 */
+/* Sources/DogMonitor/App/DesktopKit.swift:370 */
 "데스크톱 친구" = "Desktop Friends";
-/* Sources/DogMonitor/App/DesktopKit.swift:366 */
+/* Sources/DogMonitor/App/DesktopKit.swift:371 */
 "설정 열기" = "Open Settings";
-/* Sources/DogMonitor/App/DesktopKit.swift:698 */
+/* Sources/DogMonitor/App/DesktopKit.swift:703 */
 "에취!" = "Achoo!";
-/* Sources/DogMonitor/App/DesktopKit.swift:700 */
+/* Sources/DogMonitor/App/DesktopKit.swift:705 */
 "흥!" = "Hmph!";
-/* Sources/DogMonitor/App/DesktopRug.swift:13 */
-"빳빳" = "Stiff";
 /* Sources/DogMonitor/App/DesktopRug.swift:14 */
-"보통" = "Normal";
+"빳빳" = "Stiff";
 /* Sources/DogMonitor/App/DesktopRug.swift:15 */
+"보통" = "Normal";
+/* Sources/DogMonitor/App/DesktopRug.swift:16 */
 "흐물" = "Floppy";
-/* Sources/DogMonitor/App/DesktopRug.swift:36 */
-"캐릭터" = "Characters";
 /* Sources/DogMonitor/App/DesktopRug.swift:37 */
-"마름모" = "Diamonds";
+"캐릭터" = "Characters";
 /* Sources/DogMonitor/App/DesktopRug.swift:38 */
-"줄무늬" = "Stripes";
+"내 이미지" = "My Image";
 /* Sources/DogMonitor/App/DesktopRug.swift:39 */
-"체크" = "Checks";
+"마름모" = "Diamonds";
 /* Sources/DogMonitor/App/DesktopRug.swift:40 */
-"물방울" = "Raindrop";
+"줄무늬" = "Stripes";
 /* Sources/DogMonitor/App/DesktopRug.swift:41 */
-"하트" = "Heart";
+"체크" = "Checks";
 /* Sources/DogMonitor/App/DesktopRug.swift:42 */
-"별빛" = "Starlight";
+"물방울" = "Raindrop";
 /* Sources/DogMonitor/App/DesktopRug.swift:43 */
+"하트" = "Heart";
+/* Sources/DogMonitor/App/DesktopRug.swift:44 */
+"별빛" = "Starlight";
+/* Sources/DogMonitor/App/DesktopRug.swift:45 */
 "무지개" = "Rainbow";
-/* Sources/DogMonitor/App/DesktopRug.swift:54 */
+/* Sources/DogMonitor/App/DesktopRug.swift:66 */
 "작게" = "Small";
-/* Sources/DogMonitor/App/DesktopRug.swift:56 */
+/* Sources/DogMonitor/App/DesktopRug.swift:68 */
 "크게" = "Large";
-/* Sources/DogMonitor/App/DesktopRug.swift:57 */
+/* Sources/DogMonitor/App/DesktopRug.swift:69 */
 "아주 크게" = "Extra large";
-/* Sources/DogMonitor/App/DesktopRug.swift:369 */
+/* Sources/DogMonitor/App/DesktopRug.swift:91 */
+"네모" = "Rectangle";
+/* Sources/DogMonitor/App/DesktopRug.swift:92 */
+"캐릭터 모양" = "Character Shape";
+/* Sources/DogMonitor/App/DesktopRug.swift:104 */
+"기본" = "Default";
+/* Sources/DogMonitor/App/DesktopRug.swift:105 */
+"리얼" = "Real";
+/* Sources/DogMonitor/App/DesktopRug.swift:182 */
+"러그에 넣을 사진이나 PNG를 골라 주세요" = "Choose a photo or PNG for the rug";
+/* Sources/DogMonitor/App/DesktopRug.swift:658 */
 "주름 쫙 펴는 중이야" = "Smoothing out the wrinkles";
-/* Sources/DogMonitor/App/DesktopRug.swift:369 */
+/* Sources/DogMonitor/App/DesktopRug.swift:658 */
 "주름을 쫙 펴고 있어요" = "Smoothing out the wrinkles";
-/* Sources/DogMonitor/App/DesktopRug.swift:446 */
+/* Sources/DogMonitor/App/DesktopRug.swift:735 */
 "빳빳하게 펼치기" = "Smooth It Out";
-/* Sources/DogMonitor/App/DesktopRug.swift:447 */
+/* Sources/DogMonitor/App/DesktopRug.swift:736 */
 "러그를 화면 가운데로" = "Move Rug to Center";
-/* Sources/DogMonitor/App/DesktopRug.swift:448 */
+/* Sources/DogMonitor/App/DesktopRug.swift:737 */
 "러그 그림" = "Rug Pattern";
-/* Sources/DogMonitor/App/DesktopRug.swift:451 */
+/* Sources/DogMonitor/App/DesktopRug.swift:740 */
+"러그 캐릭터" = "Rug Character";
+/* Sources/DogMonitor/App/DesktopRug.swift:743 */
 "러그 색" = "Rug Color";
-/* Sources/DogMonitor/App/DesktopRug.swift:454 */
+/* Sources/DogMonitor/App/DesktopRug.swift:746 */
+"러그 모양" = "Rug Shape";
+/* Sources/DogMonitor/App/DesktopRug.swift:749 */
+"러그 질감" = "Rug Texture";
+/* Sources/DogMonitor/App/DesktopRug.swift:752 */
+"내 이미지로 러그…" = "Rug from My Image…";
+/* Sources/DogMonitor/App/DesktopRug.swift:753 */
 "러그 크기" = "Rug Size";
-/* Sources/DogMonitor/App/DesktopRug.swift:457 */
+/* Sources/DogMonitor/App/DesktopRug.swift:756 */
 "부드러움" = "Softness";
-/* Sources/DogMonitor/App/DesktopRug.swift:461 */
+/* Sources/DogMonitor/App/DesktopRug.swift:760 */
 "러그 치우기" = "Put the Rug Away";
+/* Sources/DogMonitor/App/DesktopRug.swift:940 */
+"지금 캐릭터" = "Current character";
 /* Sources/DogMonitor/App/Diagnostics.swift:53 */
 "캐릭모니터 문제 보내기" = "CharaMonitor problem report";
 /* Sources/DogMonitor/App/Diagnostics.swift:54 */
 "어떤 문제인지 적어 주세요:" = "Tell us what went wrong:";
-/* Sources/DogMonitor/App/DriftGuard.swift:109 */
+/* Sources/DogMonitor/App/DriftGuard.swift:153 */
 "브라우저 탭도 볼까요?" = "Watch browser tabs too?";
-/* Sources/DogMonitor/App/DriftGuard.swift:110 */
+/* Sources/DogMonitor/App/DriftGuard.swift:154 */
 "Safari, Chrome, Edge, Brave, Arc, 웨일, Vivaldi의 맨 앞 탭 주소와 제목을 10초마다 읽어 딴짓인지 판단해요. 맥 밖으로 보내지 않고, 기록에는 사이트 이름만 남겨요. macOS가 브라우저 제어를 물어보면 허용을 눌러 주세요. 허용하지 않은 브라우저는 앱 이름으로만 판단해요." = "Every 10 seconds, reads the address and title of the front tab in Safari, Chrome, Edge, Brave, Arc, Whale or Vivaldi to tell whether you are drifting. Nothing leaves this Mac, and the log keeps only the site name. When macOS asks about controlling the browser, click Allow. Browsers you do not allow are judged by app name only.";
-/* Sources/DogMonitor/App/DriftGuard.swift:111 */
+/* Sources/DogMonitor/App/DriftGuard.swift:155 */
 "계속" = "Continue";
-/* Sources/DogMonitor/App/DriftGuard.swift:112 */
+/* Sources/DogMonitor/App/DriftGuard.swift:156 */
 "취소" = "Cancel";
-/* Sources/DogMonitor/App/DriftGuard.swift:127 */
+/* Sources/DogMonitor/App/DriftGuard.swift:171 */
 "고양이가 딴짓 창을 닫게 할까요?" = "Let the cat close drifting windows?";
-/* Sources/DogMonitor/App/DriftGuard.swift:128 */
+/* Sources/DogMonitor/App/DriftGuard.swift:172 */
 "딴짓이 확정되면 고양이가 달려와 앞발을 들어요. 몇 초 안에 고양이를 누르면 그대로 두고, 못 잡으면 브라우저는 그 탭만, 앱은 정상 종료로 닫아요(저장 안 한 문서는 앱이 물어봐요). 강제 종료는 하지 않고, 보호 목록 앱, 통화·화면 공유 중, 재생·녹화 중인 앱은 건드리지 않아요." = "Once drift is confirmed, the cat runs over and lifts its paw. Click the cat within a few seconds and nothing is closed; otherwise it closes just that tab in a browser, or quits the app normally (the app asks about unsaved documents). It never force quits, and never touches protected apps, apps in a call or screen share, or apps that are playing or recording.";
-/* Sources/DogMonitor/App/DriftGuard.swift:129 */
+/* Sources/DogMonitor/App/DriftGuard.swift:173 */
 "켜기" = "Turn On";
-/* Sources/DogMonitor/App/DriftGuard.swift:419 */
+/* Sources/DogMonitor/App/DriftGuard.swift:335 */
+"하루 기록을 전부 지울까요?" = "Erase the whole Day log?";
+/* Sources/DogMonitor/App/DriftGuard.swift:336 */
+"이 맥에 남은 %lld일 치 3분 블록이 모두 지워져요. 되돌릴 수 없어요. 내 기준 메모는 그대로 둬요." = "All %lld days of 3-minute blocks on this Mac will be erased. This can't be undone. Your My rules memo stays.";
+/* Sources/DogMonitor/App/DriftGuard.swift:337 */
+"지우기" = "Delete";
+/* Sources/DogMonitor/App/DriftGuard.swift:351 */
+"하루 기록" = "Day log";
+/* Sources/DogMonitor/App/DriftGuard.swift:363 */
+"먼저 내 AI를 연결해 주세요" = "Connect your AI first";
+/* Sources/DogMonitor/App/DriftGuard.swift:364 */
+"AI 비서 설정의 내 AI 연결에서 Claude, ChatGPT, Gemini 중 하나를 연결하면 쓸 수 있어요. 그 전까지는 이 맥 안의 규칙으로만 판단해요." = "Connect Claude, ChatGPT or Gemini under My AI connection in AI Assistant settings to use this. Until then, only the rules on this Mac decide.";
+/* Sources/DogMonitor/App/DriftGuard.swift:365 */
+"알겠어요" = "Got It";
+/* Sources/DogMonitor/App/DriftGuard.swift:371 */
+"%@ 구독 계정으로는 하루 기록을 맡길 수 없어요" = "Your day log can not go to a %@ subscription";
+/* Sources/DogMonitor/App/DriftGuard.swift:372 */
+"탭 제목은 어느 사이트든 쓸 수 있어서, 읽기 도구를 가진 %@ 프로그램에 보내면 제목 속 지시를 따를 수 있어요. 내 AI 연결에서 API 키로 바꾸거나 Claude를 고르면 쓸 수 있어요. 그 전까지는 이 맥 안의 규칙으로만 판단해요." = "Any site can write a tab title, and the %@ program has reading tools, so it could follow instructions hidden in a title. Switch to an API key or pick Claude in My AI connection to use it. Until then only the rules on this Mac decide.";
+/* Sources/DogMonitor/App/DriftGuard.swift:378 */
+"하루 기록 분류를 %@에 맡길까요?" = "Let %@ label your Day log?";
+/* Sources/DogMonitor/App/DriftGuard.swift:379 */
+"규칙이 모르는 화면만 3분에 한 번, 최대 8개씩 묶어서 보내요. 보내는 것: 앱 이름, 사이트 도메인(예: youtube.com), 탭 제목, 업무 프로필, 내 기준 메모. 주소의 나머지(경로, 검색어), 화면, 스크린샷은 보내지 않아요. 요금과 보관은 %@ 방침을 따르고, 실패하면 이 맥의 규칙으로 판단해요. 언제든 끌 수 있어요." = "Only screens the rules don't know are sent, once every 3 minutes, up to 8 at a time. What goes: app name, site domain (e.g. youtube.com), tab title, work profile and your My rules memo. The rest of the address (path, search terms), the screen and screenshots are never sent. Pricing and retention follow %@'s policy, and if it fails, the rules on this Mac decide. You can turn it off anytime.";
+/* Sources/DogMonitor/App/DriftGuard.swift:380 */
+"동의하고 켜기" = "Agree and turn on";
+/* Sources/DogMonitor/App/DriftGuard.swift:404 */
+"내 AI가 답하지 않아 이 맥의 규칙으로 판단했어요." = "Your AI didn't answer, so the rules on this Mac decided.";
+/* Sources/DogMonitor/App/DriftGuard.swift:412 */
+"%@ API 키가 없어요." = "No %@ API key.";
+/* Sources/DogMonitor/App/DriftGuard.swift:604 */
 "고등어" = "Mackerel tabby";
-/* Sources/DogMonitor/App/DriftGuard.swift:420 */
+/* Sources/DogMonitor/App/DriftGuard.swift:605 */
 "치즈" = "Orange tabby";
-/* Sources/DogMonitor/App/DriftGuard.swift:423 */
+/* Sources/DogMonitor/App/DriftGuard.swift:608 */
 "회색" = "Gray";
-/* Sources/DogMonitor/App/DriftGuard.swift:424 */
+/* Sources/DogMonitor/App/DriftGuard.swift:609 */
 "까망이" = "Black";
 /* Sources/DogMonitor/App/DriftRules.swift:13 */
 "집중" = "Focus";
@@ -1914,6 +1982,18 @@
 "코드가 맞지 않아요" = "That code doesn't match";
 /* Sources/DogMonitor/App/Plugins.swift:578 */
 "잠시 뒤에 다시 넣어 주세요" = "Please try again in a moment";
+/* Sources/DogMonitor/App/RugTuft.swift:277 */
+"30MB보다 작은 이미지를 골라 주세요" = "Choose an image smaller than 30 MB";
+/* Sources/DogMonitor/App/RugTuft.swift:278 */
+"열 수 없는 이미지예요. PNG나 JPEG를 골라 주세요" = "This image can't be opened. Choose a PNG or JPEG";
+/* Sources/DogMonitor/App/RugTuft.swift:279 */
+"너무 작은 이미지예요" = "This image is too small";
+/* Sources/DogMonitor/App/RugTuft.swift:280 */
+"해상도가 너무 큰 이미지예요" = "That image's resolution is too large";
+/* Sources/DogMonitor/App/RugTuft.swift:281 */
+"파일을 읽지 못했어요. 권한이나 위치를 확인해 주세요" = "Couldn't read the file. Check its permissions or location";
+/* Sources/DogMonitor/App/RugTuft.swift:282 */
+"이미지를 저장하지 못했어요. 디스크 공간을 확인해 주세요" = "Couldn't save the image. Check your disk space";
 /* Sources/DogMonitor/App/Season.swift:19 */
 "눈빛 말풍선" = "Snow bubble";
 /* Sources/DogMonitor/App/Season.swift:20 */
@@ -1988,8 +2068,6 @@
 "뽑기판 열기" = "Open the board";
 /* Sources/DogMonitor/App/SeasonBoard.swift:372 */
 "말풍선 색" = "Bubble color";
-/* Sources/DogMonitor/App/SeasonBoard.swift:373 */
-"기본" = "Default";
 /* Sources/DogMonitor/App/SeasonBoard.swift:479 */
 "말풍선 색도 시즌 꾸미기예요" = "Bubble colors are season items too";
 /* Sources/DogMonitor/App/SetupFile.swift:68 */
@@ -2146,8 +2224,6 @@
 "이 메모를 지울까요?" = "Delete this note?";
 /* Sources/DogMonitor/App/StickyNotes.swift:264 */
 "지우면 되돌릴 수 없어요." = "This can't be undone.";
-/* Sources/DogMonitor/App/StickyNotes.swift:265 */
-"지우기" = "Delete";
 /* Sources/DogMonitor/App/StickyNotes.swift:317 */
 "접기" = "Fold";
 /* Sources/DogMonitor/App/StickyNotes.swift:317 */
@@ -2213,7 +2289,7 @@
 /* Sources/DogMonitor/App/Tour.swift:24 */
 "(4/4) 대시보드의 AI 비서에서 저한테 말 걸어 보세요." = "(4/4) Talk to me in AI Assistant on the dashboard.";
 /* Sources/DogMonitor/App/Tour.swift:67 */
-"딴짓 지킴이가 왔어요. 딴짓이 길어지면 하던 일로 돌아가자고 알려 주고, 원하면 고양이가 앞발로 탭을 닫아요. 설정 > 데스크톱 친구에서 켜요." = "Drift Guard is here. When drifting runs long it nudges you back to your work, and if you like, a cat paws the tab closed. Turn it on in Settings > Desktop Friends.";
+"러그가 진짜 러그처럼 바뀌었어요. 캐릭터 모양으로 오리고, 털 질감과 테두리, 접힌 그림자까지 보여요. 내 사진으로도 러그를 만들 수 있어요. 러그를 우클릭해 보세요." = "The rug looks like a real rug now: cut in your character's shape, with tufted pile, a fur rim and soft fold shadows. You can make one from your own photo too. Right-click the rug.";
 /* Sources/DogMonitor/App/Tour.swift:93 */
 "업데이트됐어요! " = "Updated! ";
 /* Sources/DogMonitor/App/ToyBox.swift:13 */
@@ -2762,12 +2838,6 @@
 "퇴근 시간(%@)이 지났어. 오늘도 수고했어!" = "It's past quitting time (%@). Good work today!";
 /* Sources/DogMonitor/Assistant/ChatEngine.swift:454 */
 "퇴근 시간(%@)이 지났어요. 오늘도 수고하셨어요!" = "It's past quitting time (%@). Great work today!";
-/* Sources/DogMonitor/Assistant/ChatEngine.swift:455 */
-"%lld분" = "%lld min";
-/* Sources/DogMonitor/Assistant/ChatEngine.swift:455 */
-"%lld시간" = "%lldh";
-/* Sources/DogMonitor/Assistant/ChatEngine.swift:455 */
-"%lld시간 %lld분" = "%lldh %lldm";
 /* Sources/DogMonitor/Assistant/ChatEngine.swift:456 */
 "퇴근(%@)까지 %@ 남았어." = "%2$@ left until quitting time (%1$@).";
 /* Sources/DogMonitor/Assistant/ChatEngine.swift:456 */
@@ -4012,79 +4082,81 @@
 "상대 맥에서 화면 공유가 꺼져 있어요, 켜는 방법을 보냈어요" = "Screen Sharing is off on their Mac; they've been shown how to turn it on";
 /* Sources/DogMonitor/Social/RemoteHelp.swift:143 */
 "%@ 맥의 주소를 찾지 못했어요" = "Couldn't find the address of %@'s Mac";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:186 */
-"모임에서 나갔어요" = "left the meetup";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:189 */
-"입력 중…" = "Typing…";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:190 */
-"오늘의 운세: %@" = "Today's fortune: %@";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:192 */
-"✏️ 낙서 쪽지" = "✏️ Doodle";
 /* Sources/DogMonitor/Social/RemoteMeet.swift:197 */
+"모임에서 나갔어요" = "left the meetup";
+/* Sources/DogMonitor/Social/RemoteMeet.swift:200 */
+"입력 중…" = "Typing…";
+/* Sources/DogMonitor/Social/RemoteMeet.swift:201 */
+"오늘의 운세: %@" = "Today's fortune: %@";
+/* Sources/DogMonitor/Social/RemoteMeet.swift:203 */
+"✏️ 낙서 쪽지" = "✏️ Doodle";
+/* Sources/DogMonitor/Social/RemoteMeet.swift:208 */
 "💕 뽀뽀했어요" = "💕 Kissed";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:199 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:210 */
 "💫 기절했어요" = "💫 Knocked out";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:366 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:379 */
 "꺼짐" = "Off";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:367 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:380 */
 "아직 모임이 없어요" = "No meetup yet";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:368 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:381 */
 "연결 중" = "Connecting…";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:369 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:382 */
 "연결됨 · %lld명" = "Connected · %lld";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:370 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:383 */
 "모임이 꽉 찼어요 (12명)" = "The meetup is full (12)";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:752 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:384 */
+"원격 모임 서버가 오늘 쓸 양을 다 써서 잠시 쉬어요. 하루 안에 다시 이어져요" = "The remote meetup server used up today's share and is resting. It picks up again within a day";
+/* Sources/DogMonitor/Social/RemoteMeet.swift:770 */
 " (외 %lld개)" = " (+%lld more)";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:768 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:786 */
 "원격 모임은 설정 > 플러그인에서 먼저 켜 주세요" = "Turn on Remote meetup in Settings > Plugins first";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:774 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:792 */
 "원격 모임에 들어갈까요?" = "Join the remote meetup?";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:775 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:793 */
 "코드 %@ 모임에 들어가요. 지금 모임이 있으면 거기서는 나가요." = "You'll join meetup %@. If you're in one now, you'll leave it.";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:776 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:794 */
 "들어가기" = "Join";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:785 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:803 */
 "원격 모임에 한마디" = "A line for the remote meetup";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:787 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:805 */
 "200자까지" = "Up to 200 characters";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:806 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:824 */
 "오늘 운세 보내기" = "Send today's fortune";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:807 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:825 */
 "한마디 보내기…" = "Send a line…";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:853 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:871 */
 "원격 모임 켜기" = "Turn on Remote meetup";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:854 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:872 */
 "켜면 상태·이모트·운세·한마디·입력 중 표시·캐릭터 모습·프로필·낙서 쪽지만 종단간 암호화해서 중계 서버를 거쳐 보내요. 서버는 내용을 읽지 못하고 모임의 마지막 활동 24시간 뒤 지워요. 모임 친구는 친구 상주 자리에 캐릭터로 서고, 한마디는 머리 위 말풍선으로 떠요." = "When on, only status, emotes, fortunes, lines, typing, how your character looks, profile and doodle notes go end-to-end encrypted through the relay server. The server can't read them and deletes a meetup 24 hours after its last activity. Meetup friends stand in the friend row as characters, with their lines in bubbles over their heads.";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:857 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:875 */
 "상태" = "Status";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:862 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:880 */
 "같이 놀기와 무전기는 계속 같은 와이파이에서만 돼요." = "Play together and Walkie-talkie still work only on the same Wi-Fi.";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:876 */
-"새 모임 만들기" = "Create a meetup";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:878 */
-"받은 코드나 링크" = "Code or link you received";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:881 */
-"최대 12명까지 함께해요. 초대 링크나 코드를 친구에게 보내 주세요." = "Up to 12 people. Send your friends the invite link or code.";
 /* Sources/DogMonitor/Social/RemoteMeet.swift:894 */
+"새 모임 만들기" = "Create a meetup";
+/* Sources/DogMonitor/Social/RemoteMeet.swift:896 */
+"받은 코드나 링크" = "Code or link you received";
+/* Sources/DogMonitor/Social/RemoteMeet.swift:899 */
+"최대 12명까지 함께해요. 초대 링크나 코드를 친구에게 보내 주세요." = "Up to 12 people. Send your friends the invite link or code.";
+/* Sources/DogMonitor/Social/RemoteMeet.swift:912 */
 "모임 코드" = "Meetup code";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:897 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:915 */
 "복사했어요" = "Copied";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:897 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:915 */
 "초대 링크 복사" = "Copy invite link";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:902 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:920 */
 "나가기" = "Leave";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:910 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:929 */
 "한마디 (200자까지)" = "Line (up to 200 characters)";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:924 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:945 */
 "낙서 쪽지" = "Doodle";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:927 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:950 */
 "사진은 근처 친구 대화에서만 보낼 수 있어요. 원격 모임은 중계 서버를 거치고 한 번에 2KB까지라 사진을 싣지 않아요." = "Photos go only in nearby friend chats. The remote meetup goes through a relay server that carries 2 KB at a time, so it doesn't carry photos.";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:931 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:954 */
 "프로필" = "Profiles";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:968 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:991 */
 "오늘 저녁 7시 게임 어때?" = "Game at 7 tonight?";
-/* Sources/DogMonitor/Social/RemoteMeet.swift:999 */
+/* Sources/DogMonitor/Social/RemoteMeet.swift:1023 */
 "나 먼저 퇴근!" = "I'm off first!";
 /* Sources/DogMonitor/Social/RoomPlace.swift:22 */
 "전체" = "Full";
@@ -4110,8 +4182,6 @@
 "친구를 잡아 다른 앱 창의 윗변이나 옆에 놓으면 고무줄로 매달려 창을 따라다녀요. 당겼다 놓으면 튕겨 돌아오고, 세게 당기면 떨어져요. 창이 닫히면 떨어지고, 다른 창에 가려지면 숨었다 나와요. 화면 기록 권한은 필요 없어요." = "Drop a friend on the top or side of another app's window and it hangs there on a rubber band, following the window. Pull and let go and it springs back; pull hard and it falls. It falls when the window closes, and hides while another window covers it. No Screen Recording permission needed.";
 /* Sources/DogMonitor/Social/SocialModel.swift:13 */
 "근무 중" = "Working";
-/* Sources/DogMonitor/Social/SocialModel.swift:14 */
-"자리 비움" = "Away";
 /* Sources/DogMonitor/Social/SocialModel.swift:15 */
 "식사" = "Meal";
 /* Sources/DogMonitor/Social/SocialModel.swift:16 */
@@ -4494,8 +4564,6 @@
 "자리를 비운 사이 맡긴 일은 찾아보기만 하고, 할 일은 카드로 남겨요." = "Tasks that run while you're away only look things up and leave to-dos as cards.";
 /* Sources/DogMonitor/UI/AgentSettingsPanel.swift:52 */
 "에이전트 브라우저는 쇼핑·항공권 사이트를 열어 찾아보고, 장바구니 담기처럼 상태를 바꾸는 버튼은 확인받아 눌러요. 결제·로그인 화면이 나오면 멈추고 넘겨요." = "The agent browser opens shopping and flight sites to look around, and asks before clicking buttons that change things, like Add to cart. It stops and hands over at payment or sign-in screens.";
-/* Sources/DogMonitor/UI/AgentSettingsPanel.swift:55 */
-"동의하고 켜기" = "Agree and turn on";
 /* Sources/DogMonitor/UI/AgentSettingsPanel.swift:67 */
 "행동 규칙" = "Action rules";
 /* Sources/DogMonitor/UI/AgentSettingsPanel.swift:85 */
@@ -5136,295 +5204,383 @@
 "아주 뜨거워요" = "Very hot";
 /* Sources/DogMonitor/UI/DashboardView.swift:397 */
 "무료 오픈 소스" = "Free, open source";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:126 */
-"다들 쉬는 중이에요. 하나 깨워 볼까요?" = "Everyone's resting. Wake one up?";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:126 */
-"친구 %lld명이 나와 있어요" = "Friends out: %lld";
+/* Sources/DogMonitor/UI/DayViews.swift:24 */
+"하루 기록 타임라인 열기" = "Open the Day log timeline";
+/* Sources/DogMonitor/UI/DayViews.swift:29 */
+"오늘 집중 %@ · 딴짓 %@" = "Today: focus %1$@ · drift %2$@";
+/* Sources/DogMonitor/UI/DayViews.swift:117 */
+"화면을 찍거나 녹화하지 않아요. 기록은 이 맥에만 %lld일 동안 남아요." = "Nothing is captured or recorded from the screen. The log stays only on this Mac for %lld days.";
+/* Sources/DogMonitor/UI/DayViews.swift:134 */
+"전날" = "Previous day";
+/* Sources/DogMonitor/UI/DayViews.swift:136 */
+"다음 날" = "Next day";
+/* Sources/DogMonitor/UI/DayViews.swift:138 */
+"집중 %@ · 딴짓 %@" = "Focus %1$@ · drift %2$@";
+/* Sources/DogMonitor/UI/DayViews.swift:141 */
+"중립 %@ · 자리 비움 %@" = "Neutral %1$@ · away %2$@";
+/* Sources/DogMonitor/UI/DayViews.swift:145 */
+"지금 세션: 집중 %@ · 딴짓 %@" = "This session: focus %1$@ · drift %2$@";
+/* Sources/DogMonitor/UI/DayViews.swift:183 */
+"3분 블록 타임라인" = "3-minute block timeline";
+/* Sources/DogMonitor/UI/DayViews.swift:210 */
+"눌러서 라벨 고치기" = "Click to fix the label";
+/* Sources/DogMonitor/UI/DayViews.swift:227 */
+"직접 고침" = "Fixed by you";
+/* Sources/DogMonitor/UI/DayViews.swift:239 */
+"라벨 고치기" = "Fix the label";
+/* Sources/DogMonitor/UI/DayViews.swift:245 */
+"고치면 내 기준에 한 줄 남아요" = "A fix adds a line to My rules";
+/* Sources/DogMonitor/UI/DayViews.swift:249 */
+"키보드와 마우스 입력이 없던 3분이에요." = "3 minutes with no keyboard or mouse input.";
+/* Sources/DogMonitor/UI/DayViews.swift:252 */
+"블록에 마우스를 올리면 그때 무엇을 했는지 보여요. 누르면 라벨을 고칠 수 있어요." = "Hover a block to see what you were doing then. Click it to fix the label.";
+/* Sources/DogMonitor/UI/DayViews.swift:265 */
+"앱·사이트별" = "By app and site";
+/* Sources/DogMonitor/UI/DayViews.swift:295 */
+"이번 주" = "This week";
+/* Sources/DogMonitor/UI/DayViews.swift:297 */
+"7일 집중 %@ · 딴짓 %@" = "7 days: focus %1$@ · drift %2$@";
+/* Sources/DogMonitor/UI/DayViews.swift:320 */
+"%@ 집중 %@ 딴짓 %@" = "%1$@: focus %2$@, drift %3$@";
+/* Sources/DogMonitor/UI/DayViews.swift:350 */
+"타임라인" = "Timeline";
+/* Sources/DogMonitor/UI/DayViews.swift:383 */
+"근무 시간과 상관없이 하루 종일 3분마다 무엇을 했는지 남겨요. 입력이 없으면 자리 비움으로 적어요. 딴짓 지킴이와 따로 켜고 꺼요." = "Logs what you did every 3 minutes all day, work hours or not. With no input it's marked Away. Turns on and off separately from Drift Guard.";
+/* Sources/DogMonitor/UI/DayViews.swift:388 */
+"오늘 타임라인 열기" = "Open today's timeline";
+/* Sources/DogMonitor/UI/DayViews.swift:393 */
+"브라우저 탭" = "Browser tabs";
+/* Sources/DogMonitor/UI/DayViews.swift:395 */
+"브라우저 탭 보기" = "Watch browser tabs";
+/* Sources/DogMonitor/UI/DayViews.swift:396 */
+"켜야 같은 사이트에서도 강의 영상과 쇼츠를 구분해요" = "Turn on to tell lectures from Shorts on the same site";
+/* Sources/DogMonitor/UI/DayViews.swift:399 */
+"그 외 영상" = "Other videos";
+/* Sources/DogMonitor/UI/DayViews.swift:406 */
+"쇼츠·릴스·틱톡은 딴짓, 제목에 강의·튜토리얼·코딩처럼 배우는 말이나 업무 프로필 단어가 있는 영상은 집중이에요. 네이버·다음 뉴스, 카페, 블로그도 주소와 제목으로 나눠요." = "Shorts, Reels and TikTok are drift. Videos whose titles have learning words like lecture, tutorial or coding, or words from your work profile, are focus. Naver and Daum news, cafes and blogs are split by address and title too.";
+/* Sources/DogMonitor/UI/DayViews.swift:408 */
+"AI 분류" = "AI labeling";
+/* Sources/DogMonitor/UI/DayViews.swift:411 */
+"이 맥에서만" = "On this Mac only";
+/* Sources/DogMonitor/UI/DayViews.swift:412 */
+"내 AI 연결" = "My AI connection";
+/* Sources/DogMonitor/UI/DayViews.swift:415 */
+"규칙이 모르는 화면만 3분에 한 번 묶어서 %@에 보내요. 앱 이름·도메인·탭 제목, 업무 프로필, 내 기준 메모만 가요." = "Screens the rules don't know go to %@ in a batch every 3 minutes. Only app name, domain, tab title, your work profile and the My rules memo are sent.";
+/* Sources/DogMonitor/UI/DayViews.swift:416 */
+"규칙과 이 맥 AI로만 판단해요. 아무것도 보내지 않아요." = "Only the rules and this Mac's AI decide. Nothing is sent.";
+/* Sources/DogMonitor/UI/DayViews.swift:419 */
+"%@ 구독 계정은 읽기 도구가 있어 탭 제목 속 지시를 따를 수 있어서 보내지 않아요. API 키나 Claude로 바꾸면 보내요." = "Nothing goes to a %@ subscription: its reading tools could follow instructions in a tab title. Switch to an API key or Claude to send.";
+/* Sources/DogMonitor/UI/DayViews.swift:426 */
+"메뉴바 링" = "Menu bar ring";
+/* Sources/DogMonitor/UI/DayViews.swift:426 */
+"메뉴바에 집중 링 보이기" = "Show the focus ring in the menu bar";
+/* Sources/DogMonitor/UI/DayViews.swift:427 */
+"보관 기간" = "Keep for";
+/* Sources/DogMonitor/UI/DayViews.swift:435 */
+"CSV 내보내기" = "Export CSV";
+/* Sources/DogMonitor/UI/DayViews.swift:437 */
+"전부 지우기" = "Erase all";
+/* Sources/DogMonitor/UI/DayViews.swift:442 */
+"화면을 녹화하거나 찍지 않아요. 3분마다 앱 이름, 사이트, 탭 제목 요약과 판정을 이 맥에만 남기고, 내 AI 연결에 동의했을 때만 앱 이름·도메인·탭 제목, 업무 프로필, 내 기준 메모를 보내요." = "Nothing is recorded or captured from the screen. Every 3 minutes the app name, site, a tab title summary and the label are kept only on this Mac, and app name, domain, tab title, your work profile and the My rules memo are sent only if you agreed to My AI connection.";
+/* Sources/DogMonitor/UI/DayViews.swift:450 */
+"내 기준" = "My rules";
+/* Sources/DogMonitor/UI/DayViews.swift:461 */
+"타임라인에서 라벨을 고칠 때마다 한 줄씩 쌓여요. 직접 써도 돼요. 예: youtube.com · 제목에 \"피그마\" → 집중" = "Each label you fix in the timeline adds a line. You can write your own too. E.g. youtube.com · title has \"Figma\" → Focus";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:129 */
+"다들 쉬는 중이에요. 하나 깨워 볼까요?" = "Everyone's resting. Wake one up?";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:129 */
+"친구 %lld명이 나와 있어요" = "Friends out: %lld";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:132 */
 "불러보기 👋" = "Call them 👋";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:136 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:139 */
 "나와 있는 친구들이 모두 반응해요" = "Every friend that's out will react";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:156 */
-"🎃 오늘은 살짝 으스스하게" = "🎃 A little spooky today";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:157 */
-"🎄 포근한 12월이에요" = "🎄 A cozy December";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:158 */
-"좋은 아침이에요" = "Good morning";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:159 */
-"오늘도 같이 놀아요" = "Let's play together today";
+"🎃 오늘은 살짝 으스스하게" = "🎃 A little spooky today";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:160 */
+"🎄 포근한 12월이에요" = "🎄 A cozy December";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:161 */
+"좋은 아침이에요" = "Good morning";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:162 */
+"오늘도 같이 놀아요" = "Let's play together today";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:163 */
 "늦었어요, 살살 놀아요" = "It's late, let's play gently";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:187 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:190 */
 "빠르게 움직이면" = "When you move fast";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:193 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:196 */
 "혼자 놀기" = "Play on its own";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:198 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:201 */
 "들어 보기" = "Listen";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:203 */
-"커서를 움직이면 걸어서 따라오고, 커서가 멀리 가면 뛰어와요. 멈추면 곁에서 기다리다 가끔 혼자 놀고, 충전 중엔 밥을 먹어요. 한동안 손을 안 대면 낮잠을 자요." = "Walks after your cursor when it moves, and runs when it goes far. When you stop, it waits nearby and sometimes plays alone, and it eats while charging. Leave it alone for a while and it naps.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:204 */
-"혼자 놀기를 켜 두면 가끔 맨 앞 창의 위쪽 끝에 올라가 앉고, 나비를 쫓거나 커서에 매달리기도 해요. 앉을 자리는 창의 위치만 보고 찾아요. 창 안의 내용은 보지 않아요." = "With Play on its own on, it sometimes sits on the top edge of the front window, chases a butterfly or clings to your cursor. It finds a seat from the window's position only and never looks at what's inside the window.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:205 */
-"마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 누를 때마다 여러 가지로 반응하고, 연달아 누르면 어질어질하다 삐쳐요. 꾸욱 누르고 있다 놓으면 폴짝 뛰고, 잡아서 휙 던지면 날아갔다 다시 돌아와요. ⌥ 누른 채 클릭하면 퀵물어보기, AI 비서와 메뉴는 오른쪽 클릭이에요." = "Swing the mouse fast and it grows and tilts. Shake it hard and it gets dizzy. It reacts differently each time you click, and clicking in a row makes it dizzy, then grumpy. Press and hold, then let go, and it hops. Grab and toss it and it flies off, then comes back. ⌥-click for Quick Ask, right-click for the AI Assistant and menu.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:206 */
-"누르면 소리를 켜면 누를 때마다 강아지는 멍, 고양이는 야옹, 다른 캐릭터는 저마다 다른 목소리로 울어요. 복제 친구, 풀밭 친구, 폴더 친구도 같이 울어요. 캐릭터 팩의 sounds 폴더나 내 캐릭터 꾸미기에서 넣은 소리 파일이 있으면 그 소리를 내요. 꾸미기의 효과음을 끄거나 말풍선을 잠시 끄면 조용해요." = "With Sound on click on, each click makes a dog woof, a cat meow, and every other character cry in a voice of its own. Copied, meadow and folder friends cry too. A character pack's sounds folder, or sound files added in a custom character's Customize page, play instead. Turning off Sound effects in Decorate, or muting the bubble for a while, keeps them quiet.";
+"커서를 움직이면 걸어서 따라오고, 커서가 멀리 가면 뛰어와요. 멈추면 곁에서 기다리다 가끔 혼자 놀고, 충전 중엔 밥을 먹어요. 한동안 손을 안 대면 낮잠을 자요." = "Walks after your cursor when it moves, and runs when it goes far. When you stop, it waits nearby and sometimes plays alone, and it eats while charging. Leave it alone for a while and it naps.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:207 */
+"혼자 놀기를 켜 두면 가끔 맨 앞 창의 위쪽 끝에 올라가 앉고, 나비를 쫓거나 커서에 매달리기도 해요. 앉을 자리는 창의 위치만 보고 찾아요. 창 안의 내용은 보지 않아요." = "With Play on its own on, it sometimes sits on the top edge of the front window, chases a butterfly or clings to your cursor. It finds a seat from the window's position only and never looks at what's inside the window.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:208 */
+"마우스를 휙 돌리면 커지고 기울어요. 마구 흔들면 어지러워해요. 누를 때마다 여러 가지로 반응하고, 연달아 누르면 어질어질하다 삐쳐요. 꾸욱 누르고 있다 놓으면 폴짝 뛰고, 잡아서 휙 던지면 날아갔다 다시 돌아와요. ⌥ 누른 채 클릭하면 퀵물어보기, AI 비서와 메뉴는 오른쪽 클릭이에요." = "Swing the mouse fast and it grows and tilts. Shake it hard and it gets dizzy. It reacts differently each time you click, and clicking in a row makes it dizzy, then grumpy. Press and hold, then let go, and it hops. Grab and toss it and it flies off, then comes back. ⌥-click for Quick Ask, right-click for the AI Assistant and menu.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:209 */
+"누르면 소리를 켜면 누를 때마다 강아지는 멍, 고양이는 야옹, 다른 캐릭터는 저마다 다른 목소리로 울어요. 복제 친구, 풀밭 친구, 폴더 친구도 같이 울어요. 캐릭터 팩의 sounds 폴더나 내 캐릭터 꾸미기에서 넣은 소리 파일이 있으면 그 소리를 내요. 꾸미기의 효과음을 끄거나 말풍선을 잠시 끄면 조용해요." = "With Sound on click on, each click makes a dog woof, a cat meow, and every other character cry in a voice of its own. Copied, meadow and folder friends cry too. A character pack's sounds folder, or sound files added in a custom character's Customize page, play instead. Turning off Sound effects in Decorate, or muting the bubble for a while, keeps them quiet.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:210 */
 "macOS는 시스템 커서 자체를 바꾸지 못하게 해서 따라다니는 친구로 만들었어요." = "macOS doesn't allow changing the system cursor itself, so we made a friend that follows it instead.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:221 */
-"몇 명" = "How many";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:224 */
+"몇 명" = "How many";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:227 */
 "하나 더" = "One more";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:233 */
-"어울리기" = "Play together";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:236 */
-"단체 춤" = "Group dance";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:238 */
-"커서 친구를 오른쪽 클릭해서 '복제해서 바탕화면에 두기'를 누르면 똑같은 친구가 바탕화면에 생겨요. 8명까지 두고, 다시 켜도 그 자리에 있어요." = "Right-click your Cursor Buddy and choose 'Make a Copy on the Desktop' to put an identical friend on the desktop. You can have up to 8, and they stay put after a restart.";
+"어울리기" = "Play together";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:239 */
-"혼자 산책하고 앉고 낮잠도 자요. 어울리기를 켜 두면 서로 인사하거나 쫓아다니고, 커서를 쳐다보거나 달려오고, 러그가 있으면 올라가 앉아요." = "They stroll, sit and nap on their own. With Play together on, they greet and chase each other, look at or run to the cursor, and sit on the rug if there is one.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:240 */
-"누르면 반응하고, 잡아서 옮기거나 휙 던질 수 있어요. 움직이기를 끄면 놓은 자리 그대로 장식이 돼요. 오른쪽 클릭으로 한 명씩 치울 수 있어요." = "Click to get a reaction, drag to move or toss them. Turn off Move Around and they stay where you put them as decorations. Right-click to remove them one by one.";
+"단체 춤" = "Group dance";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:241 */
-"친구들끼리 놀기도 해요. 술래잡기를 켜면 가끔 한 명이 술래가 되어 20초 동안 쫓아다니고, 기차놀이를 켜면 커서 친구 뒤에 줄줄이 붙어 따라가요. 둘 다 어울리기가 켜져 있어야 하고, 오른쪽 클릭 메뉴로 바로 시작할 수도 있어요." = "They play together too. With Tag on, now and then one becomes It and chases the others for 20 seconds. With Train on, they line up behind the cursor friend and follow it. Both need Play together on, and you can start them right away from the right-click menu.";
+"커서 친구를 오른쪽 클릭해서 '복제해서 바탕화면에 두기'를 누르면 똑같은 친구가 바탕화면에 생겨요. 8명까지 두고, 다시 켜도 그 자리에 있어요." = "Right-click your Cursor Buddy and choose 'Make a Copy on the Desktop' to put an identical friend on the desktop. You can have up to 8, and they stay put after a restart.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:242 */
+"혼자 산책하고 앉고 낮잠도 자요. 어울리기를 켜 두면 서로 인사하거나 쫓아다니고, 커서를 쳐다보거나 달려오고, 러그가 있으면 올라가 앉아요." = "They stroll, sit and nap on their own. With Play together on, they greet and chase each other, look at or run to the cursor, and sit on the rug if there is one.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:243 */
+"누르면 반응하고, 잡아서 옮기거나 휙 던질 수 있어요. 움직이기를 끄면 놓은 자리 그대로 장식이 돼요. 오른쪽 클릭으로 한 명씩 치울 수 있어요." = "Click to get a reaction, drag to move or toss them. Turn off Move Around and they stay where you put them as decorations. Right-click to remove them one by one.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:244 */
+"친구들끼리 놀기도 해요. 술래잡기를 켜면 가끔 한 명이 술래가 되어 20초 동안 쫓아다니고, 기차놀이를 켜면 커서 친구 뒤에 줄줄이 붙어 따라가요. 둘 다 어울리기가 켜져 있어야 하고, 오른쪽 클릭 메뉴로 바로 시작할 수도 있어요." = "They play together too. With Tag on, now and then one becomes It and chases the others for 20 seconds. With Train on, they line up behind the cursor friend and follow it. Both need Play together on, and you can start them right away from the right-click menu.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:245 */
 "단체 춤을 켜 두면 춤춰 줘·응원해 줘를 누르거나 집중을 잘 마쳤을 때처럼 축하할 일이 생기면 모든 친구가 10초 동안 같이 춤춰요." = "With Group dance on, every friend dances together for 10 seconds whenever there is something to celebrate, like Dance for me, Cheer me on or a focus session done well.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:255 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:258 */
 "메뉴바 바로 아래 줄에 매달려 흔들려요. 잡아서 던지면 줄이 늘었다 튕기고, 누르면 풍경 소리가 나요. 끌어다 놓고 잠깐 멈췄다 놓으면 그 자리, 그 줄 길이로 다시 매달아요. 다른 화면으로 끌어 옮길 수도 있어요." = "They hang on strings right below the menu bar and sway. Grab and throw one and the string stretches and springs back. Click one to ring its chime. Drag one, hold still for a moment and let go to hang it there with that string length. You can drag them to another display too.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:275 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:278 */
 "날씨 창문을 켜 두면 그 도시 바람을 따라요. 지금은 산들바람이에요" = "With the Weather Window on, they follow that city's wind. For now it's a light breeze";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:283 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:286 */
 "들어보기" = "Listen";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:287 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:290 */
 "항상 위" = "On top";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:288 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:291 */
 "줄 느낌" = "String feel";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:294 */
-"맨 위에서" = "From the top";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:296 */
-"화면 맨 위에서 매달기" = "Hang from the top of the screen";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:297 */
+"맨 위에서" = "From the top";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:299 */
+"화면 맨 위에서 매달기" = "Hang from the top of the screen";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:300 */
 "메뉴바 너머로 줄이 보여요" = "The string shows past the menu bar";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:300 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:303 */
 "스치면 흔들기" = "Swing on touch";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:300 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:303 */
 "커서가 스치면 흔들기" = "Swing when the cursor brushes past";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:306 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:309 */
 "장식" = "Charm";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:310 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:313 */
 "줄" = "String";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:328 */
-"누구" = "Who";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:329 */
-"지금 캐릭터" = "Current character";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:331 */
+"누구" = "Who";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:334 */
 "사진·스크린샷…" = "Photo or screenshot…";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:358 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:361 */
 "매달 사진이나 스크린샷을 골라 주세요" = "Pick a photo or screenshot to hang";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:414 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:417 */
 "화면 아래쪽, 독 바로 위에 친구들이 모여 살아요. 제자리에서 통통 뛰고, 가끔 산책하거나 앉아 쉬어요. 누르면 포즈를 바꾸며 말을 걸고 옆 친구도 돌아봐요. 여러 번 누르면 어지러워하다 삐지고, 커서로 문지르면 쓰다듬어져요. ⌥ 누른 채 클릭하면 퀵물어보기가 열리고, 잡아서 들었다 놓으면 툭 떨어져요. 창을 띄우면 그 뒤로 숨어요." = "Friends live along the bottom of the screen, just above the Dock. They bob in place and now and then stroll, sit or rest. Click one and it strikes a pose and says something, and its neighbour turns to look. Click it again and again and it gets dizzy, then sulks; rub it with the cursor to pet it. Option-click one for Quick Ask; pick one up and let go and it drops. Windows cover them.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:415 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:418 */
 "줄넘기를 켜 두면 세 명 이상일 때 가끔 양 끝 두 친구가 줄을 돌리고 나머지가 박자 맞춰 뛰어요. 열 번 연속 넘으면 다 같이 기뻐해요. 오른쪽 클릭 메뉴로 바로 시작할 수도 있어요." = "With Jump rope on and three or more friends out, now and then the two at the ends turn a rope and the rest jump it in time. Ten in a row and they all cheer. You can start it right away from the right-click menu.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:437 */
-"창마다" = "Every window";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:439 */
-"지금 고른 캐릭터가 맨 앞 Finder 창의 위쪽 끝에 올라앉아요. 창 끝에 서서 콩콩 들썩이다가, 낮잠도 자고, 두리번거리고, 가끔 창 끝을 따라 걸어요. 창을 끌어 옮기면 꼭 붙어서 같이 가고, 창을 닫거나 내리면 폴짝 뛰어내려요." = "Your current character sits on the top edge of the front Finder window. It bobs on the edge, naps, looks around, and now and then walks along the edge. Drag the window and it holds on and comes along; close or minimize the window and it hops off.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:440 */
+"창마다" = "Every window";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:442 */
+"지금 고른 캐릭터가 맨 앞 Finder 창의 위쪽 끝에 올라앉아요. 창 끝에 서서 콩콩 들썩이다가, 낮잠도 자고, 두리번거리고, 가끔 창 끝을 따라 걸어요. 창을 끌어 옮기면 꼭 붙어서 같이 가고, 창을 닫거나 내리면 폴짝 뛰어내려요." = "Your current character sits on the top edge of the front Finder window. It bobs on the edge, naps, looks around, and now and then walks along the edge. Drag the window and it holds on and comes along; close or minimize the window and it hops off.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:443 */
 "창마다를 켜면 열린 Finder 창마다 한 명씩, 세 개 창까지 올라가요. 다른 창이 가리거나 창이 메뉴바에 붙어 자리가 없으면 잠깐 숨어요." = "Turn on Every window and one sits on each open Finder window, up to three. When another window covers it, or the window touches the menu bar and there is no room, it hides for a while.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:441 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:444 */
 "누르면 반응하고 말을 걸어요. ⌥ 누른 채 클릭하면 퀵물어보기, 오른쪽 클릭은 메뉴예요. 창의 위치와 크기만 보고, 창 이름이나 안의 내용은 보지 않아서 권한이 필요 없어요." = "Click it and it reacts and talks. Option-click for Quick Ask; right-click for its menu. It only looks at where windows are and how big, never their names or what is inside, so it needs no permission.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:457 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:460 */
 "둘이 놀기" = "Two players";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:458 */
-"미니 게임" = "Mini games";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:461 */
-"최고 기록 %lld개" = "Best: %lld";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:463 */
-"← →로 걷고, Shift를 같이 누르면 뛰어요. ↑로 점프하고, 공중에서 한 번 더 누르면 2단 점프예요. ↓로 웅크리고, ↓ 누른 채 ↑를 누르면 창 아래로 내려가요. Esc를 누르면 끝나요." = "← → walk, hold Shift to run. ↑ jumps, and once more in the air is a double jump. ↓ crouches, and ↓ with ↑ drops down through a window edge. Esc ends it.";
+"미니 게임" = "Mini games";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:464 */
-"화면 아래(독 위), 열린 창의 위쪽 끝, 바탕화면 러그 위에 올라설 수 있어요. 아래에서 뛰어오르면 창 끝을 지나 올라가요. 다른 곳을 클릭하거나 다른 앱으로 넘어가도 끝나요." = "It can stand on the bottom of the screen (above the Dock), on the top edges of open windows and on the desktop rug. Jumping from below goes up through a window edge. Clicking elsewhere or switching apps ends it too.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:465 */
-"놀이 기술 플러그인이 열려 있으면: ↑를 꾹 누르면 하늘을 날아요(1.5초, 땅에 서면 다시 차요). ↑를 빠르게 두 번 누르면 높이 점프, ← 나 →를 빠르게 두 번 누르면 손을 뗄 때까지 대시예요." = "With the Play Moves plugin open: hold ↑ to fly (1.5 s, it refills once you stand). Tap ↑ twice quickly for a high jump, and tap ← or → twice quickly to dash until you let go.";
+"최고 기록 %lld개" = "Best: %lld";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:466 */
-"둘이 놀기를 켜면 색이 다른 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요. W 꾹, W 두 번, A·D 두 번도 똑같이 돼요." = "Turn on Play Together and a friend in another colour joins. A·D walk, W jumps, S crouches. Holding W, W twice and A·D twice work the same way.";
+"← →로 걷고, Shift를 같이 누르면 뛰어요. ↑로 점프하고, 공중에서 한 번 더 누르면 2단 점프예요. ↓로 웅크리고, ↓ 누른 채 ↑를 누르면 창 아래로 내려가요. Esc를 누르면 끝나요." = "← → walk, hold Shift to run. ↑ jumps, and once more in the air is a double jump. ↓ crouches, and ↓ with ↑ drops down through a window edge. Esc ends it.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:467 */
-"별 줍기는 60초 동안 창 위, 화면 아래, 공중에 뜬 별을 모아요. 🍪는 3점이고, 높이 뜬 별은 2단 점프로 닿아요. 2인 대결은 둘이 같이 모아서 많이 모은 쪽이 이겨요." = "Star catch: for 60 seconds, collect the stars on window edges, along the bottom of the screen and up in the air. 🍪 is worth 3, and the high stars need a double jump. In a two-player match you both collect, and whoever gets more wins.";
+"화면 아래(독 위), 열린 창의 위쪽 끝, 바탕화면 러그 위에 올라설 수 있어요. 아래에서 뛰어오르면 창 끝을 지나 올라가요. 다른 곳을 클릭하거나 다른 앱으로 넘어가도 끝나요." = "It can stand on the bottom of the screen (above the Dock), on the top edges of open windows and on the desktop rug. Jumping from below goes up through a window edge. Clicking elsewhere or switching apps ends it too.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:468 */
-"커서 친구나 복제 친구를 오른쪽 클릭해서 놀이 모드를 고를 수도 있어요. 키보드는 놀이하는 동안에만 받고, 창은 위치와 크기만 봐서 권한이 필요 없어요." = "You can also right-click the cursor friend or a copied friend and choose Play mode. Keys are only read while playing, and only window positions and sizes are looked at, so no permission is needed.";
+"놀이 기술 플러그인이 열려 있으면: ↑를 꾹 누르면 하늘을 날아요(1.5초, 땅에 서면 다시 차요). ↑를 빠르게 두 번 누르면 높이 점프, ← 나 →를 빠르게 두 번 누르면 손을 뗄 때까지 대시예요." = "With the Play Moves plugin open: hold ↑ to fly (1.5 s, it refills once you stand). Tap ↑ twice quickly for a high jump, and tap ← or → twice quickly to dash until you let go.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:469 */
+"둘이 놀기를 켜면 색이 다른 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요. W 꾹, W 두 번, A·D 두 번도 똑같이 돼요." = "Turn on Play Together and a friend in another colour joins. A·D walk, W jumps, S crouches. Holding W, W twice and A·D twice work the same way.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:470 */
+"별 줍기는 60초 동안 창 위, 화면 아래, 공중에 뜬 별을 모아요. 🍪는 3점이고, 높이 뜬 별은 2단 점프로 닿아요. 2인 대결은 둘이 같이 모아서 많이 모은 쪽이 이겨요." = "Star catch: for 60 seconds, collect the stars on window edges, along the bottom of the screen and up in the air. 🍪 is worth 3, and the high stars need a double jump. In a two-player match you both collect, and whoever gets more wins.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:471 */
+"커서 친구나 복제 친구를 오른쪽 클릭해서 놀이 모드를 고를 수도 있어요. 키보드는 놀이하는 동안에만 받고, 창은 위치와 크기만 봐서 권한이 필요 없어요." = "You can also right-click the cursor friend or a copied friend and choose Play mode. Keys are only read while playing, and only window positions and sizes are looked at, so no permission is needed.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:472 */
 "클릭 놀이" = "Click games";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:476 */
-"숨바꼭질: 친구가 창 뒤나 독 뒤에 숨어서 머리만 빼꼼 내밀어요. 보이는 부분을 누르면 찾은 거예요. 15초가 지나면 힌트를 주고, 세 판을 해요." = "Hide and seek: your friend hides behind a window or the Dock with just its head peeking out. Click the part you can see to find it. After 15 seconds you get a hint, and there are three rounds.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:477 */
-"공놀이: 공을 끌어서 던지면 친구가 달려가 물어 와요. 한 번 누르면 공을 톡 차올려요. 바탕화면 러그 위에 공이 멈추면 골이에요." = "Ball play: drag the ball and throw it, and your friend runs to fetch it. A single click kicks the ball up. If the ball stops on the desktop rug, it's a goal.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:478 */
-"두더지잡기: 30초 동안 독 위로 튀어나오는 친구를 눌러요. 풀밭 친구들이 켜져 있으면 그 친구들이 나와요. 최고 점수를 기억해요." = "Whack-a-mole: for 30 seconds, click the friends popping up above the Dock. With Meadow friends on, they are the ones that pop up. Your best score is kept.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:479 */
-"게임 조각을 오른쪽 클릭해서 그만할 수 있어요. 마우스로만 놀아서 키보드를 받지 않아요." = "Right-click any game piece to stop. The games use only the mouse, so no keys are read.";
+"숨바꼭질: 친구가 창 뒤나 독 뒤에 숨어서 머리만 빼꼼 내밀어요. 보이는 부분을 누르면 찾은 거예요. 15초가 지나면 힌트를 주고, 세 판을 해요." = "Hide and seek: your friend hides behind a window or the Dock with just its head peeking out. Click the part you can see to find it. After 15 seconds you get a hint, and there are three rounds.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:480 */
+"공놀이: 공을 끌어서 던지면 친구가 달려가 물어 와요. 한 번 누르면 공을 톡 차올려요. 바탕화면 러그 위에 공이 멈추면 골이에요." = "Ball play: drag the ball and throw it, and your friend runs to fetch it. A single click kicks the ball up. If the ball stops on the desktop rug, it's a goal.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:481 */
-"레버 열기" = "Open lever";
+"두더지잡기: 30초 동안 독 위로 튀어나오는 친구를 눌러요. 풀밭 친구들이 켜져 있으면 그 친구들이 나와요. 최고 점수를 기억해요." = "Whack-a-mole: for 30 seconds, click the friends popping up above the Dock. With Meadow friends on, they are the ones that pop up. Your best score is kept.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:482 */
+"게임 조각을 오른쪽 클릭해서 그만할 수 있어요. 마우스로만 놀아서 키보드를 받지 않아요." = "Right-click any game piece to stop. The games use only the mouse, so no keys are read.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:484 */
+"레버 열기" = "Open lever";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:485 */
 "11:30 알림" = "11:30 reminder";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:516 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:519 */
 "몇 개" = "How many";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:523 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:526 */
 "트램펄린, 공, 쿠션, 미끄럼틀을 바탕화면에 꺼내 둬요. 모두 합쳐 6개까지이고, 끌어서 옮기면 다시 켜도 그 자리에 있어요. 누르면 통통 튀거나 데굴데굴 굴러가고, 오른쪽 클릭으로 하나씩 치워요." = "Put a trampoline, ball, cushion or slide on the desktop, up to 6 in all. Drag one to move it and it stays there after a restart. Click one to make it bounce or roll, and right-click to put it away.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:524 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:527 */
 "커서 친구와 복제 친구가 가끔 놀러 와서 트램펄린에서 뛰고, 공을 차고 쫓아가고, 쿠션에서 낮잠을 자고, 미끄럼틀을 타요. 복제 친구는 어울리기가 켜져 있을 때 놀러 와요." = "The cursor friend and copied friends come over now and then: they bounce on the trampoline, kick the ball and chase it, nap on the cushion and go down the slide. Copied friends come when Play together is on.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:525 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:528 */
 "놀이 모드에서는 장난감 위에도 올라설 수 있어요. 트램펄린은 아주 높이 튕겨 주고, 쿠션은 폭신하게 받아 주고, 미끄럼틀은 아래로 태워 줘요." = "In Play mode you can stand on the toys too. The trampoline throws you up high, the cushion gives a soft landing and the slide carries you down.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:536 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:539 */
 "포스트잇" = "Sticky notes";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:537 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:540 */
 "바탕화면에 메모를 붙여 두면, 쓰는 동안 커서 친구가 옆에 와서 같이 타자를 쳐요" = "Stick notes on your desktop, and the cursor friend comes over to type along while you write";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:538 */
-"몇 장" = "Notes";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:541 */
-"붙이기" = "Stick one";
+"몇 장" = "Notes";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:544 */
+"붙이기" = "Stick one";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:547 */
 "위쪽 띠를 끌어서 옮기고, ▾로 접어 띠만 남겨요. 동그라미로 색을 바꾸고, 휴지통으로 떼어요. 쓴 게 있으면 한 번 더 물어봐요." = "Drag the top strip to move it, and fold it with ▾ to leave just the strip. Change the color with the dots and peel it off with the trash can. If it has writing, you'll be asked once more.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:545 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:548 */
 "메모는 이 맥에만 저장돼요. 내 설정 파일에도 담기지 않고, 화면 공유나 녹화에도 보이지 않아요." = "Notes are saved on this Mac only. They aren't in your setup file and don't show in screen shares or recordings.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:546 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:549 */
 "회의 중이거나 화면을 공유·녹화하는 동안에는 커서 친구가 타자 치러 오지 않아요." = "While you're in a meeting or sharing or recording your screen, the cursor friend won't come to type.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:562 */
-"다운로드 배달" = "Download delivery";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:563 */
-"휴지통" = "Trash";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:565 */
-"바쁜 맥" = "Busy Mac";
+"다운로드 배달" = "Download delivery";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:566 */
+"휴지통" = "Trash";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:568 */
-"바쁜 맥: CPU가 20초 넘게 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창 옆에서 영차영차 밀어요. 커서를 움직이면 따라오고, 맥이 한가해지면 그만해요. 복제 친구도 땀을 흘려요." = "Busy Mac: when the CPU stays busy for more than 20 seconds, the cursor friend sweats and pushes hard against the side of the front window. Move the cursor and it follows again; it stops once the Mac calms down. Copied friends sweat too.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:570 */
-"다운로드 배달: 다운로드 폴더에 파일이 다 받아지면 커서 친구가 그 파일 아이콘을 머리에 이고 화면 오른쪽 아래로 날라 줘요. 받는 중인 파일은 다 받아질 때까지 기다려요. 처음 켤 때 다운로드 폴더를 봐도 되는지 물어볼 수 있고, 허용하지 않으면 조용히 쉬어요." = "Download delivery: when a file finishes downloading into your Downloads folder, the cursor friend carries its icon on its head to the lower right of the screen. Files still downloading are waited for until they are done. The first time, macOS may ask whether it can look at the Downloads folder; if you say no, it quietly stays off.";
+"바쁜 맥" = "Busy Mac";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:571 */
-"휴지통: 휴지통을 비우면 커서 친구가 작은 쓰레기 봉투를 화면 밖으로 뻥 차 버려요. 휴지통 안은 보지 않고 몇 개 들었는지만 봐서 권한이 필요 없어요." = "Trash: when you empty the Trash, the cursor friend kicks a little trash bag off the screen. It never looks inside the Trash, only at how many items it holds, so no permission is needed.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:572 */
-"바쁜 맥: CPU가 20초 넘게 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창 옆에서 영차영차 밀어요. 커서를 움직이면 따라오고, 맥이 한가해지면 그만해요." = "Busy Mac: when the CPU stays busy for more than 20 seconds, the cursor friend sweats and pushes hard against the side of the front window. Move the cursor and it follows again; it stops once the Mac calms down.";
+"바쁜 맥: CPU가 20초 넘게 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창 옆에서 영차영차 밀어요. 커서를 움직이면 따라오고, 맥이 한가해지면 그만해요. 복제 친구도 땀을 흘려요." = "Busy Mac: when the CPU stays busy for more than 20 seconds, the cursor friend sweats and pushes hard against the side of the front window. Move the cursor and it follows again; it stops once the Mac calms down. Copied friends sweat too.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:573 */
+"다운로드 배달: 다운로드 폴더에 파일이 다 받아지면 커서 친구가 그 파일 아이콘을 머리에 이고 화면 오른쪽 아래로 날라 줘요. 받는 중인 파일은 다 받아질 때까지 기다려요. 처음 켤 때 다운로드 폴더를 봐도 되는지 물어볼 수 있고, 허용하지 않으면 조용히 쉬어요." = "Download delivery: when a file finishes downloading into your Downloads folder, the cursor friend carries its icon on its head to the lower right of the screen. Files still downloading are waited for until they are done. The first time, macOS may ask whether it can look at the Downloads folder; if you say no, it quietly stays off.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:574 */
+"휴지통: 휴지통을 비우면 커서 친구가 작은 쓰레기 봉투를 화면 밖으로 뻥 차 버려요. 휴지통 안은 보지 않고 몇 개 들었는지만 봐서 권한이 필요 없어요." = "Trash: when you empty the Trash, the cursor friend kicks a little trash bag off the screen. It never looks inside the Trash, only at how many items it holds, so no permission is needed.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:575 */
+"바쁜 맥: CPU가 20초 넘게 바쁘면 커서 친구가 땀을 흘리며 맨 앞 창 옆에서 영차영차 밀어요. 커서를 움직이면 따라오고, 맥이 한가해지면 그만해요." = "Busy Mac: when the CPU stays busy for more than 20 seconds, the cursor friend sweats and pushes hard against the side of the front window. Move the cursor and it follows again; it stops once the Mac calms down.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:576 */
 "복제 친구도 같이 폴짝 뛰고 땀을 흘려요." = "Copied friends hop and sweat along too.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:582 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:585 */
 "모양" = "Style";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:588 */
-"폴더 아이콘" = "Folder icons";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:590 */
-"바탕화면 폴더에 입히기" = "Dress desktop folders";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:591 */
-"폴더 고르기…" = "Choose folders…";
+"폴더 아이콘" = "Folder icons";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:593 */
+"바탕화면 폴더에 입히기" = "Dress desktop folders";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:594 */
+"폴더 고르기…" = "Choose folders…";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:597 */
 "입히기" = "Dress";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:598 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:601 */
 "원래대로" = "Restore";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:603 */
-"폴더 친구를 켜면 바탕화면 폴더 아이콘 위에 지금 고른 캐릭터가 올라가요. 새로 만든 폴더에도 올라가고, 끄면 원래대로 돌아가요. 다른 폴더는 폴더 고르기로 입혀요." = "With Folder Friend on, the character you chose sits on your desktop folders' icons, new folders too. Turn it off and they go back. Use Choose folders… for other folders.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:604 */
-"직접 바꿔 둔 폴더 아이콘은 건드리지 않아요." = "Folder icons you set yourself are left alone.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:606 */
+"폴더 친구를 켜면 바탕화면 폴더 아이콘 위에 지금 고른 캐릭터가 올라가요. 새로 만든 폴더에도 올라가고, 끄면 원래대로 돌아가요. 다른 폴더는 폴더 고르기로 입혀요." = "With Folder Friend on, the character you chose sits on your desktop folders' icons, new folders too. Turn it off and they go back. Use Choose folders… for other folders.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:607 */
+"직접 바꿔 둔 폴더 아이콘은 건드리지 않아요." = "Folder icons you set yourself are left alone.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:609 */
 "폴더 %lld개에 캐릭터가 올라가 있어요. 원래대로를 누르면 원래 폴더 아이콘으로 돌아가요." = "The character is on %lld folders. Restore brings back the usual folder icons.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:620 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:623 */
 "그림" = "Pattern";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:649 */
-"바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요." = "Lays a little cloth rug on your desktop. Set Pattern to 'Characters' to put your current friend big in the middle, or pick diamonds, stripes, checks or polka dots. The rug color works with any pattern, and there are four sizes. Drag an edge to fold it over and show the back, and rub the middle to make wrinkles that stay. Double-click or right-click 'Smooth It Out' to flatten it again.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:668 */
-"위젯 색" = "Widget color";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:674 */
-"목표 시간" = "Goal time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:650 */
+"질감" = "Texture";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:658 */
+"이미지 고르기…" = "Choose Image…";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:659 */
+"러그에 들어가 있어요" = "On the rug";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:680 */
+"바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 모양을 '캐릭터 모양'으로 두면 러그가 지금 고른 친구 모양으로 오려져요. 질감 '리얼'은 털이 보송한 터프팅 러그처럼 보여요. 내 이미지를 고르면 배경이 비치는 PNG는 그 모양대로, 사진은 배경을 지우고 오려요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요." = "Lays a little cloth rug on your desktop. Set Pattern to 'Characters' to put your current friend big in the middle, or pick diamonds, stripes, checks or polka dots. The rug color works with any pattern, and there are four sizes. Set Shape to 'Character Shape' to cut the rug out in your current friend's shape. The 'Real' texture makes it look like a fluffy tufted rug. Choose My Image to use your own picture: a PNG with a see-through background keeps its shape, and a photo has its background removed. Drag an edge to fold it over and show the back, and rub the middle to make wrinkles that stay. Double-click or right-click 'Smooth It Out' to flatten it again.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:681 */
-"위젯 크기" = "Widget size";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:687 */
-"달성 소리" = "Goal sound";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:687 */
-"목표 달성 소리" = "Goal reached sound";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:688 */
-"메뉴바 시간" = "Menu bar time";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:688 */
-"메뉴바에 시간 보이기" = "Show time in the menu bar";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:689 */
-"메뉴바 시간에 이모지 붙이기" = "Add an emoji to the menu bar time";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:689 */
-"시간 옆 이모지" = "Emoji by the time";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:690 */
-"숨 고르기" = "Breathing break";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:696 */
-"끝나면 제안" = "Suggest after";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:696 */
-"집중이 끝나면 숨 고르기 제안" = "Suggest a breathing break after focus";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:697 */
-"숨 고르기 싱잉볼 소리" = "Singing bowl sound for breathing breaks";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:699 */
-"집중하는 동안 친구 머리 위에 시간이 올라가고, 친구는 책상에 앉아 공부해요. 오늘 할 일이 있으면 첫 번째 일을 '진행 중'으로 보여 주고, 체크하면 미리알림에서도 끝낸 일로 바꿔요. 메뉴바 메뉴나 AI 비서에게 '집중 시작'이라고 해도 돼요." = "While you focus, the time shows over your friend's head and your friend studies at a desk. If you have to-dos today, the first one shows as In progress; tick it and it's marked done in Reminders too. You can also start from the menu bar menu or by telling the AI Assistant \"start focus\".";
+"사진은 이 맥 안에서만 변환돼요 · 직접 권리를 가진 이미지를 써 주세요" = "Photos are converted on this Mac only · Use images you have the rights to";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:700 */
-"30초 숨 고르기: 노을, 새벽 사무실, 비 오는 숲 중 한 곳에서 친구가 눈을 감고 쉬는 동안 원을 따라 4초 들이쉬고 4초 내쉬어요. 싱잉볼 소리는 앱이 직접 만들어요. 끝나면 오늘 몇 번 했는지 알려 줘요." = "30-second breathing break: at sunset, the office at dawn or a rainy forest, your friend rests with eyes closed while you breathe in for 4 seconds and out for 4 with the circle. The app makes the singing bowl sound itself. At the end it tells you how many you've done today.";
+"위젯 색" = "Widget color";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:706 */
+"목표 시간" = "Goal time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:713 */
+"위젯 크기" = "Widget size";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:719 */
+"달성 소리" = "Goal sound";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:719 */
+"목표 달성 소리" = "Goal reached sound";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:720 */
+"메뉴바 시간" = "Menu bar time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:720 */
+"메뉴바에 시간 보이기" = "Show time in the menu bar";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:721 */
+"메뉴바 시간에 이모지 붙이기" = "Add an emoji to the menu bar time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:721 */
+"시간 옆 이모지" = "Emoji by the time";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:722 */
+"숨 고르기" = "Breathing break";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:728 */
+"끝나면 제안" = "Suggest after";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:728 */
+"집중이 끝나면 숨 고르기 제안" = "Suggest a breathing break after focus";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:729 */
+"숨 고르기 싱잉볼 소리" = "Singing bowl sound for breathing breaks";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:731 */
+"집중하는 동안 친구 머리 위에 시간이 올라가고, 친구는 책상에 앉아 공부해요. 오늘 할 일이 있으면 첫 번째 일을 '진행 중'으로 보여 주고, 체크하면 미리알림에서도 끝낸 일로 바꿔요. 메뉴바 메뉴나 AI 비서에게 '집중 시작'이라고 해도 돼요." = "While you focus, the time shows over your friend's head and your friend studies at a desk. If you have to-dos today, the first one shows as In progress; tick it and it's marked done in Reminders too. You can also start from the menu bar menu or by telling the AI Assistant \"start focus\".";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:732 */
+"30초 숨 고르기: 노을, 새벽 사무실, 비 오는 숲 중 한 곳에서 친구가 눈을 감고 쉬는 동안 원을 따라 4초 들이쉬고 4초 내쉬어요. 싱잉볼 소리는 앱이 직접 만들어요. 끝나면 오늘 몇 번 했는지 알려 줘요." = "30-second breathing break: at sunset, the office at dawn or a rainy forest, your friend rests with eyes closed while you breathe in for 4 seconds and out for 4 with the circle. The app makes the singing bowl sound itself. At the end it tells you how many you've done today.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:763 */
 "색 테마" = "Color theme";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:737 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:769 */
 "글자 크기" = "Text size";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:743 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:775 */
 "움직임" = "Motion";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:749 */
-"친구 얼굴" = "Friend's face";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:749 */
-"친구 얼굴 보이기" = "Show friend's face";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:750 */
-"응원 효과음" = "Cheer sounds";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:750 */
-"응원·춤에 효과음" = "Sounds for cheers and dances";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:752 */
-"커서 친구·복제 친구·풀밭 친구·폴더 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구, 풀밭 친구, 폴더 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요." = "Option-click the Cursor Buddy, a copy friend, a meadow friend or the folder friend and a bubble opens. The Cursor Buddy, the meadow friends and the folder friend have it in their right-click menu too. It answers right away, without AI.";
 /* Sources/DogMonitor/UI/DesktopSettingsView.swift:781 */
+"친구 얼굴" = "Friend's face";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:781 */
+"친구 얼굴 보이기" = "Show friend's face";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:782 */
+"응원 효과음" = "Cheer sounds";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:782 */
+"응원·춤에 효과음" = "Sounds for cheers and dances";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:784 */
+"커서 친구·복제 친구·풀밭 친구·폴더 친구를 ⌥ 누른 채 클릭하면 말풍선이 떠요. 커서 친구, 풀밭 친구, 폴더 친구는 오른쪽 클릭 메뉴로도 돼요. AI 없이 바로 답해 줘요." = "Option-click the Cursor Buddy, a copy friend, a meadow friend or the folder friend and a bubble opens. The Cursor Buddy, the meadow friends and the folder friend have it in their right-click menu too. It answers right away, without AI.";
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:813 */
 "가끔 친구가 천을 덮은 액자를 들고 와요. 열어 보면 제작자 서비스 소개가 나오고 꾸미기 선물이 열려요" = "Now and then a friend brings a frame under a cloth. Open it to see one of the maker's services and unlock a decoration gift";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:783 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:815 */
 "얼마나 자주" = "How often";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:791 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:823 */
 "오늘은 쉬어요" = "Resting today";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:792 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:824 */
 "지금 보기" = "Show now";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:797 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:829 */
 "후원 친구를 보면 하나씩 열려요 (%lld/%lld) · 하루 2개까지" = "One opens each time you watch Sponsor Friend (%lld/%lld) · up to 2 a day";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:799 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:831 */
 "기록" = "Counts";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:801 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:833 */
 "보여 준 %lld · 열어 본 %lld · 끝까지 본 %lld · 눌러 본 %lld" = "Shown %lld · opened %lld · watched %lld · clicked %lld";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:803 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:835 */
 "이 숫자는 이 맥에만 있어요" = "These numbers stay on this Mac";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:806 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:838 */
 "후원 친구는 제작자가 만든 다른 서비스를 소개해요. 기기 ID나 기록은 밖으로 나가지 않아요. 앱을 켤 때와 하루 한 번 이 사이트에서 서명된 소개 목록만 받아요. 버튼을 누를 때만 그 서비스가 열리고, 제작자의 그 서비스가 IP와 캐릭모니터에서 왔다는 표시(utm)를 받아요." = "Sponsor Friend shows other services made by the maker. No device ID or history leaves your Mac. When the app starts and once a day it only fetches a signed list from this app's site. A service opens only when you press its button, and that service, run by the maker, gets your IP and a tag (utm) saying you came from CharaMonitor.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:807 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:839 */
 "전체 화면, 집중 중, 놀이 중, 화면이 잠겼을 때, 2분 넘게 자리를 비웠을 때, 회의나 화면 공유·녹화 중에는 오지 않아요. 세 번 그냥 보내면 더 드물게 와요." = "It never comes in full screen, during focus or play, while the screen is locked, after 2 minutes away, or during a meeting, screen share or recording. Let it go by three times and it comes more rarely.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:831 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:863 */
 "다음 선물" = "Next gift";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:831 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:863 */
 "잠겨 있어요" = "Locked";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:841 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:873 */
 "잠긴 선물" = "Locked gift";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:856 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:888 */
 "도시" = "City";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:880 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:912 */
 "클릭하면 한마디" = "A word on click";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:881 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:913 */
 "계절 장식" = "Seasonal decor";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:884 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:916 */
 "고른 도시의 지금 날씨 속에서 캐릭터가 지내는 작은 수정구슬이에요. 클릭하면 깡총 뛰며 날씨에 맞게 반응하고, 구슬을 끌면 옮겨져요. 오른쪽 클릭으로 미리보기와 위치 초기화를 할 수 있어요. 켜 두면 아침에 우산이나 겉옷 이야기를 하루 한 번 해 줘요." = "A little crystal ball where your character lives in the current weather of the city you chose. Click and it hops and reacts to the weather, and drag the ball to move it. Right-click for preview and reset position. When on, it mentions an umbrella or jacket once each morning.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:885 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:917 */
 "날씨 정보: MET Norway (CC BY 4.0)" = "Weather data: MET Norway (CC BY 4.0)";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:938 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:970 */
 "효과음" = "Sound effects";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:945 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:977 */
 "설명 다 펼치기" = "Expand all details";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:946 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:978 */
 "그림 스타일" = "Art Style";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:948 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:980 */
 "움직임 자동은 macOS의 동작 줄이기를 따라요. 잔잔하게는 늘 가만히, 통통은 늘 움직여요." = "Auto motion follows macOS Reduce Motion. Gentle always stays still, Bouncy always moves.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:949 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:981 */
 "효과음을 끄면 풍경 소리, 응원 소리, 집중 알림이 모두 조용해져요." = "Turning off sound effects silences the chime, cheers and focus alerts.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:950 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:982 */
 "그림 스타일은 메뉴바, 커서 친구, 대롱대롱 친구, 날씨 창문이 모두 같은 그림체로 바뀌어요." = "Art Style changes the menu bar, Cursor Buddy, Hanging Friends and Weather Window to the same look.";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:1003 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:1035 */
 "안녕! 나왔어요" = "Hi! I'm here";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:1069 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:1101 */
 "자세히" = "Details";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:1075 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:1107 */
 "접힘" = "Collapsed";
-/* Sources/DogMonitor/UI/DesktopSettingsView.swift:1075 */
+/* Sources/DogMonitor/UI/DesktopSettingsView.swift:1107 */
 "펼침" = "Expanded";
 /* Sources/DogMonitor/UI/DogPickerView.swift:7 */
 "동물" = "Animals";
@@ -5514,8 +5670,6 @@
 "네, 계속 봐 줘요" = "Yes, Keep Watching";
 /* Sources/DogMonitor/UI/DriftViews.swift:138 */
 "아니요, 일하는 중" = "No, I'm Working";
-/* Sources/DogMonitor/UI/DriftViews.swift:142 */
-"알겠어요" = "Got It";
 /* Sources/DogMonitor/UI/DriftViews.swift:174 */
 "지금" = "Now";
 /* Sources/DogMonitor/UI/DriftViews.swift:179 */
@@ -5542,10 +5696,6 @@
 "평일만" = "Weekdays only";
 /* Sources/DogMonitor/UI/DriftViews.swift:277 */
 "딴짓 확정" = "Confirm drift after";
-/* Sources/DogMonitor/UI/DriftViews.swift:283 */
-"브라우저 탭" = "Browser tabs";
-/* Sources/DogMonitor/UI/DriftViews.swift:285 */
-"브라우저 탭 보기" = "Watch browser tabs";
 /* Sources/DogMonitor/UI/DriftViews.swift:287 */
 "허용 안 된 브라우저는 앱 이름으로만 봐요. 시스템 설정 > 개인정보 보호 및 보안 > 자동화에서 켤 수 있어요." = "Browsers that are not allowed are seen by app name only. Turn them on in System Settings > Privacy & Security > Automation.";
 /* Sources/DogMonitor/UI/DriftViews.swift:292 */
@@ -5749,7 +5899,7 @@
 /* Sources/DogMonitor/UI/GuideSheet.swift:92 */
 "모임 정원: 가상 오피스 위쪽에서 2·4·8명을 고르면 남은 자리가 초대 대기로 보여요. 누르면 친구 추가가 열리고, 다 같이 온라인이 되어 꽉 차면 축하해요." = "Meetup size: pick 2, 4 or 8 at the top of the virtual office and the empty seats show as waiting for invites. Click one to add a friend; when everyone is online and it's full, it celebrates.";
 /* Sources/DogMonitor/UI/GuideSheet.swift:93 */
-"원격 모임: 다른 와이파이에 있는 친구와도 상태·이모트·운세·한마디를 주고받아요. 설정 > 플러그인 > 원격 모임에서 켜고 모임을 만들어 초대 링크를 보내요(최대 12명). 모임 친구도 친구 상주 자리에 캐릭터로 서서 한마디를 머리 위 말풍선으로 띄우고, 쓰는 중이면 점 세 개가 떠요. 내용은 종단간 암호화되고, 친구 캐릭터나 모임 화면이 보이는 동안 3~5초, 아니면 30~60초마다 확인해요. 데스크톱 친구 > 원격 모임에서 바로 보내요." = "Remote meetup: trade status, emotes, fortunes and lines with friends on other Wi-Fi too. Turn it on in Settings > Plugins > Remote meetup, make a meetup and send the invite link (up to 12 people). Meetup friends also stand in the friend row as characters, with their lines in bubbles over their heads and three dots while they type. Everything is end-to-end encrypted and checked every 3 to 5 seconds while a friend's character or the meetup window is showing, otherwise every 30 to 60 seconds. Send right away from Desktop friends > Remote meetup.";
+"원격 모임: 다른 와이파이에 있는 친구와도 상태·이모트·운세·한마디를 주고받아요. 설정 > 플러그인 > 원격 모임에서 켜고 모임을 만들어 초대 링크를 보내요(최대 12명). 모임 친구도 친구 상주 자리에 캐릭터로 서서 한마디를 머리 위 말풍선으로 띄우고, 쓰는 중이면 점 세 개가 떠요. 내용은 종단간 암호화되고, 무료 서버로 도는 느린 우편함이라 친구 캐릭터나 모임 화면이 보이는 동안 20~30초, 아니면 2~5분마다 확인해요. 쓰는 중 점은 가끔만 보여요. 서버의 하루 사용량이 다 차면 그날은 쉬고 다음 날 다시 이어져요. 데스크톱 친구 > 원격 모임에서 바로 보내요." = "Remote meetup: trade status, emotes, fortunes and lines with friends on other Wi-Fi too. Turn it on in Settings > Plugins > Remote meetup, make a meetup and send the invite link (up to 12 people). Meetup friends also stand in the friend row as characters, with their lines in bubbles over their heads and three dots while they type. Everything is end-to-end encrypted. It runs on a free server as a slow mailbox, checked every 20 to 30 seconds while a friend's character or the meetup window is showing, otherwise every 2 to 5 minutes. The typing dots show only now and then. When the server's daily allowance runs out it rests for the day and picks up again the next day. Send right away from Desktop friends > Remote meetup.";
 /* Sources/DogMonitor/UI/GuideSheet.swift:94 */
 "원격 지원: 친구 메뉴에서 원격 지원 요청을 보내고, 친구가 수락하면 macOS 화면 공유가 열려요. 맥끼리만 되고, 받는 맥은 설정에서 받기 허용을 켜고 화면 공유도 직접 켜 둬야 해요." = "Remote Support: send a Remote Support Request from the friend menu, and macOS Screen Sharing opens once your friend accepts. It works Mac to Mac only; the receiving Mac needs Allow remote support on in Settings and Screen Sharing turned on by its owner.";
 /* Sources/DogMonitor/UI/GuideSheet.swift:97 */

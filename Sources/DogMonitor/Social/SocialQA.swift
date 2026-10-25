@@ -69,24 +69,31 @@ enum SocialQA {
         bus.keys = .memory()
         // The suite is throwaway: every switch the steps need, on.
         for key in ["social.on", "social.voice", "social.remoteHelp", OfficeCenter.onKey, "netplay.on", ThrowCenter.key] { bus.defaults.set(true, forKey: key) }
+        // qa/real-*.sh: only the pairing, then the copies sit still for the script's clicks.
+        let pairOnly = args.contains("--qa-pair-only")
         func arg(_ flag: String) -> String? { args.firstIndex(of: flag).flatMap { $0 + 1 < args.count ? args[$0 + 1] : nil } }
         bus.$isOn.removeDuplicates().sink { log("on \($0)") }.store(in: &bag)
         bus.$online.removeDuplicates().sink { log("online \($0.sorted().map { $0.prefix(8) })") }.store(in: &bag)
         bus.$friends.removeDuplicates().sink { log("friends \($0.map { "\($0.nickname):\($0.status.rawValue)" })") }.store(in: &bag)
         bus.inbox.sink { got($0.message) }.store(in: &bag)
+        // qa/real-*.sh reads these: the 딴짓 card and the cat's paw.
+        DriftCenter.shared.$card.removeDuplicates().sink { log("drift card \($0.map { "\($0)" } ?? "none")") }.store(in: &bag)
+        DriftCenter.shared.$pawUp.removeDuplicates().sink { log("drift pawUp \($0)") }.store(in: &bag)
+        // A combo the system took is used up before any app sees the keys, so the script may press it then.
+        Hotkeys.shared.$on.combineLatest(Hotkeys.shared.$failed).sink { log("hotkeys on \($0) failed \($1.map(\.rawValue).sorted())") }.store(in: &bag)
         if let file = arg("--qa-host") {
             bus.$code.compactMap { $0 }.sink { c in
                 log("code shown")
                 try? c.write(toFile: file, atomically: true, encoding: .utf8)
             }.store(in: &bag)
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) { log("show code"); bus.showCode() }
-            run(hostSteps())
+            run(pairOnly ? Array(hostSteps().prefix(1)) : hostSteps())
         }
-        if let file = arg("--qa-join") { run(joinSteps(file)) }
+        if let file = arg("--qa-join") { run(pairOnly ? Array(joinSteps(file).prefix(1)) : joinSteps(file)) }
         // 원격 모임 through a local relay (qa/relay-e2e.sh): both copies join `--qa-meet <code>`; `--qa-first` sends first.
         if let url = arg("--qa-relay").flatMap(URL.init(string:)), let code = arg("--qa-meet") {
             MeetRelay.endpoint = url
-            MeetRelay.pollSeconds = 4...5   // two copies on one address stay well under the relay's 90 a minute
+            MeetRelay.pollSeconds = 4...5   // the local relay runs --qa-unlimited: no day ceiling for two copies on one address
             MeetRelay.fastSeconds = 4...5
             RemoteMeet.shared.codeStore = .memory()
             bus.defaults.set(true, forKey: "meet.on")

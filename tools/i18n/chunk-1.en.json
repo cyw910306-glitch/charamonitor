@@ -1300,6 +1300,10 @@
   "en": "Rug Pattern"
  },
  {
+  "key": "러그 캐릭터",
+  "en": "Rug Character"
+ },
+ {
   "key": "러그 색",
   "en": "Rug Color"
  },
@@ -1976,8 +1980,8 @@
   "en": "(4/4) Talk to me in AI Assistant on the dashboard."
  },
  {
-  "key": "딴짓 지킴이가 왔어요. 딴짓이 길어지면 하던 일로 돌아가자고 알려 주고, 원하면 고양이가 앞발로 탭을 닫아요. 설정 > 데스크톱 친구에서 켜요.",
-  "en": "Drift Guard is here. When drifting runs long it nudges you back to your work, and if you like, a cat paws the tab closed. Turn it on in Settings > Desktop Friends."
+  "key": "러그가 진짜 러그처럼 바뀌었어요. 캐릭터 모양으로 오리고, 털 질감과 테두리, 접힌 그림자까지 보여요. 내 사진으로도 러그를 만들 수 있어요. 러그를 우클릭해 보세요.",
+  "en": "The rug looks like a real rug now: cut in your character's shape, with tufted pile, a fur rim and soft fold shadows. You can make one from your own photo too. Right-click the rug."
  },
  {
   "key": "업데이트됐어요! ",
@@ -3902,5 +3906,129 @@
  {
   "key": "말풍선 색도 시즌 꾸미기예요",
   "en": "Bubble colors are season items too"
+ },
+ {
+  "key": "고침",
+  "en": "Fixed"
+ },
+ {
+  "key": "대표",
+  "en": "Top"
+ },
+ {
+  "key": "앱",
+  "en": "App"
+ },
+ {
+  "key": "판정",
+  "en": "Label"
+ },
+ {
+  "key": "하루 기록을 전부 지울까요?",
+  "en": "Erase the whole Day log?"
+ },
+ {
+  "key": "이 맥에 남은 %lld일 치 3분 블록이 모두 지워져요. 되돌릴 수 없어요. 내 기준 메모는 그대로 둬요.",
+  "en": "All %lld days of 3-minute blocks on this Mac will be erased. This can't be undone. Your My rules memo stays."
+ },
+ {
+  "key": "하루 기록",
+  "en": "Day log"
+ },
+ {
+  "key": "먼저 내 AI를 연결해 주세요",
+  "en": "Connect your AI first"
+ },
+ {
+  "key": "AI 비서 설정의 내 AI 연결에서 Claude, ChatGPT, Gemini 중 하나를 연결하면 쓸 수 있어요. 그 전까지는 이 맥 안의 규칙으로만 판단해요.",
+  "en": "Connect Claude, ChatGPT or Gemini under My AI connection in AI Assistant settings to use this. Until then, only the rules on this Mac decide."
+ },
+ {
+  "key": "하루 기록 분류를 %@에 맡길까요?",
+  "en": "Let %@ label your Day log?"
+ },
+ {
+  "key": "규칙이 모르는 화면만 3분에 한 번, 최대 8개씩 묶어서 보내요. 보내는 것: 앱 이름, 사이트 도메인(예: youtube.com), 탭 제목, 업무 프로필, 내 기준 메모. 주소의 나머지(경로, 검색어), 화면, 스크린샷은 보내지 않아요. 요금과 보관은 %@ 방침을 따르고, 실패하면 이 맥의 규칙으로 판단해요. 언제든 끌 수 있어요.",
+  "en": "Only screens the rules don't know are sent, once every 3 minutes, up to 8 at a time. What goes: app name, site domain (e.g. youtube.com), tab title, work profile and your My rules memo. The rest of the address (path, search terms), the screen and screenshots are never sent. Pricing and retention follow %@'s policy, and if it fails, the rules on this Mac decide. You can turn it off anytime."
+ },
+ {
+  "key": "내 AI가 답하지 않아 이 맥의 규칙으로 판단했어요.",
+  "en": "Your AI didn't answer, so the rules on this Mac decided."
+ },
+ {
+  "key": "%@ API 키가 없어요.",
+  "en": "No %@ API key."
+ },
+ {
+  "key": "제목에",
+  "en": "title has"
+ },
+ {
+  "key": "%@ 구독 계정으로는 하루 기록을 맡길 수 없어요",
+  "en": "Your day log can not go to a %@ subscription"
+ },
+ {
+  "key": "탭 제목은 어느 사이트든 쓸 수 있어서, 읽기 도구를 가진 %@ 프로그램에 보내면 제목 속 지시를 따를 수 있어요. 내 AI 연결에서 API 키로 바꾸거나 Claude를 고르면 쓸 수 있어요. 그 전까지는 이 맥 안의 규칙으로만 판단해요.",
+  "en": "Any site can write a tab title, and the %@ program has reading tools, so it could follow instructions hidden in a title. Switch to an API key or pick Claude in My AI connection to use it. Until then only the rules on this Mac decide."
+ },
+ {
+  "key": "%@ 구독 계정은 읽기 도구가 있어 탭 제목 속 지시를 따를 수 있어서 보내지 않아요. API 키나 Claude로 바꾸면 보내요.",
+  "en": "Nothing goes to a %@ subscription: its reading tools could follow instructions in a tab title. Switch to an API key or Claude to send."
+ },
+ {
+  "key": "내 이미지",
+  "en": "My Image"
+ },
+ {
+  "key": "네모",
+  "en": "Rectangle"
+ },
+ {
+  "key": "캐릭터 모양",
+  "en": "Character Shape"
+ },
+ {
+  "key": "리얼",
+  "en": "Real"
+ },
+ {
+  "key": "러그에 넣을 사진이나 PNG를 골라 주세요",
+  "en": "Choose a photo or PNG for the rug"
+ },
+ {
+  "key": "러그 모양",
+  "en": "Rug Shape"
+ },
+ {
+  "key": "러그 질감",
+  "en": "Rug Texture"
+ },
+ {
+  "key": "내 이미지로 러그…",
+  "en": "Rug from My Image…"
+ },
+ {
+  "key": "30MB보다 작은 이미지를 골라 주세요",
+  "en": "Choose an image smaller than 30 MB"
+ },
+ {
+  "key": "열 수 없는 이미지예요. PNG나 JPEG를 골라 주세요",
+  "en": "This image can't be opened. Choose a PNG or JPEG"
+ },
+ {
+  "key": "너무 작은 이미지예요",
+  "en": "This image is too small"
+ },
+ {
+  "key": "해상도가 너무 큰 이미지예요",
+  "en": "That image's resolution is too large"
+ },
+ {
+  "key": "파일을 읽지 못했어요. 권한이나 위치를 확인해 주세요",
+  "en": "Couldn't read the file. Check its permissions or location"
+ },
+ {
+  "key": "이미지를 저장하지 못했어요. 디스크 공간을 확인해 주세요",
+  "en": "Couldn't save the image. Check your disk space"
  }
 ]

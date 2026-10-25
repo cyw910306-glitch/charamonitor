@@ -240,6 +240,15 @@ MainActor.assumeIsolated {
             try DriftQA.render(to: dir)
         }
     }
+    if args.contains("--render-day") {   // 하루 기록: settings, the timeline window, the dashboard line, the menu bar ring
+        let suite = "qa.dogmonitor.day"
+        AppDefaults.store = UserDefaults(suiteName: suite)!
+        AppDefaults.store.removePersistentDomain(forName: suite)
+        runCLI("--render-day") { dir in
+            defer { AppDefaults.store.removePersistentDomain(forName: suite) }
+            try DayQA.render(to: dir)
+        }
+    }
     if args.contains("--drift-dry-run") {   // read-only: what 딴짓 지킴이 makes of the app in front, nothing is closed
         _ = NSApplication.shared
         DriftCenter.dryRun = true
@@ -305,6 +314,12 @@ MainActor.assumeIsolated {
     #if !MAS
     if let i = args.firstIndex(of: "--qa-defaults"), i + 1 < args.count {   // QA: a throwaway preferences suite (SocialQA)
         AppDefaults.store = UserDefaults(suiteName: args[i + 1])!
+        // qa/real-drift.sh: 딴짓 확정 in seconds instead of two 3-minute blocks.
+        if let j = args.firstIndex(of: "--qa-drift-block"), j + 1 < args.count, let s = TimeInterval(args[j + 1]), s >= 2 {
+            DriftRules.blockSeconds = s
+            DriftRules.sampleEvery = max(1, s / 5)
+        }
+        HotspotPanel.qaLog = SocialQA.log
         SocialQA.start(args)
     }
     #endif

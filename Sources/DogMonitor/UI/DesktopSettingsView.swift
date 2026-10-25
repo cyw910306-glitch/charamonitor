@@ -65,6 +65,8 @@ struct DesktopSettingsView: View {
     @State private var hello: DesktopTool?
     @State private var hop: DesktopTool?
     @State private var heroHop = false
+    /// Why the last 내 이미지 could not be used, until another is picked.
+    @State private var rugPhotoProblem: String?
 
     var body: some View {
         #if !MAS
@@ -95,6 +97,7 @@ struct DesktopSettingsView: View {
             focusSection
             #if !MAS
             DriftSection()
+            DaySection()
             #endif
             quickAskSection
             #if !MAS
@@ -623,6 +626,13 @@ struct DesktopSettingsView: View {
                     }
                     .labelsHidden().pickerStyle(.menu).controlSize(.small).fixedSize()
                 }
+                row("캐릭터") {
+                    let choices = RugArt.characterChoices()
+                    Picker("캐릭터", selection: $rug.prefs.character) {
+                        ForEach(choices.indices, id: \.self) { i in Text(choices[i].name).tag(choices[i].id) }
+                    }
+                    .labelsHidden().pickerStyle(.menu).controlSize(.small).fixedSize()
+                }
                 row("러그 색") {
                     HStack(spacing: 6) {
                         ForEach(FocusTheme.offered(current: rug.prefs.color), id: \.self) { t in
@@ -630,6 +640,27 @@ struct DesktopSettingsView: View {
                         }
                         Text(rug.prefs.color.label).font(f(11)).foregroundStyle(.secondary).padding(.leading, 2)
                     }
+                }
+                row("모양") {
+                    Picker("모양", selection: $rug.prefs.shape) {
+                        ForEach(RugShape.allCases, id: \.self) { Text($0.label).tag($0) }
+                    }
+                    .labelsHidden().pickerStyle(.segmented).controlSize(.small).fixedSize()
+                }
+                row("질감") {
+                    Picker("질감", selection: $rug.prefs.look) {
+                        ForEach(RugFinish.allCases, id: \.self) { Text($0.label).tag($0) }
+                    }
+                    .labelsHidden().pickerStyle(.segmented).controlSize(.small).fixedSize()
+                }
+                row("내 이미지") {
+                    HStack(spacing: 6) {
+                        Button("이미지 고르기…") { RugStore.pickPhoto { rugPhotoProblem = $0 } }.controlSize(.small)
+                        if rug.prefs.face == .photo { Text("러그에 들어가 있어요").font(f(11)).foregroundStyle(.secondary) }
+                    }
+                }
+                if let rugPhotoProblem {
+                    Text(rugPhotoProblem).font(f(11)).foregroundStyle(Color.warn).fixedSize(horizontal: false, vertical: true)
                 }
                 row("크기") {
                     Picker("크기", selection: $rug.prefs.size) {
@@ -646,7 +677,8 @@ struct DesktopSettingsView: View {
                         Button("펼치기") { DesktopRug.shared.smooth() }.controlSize(.small)
                     }
                 }
-                details("바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.")
+                details("바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 모양을 '캐릭터 모양'으로 두면 러그가 지금 고른 친구 모양으로 오려져요. 질감 '리얼'은 털이 보송한 터프팅 러그처럼 보여요. 내 이미지를 고르면 배경이 비치는 PNG는 그 모양대로, 사진은 배경을 지우고 오려요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.",
+                        "사진은 이 맥 안에서만 변환돼요 · 직접 권리를 가진 이미지를 써 주세요")
             }
         }
     }

@@ -1896,10 +1896,6 @@
   "en": "Smooth Out"
  },
  {
-  "key": "바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.",
-  "en": "Lays a little cloth rug on your desktop. Set Pattern to 'Characters' to put your current friend big in the middle, or pick diamonds, stripes, checks or polka dots. The rug color works with any pattern, and there are four sizes. Drag an edge to fold it over and show the back, and rub the middle to make wrinkles that stay. Double-click or right-click 'Smooth It Out' to flatten it again."
- },
- {
   "key": "집중 타이머",
   "en": "Focus Timer"
  },
@@ -4756,10 +4752,6 @@
   "en": "Photo messages: choose or paste a photo in a nearby friend's chat; it is shrunk and its location data removed before sending. Not available in the remote meetup."
  },
  {
-  "key": "원격 모임: 다른 와이파이에 있는 친구와도 상태·이모트·운세·한마디를 주고받아요. 설정 > 플러그인 > 원격 모임에서 켜고 모임을 만들어 초대 링크를 보내요(최대 12명). 모임 친구도 친구 상주 자리에 캐릭터로 서서 한마디를 머리 위 말풍선으로 띄우고, 쓰는 중이면 점 세 개가 떠요. 내용은 종단간 암호화되고, 친구 캐릭터나 모임 화면이 보이는 동안 3~5초, 아니면 30~60초마다 확인해요. 데스크톱 친구 > 원격 모임에서 바로 보내요.",
-  "en": "Remote meetup: trade status, emotes, fortunes and lines with friends on other Wi-Fi too. Turn it on in Settings > Plugins > Remote meetup, make a meetup and send the invite link (up to 12 people). Meetup friends also stand in the friend row as characters, with their lines in bubbles over their heads and three dots while they type. Everything is end-to-end encrypted and checked every 3 to 5 seconds while a friend's character or the meetup window is showing, otherwise every 30 to 60 seconds. Send right away from Desktop friends > Remote meetup."
- },
- {
   "key": "브라우저 탭도 볼까요?",
   "en": "Watch browser tabs too?"
  },
@@ -5090,5 +5082,181 @@
  {
   "key": "고양이가 앞발을 들었어. 고양이를 누르면 안 닫아.",
   "en": "The cat's paw is up. Click the cat to keep it open."
+ },
+ {
+  "key": "하루 기록 타임라인 열기",
+  "en": "Open the Day log timeline"
+ },
+ {
+  "key": "오늘 집중 %@ · 딴짓 %@",
+  "en": "Today: focus %1$@ · drift %2$@"
+ },
+ {
+  "key": "화면을 찍거나 녹화하지 않아요. 기록은 이 맥에만 %lld일 동안 남아요.",
+  "en": "Nothing is captured or recorded from the screen. The log stays only on this Mac for %lld days."
+ },
+ {
+  "key": "전날",
+  "en": "Previous day"
+ },
+ {
+  "key": "다음 날",
+  "en": "Next day"
+ },
+ {
+  "key": "집중 %@ · 딴짓 %@",
+  "en": "Focus %1$@ · drift %2$@"
+ },
+ {
+  "key": "중립 %@ · 자리 비움 %@",
+  "en": "Neutral %1$@ · away %2$@"
+ },
+ {
+  "key": "지금 세션: 집중 %@ · 딴짓 %@",
+  "en": "This session: focus %1$@ · drift %2$@"
+ },
+ {
+  "key": "3분 블록 타임라인",
+  "en": "3-minute block timeline"
+ },
+ {
+  "key": "눌러서 라벨 고치기",
+  "en": "Click to fix the label"
+ },
+ {
+  "key": "직접 고침",
+  "en": "Fixed by you"
+ },
+ {
+  "key": "라벨 고치기",
+  "en": "Fix the label"
+ },
+ {
+  "key": "고치면 내 기준에 한 줄 남아요",
+  "en": "A fix adds a line to My rules"
+ },
+ {
+  "key": "키보드와 마우스 입력이 없던 3분이에요.",
+  "en": "3 minutes with no keyboard or mouse input."
+ },
+ {
+  "key": "블록에 마우스를 올리면 그때 무엇을 했는지 보여요. 누르면 라벨을 고칠 수 있어요.",
+  "en": "Hover a block to see what you were doing then. Click it to fix the label."
+ },
+ {
+  "key": "앱·사이트별",
+  "en": "By app and site"
+ },
+ {
+  "key": "이번 주",
+  "en": "This week"
+ },
+ {
+  "key": "7일 집중 %@ · 딴짓 %@",
+  "en": "7 days: focus %1$@ · drift %2$@"
+ },
+ {
+  "key": "%@ 집중 %@ 딴짓 %@",
+  "en": "%1$@: focus %2$@, drift %3$@"
+ },
+ {
+  "key": "타임라인",
+  "en": "Timeline"
+ },
+ {
+  "key": "근무 시간과 상관없이 하루 종일 3분마다 무엇을 했는지 남겨요. 입력이 없으면 자리 비움으로 적어요. 딴짓 지킴이와 따로 켜고 꺼요.",
+  "en": "Logs what you did every 3 minutes all day, work hours or not. With no input it's marked Away. Turns on and off separately from Drift Guard."
+ },
+ {
+  "key": "오늘 타임라인 열기",
+  "en": "Open today's timeline"
+ },
+ {
+  "key": "켜야 같은 사이트에서도 강의 영상과 쇼츠를 구분해요",
+  "en": "Turn on to tell lectures from Shorts on the same site"
+ },
+ {
+  "key": "그 외 영상",
+  "en": "Other videos"
+ },
+ {
+  "key": "쇼츠·릴스·틱톡은 딴짓, 제목에 강의·튜토리얼·코딩처럼 배우는 말이나 업무 프로필 단어가 있는 영상은 집중이에요. 네이버·다음 뉴스, 카페, 블로그도 주소와 제목으로 나눠요.",
+  "en": "Shorts, Reels and TikTok are drift. Videos whose titles have learning words like lecture, tutorial or coding, or words from your work profile, are focus. Naver and Daum news, cafes and blogs are split by address and title too."
+ },
+ {
+  "key": "AI 분류",
+  "en": "AI labeling"
+ },
+ {
+  "key": "이 맥에서만",
+  "en": "On this Mac only"
+ },
+ {
+  "key": "내 AI 연결",
+  "en": "My AI connection"
+ },
+ {
+  "key": "규칙과 이 맥 AI로만 판단해요. 아무것도 보내지 않아요.",
+  "en": "Only the rules and this Mac's AI decide. Nothing is sent."
+ },
+ {
+  "key": "메뉴바 링",
+  "en": "Menu bar ring"
+ },
+ {
+  "key": "메뉴바에 집중 링 보이기",
+  "en": "Show the focus ring in the menu bar"
+ },
+ {
+  "key": "보관 기간",
+  "en": "Keep for"
+ },
+ {
+  "key": "CSV 내보내기",
+  "en": "Export CSV"
+ },
+ {
+  "key": "전부 지우기",
+  "en": "Erase all"
+ },
+ {
+  "key": "내 기준",
+  "en": "My rules"
+ },
+ {
+  "key": "타임라인에서 라벨을 고칠 때마다 한 줄씩 쌓여요. 직접 써도 돼요. 예: youtube.com · 제목에 \"피그마\" → 집중",
+  "en": "Each label you fix in the timeline adds a line. You can write your own too. E.g. youtube.com · title has \"Figma\" → Focus"
+ },
+ {
+  "key": "원격 모임: 다른 와이파이에 있는 친구와도 상태·이모트·운세·한마디를 주고받아요. 설정 > 플러그인 > 원격 모임에서 켜고 모임을 만들어 초대 링크를 보내요(최대 12명). 모임 친구도 친구 상주 자리에 캐릭터로 서서 한마디를 머리 위 말풍선으로 띄우고, 쓰는 중이면 점 세 개가 떠요. 내용은 종단간 암호화되고, 무료 서버로 도는 느린 우편함이라 친구 캐릭터나 모임 화면이 보이는 동안 20~30초, 아니면 2~5분마다 확인해요. 쓰는 중 점은 가끔만 보여요. 서버의 하루 사용량이 다 차면 그날은 쉬고 다음 날 다시 이어져요. 데스크톱 친구 > 원격 모임에서 바로 보내요.",
+  "en": "Remote meetup: trade status, emotes, fortunes and lines with friends on other Wi-Fi too. Turn it on in Settings > Plugins > Remote meetup, make a meetup and send the invite link (up to 12 people). Meetup friends also stand in the friend row as characters, with their lines in bubbles over their heads and three dots while they type. Everything is end-to-end encrypted. It runs on a free server as a slow mailbox, checked every 20 to 30 seconds while a friend's character or the meetup window is showing, otherwise every 2 to 5 minutes. The typing dots show only now and then. When the server's daily allowance runs out it rests for the day and picks up again the next day. Send right away from Desktop friends > Remote meetup."
+ },
+ {
+  "key": "규칙이 모르는 화면만 3분에 한 번 묶어서 %@에 보내요. 앱 이름·도메인·탭 제목, 업무 프로필, 내 기준 메모만 가요.",
+  "en": "Screens the rules don't know go to %@ in a batch every 3 minutes. Only app name, domain, tab title, your work profile and the My rules memo are sent."
+ },
+ {
+  "key": "화면을 녹화하거나 찍지 않아요. 3분마다 앱 이름, 사이트, 탭 제목 요약과 판정을 이 맥에만 남기고, 내 AI 연결에 동의했을 때만 앱 이름·도메인·탭 제목, 업무 프로필, 내 기준 메모를 보내요.",
+  "en": "Nothing is recorded or captured from the screen. Every 3 minutes the app name, site, a tab title summary and the label are kept only on this Mac, and app name, domain, tab title, your work profile and the My rules memo are sent only if you agreed to My AI connection."
+ },
+ {
+  "key": "질감",
+  "en": "Texture"
+ },
+ {
+  "key": "이미지 고르기…",
+  "en": "Choose Image…"
+ },
+ {
+  "key": "러그에 들어가 있어요",
+  "en": "On the rug"
+ },
+ {
+  "key": "사진은 이 맥 안에서만 변환돼요 · 직접 권리를 가진 이미지를 써 주세요",
+  "en": "Photos are converted on this Mac only · Use images you have the rights to"
+ },
+ {
+  "key": "바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 모양을 '캐릭터 모양'으로 두면 러그가 지금 고른 친구 모양으로 오려져요. 질감 '리얼'은 털이 보송한 터프팅 러그처럼 보여요. 내 이미지를 고르면 배경이 비치는 PNG는 그 모양대로, 사진은 배경을 지우고 오려요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.",
+  "en": "Lays a little cloth rug on your desktop. Set Pattern to 'Characters' to put your current friend big in the middle, or pick diamonds, stripes, checks or polka dots. The rug color works with any pattern, and there are four sizes. Set Shape to 'Character Shape' to cut the rug out in your current friend's shape. The 'Real' texture makes it look like a fluffy tufted rug. Choose My Image to use your own picture: a PNG with a see-through background keeps its shape, and a photo has its background removed. Drag an edge to fold it over and show the back, and rub the middle to make wrinkles that stay. Double-click or right-click 'Smooth It Out' to flatten it again."
  }
 ]

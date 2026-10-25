@@ -1,5 +1,75 @@
 [
  {
+  "key": "캐릭터 팩 %lld개, 내 캐릭터 %lld개, 설정 %lld가지로 바뀌어요. 지금 상태는 백업해 두고, 끝나면 앱을 다시 시작해요.",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 182
+ },
+ {
+  "key": "가져오기",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 183
+ },
+ {
+  "key": "가져오지 못했어요",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 189
+ },
+ {
+  "key": "다 가져왔어요!",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 194
+ },
+ {
+  "key": "다시 시작하면 그 맥의 캐릭모니터 그대로예요.",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 195
+ },
+ {
+  "key": "가져온 설정은 저장됐어요. 캐릭모니터를 직접 다시 열어 주세요.",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 207
+ },
+ {
+  "key": "다시 시작하지 못했어요",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 207
+ },
+ {
+  "key": "설정을 가져올 때마다 그 전 상태가 백업으로 남아요.",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 216
+ },
+ {
+  "key": "아직 백업이 없어요",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 216
+ },
+ {
+  "key": "짠! 내 설정 그대로 이사 왔어요. 여기서도 잘 부탁해요!",
+  "file": "Sources/DogMonitor/App/SetupFile.swift",
+  "line": 226
+ },
+ {
+  "key": "사진, 눌러서 크게 보기",
+  "file": "Sources/DogMonitor/App/SpeechBubble.swift",
+  "line": 399
+ },
+ {
+  "key": "가끔",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 196
+ },
+ {
+  "key": "지금은 소개할 서비스가 없어요",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 529
+ },
+ {
+  "key": "저는 후원 친구예요. 가끔 제작자가 만든 서비스를 천에 덮어 데려와요. 열어 보면 꾸미기 선물이 하나씩 열리고, 설정에서 언제든 끌 수 있어요.",
+  "file": "Sources/DogMonitor/App/Sponsor.swift",
+  "line": 639
+ },
+ {
   "key": "선물이 열렸어요: %@ %@",
   "file": "Sources/DogMonitor/App/Sponsor.swift",
   "line": 699
@@ -260,11 +330,6 @@
   "line": 264
  },
  {
-  "key": "지우기",
-  "file": "Sources/DogMonitor/App/StickyNotes.swift",
-  "line": 265
- },
- {
   "key": "접기",
   "file": "Sources/DogMonitor/App/StickyNotes.swift",
   "line": 317
@@ -425,7 +490,7 @@
   "line": 24
  },
  {
-  "key": "딴짓 지킴이가 왔어요. 딴짓이 길어지면 하던 일로 돌아가자고 알려 주고, 원하면 고양이가 앞발로 탭을 닫아요. 설정 > 데스크톱 친구에서 켜요.",
+  "key": "러그가 진짜 러그처럼 바뀌었어요. 캐릭터 모양으로 오리고, 털 질감과 테두리, 접힌 그림자까지 보여요. 내 사진으로도 러그를 만들 수 있어요. 러그를 우클릭해 보세요.",
   "file": "Sources/DogMonitor/App/Tour.swift",
   "line": 67
  },
@@ -1798,21 +1863,6 @@
   "key": "퇴근 시간(%@)이 지났어요. 오늘도 수고하셨어요!",
   "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
   "line": 454
- },
- {
-  "key": "%lld분",
-  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 455
- },
- {
-  "key": "%lld시간",
-  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 455
- },
- {
-  "key": "%lld시간 %lld분",
-  "file": "Sources/DogMonitor/Assistant/ChatEngine.swift",
-  "line": 455
  },
  {
   "key": "퇴근(%@)까지 %@ 남았어.",
@@ -4927,181 +4977,256 @@
  {
   "key": "모임에서 나갔어요",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 186
+  "line": 197
  },
  {
   "key": "입력 중…",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 189
+  "line": 200
  },
  {
   "key": "오늘의 운세: %@",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 190
+  "line": 201
  },
  {
   "key": "✏️ 낙서 쪽지",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 192
+  "line": 203
  },
  {
   "key": "💕 뽀뽀했어요",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 197
+  "line": 208
  },
  {
   "key": "💫 기절했어요",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 199
+  "line": 210
  },
  {
   "key": "꺼짐",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 366
+  "line": 379
  },
  {
   "key": "아직 모임이 없어요",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 367
+  "line": 380
  },
  {
   "key": "연결 중",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 368
+  "line": 381
  },
  {
   "key": "연결됨 · %lld명",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 369
+  "line": 382
  },
  {
   "key": "모임이 꽉 찼어요 (12명)",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 370
+  "line": 383
+ },
+ {
+  "key": "원격 모임 서버가 오늘 쓸 양을 다 써서 잠시 쉬어요. 하루 안에 다시 이어져요",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 384
  },
  {
   "key": " (외 %lld개)",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 752
+  "line": 770
  },
  {
   "key": "원격 모임은 설정 > 플러그인에서 먼저 켜 주세요",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 768
+  "line": 786
  },
  {
   "key": "원격 모임에 들어갈까요?",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 774
+  "line": 792
  },
  {
   "key": "코드 %@ 모임에 들어가요. 지금 모임이 있으면 거기서는 나가요.",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 775
+  "line": 793
  },
  {
   "key": "들어가기",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 776
+  "line": 794
  },
  {
   "key": "원격 모임에 한마디",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 785
+  "line": 803
  },
  {
   "key": "200자까지",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 787
+  "line": 805
  },
  {
   "key": "오늘 운세 보내기",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 806
+  "line": 824
  },
  {
   "key": "한마디 보내기…",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 807
+  "line": 825
  },
  {
   "key": "원격 모임 켜기",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 853
+  "line": 871
  },
  {
   "key": "켜면 상태·이모트·운세·한마디·입력 중 표시·캐릭터 모습·프로필·낙서 쪽지만 종단간 암호화해서 중계 서버를 거쳐 보내요. 서버는 내용을 읽지 못하고 모임의 마지막 활동 24시간 뒤 지워요. 모임 친구는 친구 상주 자리에 캐릭터로 서고, 한마디는 머리 위 말풍선으로 떠요.",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 854
+  "line": 872
  },
  {
   "key": "상태",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 857
+  "line": 875
  },
  {
   "key": "같이 놀기와 무전기는 계속 같은 와이파이에서만 돼요.",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 862
+  "line": 880
  },
  {
   "key": "새 모임 만들기",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 876
+  "line": 894
  },
  {
   "key": "받은 코드나 링크",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 878
+  "line": 896
  },
  {
   "key": "최대 12명까지 함께해요. 초대 링크나 코드를 친구에게 보내 주세요.",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 881
+  "line": 899
  },
  {
   "key": "모임 코드",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 894
+  "line": 912
  },
  {
   "key": "복사했어요",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 897
+  "line": 915
  },
  {
   "key": "초대 링크 복사",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 897
+  "line": 915
  },
  {
   "key": "나가기",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 902
+  "line": 920
  },
  {
   "key": "한마디 (200자까지)",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 910
+  "line": 929
  },
  {
   "key": "낙서 쪽지",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 924
+  "line": 945
  },
  {
   "key": "사진은 근처 친구 대화에서만 보낼 수 있어요. 원격 모임은 중계 서버를 거치고 한 번에 2KB까지라 사진을 싣지 않아요.",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 927
+  "line": 950
  },
  {
   "key": "프로필",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 931
+  "line": 954
  },
  {
   "key": "오늘 저녁 7시 게임 어때?",
   "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
-  "line": 968
+  "line": 991
+ },
+ {
+  "key": "나 먼저 퇴근!",
+  "file": "Sources/DogMonitor/Social/RemoteMeet.swift",
+  "line": 1023
+ },
+ {
+  "key": "전체",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 22
+ },
+ {
+  "key": "아래",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 32
+ },
+ {
+  "key": "위",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 33
+ },
+ {
+  "key": "왼쪽",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 34
+ },
+ {
+  "key": "오른쪽",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 35
+ },
+ {
+  "key": "화면",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 198
+ },
+ {
+  "key": "주 화면",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 200
+ },
+ {
+  "key": "자리",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 207
+ },
+ {
+  "key": "길이",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 214
+ },
+ {
+  "key": "다른 앱 창에 매달기",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 220
+ },
+ {
+  "key": "친구를 잡아 다른 앱 창의 윗변이나 옆에 놓으면 고무줄로 매달려 창을 따라다녀요. 당겼다 놓으면 튕겨 돌아오고, 세게 당기면 떨어져요. 창이 닫히면 떨어지고, 다른 창에 가려지면 숨었다 나와요. 화면 기록 권한은 필요 없어요.",
+  "file": "Sources/DogMonitor/Social/RoomPlace.swift",
+  "line": 221
+ },
+ {
+  "key": "근무 중",
+  "file": "Sources/DogMonitor/Social/SocialModel.swift",
+  "line": 13
+ },
+ {
+  "key": "식사",
+  "file": "Sources/DogMonitor/Social/SocialModel.swift",
+  "line": 15
  }
 ]

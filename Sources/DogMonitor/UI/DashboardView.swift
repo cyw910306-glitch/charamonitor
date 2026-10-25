@@ -90,7 +90,7 @@ struct DashboardView: View {
             if let m = updater.available { updateLine(m) }
             if security.report?.needsAttention == true { securityLine }
             if isBusy { busyBanner }
-            if drift.on || drift.withTimer { DriftSummaryRow() }
+            if drift.dayOn { DaySummaryRow() } else if drift.on || drift.withTimer { DriftSummaryRow() }
             #endif
             HStack(alignment: .top, spacing: 10) {
                 statsPanel

@@ -975,6 +975,42 @@ DEMOS.drift = function(el){
   onLang(function(){ titles(); show(shown || 'idle'); });
 };
 
+DEMOS.tracker = function(el){
+  var strip = $('[data-strip]', el), detail = $('[data-detail]', el), sum = $('[data-sum]', el), ex = $('[data-ex]', el);
+  var LB = { focus: ['집중', 'Focus'], neutral: ['중립', 'Neutral'], drift: ['딴짓', 'Drift'], away: ['자리 비움', 'Away'] };
+  // [label, where, title ko, title en]: one made-up hour, 20 blocks of 3 minutes.
+  var S = [['focus', 'Xcode', '', ''], ['focus', 'Xcode', '', ''], ['focus', 'youtube.com', 'SwiftUI 튜토리얼 3강', 'SwiftUI tutorial, part 3'],
+    ['focus', 'youtube.com', 'SwiftUI 튜토리얼 3강', 'SwiftUI tutorial, part 3'], ['neutral', 'Slack', '', ''], ['drift', 'youtube.com', '고양이 점프 #shorts', 'Cat jumps #shorts'],
+    ['drift', 'youtube.com', '고양이 점프 #shorts', 'Cat jumps #shorts'], ['focus', 'github.com', 'Fix timeline · PR #12', 'Fix timeline · PR #12'],
+    ['focus', 'github.com', 'Fix timeline · PR #12', 'Fix timeline · PR #12'], ['focus', 'Xcode', '', ''], ['away', '', '', ''], ['away', '', '', ''],
+    ['focus', 'Figma', '', ''], ['focus', 'Figma', '', ''], ['neutral', 'n.news.naver.com', '환율 마감 소식', 'Exchange rate news'],
+    ['drift', 'instagram.com', '릴스', 'Reels'], ['focus', 'Xcode', '', ''], ['focus', 'Xcode', '', ''], ['focus', 'Xcode', '', ''], ['neutral', 'Finder', '', '']];
+  var cur = 5;
+  function clock(i){ var m = i * 3; return '09:' + (m < 10 ? '0' : '') + m; }
+  function end(i){ var m = i * 3 + 3; return m === 60 ? '10:00' : '09:' + (m < 10 ? '0' : '') + m; }
+  function tag(k){ return '<span class="tl-tag l-' + k + '">' + esc(P(LB[k])) + '</span>'; }
+  function render(){
+    var n = { focus: 0, drift: 0 };
+    S.forEach(function(b){ if(n[b[0]] !== undefined) n[b[0]] += 3; });
+    sum.textContent = L('집중 ' + n.focus + '분 · 딴짓 ' + n.drift + '분', 'Focus ' + n.focus + ' min · Drift ' + n.drift + ' min');
+    strip.innerHTML = S.map(function(b, i){
+      return '<button type="button" class="l-' + b[0] + '" data-i="' + i + '" aria-pressed="' + (i === cur) + '" aria-label="' + esc(clock(i) + ' ' + P(LB[b[0]]) + (b[1] ? ' ' + b[1] : '')) + '"></button>';
+    }).join('');
+    var b = S[cur];
+    detail.innerHTML = '<b>' + clock(cur) + '~' + end(cur) + '</b>' + tag(b[0]) + '<br>' +
+      (b[0] === 'away' ? esc(L('키보드와 마우스 입력이 없던 3분이에요.', 'Three minutes with no keyboard or mouse input.')) : esc(b[1]) + (b[2] ? ' · ' + esc(L(b[2], b[3])) : ''));
+    ex.innerHTML = [['youtube.com/watch', L('SwiftUI 튜토리얼 3강', 'SwiftUI tutorial, part 3'), 'focus'], ['youtube.com/shorts', L('고양이 점프 #shorts', 'Cat jumps #shorts'), 'drift'],
+      ['youtube.com/watch', L('아이돌 직캠 모음 (그 외 영상: 직접 고름)', 'Idol fancams (other videos: your choice)'), 'neutral']].map(function(r){
+      return '<li>' + tag(r[2]) + '<code>' + esc(r[0] + ' · ' + r[1]) + '</code></li>';
+    }).join('');
+  }
+  strip.addEventListener('click', function(e){
+    var b = e.target.closest('[data-i]'); if(!b) return;
+    cur = +b.dataset.i; render(); var f = $('[data-i="' + cur + '"]', strip); if(f) f.focus();
+  });
+  onLang(render);
+};
+
 DEMOS.throw = function(el){
   var ITEMS = [['귤','Tangerine','#F29A2E'], ['베개','Pillow','#F4F0EA'], ['양말','Sock','#7FA7D9'], ['종이 뭉치','Paper ball','#E6E1D8']];
   var stage = $('[data-stage]', el), item = $('[data-item]', el), you = $('.you', el), s = $('[data-say]', el), cap = $('[data-cap]', el.parentNode), dots = $$('[data-hits] i', el);

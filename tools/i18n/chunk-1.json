@@ -2240,6 +2240,51 @@
   "line": 1193
  },
  {
+  "key": "제목에",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 92
+ },
+ {
+  "key": "고침",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 332
+ },
+ {
+  "key": "대표",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 332
+ },
+ {
+  "key": "앱",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 332
+ },
+ {
+  "key": "판정",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 332
+ },
+ {
+  "key": "자리 비움",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 334
+ },
+ {
+  "key": "%lld분",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 349
+ },
+ {
+  "key": "%lld시간",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 349
+ },
+ {
+  "key": "%lld시간 %lld분",
+  "file": "Sources/DogMonitor/App/DayRecord.swift",
+  "line": 349
+ },
+ {
   "key": "술래",
   "file": "Sources/DogMonitor/App/DesktopClones.swift",
   "line": 203
@@ -2302,187 +2347,242 @@
  {
   "key": "집중 그만하기",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 334
+  "line": 339
  },
  {
   "key": "집중 시작",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 334
+  "line": 339
  },
  {
   "key": "숨 고르기 (30초)",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 335
+  "line": 340
  },
  {
   "key": "포스트잇 붙이기",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 337
+  "line": 342
  },
  {
   "key": "후원 친구 지금 보기",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 346
+  "line": 351
  },
  {
   "key": "놀이 그만하기",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 352
+  "line": 357
  },
  {
   "key": "놀이 모드 시작",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 352
+  "line": 357
  },
  {
   "key": "별 줍기",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 355
+  "line": 360
  },
  {
   "key": "2인 대결",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 356
+  "line": 361
  },
  {
   "key": "오늘의 운세",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 364
+  "line": 369
  },
  {
   "key": "데스크톱 친구",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 365
+  "line": 370
  },
  {
   "key": "설정 열기",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 366
+  "line": 371
  },
  {
   "key": "에취!",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 698
+  "line": 703
  },
  {
   "key": "흥!",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 700
+  "line": 705
  },
  {
   "key": "빳빳",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 13
+  "line": 14
  },
  {
   "key": "보통",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 14
+  "line": 15
  },
  {
   "key": "흐물",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 15
+  "line": 16
  },
  {
   "key": "캐릭터",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 36
- },
- {
-  "key": "마름모",
-  "file": "Sources/DogMonitor/App/DesktopRug.swift",
   "line": 37
  },
  {
-  "key": "줄무늬",
+  "key": "내 이미지",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
   "line": 38
  },
  {
-  "key": "체크",
+  "key": "마름모",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
   "line": 39
  },
  {
-  "key": "물방울",
+  "key": "줄무늬",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
   "line": 40
  },
  {
-  "key": "하트",
+  "key": "체크",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
   "line": 41
  },
  {
-  "key": "별빛",
+  "key": "물방울",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
   "line": 42
  },
  {
-  "key": "무지개",
+  "key": "하트",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
   "line": 43
  },
  {
+  "key": "별빛",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 44
+ },
+ {
+  "key": "무지개",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 45
+ },
+ {
   "key": "작게",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 54
+  "line": 66
  },
  {
   "key": "크게",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 56
+  "line": 68
  },
  {
   "key": "아주 크게",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 57
+  "line": 69
+ },
+ {
+  "key": "네모",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 91
+ },
+ {
+  "key": "캐릭터 모양",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 92
+ },
+ {
+  "key": "기본",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 104
+ },
+ {
+  "key": "리얼",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 105
+ },
+ {
+  "key": "러그에 넣을 사진이나 PNG를 골라 주세요",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 182
  },
  {
   "key": "주름 쫙 펴는 중이야",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 369
+  "line": 658
  },
  {
   "key": "주름을 쫙 펴고 있어요",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 369
+  "line": 658
  },
  {
   "key": "빳빳하게 펼치기",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 446
+  "line": 735
  },
  {
   "key": "러그를 화면 가운데로",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 447
+  "line": 736
  },
  {
   "key": "러그 그림",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 448
+  "line": 737
+ },
+ {
+  "key": "러그 캐릭터",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 740
  },
  {
   "key": "러그 색",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 451
+  "line": 743
+ },
+ {
+  "key": "러그 모양",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 746
+ },
+ {
+  "key": "러그 질감",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 749
+ },
+ {
+  "key": "내 이미지로 러그…",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 752
  },
  {
   "key": "러그 크기",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 454
+  "line": 753
  },
  {
   "key": "부드러움",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 457
+  "line": 756
  },
  {
   "key": "러그 치우기",
   "file": "Sources/DogMonitor/App/DesktopRug.swift",
-  "line": 461
+  "line": 760
+ },
+ {
+  "key": "지금 캐릭터",
+  "file": "Sources/DogMonitor/App/DesktopRug.swift",
+  "line": 940
  },
  {
   "key": "캐릭모니터 문제 보내기",
@@ -2497,57 +2597,127 @@
  {
   "key": "브라우저 탭도 볼까요?",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 109
+  "line": 153
  },
  {
   "key": "Safari, Chrome, Edge, Brave, Arc, 웨일, Vivaldi의 맨 앞 탭 주소와 제목을 10초마다 읽어 딴짓인지 판단해요. 맥 밖으로 보내지 않고, 기록에는 사이트 이름만 남겨요. macOS가 브라우저 제어를 물어보면 허용을 눌러 주세요. 허용하지 않은 브라우저는 앱 이름으로만 판단해요.",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 110
+  "line": 154
  },
  {
   "key": "계속",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 111
+  "line": 155
  },
  {
   "key": "취소",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 112
+  "line": 156
  },
  {
   "key": "고양이가 딴짓 창을 닫게 할까요?",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 127
+  "line": 171
  },
  {
   "key": "딴짓이 확정되면 고양이가 달려와 앞발을 들어요. 몇 초 안에 고양이를 누르면 그대로 두고, 못 잡으면 브라우저는 그 탭만, 앱은 정상 종료로 닫아요(저장 안 한 문서는 앱이 물어봐요). 강제 종료는 하지 않고, 보호 목록 앱, 통화·화면 공유 중, 재생·녹화 중인 앱은 건드리지 않아요.",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 128
+  "line": 172
  },
  {
   "key": "켜기",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 129
+  "line": 173
+ },
+ {
+  "key": "하루 기록을 전부 지울까요?",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 335
+ },
+ {
+  "key": "이 맥에 남은 %lld일 치 3분 블록이 모두 지워져요. 되돌릴 수 없어요. 내 기준 메모는 그대로 둬요.",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 336
+ },
+ {
+  "key": "지우기",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 337
+ },
+ {
+  "key": "하루 기록",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 351
+ },
+ {
+  "key": "먼저 내 AI를 연결해 주세요",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 363
+ },
+ {
+  "key": "AI 비서 설정의 내 AI 연결에서 Claude, ChatGPT, Gemini 중 하나를 연결하면 쓸 수 있어요. 그 전까지는 이 맥 안의 규칙으로만 판단해요.",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 364
+ },
+ {
+  "key": "알겠어요",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 365
+ },
+ {
+  "key": "%@ 구독 계정으로는 하루 기록을 맡길 수 없어요",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 371
+ },
+ {
+  "key": "탭 제목은 어느 사이트든 쓸 수 있어서, 읽기 도구를 가진 %@ 프로그램에 보내면 제목 속 지시를 따를 수 있어요. 내 AI 연결에서 API 키로 바꾸거나 Claude를 고르면 쓸 수 있어요. 그 전까지는 이 맥 안의 규칙으로만 판단해요.",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 372
+ },
+ {
+  "key": "하루 기록 분류를 %@에 맡길까요?",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 378
+ },
+ {
+  "key": "규칙이 모르는 화면만 3분에 한 번, 최대 8개씩 묶어서 보내요. 보내는 것: 앱 이름, 사이트 도메인(예: youtube.com), 탭 제목, 업무 프로필, 내 기준 메모. 주소의 나머지(경로, 검색어), 화면, 스크린샷은 보내지 않아요. 요금과 보관은 %@ 방침을 따르고, 실패하면 이 맥의 규칙으로 판단해요. 언제든 끌 수 있어요.",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 379
+ },
+ {
+  "key": "동의하고 켜기",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 380
+ },
+ {
+  "key": "내 AI가 답하지 않아 이 맥의 규칙으로 판단했어요.",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 404
+ },
+ {
+  "key": "%@ API 키가 없어요.",
+  "file": "Sources/DogMonitor/App/DriftGuard.swift",
+  "line": 412
  },
  {
   "key": "고등어",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 419
+  "line": 604
  },
  {
   "key": "치즈",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 420
+  "line": 605
  },
  {
   "key": "회색",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 423
+  "line": 608
  },
  {
   "key": "까망이",
   "file": "Sources/DogMonitor/App/DriftGuard.swift",
-  "line": 424
+  "line": 609
  },
  {
   "key": "집중",
@@ -4785,6 +4955,36 @@
   "line": 578
  },
  {
+  "key": "30MB보다 작은 이미지를 골라 주세요",
+  "file": "Sources/DogMonitor/App/RugTuft.swift",
+  "line": 277
+ },
+ {
+  "key": "열 수 없는 이미지예요. PNG나 JPEG를 골라 주세요",
+  "file": "Sources/DogMonitor/App/RugTuft.swift",
+  "line": 278
+ },
+ {
+  "key": "너무 작은 이미지예요",
+  "file": "Sources/DogMonitor/App/RugTuft.swift",
+  "line": 279
+ },
+ {
+  "key": "해상도가 너무 큰 이미지예요",
+  "file": "Sources/DogMonitor/App/RugTuft.swift",
+  "line": 280
+ },
+ {
+  "key": "파일을 읽지 못했어요. 권한이나 위치를 확인해 주세요",
+  "file": "Sources/DogMonitor/App/RugTuft.swift",
+  "line": 281
+ },
+ {
+  "key": "이미지를 저장하지 못했어요. 디스크 공간을 확인해 주세요",
+  "file": "Sources/DogMonitor/App/RugTuft.swift",
+  "line": 282
+ },
+ {
   "key": "눈빛 말풍선",
   "file": "Sources/DogMonitor/App/Season.swift",
   "line": 19
@@ -4970,11 +5170,6 @@
   "line": 372
  },
  {
-  "key": "기본",
-  "file": "Sources/DogMonitor/App/SeasonBoard.swift",
-  "line": 373
- },
- {
   "key": "말풍선 색도 시즌 꾸미기예요",
   "file": "Sources/DogMonitor/App/SeasonBoard.swift",
   "line": 479
@@ -5033,75 +5228,5 @@
   "key": "이 맥의 캐릭모니터를 이 파일대로 바꿀까요?",
   "file": "Sources/DogMonitor/App/SetupFile.swift",
   "line": 181
- },
- {
-  "key": "캐릭터 팩 %lld개, 내 캐릭터 %lld개, 설정 %lld가지로 바뀌어요. 지금 상태는 백업해 두고, 끝나면 앱을 다시 시작해요.",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 182
- },
- {
-  "key": "가져오기",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 183
- },
- {
-  "key": "가져오지 못했어요",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 189
- },
- {
-  "key": "다 가져왔어요!",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 194
- },
- {
-  "key": "다시 시작하면 그 맥의 캐릭모니터 그대로예요.",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 195
- },
- {
-  "key": "가져온 설정은 저장됐어요. 캐릭모니터를 직접 다시 열어 주세요.",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 207
- },
- {
-  "key": "다시 시작하지 못했어요",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 207
- },
- {
-  "key": "설정을 가져올 때마다 그 전 상태가 백업으로 남아요.",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 216
- },
- {
-  "key": "아직 백업이 없어요",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 216
- },
- {
-  "key": "짠! 내 설정 그대로 이사 왔어요. 여기서도 잘 부탁해요!",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 226
- },
- {
-  "key": "사진, 눌러서 크게 보기",
-  "file": "Sources/DogMonitor/App/SpeechBubble.swift",
-  "line": 399
- },
- {
-  "key": "가끔",
-  "file": "Sources/DogMonitor/App/Sponsor.swift",
-  "line": 196
- },
- {
-  "key": "지금은 소개할 서비스가 없어요",
-  "file": "Sources/DogMonitor/App/Sponsor.swift",
-  "line": 529
- },
- {
-  "key": "저는 후원 친구예요. 가끔 제작자가 만든 서비스를 천에 덮어 데려와요. 열어 보면 꾸미기 선물이 하나씩 열리고, 설정에서 언제든 끌 수 있어요.",
-  "file": "Sources/DogMonitor/App/Sponsor.swift",
-  "line": 639
  }
 ]

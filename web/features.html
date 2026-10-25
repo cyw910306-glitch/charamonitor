@@ -434,6 +434,26 @@ d.classList.add('js');
       <div class="demo-foot"><p class="cap"><span lang="ko">앞발이 올라가면 3초 안에 고양이를 눌러 보세요. 가짜 창이라 아무것도 닫히지 않아요.</span><span lang="en">When the paw goes up, click the cat within 3 seconds. These are fake windows; nothing really closes.</span></p><button type="button" class="act" data-act="drift"><span lang="ko">딴짓 6분 (예시)</span><span lang="en">6 minutes of drift (example)</span></button></div>
     </div>
   </div>
+
+  <div class="feat reveal" id="day-tracker">
+    <div class="txt">
+      <p class="over">DAY LOG</p>
+      <h3><span lang="ko">하루를 3분 블록으로 남겨요</span><span lang="en">Your day in 3-minute blocks</span></h3>
+      <p class="desc"><span lang="ko">하루 기록을 켜면 근무 시간과 상관없이 3분마다 무엇을 했는지 집중·중립·딴짓으로 남겨요. 키보드와 마우스 입력이 없던 3분은 자리 비움이에요. 오늘 타임라인에서 블록에 마우스를 올리면 그때의 앱, 사이트, 탭 제목이 보이고, 눌러서 라벨을 고칠 수 있어요. 앱·사이트별 합계, 지금 세션 요약, 7일 막대도 함께 보여요.</span><span lang="en">Turn on Day log and every 3 minutes of the day is kept as focus, neutral or drift, work hours or not. Three minutes with no keyboard or mouse input count as away. On today's timeline, hover a block to see the app, site and tab title from then, and click it to fix the label. Totals per app and site, the current session and a 7-day chart sit alongside.</span></p>
+      <p class="note"><span lang="ko">같은 유튜브라도 쇼츠는 딴짓, 제목에 강의·튜토리얼·코딩처럼 배우는 말이나 업무 프로필의 단어가 있는 영상은 집중으로 봐요. 나머지 영상을 중립으로 둘지 딴짓으로 둘지는 직접 골라요. 릴스·틱톡, 네이버·다음 뉴스·카페·블로그도 주소와 제목으로 나눠요. 탭 제목은 브라우저 탭 보기를 켰을 때만 읽어요. 라벨을 고칠 때마다 '내 기준' 메모에 사람이 읽을 수 있는 한 줄이 쌓이고, 다음 판단부터 그 줄을 따라요.</span><span lang="en">On the same YouTube, Shorts count as drift, while a video whose title says lecture, tutorial, coding or a word from your work profile counts as focus. You choose whether other videos are neutral or drift. Reels, TikTok and Naver or Daum news, cafes and blogs are sorted by address and title too. Tab titles are read only with browser tab reading on. Each label you fix adds a plain line to the "My rules" memo, and later blocks follow it.</span></p>
+      <p class="note"><span lang="ko">기본은 이 맥 안의 규칙으로만 판단하고 화면을 찍거나 녹화하지 않아요. AI 분류에서 내 AI 연결을 고르고 동의하면, 규칙이 모르는 화면만 3분에 한 번 묶어서 앱 이름·도메인·탭 제목, 업무 프로필, 내 기준 메모만 보내요(주소의 나머지는 보내지 않아요). 실패하면 규칙으로 판단해요. 기록은 이 맥에만 7일 또는 30일 남고, CSV로 내보내거나 전부 지울 수 있어요. 직접 받은 버전에만 있어요.</span><span lang="en">By default only rules on this Mac decide, and nothing captures or records the screen. Pick My AI connection under AI labeling and agree, and only screens the rules do not know are sent, batched once per 3 minutes, as app name, domain and tab title, with your work profile and the My rules memo (never the rest of the address). If that fails, the rules decide. The log stays on this Mac for 7 or 30 days, and you can export it as CSV or delete it all. Only in the version you download directly.</span></p>
+    </div>
+    <div class="demo-wrap">
+      <div class="demo tracker" data-demo="tracker">
+        <p class="tl-sum" data-sum></p>
+        <div class="tl-strip" data-strip></div>
+        <div class="tl-axis" aria-hidden="true"><span>09:00</span><span>09:30</span><span>10:00</span></div>
+        <div class="tl-detail" data-detail aria-live="polite"></div>
+        <ul class="tl-ex" data-ex></ul>
+      </div>
+      <div class="demo-foot"><p class="cap"><span lang="ko">블록을 눌러 보세요. 예시 기록이에요.</span><span lang="en">Click a block. This is a made-up log.</span></p></div>
+    </div>
+  </div>
 </div></section>
 
 <!-- ============ 근처 친구 ============ -->
@@ -542,7 +562,7 @@ d.classList.add('js');
     <div class="txt">
       <p class="over">REMOTE MEETUPS</p>
       <h3><span lang="ko">원격 모임</span><span lang="en">Remote meetups</span> <span class="badge new"><span lang="ko">3.4 새 기능</span><span lang="en">New in 3.4</span></span></h3>
-      <p class="desc"><span lang="ko">와이파이가 달라도 초대 코드로 모여요(최대 12명). 모임 친구도 친구 자리에 캐릭터로 서서, 한마디를 머리 위 말풍선으로 띄우고 쓰는 중이면 점 세 개가 떠요.</span><span lang="en">Meet up with an invite code even on different Wi-Fi (up to 12 people). Meetup friends stand in the friend row as characters too, with their lines in bubbles over their heads and three dots while they type.</span></p>
+      <p class="desc"><span lang="ko">와이파이가 달라도 초대 코드로 모여요(최대 12명). 모임 친구도 친구 자리에 캐릭터로 서서, 한마디를 머리 위 말풍선으로 띄워요. 무료 서버로 도는 느린 우편함이라 새 소식은 20초~5분 간격으로 오고 쓰는 중 점은 가끔만 보여요. 모든 모임을 합친 하루 사용량이 다 차면 그날은 쉬고 다음 날 다시 이어져요.</span><span lang="en">Meet up with an invite code even on different Wi-Fi (up to 12 people). Meetup friends stand in the friend row as characters too, with their lines in bubbles over their heads. It is a slow mailbox on a free server: news arrives every 20 seconds to 5 minutes and the typing dots show only now and then. Once all rooms together use up the day's limit, it rests until the next day.</span></p>
       <p class="note"><span lang="ko">설정 &gt; 플러그인 &gt; 원격 모임에서 켜요. 코드는 링크의 # 뒤에만 있어서 서버로 가지 않고, 내용은 종단간 암호화돼요. 사진 메시지는 근처 친구에서만 보내요.</span><span lang="en">Turn it on in Settings &gt; Plugins &gt; Remote meetup. The code lives only after the # in the link so it never reaches the server, and everything is end-to-end encrypted. Photo messages are for nearby friends only.</span> <a href="meet.html"><span lang="ko">원격 모임 안내 보기</span><span lang="en">About remote meetups</span></a></p>
     </div>
     <div class="demo-wrap">

@@ -1,6 +1,7 @@
 #if !MAS   // browser tabs are read and closed with osascript, which the App Store build leaves out
 import AppKit
 import Combine
+import UniformTypeIdentifiers
 
 /// 딴짓 지킴이 (off by default): a look at the app in front every 10 s (and, with 브라우저 탭 보기, the front tab's address
 /// and title through AppleScript), a label per 3-minute block by DriftRules, and a card when drift is confirmed. The
@@ -38,6 +39,30 @@ final class DriftCenter: ObservableObject {
     /// The owner's own 보호 목록 on top of the cleaner's.
     @Published private(set) var protectedApps: [String] { didSet { defaults.set(protectedApps, forKey: "drift.protected") } }
 
+    /// 하루 기록 (off by default): every 3 minutes of the whole day, whatever 근무 시간 says, with 자리 비움.
+    @Published var dayOn: Bool { didSet { defaults.set(dayOn, forKey: "day.on"); refresh(); DayRing.shared.update() } }
+    /// 보관 기간: 7 or 30 days.
+    @Published var dayKeep: Int {
+        didSet { defaults.set(dayKeep, forKey: "day.keep"); day.prune(now: Date(), keepDays: dayKeep); DayFile.write(day) }
+    }
+    /// 그 외 영상 (a video whose title names no lesson or work): 딴짓 (true) or 중립.
+    @Published var videoDrift: Bool { didSet { defaults.set(videoDrift, forKey: "day.videoDrift") } }
+    /// 메뉴바 집중 링.
+    @Published var dayRing: Bool { didSet { defaults.set(dayRing, forKey: "day.ring"); DayRing.shared.update() } }
+    /// 내 기준: the owner's own lines (corrections add one each), read by the rules and by 내 AI.
+    @Published var memo: String {
+        didSet {
+            if memo.count > DayMemo.maxLength { memo = String(memo.suffix(DayMemo.maxLength)) }
+            defaults.set(memo, forKey: "day.memo")
+            memoRules = DayMemo.parse(memo)
+        }
+    }
+    /// 내 AI 연결 for 하루 기록 (agreed to once when turned on).
+    @Published private(set) var dayAI: Bool { didSet { defaults.set(dayAI, forKey: "day.ai") } }
+    /// Why the last batch fell back to the rules; cleared by the next good one.
+    @Published private(set) var dayAIFailure: String?
+    @Published private(set) var day = DayLog()
+
     @Published private(set) var log = DriftLog()
     @Published private(set) var watching = false
     @Published private(set) var lastFocus: DriftTarget?
@@ -61,6 +86,13 @@ final class DriftCenter: ObservableObject {
     private var aiWords: [String: DriftLabel] = [:]
     private var asking = Set<String>()
     private var reading = false
+    private var recorder = DayRecorder()
+    private var memoRules: [DayMemo.Rule] = []
+    /// This block's looks the rules did not know (for 내 AI), and its words per page, this run only.
+    private var unknown: [DayAI.Item] = []
+    private var remoteWords: [String: DriftLabel] = [:]
+    private var remoteAsked = Set<String>()
+    private var remoteBusy = false
 
     init(defaults: UserDefaults = AppDefaults.store) {
         self.defaults = defaults
@@ -81,6 +113,13 @@ final class DriftCenter: ObservableObject {
         paw = defaults.bool(forKey: "drift.paw")
         pawSeconds = min(6, max(2, defaults.object(forKey: "drift.pawSeconds") as? Double ?? 3))
         protectedApps = defaults.stringArray(forKey: "drift.protected") ?? []
+        dayOn = defaults.bool(forKey: "day.on")
+        dayKeep = DayLog.keepChoices.contains(defaults.integer(forKey: "day.keep")) ? defaults.integer(forKey: "day.keep") : 7
+        videoDrift = defaults.object(forKey: "day.videoDrift") as? Bool ?? true
+        dayRing = defaults.bool(forKey: "day.ring")
+        memo = defaults.string(forKey: "day.memo") ?? ""
+        dayAI = defaults.bool(forKey: "day.ai")
+        memoRules = DayMemo.parse(memo)
         watch.needed = needed
     }
 
@@ -91,11 +130,16 @@ final class DriftCenter: ObservableObject {
         log.prune(now: Date())
         if log.blocks.count != before { DriftFile.write(log) }
         lists.prune(now: Date())
+        day = DayFile.read()
+        let had = day.blocks.count
+        day.prune(now: Date(), keepDays: dayKeep)
+        if day.blocks.count != had { DayFile.write(day) }
         deniedBrowsers = []   // allowed in 자동화 since: asked again once per launch (a denied one answers -1743 at once)
         FocusCenter.shared.$session.map { $0 != nil }.removeDuplicates().receive(on: RunLoop.main)
             .sink { [weak self] _ in self?.refresh() }.store(in: &bag)
         refresh()
         DriftCat.shared.update()
+        DayRing.shared.update()
     }
 
     var tabsAllowed: Bool { tabs }
@@ -159,17 +203,21 @@ final class DriftCenter: ObservableObject {
     var wanted: Bool { on || (withTimer && FocusCenter.shared.session != nil) }
 
     private func refresh() {
-        if wanted, timer == nil {
+        let looking = wanted || dayOn
+        if looking, timer == nil {
             let t = Timer(timeInterval: DriftRules.sampleEvery, repeats: true) { [weak self] _ in self?.tick() }
             t.tolerance = 1
             RunLoop.main.add(t, forMode: .common)
             timer = t
-        } else if !wanted {
+        } else if !looking {
             timer?.invalidate(); timer = nil
+        }
+        if !wanted {
             finishBlock()
             watching = false
             cancelPaw()
         }
+        if !dayOn { finishDay() }
         DriftCat.shared.update()
     }
 
@@ -180,9 +228,14 @@ final class DriftCenter: ObservableObject {
     private func tick() {
         let active = isActive
         if active != watching { watching = active }
-        guard active else { finishBlock(); pending = nil; return }
+        if !active { finishBlock(); pending = nil }
+        guard active || dayOn else { return }
         let idle = CGEventSource.secondsSinceLastEventType(.combinedSessionState, eventType: CGEventType(rawValue: ~0) ?? .mouseMoved)
-        guard idle < DriftRules.idleSkip, !reading,
+        if idle >= DriftRules.idleSkip {
+            if dayOn { dayLook(nil, at: Date()) }   // 하루 기록: 자리 비움
+            return
+        }
+        guard !reading,
               let app = NSWorkspace.shared.frontmostApplication, let id = app.bundleIdentifier, id != Bundle.main.bundleIdentifier
         else { return }
         let base = DriftSample(at: Date(), app: id, appName: app.localizedName ?? id)
@@ -192,16 +245,18 @@ final class DriftCenter: ObservableObject {
                 self?.reading = false
                 var s = base
                 if let tab { s.url = tab.url; s.title = tab.title }
-                self?.take(s)
+                self?.take(s, active: active)
             }
         } else {
-            take(base)
+            take(base, active: active)
         }
     }
 
-    /// One look: labelled, counted into its block, and the held nudge checked.
-    private func take(_ s: DriftSample) {
+    /// One look: labelled, counted into its block (and the day's), and the held nudge checked.
+    private func take(_ s: DriftSample, active: Bool) {
         let label = classify(s)
+        if dayOn { dayLook((label, s), at: s.at) }
+        guard active else { return }
         lastLabel = label
         if label == .focus { lastFocus = DriftTarget(app: s.app, appName: s.appName, url: s.url) }
         if let p = pending {
@@ -213,10 +268,18 @@ final class DriftCenter: ObservableObject {
     }
 
     func classify(_ s: DriftSample) -> DriftLabel {
-        if let r = DriftRules.rule(s, lists: lists, profile: profile) { return r }
+        if let r = rule(s) { return r }
+        let item = DayAI.Item(s)
+        if let w = remoteWords[item.key] { return w }
         if let w = aiWords[s.key] { return w }
+        if dayOn && dayAI { unknown.append(item) }
         if useAI { ask(s) }
         return .neutral
+    }
+
+    /// The rules alone, 내 기준 and 그 외 영상 included.
+    func rule(_ s: DriftSample) -> DriftLabel? {
+        DriftRules.rule(s, lists: lists, profile: profile, memo: memoRules, videoDrift: videoDrift)
     }
 
     /// The on-device model, once per site or app this run, never for anything the rules know.
@@ -237,6 +300,121 @@ final class DriftCenter: ObservableObject {
         log.add(DriftLog.Block(start: b.start, label: b.label, top: b.top), now: Date())
         DriftFile.write(log)
         if watch.feed(b.label, at: Date(), active: active) { intervene(b.sample) }
+    }
+
+    // MARK: 하루 기록
+
+    private func dayLook(_ look: (DriftLabel, DriftSample)?, at: Date) {
+        if recorder.stale(at: at) { finishDay() }   // back after sleep: the old block ends where it was
+        if let b = recorder.add(look, at: at) { dayRecord(b) }
+    }
+
+    private func finishDay() {
+        if let b = recorder.close() { dayRecord(b) }
+    }
+
+    private func dayRecord(_ b: DayBlock) {
+        day.add(b, now: Date(), keepDays: dayKeep)
+        DayFile.write(day)
+        DayRing.shared.update()
+        sendBatch()
+    }
+
+    /// 블록 라벨 고치기: the block takes the owner's label, and 내 기준 gets a line for next time.
+    func correctBlock(_ start: Date, to label: DriftLabel) {
+        guard let b = day.blocks.first(where: { $0.start == start }), b.label != nil else { return }
+        day.relabel(start, to: label)
+        DayFile.write(day)
+        if !b.key.isEmpty { memo = DayMemo.adding(DayMemo.line(key: b.key, title: b.title, label: label), to: memo) }
+        DayRing.shared.update()
+    }
+
+    /// 전부 지우기 (asked first): the whole-day log. 내 기준 stays (it has its own 지우기).
+    func clearDay() {
+        let a = NSAlert()
+        a.messageText = L("하루 기록을 전부 지울까요?")
+        a.informativeText = L("이 맥에 남은 \(dayKeep)일 치 3분 블록이 모두 지워져요. 되돌릴 수 없어요. 내 기준 메모는 그대로 둬요.")
+        a.addButton(withTitle: L("지우기"))
+        a.addButton(withTitle: L("취소"))
+        NSApp.activate(ignoringOtherApps: true)
+        guard PopoverLayer.runModal({ a.runModal() }) == .alertFirstButtonReturn else { return }
+        day = DayLog()
+        recorder = DayRecorder()
+        DayFile.write(day)
+        DayRing.shared.update()
+    }
+
+    /// 내보내기: the kept days as CSV, where the owner picks.
+    func exportCSV() {
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [.commaSeparatedText]
+        panel.nameFieldStringValue = L("하루 기록") + ".csv"
+        NSApp.activate(ignoringOtherApps: true)
+        guard PopoverLayer.runModal({ panel.runModal() }) == .OK, let url = panel.url else { return }
+        // The BOM lets Numbers and Excel read the Korean right.
+        try? Data(("\u{FEFF}" + day.csv()).utf8).write(to: url, options: .atomic)
+    }
+
+    /// AI 분류 내 AI 연결: once, exactly what goes where; nothing is sent before 동의.
+    func setDayAI(_ want: Bool) {
+        guard want else { dayAI = false; unknown = []; return }
+        let a = NSAlert()
+        guard let p = BYOSettings.shared.provider else {
+            a.messageText = L("먼저 내 AI를 연결해 주세요")
+            a.informativeText = L("AI 비서 설정의 내 AI 연결에서 Claude, ChatGPT, Gemini 중 하나를 연결하면 쓸 수 있어요. 그 전까지는 이 맥 안의 규칙으로만 판단해요.")
+            a.addButton(withTitle: L("알겠어요"))
+            NSApp.activate(ignoringOtherApps: true)
+            _ = PopoverLayer.runModal { a.runModal() }
+            return
+        }
+        guard DayAI.allowed(method: BYOSettings.shared.method, provider: p) else {
+            a.messageText = L("\(p.label) 구독 계정으로는 하루 기록을 맡길 수 없어요")
+            a.informativeText = L("탭 제목은 어느 사이트든 쓸 수 있어서, 읽기 도구를 가진 \(p.label) 프로그램에 보내면 제목 속 지시를 따를 수 있어요. 내 AI 연결에서 API 키로 바꾸거나 Claude를 고르면 쓸 수 있어요. 그 전까지는 이 맥 안의 규칙으로만 판단해요.")
+            a.addButton(withTitle: L("알겠어요"))
+            NSApp.activate(ignoringOtherApps: true)
+            _ = PopoverLayer.runModal { a.runModal() }
+            return
+        }
+        a.messageText = L("하루 기록 분류를 \(p.label)에 맡길까요?")
+        a.informativeText = L("규칙이 모르는 화면만 3분에 한 번, 최대 8개씩 묶어서 보내요. 보내는 것: 앱 이름, 사이트 도메인(예: youtube.com), 탭 제목, 업무 프로필, 내 기준 메모. 주소의 나머지(경로, 검색어), 화면, 스크린샷은 보내지 않아요. 요금과 보관은 \(p.label) 방침을 따르고, 실패하면 이 맥의 규칙으로 판단해요. 언제든 끌 수 있어요.")
+        a.addButton(withTitle: L("동의하고 켜기"))
+        a.addButton(withTitle: L("취소"))
+        NSApp.activate(ignoringOtherApps: true)
+        if PopoverLayer.runModal({ a.runModal() }) == .alertFirstButtonReturn { dayAI = true }
+    }
+
+    /// The block's unknown pages, at most 8, to 내 AI in one question; their words count from the next look on.
+    private func sendBatch() {
+        let pending = unknown
+        unknown = []
+        guard dayAI, !remoteBusy, remoteAsked.count < DayAI.maxAsked, let p = BYOSettings.shared.provider else { return }
+        // Switched to a CLI with tools after 동의: the titles stay here (the settings row says why).
+        guard DayAI.allowed(method: BYOSettings.shared.method, provider: p) else { return }
+        let items = DayAI.pick(pending, asked: remoteAsked)
+        guard !items.isEmpty else { return }
+        items.forEach { remoteAsked.insert($0.key) }   // asked once per run, answered or not
+        remoteBusy = true
+        let s = BYOSettings.shared, method = s.method, model = s.model(p), profile = profile, memo = memo
+        Task { @MainActor in
+            let words = await DayAI.classify(items, profile: profile, memo: memo) { prompt in
+                try await Self.remote(p, method: method, model: model, prompt: prompt)
+            }
+            self.remoteBusy = false
+            self.remoteWords.merge(words) { $1 }
+            self.dayAIFailure = words.isEmpty ? L("내 AI가 답하지 않아 이 맥의 규칙으로 판단했어요.") : nil
+        }
+    }
+
+    /// The owner's own AI: their API key, or the CLI signed in on this Mac.
+    private static func remote(_ p: BYOProvider, method: BYOMethod, model: String, prompt: String) async throws -> String {
+        switch method {
+        case .apiKey:
+            guard let key = AIKeychain.load(p), !key.isEmpty else { throw ChatError.unavailable(L("\(p.label) API 키가 없어요.")) }
+            return try await BYOAPIClient(provider: p, key: key).reply(model: model, system: DayAI.system, prompt: prompt)
+        case .cli:
+            let cli = BYOCLIClient(provider: p)
+            return try await Task.detached { try cli.reply(system: DayAI.system, prompt: prompt) }.value
+        }
     }
 
     // MARK: The nudge
@@ -375,6 +553,13 @@ final class DriftCenter: ObservableObject {
     }
 
     /// QA renders only: a log and a card to draw, with no timer.
+    func qaShowDay(_ day: DayLog, on: Bool = true, ai: Bool = false) {
+        self.day = day
+        dayOn = on
+        dayAI = ai
+        timer?.invalidate(); timer = nil
+    }
+
     func qaShow(log: DriftLog, card: DriftCardKind?, lastFocus: DriftTarget?, on: Bool = true) {
         self.log = log
         self.card = card
@@ -472,6 +657,22 @@ enum DriftFile {
     }
 }
 
+/// Application Support/DogMonitor/Day.json, on this Mac only (not in 내 설정 파일). DriftFile.off covers it too.
+enum DayFile {
+    static var url: URL { DriftFile.url.deletingLastPathComponent().appendingPathComponent("Day.json") }
+
+    static func read() -> DayLog {
+        guard !DriftFile.off, let data = try? Data(contentsOf: url) else { return DayLog() }
+        return DayLog.decode(data)
+    }
+
+    static func write(_ log: DayLog) {
+        guard !DriftFile.off else { return }
+        try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try? log.encode().write(to: url, options: .atomic)
+    }
+}
+
 /// The dry run's log: stderr, and Application Support/DogMonitor/drift-dry-run.log.
 enum DriftLogLine {
     static func write(_ line: String) {
@@ -527,7 +728,7 @@ enum DriftCLI {
             if r.denied { print("자동화 권한 없음: 앱 단위로만 봐요") }
             if let tab = DriftScript.parseTab(r.out) { s.url = tab.url; s.title = tab.title }
         }
-        let rule = DriftRules.rule(s, lists: c.lists, profile: c.profile)
+        let rule = c.rule(s)
         print("앱 \(id) · 사이트 \(s.host ?? "-") · 규칙 \(rule?.rawValue ?? "모름") · 판정 \((rule ?? .neutral).rawValue)")
         print("발로 닫기: " + (c.closable(s) ? (s.url != nil ? "그 탭만 닫을 수 있음" : "앱 정상 종료 가능") : "보호됨, 닫지 않음") + " (드라이런: 닫지 않음)")
         exit(0)
@@ -544,12 +745,14 @@ enum DriftCLI {
         let c = DriftCenter.shared
         print("맨 앞 \(NSWorkspace.shared.frontmostApplication?.bundleIdentifier ?? "-") · 닫을 수 있음 \(c.closable(s))")
         guard c.closable(s) else { exit(1) }
+        // Only the instance in front: a leftover helper from another run shares the bundle id and stays up.
+        let front = NSWorkspace.shared.frontmostApplication
         let ok = DriftCenter.terminate(id)
         let deadline = Date().addingTimeInterval(5)
-        while Date() < deadline, NSRunningApplication.runningApplications(withBundleIdentifier: id).contains(where: { !$0.isTerminated }) {
+        while Date() < deadline, front?.isTerminated == false {
             RunLoop.main.run(until: Date().addingTimeInterval(0.1))
         }
-        let gone = !NSRunningApplication.runningApplications(withBundleIdentifier: id).contains { !$0.isTerminated }
+        let gone = front?.isTerminated == true
         print("terminate \(ok) · 종료됨 \(gone)")
         exit(gone ? 0 : 1)
     }

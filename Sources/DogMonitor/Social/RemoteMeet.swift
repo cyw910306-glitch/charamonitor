@@ -7,10 +7,12 @@ import SwiftUI
 // 원격 모임: friends on other networks trade light events (상태, 이모트, 운세, 한마디) through the site's mailbox
 // (web/api/relay.js). The room code never leaves the Mac: PBKDF2 turns it into the AES-GCM key and the room id, so the
 // server sees only that id (hashed again there), a member id derived from a per-room secret, and ciphertext, kept 24 h after the last activity. 오늘 한마디·프로필 카드
-// (.note) and 낙서 쪽지 (.doodle) ride the same way. Off by default; while on and in a room it polls every 3 to 5 s
-// while a member's character (친구 상주) or the room is on screen and someone else is there, else every 30 to 60 s.
-// Members stand in 친구 상주 by the look their hello carries; a 한마디 (200 characters, 3 lines) shows over their head and
-// 입력 중 rides the relay's live channel (never the text). 같이 놀기 and 무전기 stay 같은 와이파이 only.
+// (.note) and 낙서 쪽지 (.doodle) ride the same way. Off by default; while on and in a room it polls every 20 to 30 s
+// while a member's character (친구 상주) or the room is on screen and someone else is there, else every 2 to 5 min: a
+// slow mailbox, so the relay stays in its free tier. When the relay's day is used up it says 'quota' and the app waits
+// until it opens again (UTC midnight). Members stand in 친구 상주 by the look their hello carries; a 한마디 (200
+// characters, 3 lines) shows over their head and 입력 중 rides the relay's live channel (never the text), at most every
+// 30 s. 같이 놀기 and 무전기 stay 같은 와이파이 only.
 // Keys: meet.on (OFF), meet.member. The code is in the Keychain. None of them go into the setup file.
 
 /// Room codes and invite links.
@@ -115,6 +117,15 @@ enum MeetWire {
     static func chat(_ s: String) -> String {
         let lines = s.components(separatedBy: .newlines).map { SocialText.clean($0, max: maxChat) }.filter { !$0.isEmpty }
         return String(lines.prefix(maxChatLines).joined(separator: "\n").prefix(maxChat))
+    }
+
+    /// The relay's free day used up (`{ error: "quota", retry }` on 503, or 429 for one address): seconds until it
+    /// takes requests again (UTC midnight, a day at most) plus up to 2 min so the room does not all come at once.
+    static func rest(_ data: Data?, status: Int?) -> TimeInterval? {
+        guard status == 503 || status == 429, let data, data.count <= 1024,
+              let o = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any], o["error"] as? String == "quota",
+              let r = o["retry"] as? Double, r.isFinite else { return nil }
+        return min(max(r, 1), 86_400) + .random(in: 0...120)
     }
 
     /// A line's id as sent: a UUID, upper case, or nil.
@@ -319,7 +330,7 @@ enum MeetSeats {
 }
 
 /// What a room member's head shows: their 한마디 for as long as it takes to read, else 입력 중 for 5.5 s after the
-/// last signal (5 s of the sender's 3 s keepalive plus a little). Pure, tested.
+/// last signal (the relay keeps one 6 s; the sender sends one every 30 s at most, so a slow poll often misses it). Pure, tested.
 struct SeatTalk: Equatable {
     static let typingSeconds: TimeInterval = 5.5
     enum Show: Equatable { case line(String), typing }
@@ -351,6 +362,8 @@ struct SeatTalk: Equatable {
 
 enum MeetPhase: Equatable {
     case off, noRoom, waiting, live(members: Int), full
+    /// The relay's free day is used up (MeetWire.rest): back after UTC midnight.
+    case resting
 
     /// The relay's answer: 200 live, 403 the room is full, anything else (no server yet, 503, offline) 연결 중.
     static func from(status: Int?, members: Int) -> MeetPhase {
@@ -368,6 +381,7 @@ enum MeetPhase: Equatable {
         case .waiting: return L("연결 중")
         case .live(let n): return L("연결됨 · \(n)명")
         case .full: return L("모임이 꽉 찼어요 (12명)")
+        case .resting: return L("원격 모임 서버가 오늘 쓸 양을 다 써서 잠시 쉬어요. 하루 안에 다시 이어져요")
         }
     }
 }
@@ -376,13 +390,15 @@ enum MeetRelay {
     static let host = "jelly-monitor.vercel.app"
     /// QA (`--qa-relay <url>`) points these at a local relay and polls faster; the app never changes them.
     static var endpoint = URL(string: "https://\(host)/api/relay")!
-    static var pollSeconds: ClosedRange<TimeInterval> = 30...60
-    /// While watched (a member's character or the room on screen) with someone else there.
-    static var fastSeconds: ClosedRange<TimeInterval> = 3...5
+    static var pollSeconds: ClosedRange<TimeInterval> = 120...300
+    /// While watched (a member's character or the room on screen) with someone else there. A poll with nothing new is
+    /// 5 of the relay's 5,000 commands a day and of one address's 1,000 (web/api/relay.js), so not faster.
+    static var fastSeconds: ClosedRange<TimeInterval> = 20...30
 
-    /// The next poll: fast only while watched with others in the room, never sooner than the relay's `wait`.
+    /// The next poll: fast only while watched with others in the room, never sooner than the relay's `wait` (a day at
+    /// most: the relay's quota retry).
     static func nextPoll(watched: Bool = false, members: Int = 0, wait: TimeInterval = 0) -> TimeInterval {
-        max(.random(in: watched && members >= 2 ? fastSeconds : pollSeconds), min(max(wait, 0), 300))
+        max(.random(in: watched && members >= 2 ? fastSeconds : pollSeconds), min(max(wait, 0), 86_520))
     }
 }
 
@@ -425,9 +441,10 @@ struct MeetCodeStore {
 final class RemoteMeet: ObservableObject {
     static let shared = RemoteMeet()
     static let keep = 20
-    /// 입력 중 goes again this often while typing (the other side keeps it SeatTalk.typingSeconds).
-    static let typingEvery: TimeInterval = 3
-    /// A 한마디 at most this often (the relay's per-minute limits are shared by the whole room).
+    /// 입력 중 goes at most this often while typing: each costs the relay's day 4 commands, and a slow poll sees it only
+    /// when it lands within the relay's 6 s, so it is a rare hint, not a live one.
+    static let typingEvery: TimeInterval = 30
+    /// A 한마디 at most this often.
     static let lineEvery: TimeInterval = 1
     /// A sent 한마디 whose answer never came is 못 보냄 after this, unless a poll shows it in the room.
     static let pendingSeconds: TimeInterval = 20
@@ -574,8 +591,8 @@ final class RemoteMeet: ObservableObject {
 
     /// My look and status for 친구 상주: `.hello` once when I join, `.presence` after that.
     private func hello(_ kind: MeetEvent.Kind = .presence) {
-        lastHello = now
-        send(MeetEvent(kind: kind, name: "", status: SocialBus.shared.myStatus.wire, look: FriendLook.mine()))
+        // Only once it went: a hello dropped while resting goes again on the first poll after.
+        if send(MeetEvent(kind: kind, name: "", status: SocialBus.shared.myStatus.wire, look: FriendLook.mine())) { lastHello = now }
     }
 
     func sendEmote(_ e: String) {
@@ -623,12 +640,12 @@ final class RemoteMeet: ObservableObject {
     }
 
     /// Mine goes in the log right away (not notes or typing). A 한마디 (`lineID`) is also tracked to 보냄 or 못 보냄.
-    /// False when off, out of a room or the event does not seal.
+    /// False when off, out of a room, the relay is resting (a bye still goes: it frees the seat) or the event does not seal.
     @discardableResult
     private func send(_ draft: MeetEvent, lineID: String? = nil, live: Bool = false) -> Bool {
         var draft = draft
         draft.name = SocialBus.shared.nickname
-        guard isOn, let keys, let e = MeetWire.clean(draft), let data = MeetWire.seal(e, keys: keys, member: memberID) else { return false }
+        guard isOn, phase != .resting || draft.kind == .bye, let keys, let e = MeetWire.clean(draft), let data = MeetWire.seal(e, keys: keys, member: memberID) else { return false }
         var fields: [String: Any] = ["room": keys.room, "member": member, "data": data]
         if e.kind == .bye { fields["leave"] = true }   // the relay frees the seat
         if live { fields["live"] = true }
@@ -671,16 +688,17 @@ final class RemoteMeet: ObservableObject {
         session.dataTask(with: req) { [weak self] data, response, _ in
             let status = (response as? HTTPURLResponse)?.statusCode
             let taken = status == 200 ? data.flatMap { MeetWire.take($0, me: me, after: from, keys: keys) } : nil
-            DispatchQueue.main.async { self?.answered(status: taken == nil && status == 200 ? nil : status, taken, room: keys.room) }
+            let rest = MeetWire.rest(data, status: status)
+            DispatchQueue.main.async { self?.answered(status: taken == nil && status == 200 ? nil : status, taken, rest: rest, room: keys.room) }
         }.resume()
     }
 
-    private func answered(status: Int?, _ taken: MeetWire.Taken?, room: String) {
+    private func answered(status: Int?, _ taken: MeetWire.Taken?, rest: TimeInterval? = nil, room: String) {
         polling = false
         guard isOn, let keys else { return }
         guard keys.room == room else { poll(); return }   // switched rooms meanwhile: that room's poll was skipped
-        phase = .from(status: status, members: taken?.members ?? 0)
-        wait = status == 429 || status == 503 ? 60 : taken?.wait ?? 0   // 503: the relay's day is used up, no fast poll
+        phase = rest != nil ? .resting : .from(status: status, members: taken?.members ?? 0)
+        wait = rest ?? (status == 429 || status == 503 ? 60 : taken?.wait ?? 0)   // quota: not before the relay's day opens
         if let taken {
             after = taken.seq
             relay = taken.relay
@@ -906,11 +924,13 @@ struct RemoteMeetSettings: View {
                     Button { meet.sendEmote(e) } label: { Text(verbatim: e).font(.system(size: 15)) }.buttonStyle(.borderless)
                 }
             }
+            .disabled(meet.phase == .resting)   // send() drops all of these while the relay rests
             HStack {
                 TextField(L("한마디 (200자까지)"), text: $line).textFieldStyle(.roundedBorder).onSubmit(sendLine)
                     .onChange(of: line) { t in if !t.isEmpty { meet.typed() } }
                 Button(L("보내기"), action: sendLine).controlSize(.small).disabled(line.trimmingCharacters(in: .whitespaces).isEmpty)
             }
+            .disabled(meet.phase == .resting)
             HStack {
                 // Through OfficeCenter like the menu: a picked status is not overwritten by the 가상 오피스 auto rule.
                 Picker(L("내 상태"), selection: Binding(get: { bus.myStatus }, set: { OfficeCenter.shared.set($0) })) {
@@ -920,9 +940,12 @@ struct RemoteMeetSettings: View {
             }
             // Own row: next to the picker the English labels were cut to "Sen…".
             HStack {
-                Button(L("오늘 운세 보내기")) { meet.sendFortune() }.controlSize(.small).fixedSize()
-                Button(L("낙서 쪽지")) { DoodleCenter.open(.meet, name: L("원격 모임")) }.controlSize(.small).fixedSize()
-                Button(L("그룹 뽑기")) { GroupDraw.shared.show() }.controlSize(.small).fixedSize()
+                Group {
+                    Button(L("오늘 운세 보내기")) { meet.sendFortune() }.controlSize(.small).fixedSize()
+                    Button(L("낙서 쪽지")) { DoodleCenter.open(.meet, name: L("원격 모임")) }.controlSize(.small).fixedSize()
+                }
+                .disabled(meet.phase == .resting)
+                Button(L("그룹 뽑기")) { GroupDraw.shared.show() }.controlSize(.small).fixedSize()   // also for friends nearby
             }
             Text(L("사진은 근처 친구 대화에서만 보낼 수 있어요. 원격 모임은 중계 서버를 거치고 한 번에 2KB까지라 사진을 싣지 않아요."))
                 .font(.system(size: 10)).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
@@ -969,6 +992,7 @@ enum MeetQA {
         let states: [(String, Bool, String?, MeetPhase, [RemoteMeet.Entry])] = [
             ("off", false, nil, .off, []), ("noroom", true, nil, .noRoom, []), ("waiting", true, "K7QZ2MPAW4RHN", .waiting, []),
             ("live", true, "K7QZ2MPAW4RHN", .live(members: 3), log), ("full", true, "K7QZ2MPAW4RHN", .full, []),
+            ("resting", true, "K7QZ2MPAW4RHN", .resting, log),
         ]
         for (name, on, code, phase, entries) in states {
             m.qaShow(on: on, code: code, phase: phase, log: entries)

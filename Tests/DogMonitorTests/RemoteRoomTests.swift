@@ -180,7 +180,9 @@ final class RemoteRoomTests: XCTestCase {
             XCTAssertTrue(MeetRelay.pollSeconds.contains(MeetRelay.nextPoll(watched: false, members: 12)))
         }
         XCTAssertEqual(MeetRelay.nextPoll(watched: true, members: 5, wait: 45), 45)   // the relay asked to wait
-        XCTAssertEqual(MeetRelay.nextPoll(wait: 10_000), 300)
+        XCTAssertEqual(MeetRelay.nextPoll(wait: 10_000), 10_000)   // a quota retry
+        XCTAssertEqual(MeetRelay.nextPoll(wait: 1e9), 86_520)
+        XCTAssertEqual(MeetRelay.fastSeconds, 20...30)
         XCTAssertEqual(MeetWire.maxMembers, 12)
         XCTAssertEqual(MeetPhase.full.label, L("모임이 꽉 찼어요 (12명)"))
     }

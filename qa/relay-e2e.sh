@@ -26,7 +26,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-node "$ROOT/qa/relay-local.js" >"$WORK/relay.log" 2>&1 & PR=$!
+node "$ROOT/qa/relay-local.js" --qa-unlimited >"$WORK/relay.log" 2>&1 & PR=$!
 for _ in $(seq 50); do grep -q '^relay ' "$WORK/relay.log" && break; sleep 0.1; done
 PORT="$(sed -n 's/^relay //p' "$WORK/relay.log")"
 [ -n "$PORT" ] || { echo "relay 가 안 떴어요"; cat "$WORK/relay.log"; exit 1; }
@@ -37,8 +37,9 @@ for s in "$SA:QA맥A" "$SB:QA맥B"; do
     defaults delete "${s%%:*}" >/dev/null 2>&1
     defaults write "${s%%:*}" social.nickname "${s#*:}"
 done
-"$BIN" --qa-defaults "$SA" --qa-relay "$URL" --qa-meet "$CODE" --qa-first </dev/null >/dev/null 2>"$WORK/a.log" & PA=$!
-"$BIN" --qa-defaults "$SB" --qa-relay "$URL" --qa-meet "$CODE" </dev/null >/dev/null 2>"$WORK/b.log" & PB=$!
+mkdir -p "$WORK/home-a" "$WORK/home-b"  # own home folders: the real Application Support (Drift.json, Day.json) stays untouched
+CFFIXED_USER_HOME="$WORK/home-a" "$BIN" --qa-defaults "$SA" --qa-relay "$URL" --qa-meet "$CODE" --qa-first </dev/null >/dev/null 2>"$WORK/a.log" & PA=$!
+CFFIXED_USER_HOME="$WORK/home-b" "$BIN" --qa-defaults "$SB" --qa-relay "$URL" --qa-meet "$CODE" </dev/null >/dev/null 2>"$WORK/b.log" & PB=$!
 echo "relay=$URL A=$PA B=$PB logs: $WORK"
 
 start=$SECONDS

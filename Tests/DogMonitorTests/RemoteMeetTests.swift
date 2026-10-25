@@ -123,7 +123,26 @@ final class RemoteMeetTests: XCTestCase {
         XCTAssertEqual(MeetPhase.waiting.label, L("연결 중"))
         XCTAssertNotEqual(L("연결 중"), L("준비 중"))   // not the 출시 전 label
         let poll = (0..<50).map { _ in MeetRelay.nextPoll() }
-        XCTAssertTrue(poll.allSatisfy { (30...60).contains($0) })
+        XCTAssertTrue(poll.allSatisfy { (120...300).contains($0) })   // 2 to 5 min unwatched
+    }
+
+    func testQuotaRestsUntilTheRelaysDayOpens() throws {
+        let body = { (o: [String: Any]) in try! JSONSerialization.data(withJSONObject: o) }
+        let r = try XCTUnwrap(MeetWire.rest(body(["error": "quota", "retry": 3600]), status: 503))
+        XCTAssertTrue((3600...3720).contains(r))
+        XCTAssertNotNil(MeetWire.rest(body(["error": "quota", "retry": 10]), status: 429))   // one address's share
+        let long = try XCTUnwrap(MeetWire.rest(body(["error": "quota", "retry": 1e12]), status: 503))
+        let short = try XCTUnwrap(MeetWire.rest(body(["error": "quota", "retry": -5]), status: 503))
+        XCTAssertTrue((86_400...86_520).contains(long))
+        XCTAssertTrue((1...121).contains(short))
+        XCTAssertNil(MeetWire.rest(body(["error": "busy"]), status: 503))
+        XCTAssertNil(MeetWire.rest(body(["error": "quota", "retry": 60]), status: 200))
+        XCTAssertNil(MeetWire.rest(body(["error": "quota"]), status: 503))
+        XCTAssertNil(MeetWire.rest(Data("nope".utf8), status: 503))
+        XCTAssertNil(MeetWire.rest(nil, status: 503))
+        XCTAssertEqual(MeetRelay.nextPoll(watched: true, members: 3, wait: r), r)   // no poll before then
+        XCTAssertEqual(MeetPhase.resting.label, L("원격 모임 서버가 오늘 쓸 양을 다 써서 잠시 쉬어요. 하루 안에 다시 이어져요"))
+        XCTAssertGreaterThanOrEqual(RemoteMeet.typingEvery, 30)   // 입력 중 is rare: each costs the relay's day
     }
 
     func testPluginTileAndCodeStore() {

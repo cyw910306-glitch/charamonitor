@@ -34,8 +34,9 @@ for s in "$SA:QA맥A" "$SB:QA맥B"; do
     defaults write "${s%%:*}" social.nickname "${s#*:}"
 done
 
-"$BIN" --qa-defaults "$SA" --qa-host "$WORK/code" </dev/null >/dev/null 2>"$WORK/a.log" & PA=$!
-"$BIN" --qa-defaults "$SB" --qa-join "$WORK/code" </dev/null >/dev/null 2>"$WORK/b.log" & PB=$!
+mkdir -p "$WORK/home-a" "$WORK/home-b"  # own home folders: the real Application Support (Drift.json, Day.json) stays untouched
+CFFIXED_USER_HOME="$WORK/home-a" "$BIN" --qa-defaults "$SA" --qa-host "$WORK/code" </dev/null >/dev/null 2>"$WORK/a.log" & PA=$!
+CFFIXED_USER_HOME="$WORK/home-b" "$BIN" --qa-defaults "$SB" --qa-join "$WORK/code" </dev/null >/dev/null 2>"$WORK/b.log" & PB=$!
 echo "A=$PA B=$PB logs: $WORK"
 
 shown=""; froze=0; ended=0; start=$SECONDS

@@ -117,9 +117,9 @@ struct DriftHours: Codable, Equatable {
 }
 
 enum DriftRules {
-    /// One look every 10 s, one label every 3 minutes.
-    static let sampleEvery: TimeInterval = 10
-    static let blockSeconds: TimeInterval = 180
+    /// One look every 10 s, one label every 3 minutes (vars only for the real-screen QA, `--qa-drift-block`).
+    static var sampleEvery: TimeInterval = 10
+    static var blockSeconds: TimeInterval = 180
     /// Away from the keyboard and mouse this long: the look is skipped (nobody is drifting).
     static let idleSkip: TimeInterval = 120
     /// The same nudge no sooner than this after the last one.
@@ -225,14 +225,18 @@ enum DriftRules {
         return Kind.allCases.first { driftApps[$0, default: []].contains(s.app) }
     }
 
-    /// One look's label by the rules: the owner's lists first, then the defaults (less the kinds 업무 프로필 names).
-    /// nil: the rules do not know it (neutral, unless the on-device AI says otherwise).
-    static func rule(_ s: DriftSample, lists: DriftLists, profile: String) -> DriftLabel? {
+    /// One look's label by the rules: the owner's 내 기준 lines, then their lists, then what the page's path and title
+    /// say (a lecture or a short on the same site), then the defaults (less the kinds 업무 프로필 names).
+    /// nil: the rules do not know it (neutral, unless an AI says otherwise).
+    static func rule(_ s: DriftSample, lists: DriftLists, profile: String, memo: [DayMemo.Rule] = [], videoDrift: Bool = true) -> DriftLabel? {
         func listed(_ items: [String]) -> Bool {
             items.contains { item in s.host.map { matches($0, item) } == true || item == s.app && s.host == nil }
         }
+        if let m = DayMemo.match(s, memo) { return m }
         if listed(lists.focus) { return .focus }
         if listed(lists.drift) { return .drift }
+        if let h = s.host, let c = DayContent.rule(host: h, path: s.url.flatMap { URLComponents(string: $0)?.path } ?? "",
+                                                   title: s.title, profile: profile, videoDrift: videoDrift) { return c }
         if let k = defaultKind(s) { return workKinds(profile).contains(k) ? .neutral : .drift }
         if let h = s.host { return focusSites.contains { matches(h, $0) } ? .focus : nil }
         if focusApps.contains(s.app) { return .focus }
