@@ -296,6 +296,7 @@ final class StarGame {
     static func menuItems(_ source: PlayMode.Source) -> [NSMenuItem] {
         [FriendMenu.item(L("놀이 모드")) { PlayMode.shared.start(source) },
          FriendMenu.item(L("별 줍기")) { StarGame.shared.start(duel: false, from: source) },
-         FriendMenu.item(L("2인 대결")) { StarGame.shared.start(duel: true, from: source) }]
+         FriendMenu.item(L("2인 대결")) { StarGame.shared.start(duel: true, from: source) },
+         P2Character.menuItem()]
     }
 }

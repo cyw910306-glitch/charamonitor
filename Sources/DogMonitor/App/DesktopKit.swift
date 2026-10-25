@@ -359,6 +359,7 @@ enum FriendMenu {
         },
          item(L("별 줍기")) { StarGame.shared.start(duel: false) },
          item(L("2인 대결")) { StarGame.shared.start(duel: true) },
+         P2Character.menuItem(),
          .separator()] + ClickGames.menuItems() + [.separator(), Lunch.menuItem(), GroupDraw.menuItem()] + SeasonPanel.menuItems()
     }
 

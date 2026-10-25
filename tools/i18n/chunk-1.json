@@ -2392,27 +2392,27 @@
  {
   "key": "오늘의 운세",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 369
+  "line": 370
  },
  {
   "key": "데스크톱 친구",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 370
+  "line": 371
  },
  {
   "key": "설정 열기",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 371
+  "line": 372
  },
  {
   "key": "에취!",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 703
+  "line": 704
  },
  {
   "key": "흥!",
   "file": "Sources/DogMonitor/App/DesktopKit.swift",
-  "line": 705
+  "line": 706
  },
  {
   "key": "빳빳",
@@ -4635,6 +4635,16 @@
   "line": 429
  },
  {
+  "key": "1P와 같은 캐릭터",
+  "file": "Sources/DogMonitor/App/PlayMode.swift",
+  "line": 644
+ },
+ {
+  "key": "2P 캐릭터",
+  "file": "Sources/DogMonitor/App/PlayMode.swift",
+  "line": 650
+ },
+ {
   "key": "커서 친구",
   "file": "Sources/DogMonitor/App/Plugins.swift",
   "line": 55
@@ -5223,10 +5233,5 @@
   "key": "가져올 수 없는 파일이에요",
   "file": "Sources/DogMonitor/App/SetupFile.swift",
   "line": 177
- },
- {
-  "key": "이 맥의 캐릭모니터를 이 파일대로 바꿀까요?",
-  "file": "Sources/DogMonitor/App/SetupFile.swift",
-  "line": 181
  }
 ]

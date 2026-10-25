@@ -3060,10 +3060,6 @@
   "en": "Star catch: for 60 seconds, collect the stars on window edges, along the bottom of the screen and up in the air. 🍪 is worth 3, and the high stars need a double jump. In a two-player match you both collect, and whoever gets more wins."
  },
  {
-  "key": "별 줍기·2인 대결: 놀이 메뉴에서 골라요. 60초 동안 별을 모으고, 2인 대결은 W·A·S·D로 한 명 더 같이 해요.",
-  "en": "Star catch and two-player match: pick them from the Play menu. Collect stars for 60 seconds; in a match a second player joins on W, A, S, D."
- },
- {
   "key": "숨바꼭질",
   "en": "Hide and seek"
  },
@@ -3854,10 +3850,6 @@
  {
   "key": "놀이 기술 플러그인이 열려 있으면: ↑를 꾹 누르면 하늘을 날아요(1.5초, 땅에 서면 다시 차요). ↑를 빠르게 두 번 누르면 높이 점프, ← 나 →를 빠르게 두 번 누르면 손을 뗄 때까지 대시예요.",
   "en": "With the Play Moves plugin open: hold ↑ to fly (1.5 s, it refills once you stand). Tap ↑ twice quickly for a high jump, and tap ← or → twice quickly to dash until you let go."
- },
- {
-  "key": "둘이 놀기를 켜면 색이 다른 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요. W 꾹, W 두 번, A·D 두 번도 똑같이 돼요.",
-  "en": "Turn on Play Together and a friend in another colour joins. A·D walk, W jumps, S crouches. Holding W, W twice and A·D twice work the same way."
  },
  {
   "key": "메뉴 막대 캐릭터",
@@ -5258,5 +5250,13 @@
  {
   "key": "바탕화면에 작은 천 러그를 깔아요. 그림을 '캐릭터'로 두면 지금 고른 친구가 러그 가운데에 크게 들어가고, 마름모·줄무늬·체크·물방울 무늬도 골라요. 러그 색은 어떤 그림에도 입혀지고, 크기는 네 단계로 바꿔요. 모양을 '캐릭터 모양'으로 두면 러그가 지금 고른 친구 모양으로 오려져요. 질감 '리얼'은 털이 보송한 터프팅 러그처럼 보여요. 내 이미지를 고르면 배경이 비치는 PNG는 그 모양대로, 사진은 배경을 지우고 오려요. 가장자리를 잡아 끌면 접혀 넘어가며 뒷면이 보이고, 가운데를 이리저리 문지르면 주름이 생겨 그대로 남아요. 두 번 누르거나 오른쪽 클릭의 '빳빳하게 펼치기'로 다시 펴요.",
   "en": "Lays a little cloth rug on your desktop. Set Pattern to 'Characters' to put your current friend big in the middle, or pick diamonds, stripes, checks or polka dots. The rug color works with any pattern, and there are four sizes. Set Shape to 'Character Shape' to cut the rug out in your current friend's shape. The 'Real' texture makes it look like a fluffy tufted rug. Choose My Image to use your own picture: a PNG with a see-through background keeps its shape, and a photo has its background removed. Drag an edge to fold it over and show the back, and rub the middle to make wrinkles that stay. Double-click or right-click 'Smooth It Out' to flatten it again."
+ },
+ {
+  "key": "둘이 놀기를 켜면 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요. W 꾹, W 두 번, A·D 두 번도 똑같이 돼요. 2P 캐릭터에서 강아지·고양이·오리지널·팩·나만의 캐릭터 중 하나를 고르고, 고르지 않거나 1P와 같으면 색이 다른 1P가 나와요. 놀이 중에도 놀이 메뉴에서 바꿀 수 있어요.",
+  "en": "With Two players on, a second friend comes out. A and D walk, W jumps, S crouches. Holding W, W twice and A or D twice work the same. Pick a dog, cat, original, pack or your own character as the 2P character; with none picked, or the same one as 1P, a recoloured 1P comes out. You can change it from the Play menu mid-game too."
+ },
+ {
+  "key": "별 줍기·2인 대결: 놀이 메뉴에서 골라요. 60초 동안 별을 모으고, 2인 대결은 W·A·S·D로 한 명 더 같이 해요. 둘이 놀기의 2P는 설정의 놀이 카드나 놀이 메뉴의 2P 캐릭터에서 강아지·고양이·오리지널·팩·나만의 캐릭터 중에 골라요. 놀이 중에 바꿔도 바로 갈아입고, 안 고르거나 1P와 같으면 색이 다른 1P가 나와요.",
+  "en": "Star catch and 2-player duel: pick them from the Play menu. Collect stars for 60 seconds; in the duel a second player joins on W, A, S, D. Choose who 2P plays as under 2P character, on the Play card in Settings or in the Play menu: a dog, cat, original, pack or your own character. A change mid-game shows at once; with none picked, or the same one as 1P, a recoloured 1P comes out."
  }
 ]

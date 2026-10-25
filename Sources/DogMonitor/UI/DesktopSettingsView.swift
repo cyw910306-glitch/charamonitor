@@ -46,6 +46,7 @@ struct DesktopSettingsView: View {
     @ObservedObject var breath: BreathCenter = .shared
     @ObservedObject var settings: AppSettings = .shared
     @AppStorage(PlayMode.twoPlayerKey, store: AppDefaults.store) private var twoPlayer = false
+    @AppStorage(P2Character.key, store: AppDefaults.store) private var p2Character = ""
     @AppStorage(StarRules.bestKey, store: AppDefaults.store) private var bestStars = 0
     @ObservedObject var games: ClickGames = .shared
     @AppStorage(GroupDance.key, store: AppDefaults.store) private var groupDance = false
@@ -61,6 +62,8 @@ struct DesktopSettingsView: View {
     @ObservedObject var stickies: StickyStore = .shared
     /// QA renders only: just the 포스트잇 card.
     var stickyOnly = false
+    /// QA renders only: just the 놀이 card.
+    var playOnly = false
     /// The card that just said hi (a friend switched on) and whose badge is hopping.
     @State private var hello: DesktopTool?
     @State private var hop: DesktopTool?
@@ -70,9 +73,9 @@ struct DesktopSettingsView: View {
 
     var body: some View {
         #if !MAS
-        if stickyOnly { stickySection } else if sponsorOnly { sponsorSection } else { cards }
+        if stickyOnly { stickySection } else if sponsorOnly { sponsorSection } else if playOnly { playSection } else { cards }
         #else
-        if stickyOnly { stickySection } else { cards }
+        if stickyOnly { stickySection } else if playOnly { playSection } else { cards }
         #endif
     }
 
@@ -458,6 +461,20 @@ struct DesktopSettingsView: View {
             }
             tagline("친구를 키보드로 움직여 창 위를 폴짝폴짝 뛰어다녀요")
             row("둘이 놀기") { onOff("둘이 놀기", $twoPlayer, .play) }
+            row("2P 캐릭터") {
+                let choices = P2Character.choices()
+                // A pick that is gone (a pack removed) reads as 1P와 같은 캐릭터, which is what P2 wears then.
+                let shown = choices.contains { $0.id == p2Character } ? p2Character : ""
+                HStack(spacing: 6) {
+                    Image(nsImage: P2Character.thumbnail(shown)).interpolation(.none)
+                        .resizable().aspectRatio(contentMode: .fit).frame(height: 22 * k)
+                        .accessibilityHidden(true)
+                    Picker("2P 캐릭터", selection: Binding(get: { shown }, set: { P2Character.pick = $0 })) {
+                        ForEach(choices.indices, id: \.self) { i in Text(choices[i].name).tag(choices[i].id) }
+                    }
+                    .labelsHidden().pickerStyle(.menu).controlSize(.small).fixedSize()
+                }
+            }
             row("미니 게임") {
                 Button("별 줍기") { StarGame.shared.start(duel: false) }.controlSize(.small)
                 Button("2인 대결") { StarGame.shared.start(duel: true) }.controlSize(.small)
@@ -466,7 +483,7 @@ struct DesktopSettingsView: View {
             details("← →로 걷고, Shift를 같이 누르면 뛰어요. ↑로 점프하고, 공중에서 한 번 더 누르면 2단 점프예요. ↓로 웅크리고, ↓ 누른 채 ↑를 누르면 창 아래로 내려가요. Esc를 누르면 끝나요.",
                     "화면 아래(독 위), 열린 창의 위쪽 끝, 바탕화면 러그 위에 올라설 수 있어요. 아래에서 뛰어오르면 창 끝을 지나 올라가요. 다른 곳을 클릭하거나 다른 앱으로 넘어가도 끝나요.",
                     "놀이 기술 플러그인이 열려 있으면: ↑를 꾹 누르면 하늘을 날아요(1.5초, 땅에 서면 다시 차요). ↑를 빠르게 두 번 누르면 높이 점프, ← 나 →를 빠르게 두 번 누르면 손을 뗄 때까지 대시예요.",
-                    "둘이 놀기를 켜면 색이 다른 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요. W 꾹, W 두 번, A·D 두 번도 똑같이 돼요.",
+                    "둘이 놀기를 켜면 친구가 하나 더 나와요. A·D로 걷고 W로 점프, S로 웅크려요. W 꾹, W 두 번, A·D 두 번도 똑같이 돼요. 2P 캐릭터에서 강아지·고양이·오리지널·팩·나만의 캐릭터 중 하나를 고르고, 고르지 않거나 1P와 같으면 색이 다른 1P가 나와요. 놀이 중에도 놀이 메뉴에서 바꿀 수 있어요.",
                     "별 줍기는 60초 동안 창 위, 화면 아래, 공중에 뜬 별을 모아요. 🍪는 3점이고, 높이 뜬 별은 2단 점프로 닿아요. 2인 대결은 둘이 같이 모아서 많이 모은 쪽이 이겨요.",
                     "커서 친구나 복제 친구를 오른쪽 클릭해서 놀이 모드를 고를 수도 있어요. 키보드는 놀이하는 동안에만 받고, 창은 위치와 크기만 봐서 권한이 필요 없어요.")
             row("클릭 놀이") {

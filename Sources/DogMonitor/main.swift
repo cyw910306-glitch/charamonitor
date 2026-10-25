@@ -303,6 +303,15 @@ MainActor.assumeIsolated {
             try EdgesQA.render(to: dir)
         }
     }
+    if args.contains("--render-play") {   // 놀이 card's 2P 캐릭터 row and P1 next to P2 (picked, or P1 tinted)
+        let suite = "qa.dogmonitor.play"
+        AppDefaults.store = UserDefaults(suiteName: suite)!
+        AppDefaults.store.removePersistentDomain(forName: suite)
+        runCLI("--render-play") { dir in
+            defer { AppDefaults.store.removePersistentDomain(forName: suite) }
+            try PlayQA.render(to: dir)
+        }
+    }
     if args.contains("--render-photo") {   // 사진 메시지: chat both ways, an old friend, the pop-up bubble, the big view
         runCLI("--render-photo") { dir in try PhotoQA.render(to: dir) }
     }

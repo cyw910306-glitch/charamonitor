@@ -176,7 +176,8 @@ enum PlayPhysics {
 /// P1: ← → 걷기, Shift 달리기, ↑ 점프 (공중에서 한 번 더: 2단 점프), ↓ 웅크리기, ↓ + ↑ 내려가기.
 /// 놀이 기술 (plugin playMoves, `movesKey`): ↑ 꾹 하늘날기 (1.5 s of fuel, a bar shows it), ↑↑ quickly 높이 점프,
 /// ←← or →→ quickly 대시 until the key is let go.
-/// P2 (`twoPlayer`, for games): A D 걷기, W 점프, S 웅크리기, the same character tinted; W 꾹, W W, A A, D D likewise.
+/// P2 (`twoPlayer`, for games): A D 걷기, W 점프, S 웅크리기, the 2P 캐릭터 (`P2Character`, P1's own tinted by default);
+/// W 꾹, W W, A A, D D likewise.
 /// For games built on it: `onTick`, `onEvent`, `onEnd`, `onStep`, `under`, `player(_:)`, `body(_:)`, `update(_:_:)`,
 /// `platforms()`, `overlay(on:)`, and `didStart` to add hooks from outside; every hook is cleared when the session ends. Nothing exists or ticks outside a session; in one, 60 fps while anything moves or a
 /// game ticks, 4 a second otherwise (the window list is read at most 4 times a second either way).
@@ -411,19 +412,39 @@ final class PlayMode {
 
     private func addP2() {
         guard players.count == 1, let p1 = players.first else { return }
-        let cache = MeadowFriends.cache(character: source.cloneCharacter, pixelSize: MotionStore.shared.buddySize.pixelSize)
+        let (cache, tint) = Self.p2Look(source)
         var b = p1.body
         b.x = min(b.x + p1.size.width * 1.2, visible.maxX - p1.size.width / 2)
         b.vx = 0; b.jumps = 0; b.facingLeft = true
         let p2 = Player(body: b)
-        dress(p2, cache: cache, tint: .systemTeal)
+        dress(p2, cache: cache, tint: tint)
         players.append(p2)
         layout(p2)
         wake()
     }
 
+    /// The 2P 캐릭터 changed: P2, if out, puts it on where it stands.
+    func redressP2() {
+        guard isPlaying, players.count > 1 else { return }
+        let p2 = players[1]
+        p2.remove()
+        let (cache, tint) = Self.p2Look(source)
+        dress(p2, cache: cache, tint: tint)
+        p2.shown = nil
+        layout(p2)
+        wake()
+    }
+
+    /// What P2 wears next to P1 from `source`: the 2P 캐릭터 plain, or P1's own character tinted.
+    static func p2Look(_ source: Source) -> (cache: DogSpriteCache, tint: NSColor?) {
+        let px = MotionStore.shared.buddySize.pixelSize, base = SpriteLook(AppSettings.shared)
+        let p1 = source.cloneCharacter.flatMap { P2Character.look("original:\($0)", base: base) } ?? base
+        if let look = P2Character.resolve(P2Character.pick, p1: p1, base: base) { return (DogSpriteCache(look, pixelSize: px), nil) }
+        return (MeadowFriends.cache(character: source.cloneCharacter, pixelSize: px), .systemTeal)
+    }
+
     /// The same frame washed with `color`, so P2 tells apart at a glance.
-    private static func tinted(_ image: NSImage, _ color: NSColor) -> NSImage {
+    static func tinted(_ image: NSImage, _ color: NSColor) -> NSImage {
         NSImage(size: image.size, flipped: false) { rect in
             NSGraphicsContext.current?.imageInterpolation = .none
             image.draw(in: rect)
@@ -590,11 +611,104 @@ final class PlayMode {
     }
 }
 
-private extension PlayMode.Source {
-    /// P2 wears the same character as P1.
+extension PlayMode.Source {
+    /// The clone's original (nil: the character chosen now), which P1 wears.
     var cloneCharacter: String? {
         guard case .clone(let id) = self else { return nil }
         return CloneStore.shared.prefs.clones.first { $0.id == id }?.character
+    }
+}
+
+/// 2P 캐릭터 (설정 > 놀이, the 놀이 menu): who P2 wears. A pick is "dog:<preset>", "cat:<id>", "original:<id>" (an
+/// original or a pack, an HD pair by its dot half) or "custom:<uuid>"; empty, gone (a pack removed) or P1's own is P1's
+/// character tinted, so the two still tell apart.
+enum P2Character {
+    static let key = "play.p2Character"
+
+    static var pick: String {
+        get { AppDefaults.store.string(forKey: key) ?? "" }
+        set {
+            AppDefaults.store.set(newValue, forKey: key)
+            PlayMode.shared.redressP2()
+        }
+    }
+
+    /// 1P와 같은 캐릭터 (""), then the dogs, cats, originals and packs, and the user's own, as 캐릭터 선택 lists them.
+    static func choices(_ s: AppSettings = .shared) -> [(id: String, name: String)] {
+        let shown = { (id: String) in !s.hiddenCharacters.contains(id) }
+        let dogs = DogProfile.presets.map { ("dog:\($0.id)", $0.name) }
+        let cats = CatCatalog.all.filter { shown($0.id) }.map { ("cat:\($0.id)", $0.displayName) }
+        let originals = OriginalCatalog.all.filter { shown($0.id) && RenderStyle.listed($0.id, has: RenderStyle.hasOriginal) == $0.id }
+            .map { ("original:\($0.id)", $0.displayName) }
+        let own = CustomCharacterStore.shared.characters.map { ("custom:\($0.id.uuidString)", $0.displayName) }
+        return [("", L("1P와 같은 캐릭터"))] + dogs + cats + originals + own
+    }
+
+    /// 놀이 ▸ 2P 캐릭터: the same list, the pick ticked (a gone one as 1P와 같은 캐릭터); P2 changes at once mid-game.
+    static func menuItem() -> NSMenuItem {
+        let list = choices(), now = list.contains { $0.id == pick } ? pick : ""
+        return FriendMenu.submenu(L("2P 캐릭터"), list.map { c in FriendMenu.item(c.name, on: c.id == now) { pick = c.id } })
+    }
+
+    private static var thumb: (pick: String, look: SpriteLook, image: NSImage)?
+
+    /// P2's first walking frame for `pick` next to the 커서 친구 (tinted when it falls back), the last one kept.
+    static func thumbnail(_ pick: String) -> NSImage {
+        let base = SpriteLook(AppSettings.shared)
+        if let thumb, thumb.pick == pick, thumb.look == base { return thumb.image }
+        let shown = resolve(pick, p1: base, base: base)
+        let frame = DogSpriteCache(shown ?? base, pixelSize: 2).frames(for: .walk).first ?? NSImage()
+        let image = shown == nil ? PlayMode.tinted(frame, .systemTeal) : frame
+        thumb = (pick, base, image)
+        return image
+    }
+
+    /// The look `pick` names, built on `base` (the menu bar's); nil when it names nothing on this Mac now.
+    static func look(_ pick: String, base: SpriteLook, settings s: AppSettings = .shared) -> SpriteLook? {
+        let parts = pick.split(separator: ":", maxSplits: 1).map(String.init)
+        guard parts.count == 2 else { return nil }
+        let id = parts[1]
+        var look = base
+        (look.custom, look.readyID, look.colors, look.cat) = (nil, nil, nil, nil)
+        switch parts[0] {
+        case "dog":
+            guard let preset = DogProfile.presets.first(where: { $0.id == id }) else { return nil }
+            look.character = .dog
+            look.profile = preset.profile
+            look.profile.name = ""
+        case "cat":
+            guard CatCatalog.character(id) != nil, !s.hiddenCharacters.contains(id) else { return nil }
+            (look.character, look.readyID, look.cat) = (.cat, id, s.catLooks[id])
+        case "original":
+            guard OriginalCatalog.character(id) != nil, !s.hiddenCharacters.contains(id) else { return nil }
+            (look.character, look.readyID, look.colors) = (.original, id, s.characterColors[id])
+        case "custom":
+            guard var c = CustomCharacterStore.shared.character(id) else { return nil }
+            c.name = ""
+            (look.character, look.custom) = (.custom, c)
+        default:
+            return nil
+        }
+        look.outfit = Wardrobe.worn(s.outfits[Wardrobe.key(look)])
+        return look
+    }
+
+    /// The pick naming `look`; a dog recoloured in 꾸미기 matches no preset and names none.
+    static func pick(of look: SpriteLook) -> String? {
+        switch look.character {
+        case .dog:
+            var p = look.profile
+            return DogProfile.presets.first { p.name = $0.profile.name; return p == $0.profile }.map { "dog:\($0.id)" }
+        case .cat: return look.readyID.map { "cat:\($0)" }
+        case .original: return look.readyID.map { "original:" + RenderStyle.listed($0, has: RenderStyle.hasOriginal) }
+        case .custom: return look.custom.map { "custom:\($0.id.uuidString)" }
+        }
+    }
+
+    /// P2's own look for `pick` next to P1 in `p1`; nil means P1's character tinted (nothing picked, gone, or P1's).
+    static func resolve(_ pick: String, p1: SpriteLook, base: SpriteLook) -> SpriteLook? {
+        guard let look = look(pick, base: base), pick != self.pick(of: p1) else { return nil }
+        return look
     }
 }
 
