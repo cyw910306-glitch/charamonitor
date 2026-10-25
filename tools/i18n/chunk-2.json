@@ -232,62 +232,62 @@
  {
   "key": "최고 %lld",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 252
+  "line": 256
  },
  {
   "key": "비겼다! %lld 대 %lld",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 277
+  "line": 281
  },
  {
   "key": "비겼어요! %lld 대 %lld",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 277
+  "line": 281
  },
  {
   "key": "%@가 이겼다! %lld 대 %lld",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 278
+  "line": 282
  },
  {
   "key": "%@가 이겼어요! %lld 대 %lld",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 278
+  "line": 282
  },
  {
   "key": "새 기록이다! 별 %lld개 🎉",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 281
+  "line": 285
  },
  {
   "key": "새 기록이에요! 별 %lld개 🎉",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 281
+  "line": 285
  },
  {
   "key": "별을 %lld개 모았어!",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 284
+  "line": 288
  },
  {
   "key": "별을 %lld개 모았어요!",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 284
+  "line": 288
  },
  {
   "key": "별을 못 모았네. 다음엔 꼭 모아 보자!",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 286
+  "line": 290
  },
  {
   "key": "별을 못 모았어요. 다음엔 꼭 모아 봐요!",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 286
+  "line": 290
  },
  {
   "key": "놀이 모드",
   "file": "Sources/DogMonitor/App/StarGame.swift",
-  "line": 297
+  "line": 301
  },
  {
   "key": " · 메모리 %lld%%",
@@ -495,7 +495,7 @@
   "line": 24
  },
  {
-  "key": "둘이 놀기에서 2P 캐릭터를 고를 수 있어요. 설정 > 데스크톱 친구 > 놀이에서 골라요. 놀이 중에도 메뉴에서 바로 바꿔요.",
+  "key": "별 줍기의 별이 더 높이, 하늘까지 떠요. 놀이 기술을 켜고 ↑를 꾹 눌러 날아서 잡아 보세요.",
   "file": "Sources/DogMonitor/App/Tour.swift",
   "line": 67
  },

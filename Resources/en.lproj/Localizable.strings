@@ -2186,29 +2186,29 @@
 "선물까지 %lld초" = "%lld s to the gift";
 /* Sources/DogMonitor/App/SponsorStage.swift:509 */
 "선물을 받았어요" = "Gift received";
-/* Sources/DogMonitor/App/StarGame.swift:252 */
+/* Sources/DogMonitor/App/StarGame.swift:256 */
 "최고 %lld" = "Best %lld";
-/* Sources/DogMonitor/App/StarGame.swift:277 */
+/* Sources/DogMonitor/App/StarGame.swift:281 */
 "비겼다! %lld 대 %lld" = "A tie! %lld to %lld";
-/* Sources/DogMonitor/App/StarGame.swift:277 */
+/* Sources/DogMonitor/App/StarGame.swift:281 */
 "비겼어요! %lld 대 %lld" = "It's a tie! %lld to %lld";
-/* Sources/DogMonitor/App/StarGame.swift:278 */
+/* Sources/DogMonitor/App/StarGame.swift:282 */
 "%@가 이겼다! %lld 대 %lld" = "%@ wins! %lld to %lld";
-/* Sources/DogMonitor/App/StarGame.swift:278 */
+/* Sources/DogMonitor/App/StarGame.swift:282 */
 "%@가 이겼어요! %lld 대 %lld" = "%@ wins! %lld to %lld";
-/* Sources/DogMonitor/App/StarGame.swift:281 */
+/* Sources/DogMonitor/App/StarGame.swift:285 */
 "새 기록이다! 별 %lld개 🎉" = "New record! %lld stars 🎉";
-/* Sources/DogMonitor/App/StarGame.swift:281 */
+/* Sources/DogMonitor/App/StarGame.swift:285 */
 "새 기록이에요! 별 %lld개 🎉" = "New record! %lld stars 🎉";
-/* Sources/DogMonitor/App/StarGame.swift:284 */
+/* Sources/DogMonitor/App/StarGame.swift:288 */
 "별을 %lld개 모았어!" = "Caught %lld stars!";
-/* Sources/DogMonitor/App/StarGame.swift:284 */
+/* Sources/DogMonitor/App/StarGame.swift:288 */
 "별을 %lld개 모았어요!" = "You caught %lld stars!";
-/* Sources/DogMonitor/App/StarGame.swift:286 */
+/* Sources/DogMonitor/App/StarGame.swift:290 */
 "별을 못 모았네. 다음엔 꼭 모아 보자!" = "No stars this time. Let's get some next time!";
-/* Sources/DogMonitor/App/StarGame.swift:286 */
+/* Sources/DogMonitor/App/StarGame.swift:290 */
 "별을 못 모았어요. 다음엔 꼭 모아 봐요!" = "No stars this time. Let's catch some next time!";
-/* Sources/DogMonitor/App/StarGame.swift:297 */
+/* Sources/DogMonitor/App/StarGame.swift:301 */
 "놀이 모드" = "Play mode";
 /* Sources/DogMonitor/App/StatusItemController.swift:227 */
 " · 메모리 %lld%%" = " · Memory %lld%%";
@@ -2293,7 +2293,7 @@
 /* Sources/DogMonitor/App/Tour.swift:24 */
 "(4/4) 대시보드의 AI 비서에서 저한테 말 걸어 보세요." = "(4/4) Talk to me in AI Assistant on the dashboard.";
 /* Sources/DogMonitor/App/Tour.swift:67 */
-"둘이 놀기에서 2P 캐릭터를 고를 수 있어요. 설정 > 데스크톱 친구 > 놀이에서 골라요. 놀이 중에도 메뉴에서 바로 바꿔요." = "You can pick P2's character for two-player play. Choose it in Settings > Desktop Friends > Play, or switch it from the menu mid-game.";
+"별 줍기의 별이 더 높이, 하늘까지 떠요. 놀이 기술을 켜고 ↑를 꾹 눌러 날아서 잡아 보세요." = "Star catch now puts stars higher, up in the sky. Turn on play moves and hold ↑ to fly up and grab them.";
 /* Sources/DogMonitor/App/Tour.swift:93 */
 "업데이트됐어요! " = "Updated! ";
 /* Sources/DogMonitor/App/ToyBox.swift:13 */

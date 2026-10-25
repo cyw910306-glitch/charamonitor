@@ -26,11 +26,14 @@ enum StarRules {
     static let sideways: CGFloat = 160
     /// A star in mid-air sits this far over the middle of a player standing on its edge: some need the double jump.
     static let lift: ClosedRange<CGFloat> = 70...200
+    /// With 놀이 기술 on, ↑ 꾹 하늘날기 from a jump carries the feet about 540 pt up: edges and stars go this high.
+    static let skyHop: CGFloat = 440
+    static let skyLift: ClosedRange<CGFloat> = 70...440
     static let bestKey = "play.bestStars"
 
     /// The edges a player can get onto from the solid ground: each one within a hop up (or anything below) and
     /// `sideways` across from one already reached.
-    static func reachable(_ all: [PlayPlatform]) -> [PlayPlatform] {
+    static func reachable(_ all: [PlayPlatform], hop: CGFloat = hop) -> [PlayPlatform] {
         var reached = all.filter(\.solid), left = all.filter { !$0.solid }
         func near(_ p: PlayPlatform, _ q: PlayPlatform) -> Bool {
             p.y - q.y <= hop && max(p.minX - q.maxX, q.minX - p.maxX) <= sideways
@@ -41,10 +44,11 @@ enum StarRules {
 
     /// A new spot on a reachable edge or in mid-air over one, for a star `radius` round and a player `body` big, under
     /// `top` (the visible frame's top) and not on top of `avoid` (the other stars, the players). nil with nowhere to go.
+    /// `sky`: 하늘날기 may be used, so higher edges and stars.
     static func spawn<R: RandomNumberGenerator>(on platforms: [PlayPlatform], top: CGFloat, radius: CGFloat, body: CGSize,
-                                                avoid: [CGPoint], using rng: inout R) -> StarSpot? {
-        let inset = max(radius, body.width / 2)
-        let edges = reachable(platforms).filter { $0.maxX - $0.minX >= inset * 2 && $0.y + body.height / 2 + radius <= top }
+                                                avoid: [CGPoint], sky: Bool = false, using rng: inout R) -> StarSpot? {
+        let inset = max(radius, body.width / 2), lift = sky ? skyLift : lift
+        let edges = reachable(platforms, hop: sky ? skyHop : hop).filter { $0.maxX - $0.minX >= inset * 2 && $0.y + body.height / 2 + radius <= top }
         guard !edges.isEmpty else { return nil }
         var best: StarSpot?
         for _ in 0..<12 {
@@ -219,7 +223,7 @@ final class StarGame {
                              treat: n.treat, until: clock + n.life)
             } else {
                 guard let spot = StarRules.spawn(on: play.platforms(), top: play.visible.maxY, radius: radius, body: body,
-                                                 avoid: stars.map(\.spot.center) + players, using: &rng) else { return }
+                                                 avoid: stars.map(\.spot.center) + players, sky: PlayMode.movesOn, using: &rng) else { return }
                 s = spot
                 s.until = clock + .random(in: StarRules.life)
             }

@@ -33,6 +33,26 @@ final class StarGameTests: XCTestCase {
         XCTAssertNil(StarRules.spawn(on: [], top: top, radius: r, body: body, avoid: [], using: &rng))
     }
 
+    func testSkyStarsAndEdgesStayUnderWhatAJumpAndFlightReach() {
+        var b = PlayBody(x: 300, y: 80, onGround: true), peak: CGFloat = 0
+        for i in 0..<240 {   // ↑ pressed and held: a jump, then 하늘날기 until the fuel is gone
+            PlayPhysics.step(&b, input: PlayInput(jump: i == 0, up: true), platforms: [ground], walls: 0...1440, width: 48, dt: 1.0 / 60)
+            peak = max(peak, b.y - 80)
+        }
+        XCTAssertGreaterThanOrEqual(peak - 60, StarRules.skyHop)
+        XCTAssertGreaterThanOrEqual(peak - 60, StarRules.skyLift.upperBound)
+        let high = PlayPlatform(minX: 200, maxX: 600, y: 480)   // 400 over the ground: only by flight
+        XCTAssertFalse(StarRules.reachable([ground, high]).contains(high))
+        XCTAssertTrue(StarRules.reachable([ground, high], hop: StarRules.skyHop).contains(high))
+        var rng = SystemRandomNumberGenerator(), top: CGFloat = 0
+        for _ in 0..<300 {
+            let c = StarRules.spawn(on: [ground], top: 1200, radius: 12, body: body, avoid: [], sky: true, using: &rng)!.center
+            XCTAssertLessThanOrEqual(c.y - 80 - body.height / 2, StarRules.skyLift.upperBound)
+            top = max(top, c.y)
+        }
+        XCTAssertGreaterThan(top - 80 - body.height / 2, StarRules.lift.upperBound, "some only flight reaches")
+    }
+
     func testTouchPicksUpAndTreatsCountMore() {
         let stars = [StarSpot(center: CGPoint(x: 100, y: 104)), StarSpot(center: CGPoint(x: 400, y: 104), treat: true)]
         XCTAssertEqual(StarRules.touched(stars, radius: 12, by: CGRect(x: 80, y: 80, width: 48, height: 48)), [0])
